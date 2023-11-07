@@ -1,10 +1,32 @@
 ---
 import HeaderResponsive from './HeaderResponsive.svelte';
+
+const headerSponsors = [{url: `https://cbgranollers.cat/`, src: '/cbg-logo.svg', alt: 'Logo del Club Bàsquet Granolelrs'}, {url: `https://finquesvallbona.com/` , src: '/finques-vallbona-logo.svg', alt: 'Logo de Finques Ballbona'},{url: `https://www.granollers.cat/`, src: '/ajuntament-granollers-logo.svg', alt: "Logo de l'ajuntament de Granollers"} ]
 ---
 
 <header>
   <section>
-    <div class='desktop'></div>
+    <div class='desktop'>
+      <a
+        class='logo'
+        href='/'
+        ><img
+        src='/cbg-history-logo.svg'
+        alt='Logo de la història del Club Bàsquet Granollers'
+        /></a
+        >
+        <ul class='sponsors-container'>
+          {headerSponsors.map((sponsor) => (
+            <li>
+              <a href={sponsor.url} target='_blank'
+                rel='noopener noreferrer'>
+                
+              <img src={sponsor.src} alt={sponsor.alt} />
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
 
     <div class='responsive'>
       <HeaderResponsive client:load />
@@ -19,7 +41,7 @@ import HeaderResponsive from './HeaderResponsive.svelte';
     flex-direction: column;
     top: 0;
     z-index: 10;
-    min-height: var(--hg-header);
+    height: var(--hg-header);
     background-color: var(--clr-contrast);
     background-color: rgba(243, 243, 243, 0.9);
   }
@@ -41,7 +63,23 @@ import HeaderResponsive from './HeaderResponsive.svelte';
   .responsive {
     display: none;
   }
+  .logo {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: var(--pd-x);
+  }
 
+  .sponsors-container {
+     position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: var(--pd-x);
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 2.16rem;
+  }
   @media (max-width: 1258px) {
     header:after {
       bottom: calc(-1 * var(--hg-separator-line-responsive));

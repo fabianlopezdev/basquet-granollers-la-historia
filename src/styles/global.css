@@ -39,7 +39,7 @@
 
   --hg-btn: 2.69rem;
 
-  --pd-x: 6.13rem;
+  --pd-x: 2.9rem;
   --pd-x-medium: 2rem;
   --pd-x-small: 1.56rem;
   --pd-x-internal-page: 18.88rem;
@@ -78,14 +78,8 @@
 
   --brdr-left-top-radius: 2.9375rem;
 }
-html,
+
 body {
-  width: 100%;
-}
-body {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
   background-color: var(--clr-primary);
   font-family: 'obviously', sans-serif;
   font-size: var(--fnt-sz-regular);
