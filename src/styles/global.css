@@ -27,10 +27,9 @@
 
   --wd-slider-item: 18.6875rem;
 
-  --hg-sponsors-all: 0.5625rem;
-  --hg-sponsors-all-responsive: 0.3125rem;
-  --hg-header-top-section: 2.75rem;
-  --hg-header-bottom-section: 6.3125rem;
+  --hg-separator-line: 0.5625rem;
+  --hg-separator-line-responsive: 0.3125rem;
+  --hg-header: 6.3125rem;
 
   --hg-footer-top-section: 17.6875rem;
   --hg-footer-bottom-section: 5.6875rem;

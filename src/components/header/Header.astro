@@ -1,0 +1,71 @@
+---
+import HeaderResponsive from './HeaderResponsive.svelte';
+---
+
+<header>
+  <section>
+    <div class='desktop'></div>
+
+    <div class='responsive'>
+      <HeaderResponsive client:load />
+    </div>
+  </section>
+</header>
+
+<style>
+  header {
+    position: sticky;
+    display: flex;
+    flex-direction: column;
+    top: 0;
+    z-index: 10;
+    min-height: var(--hg-header);
+    background-color: var(--clr-contrast);
+    background-color: rgba(243, 243, 243, 0.9);
+  }
+
+  header:after {
+    content: '';
+    position: absolute;
+    bottom: calc(
+      -1 * var(--hg-separator-line)
+    ); /* move it outside the header */
+    height: var(--hg-separator-line);
+    width: 100%;
+    background: linear-gradient(
+      90deg,
+      var(--clr-accent) 35.36%,
+      var(--clr-primary) 68.89%
+    );
+  }
+  .responsive {
+    display: none;
+  }
+
+  @media (max-width: 1258px) {
+    header:after {
+      bottom: calc(-1 * var(--hg-separator-line-responsive));
+      height: var(--hg-separator-line-responsive);
+    }
+
+    .desktop {
+      display: none;
+      padding-inline: var(--pd-x);
+    }
+
+    .responsive {
+      display: block;
+    }
+  }
+  @media (max-width: 1065px) {
+    .responsive {
+      padding-inline: var(--pd-x-medium);
+    }
+  }
+
+  @media (max-width: 648px) {
+    .responsive {
+      padding-inline: var(--pd-x-small);
+    }
+  }
+</style>
