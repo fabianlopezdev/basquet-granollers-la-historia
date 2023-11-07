@@ -1,0 +1,62 @@
+---
+// Import external dependencies
+import { SEO } from 'astro-seo';
+
+// Import styles
+import '@styles/global.css';
+
+//Import components
+import Footer from '@components/footer/Footer.astro';
+import Header from '@components/header/Header.astro';
+
+const { title, pageDescription } = Astro.props;
+
+const DESCRIPTION =
+  "Benvinguts i benvingudes a un recorregut per la història del Club Bàsquet Granollers, un equip de bàsquet amb més de 90 anys d'història.";
+
+---
+
+<html lang='ca'>
+  <head>
+    <meta charset='utf-8' />
+    <link
+      rel='icon'
+      type='image/svg+xml'
+      href='/favicon.svg'
+    />
+
+    <link
+      rel='stylesheet'
+      href='https://use.typekit.net/elj5gax.css'
+    />
+
+    <meta
+      content='width=device-width, initial-scale=1'
+      name='viewport'
+    />
+
+    <meta
+      name='generator'
+      content={Astro.generator}
+    />
+    <SEO
+      title={title ? `${title} | La història del Club Bàsquet Granollers` : 'La història del Club Bàsquet Granollers'}
+      canonical='https://cbgranollers.cat/la-historia'
+      description={pageDescription || DESCRIPTION}
+      openGraph={{
+        basic: {
+          title: title ? `${title} | La història del Club Bàsquet Granollers` : 'La història del Club Bàsquet Granollers',
+          type: 'website',
+          image: `/og-image.png`,
+        },
+      }}
+    />
+  </head>
+  <body>
+    <Header />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

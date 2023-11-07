@@ -1,0 +1,57 @@
+---
+//Import components
+import ImportantLinksContainer from "./ImportantLinksContainer.astro";
+import { generalLinks, fixedLinks } from "@data/apiData";
+---
+
+{
+  generalLinks.map((item) => (
+    <article class="g-top-footer-articles">
+      <header>
+        <h5>{item.title.toUpperCase()}</h5>
+      </header>
+
+      <ul class="links-container">
+        {item.content.map((link) => (
+          <li>
+            {link.link.includes("http") ? (
+              <a
+                href={link.link}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {link.name}
+              </a>
+            ) : (
+              <a href={link.link}>
+                {link.name}
+              </a>
+            )}
+          </li>
+        ))}
+      </ul>
+    </article>
+  ))
+}
+
+<article>
+  <ImportantLinksContainer {fixedLinks} />
+</article>
+
+<style>
+  h5 {
+    font-weight: 500;
+
+  }
+  article header {
+    margin-bottom: 0.5rem;
+  }
+
+  .links-container {
+    font-size: var(--fnt-sz-footer-top);
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+</style>
