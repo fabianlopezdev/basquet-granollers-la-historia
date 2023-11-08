@@ -67,3 +67,9 @@ export function extractBottomFooterInfo(content: string) {
   return links;
 }
 
+export function seasonToEndpointMapper(season: string) {
+   const seasonYears = season.split('/');
+   return `/temporada-${seasonYears[0]}-${seasonYears[1]}`;
+}
+
+
