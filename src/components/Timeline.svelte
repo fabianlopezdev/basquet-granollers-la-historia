@@ -1,4 +1,5 @@
 <script>
+  //Import components
   import TimelineArrow from '@assets/TimelineArrow.svelte';
    const seasons = [
       '74/75',
@@ -48,17 +49,23 @@ let currentSeason = 0;
     {#if i < 10}
       <div class='season-container'>
 
-        <p  class:active={season === activeSeason}>{season}</p>
-        <div class='dot' 
+        <p  class='fade-transition'class:active={season === activeSeason}>{season}</p>
+        <button  class='dot color-transition' 
         class:active={season === activeSeason}
         on:click={() => selectSeason(i)}>
-      </div>
+      </button>
   </div>
       {/if}
     {/each}
   </div>
 </div>
 <style>
+   .fade-transition {
+    transition: opacity 0.5s ease;
+  }
+  .color-transition {
+    transition: background-color 0.5s ease;
+  }
   p {
     color: var(--clr-primary);
     font-size: 1rem;
@@ -103,7 +110,7 @@ let currentSeason = 0;
     justify-content: space-between;
    position: relative;
     top: 50%;
-    transform: translateY(-82%);
+    transform: translateY(-80%);
     padding-inline: 6rem;
   }
 
@@ -125,7 +132,6 @@ let currentSeason = 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    cursor: pointer;
   }
 
   .dot.active {

@@ -4,6 +4,7 @@
 </script>
 
 <svg
+  
   style:transform={`rotate(${rotate}deg)`}
   width="56"
   height="56"
@@ -15,7 +16,7 @@
     <ellipse cx="28" cy="28" rx="26.5" ry="26.5" fill="white"/>
 
     <!-- Group for semi-transparent elements -->
-    <g opacity={opacity}>
+    <g class="fade-transition" opacity={opacity}>
         <ellipse cx="28" cy="28" rx="26.5" ry="26.5" transform="rotate(180 28 28)" fill="#002E6D"/>
         <path d="M15.9 27.5H40.1" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
         <path d="M26.1 38.4375L15.2098 27.6432" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -28,3 +29,9 @@
         </clipPath>
     </defs>
 </svg>
+
+<style>
+    .fade-transition {
+        transition: opacity 0.5s ease;
+    }
+</style>
