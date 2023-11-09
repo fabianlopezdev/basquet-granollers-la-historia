@@ -1,5 +1,6 @@
 ---
-
+//Import components
+import ScrollLine from "@assets/ScrollLine.astro";
 ---
 
 <section>
@@ -10,11 +11,9 @@
   />
   <h2>VIATJA A TRAVÉS<br /> DE LA NOSTRA HISTÒRIA</h2>
   <p>Comença aquí, fent scroll</p>
-  <img
-    class='scroll-line'
-    src='/scroll-line.svg'
-    alt=''
-  />
+  <div class='scroll-line'>
+    <ScrollLine/>
+  </div>
 </section>
 
 <style>

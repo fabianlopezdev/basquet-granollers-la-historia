@@ -3,8 +3,8 @@
    const seasons = [
       '74/75',
       '75/76',
-      '77/78',
       '76/77',
+      '77/78',
       '78/79',
       '79/80',
       '80/81',
@@ -12,49 +12,46 @@
       '82/83',
       '83/84',
     ]
-  let activeSeason = seasons[0];
-  let currentSeason = 0;
+let currentSeason = 0;
+   $: activeSeason = seasons[currentSeason]; // Reactive statement
 
   function prevSeason() {
     if (currentSeason > 0) {
       currentSeason--;
-      activeSeason = seasons[currentSeason];
     }
   }
 
   function nextSeason() {
     if (currentSeason < seasons.length - 1) {
       currentSeason++;
-      activeSeason = seasons[currentSeason];
     }
   }
 
-  function selectSeason(season, i) {
-    currentSeason = i;
-    activeSeason = season;
+  function selectSeason(index) {
+    currentSeason = index;
   }
  
 </script>
 
 <div class='line'>
-  <div class='left-arrow' class:cursor={currentSeason > 0} on:click={prevSeason}>
+  <button class='left-arrow' disabled={currentSeason === 0} on:click={prevSeason}>
    <TimelineArrow opacity={!currentSeason && "0.3"}/>
 
-  </div>
+  </button>
 
-   <div class='right-arrow' class:cursor={currentSeason < seasons.length - 1} on:click={nextSeason}>
+   <button class='right-arrow' disabled={currentSeason >= seasons.length - 1} on:click={nextSeason}>
    <TimelineArrow rotate={180} opacity={currentSeason >= seasons.length -1 && "0.3"}/>
 
-  </div>
+   </button>
   <div class='selection-container'>
     {#each seasons as season, i (season)}
     {#if i < 10}
       <div class='season-container'>
 
-        <p  class:active={season === activeSeason}>75/76</p>
+        <p  class:active={season === activeSeason}>{season}</p>
         <div class='dot' 
         class:active={season === activeSeason}
-        on:click={() => selectSeason(season, i)}>
+        on:click={() => selectSeason(i)}>
       </div>
   </div>
       {/if}
@@ -98,8 +95,8 @@
     z-index: 1;
   }
 
-  .cursor {
-    cursor: pointer;
+  button:disabled {
+    cursor: default;
   }
   .selection-container {
     display: flex;
@@ -111,7 +108,7 @@
   }
 
   .season-container {
-    min-width: 4rem;
+    min-width: 4.5rem;
     display: flex;
     flex-direction: column;
     align-items: center;
