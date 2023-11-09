@@ -1,4 +1,5 @@
 <script>
+  import TimelineArrow from '@assets/TimelineArrow.svelte';
   let activeSeason = null;
   function selectSeason(season) {
     activeSeason = season;
@@ -27,6 +28,15 @@
 </script>
 
 <div class='line'>
+  <div class='left-arrow'>
+   <TimelineArrow opacity="0.3"/>
+
+  </div>
+
+   <div class='right-arrow'>
+   <TimelineArrow rotate={180}/>
+
+  </div>
   <div class='dots-container'>
     {#each seasons as season, i (season)}
     {#if i < 10}
@@ -41,6 +51,7 @@
 </div>
 <style>
   .line {
+    --arrow-width: 3.3125rem;
     position: absolute;
     width: calc(100% - (var(--pd-x) * 2));
     bottom: 2rem;
@@ -51,7 +62,21 @@
       var(--clr-primary) 68.89%
     );
   }
+  .left-arrow {
+    position: absolute;
+    width: var(--arrow-width);
+    top: 50%;
+    transform: translateY(-45%);
+    left: -1px;
+  }
 
+  .right-arrow {
+    position: absolute;
+    width: var(--arrow-width);
+    top: 50%;
+    transform: translateY(-45%);
+    right: 2px;
+  }
   .dots-container {
     display: flex;
     justify-content: space-between;

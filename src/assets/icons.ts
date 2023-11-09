@@ -2,3 +2,4 @@ export const collapsibleArrowHeader = `<svg xmlns="http://www.w3.org/2000/svg" s
 <path d="M7.78174 1.04249L4.50936 4.69864" stroke="#002E6D" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M1.19 1.00006L4.50979 4.69871" stroke="#002E6D" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>`;
+
