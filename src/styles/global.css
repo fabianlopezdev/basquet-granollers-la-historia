@@ -18,7 +18,7 @@
   /*Cannot use variables in media queries. Would be ideal for responsiveness. Still writting sizes here to have as reference
   Using px instead of rem to trigger based on screen size
   */
-  --wd-regular: 1400px;
+  --wd-regular: 1308px;
   --wd-btn-regular: 11rem;
   --wd-btn-small: 9.8rem;
   --wd-three-columns: 24.1875rem;
@@ -80,8 +80,12 @@
   --brdr-left-top-radius: 2.9375rem;
 }
 
+html {
+  scroll-snap-type: y proximity;
+  scroll-behavior: smooth;
+}
 body {
-  background-color: var(--clr-primary);
+  background-color: var(--clr-contrast);
   font-family: 'obviously', sans-serif;
   font-size: var(--fnt-sz-regular);
   line-height: var(--line-hg-regular);
@@ -134,9 +138,8 @@ button:hover {
   height: 8.0625rem;
 }
 
-
 @media (max-width: 648px) {
-   .g-top-footer-articles {
+  .g-top-footer-articles {
     height: auto;
   }
 }
