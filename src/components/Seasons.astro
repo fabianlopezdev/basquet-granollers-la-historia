@@ -1,10 +1,12 @@
 ---
 //Import components
+import Options from "./Options.svelte";
 import Timeline from "./Timeline.svelte";
 ---
 
 <section id="seasons-timeline">
   <img src="/court-lines.avif" alt="Dibuix d'una pista de bàsquet" />
+  <Options/>
   <Timeline client:visible/>
 </section>
 

@@ -76,7 +76,7 @@ let currentSeason = 0;
     --arrow-width: 3.3125rem;
     position: absolute;
     width: calc(100% - (var(--pd-x) * 2));
-    bottom: 2rem;
+    bottom: 3rem;
     height: 0.1875rem;
      background: linear-gradient(
       90deg,
@@ -88,7 +88,7 @@ let currentSeason = 0;
     position: absolute;
     width: var(--arrow-width);
     top: 50%;
-    transform: translateY(-45%);
+    transform: translateY(-50%);
     left: -1px;
     z-index: 1;
   }
@@ -97,7 +97,7 @@ let currentSeason = 0;
     position: absolute;
     width: var(--arrow-width);
     top: 50%;
-    transform: translateY(-45%);
+    transform: translateY(-50%);
     right: 2px;
     z-index: 1;
   }
