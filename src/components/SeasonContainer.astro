@@ -1,12 +1,16 @@
 ---
+//Import components
+import Timeline from "./Timeline.svelte";
 ---
 
 <section>
   <img src="/court-lines.avif" alt="Dibuix d'una pista de bàsquet" />
+  <Timeline />
 </section>
 
 <style>
   section {
+    position: relative;
     background-color: var(--clr-contrast);
     height: 100vh;
     scroll-snap-align: start;
