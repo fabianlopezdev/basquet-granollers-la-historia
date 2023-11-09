@@ -1,0 +1,61 @@
+---
+
+---
+
+<section>
+  <img
+    class='background-hero'
+    src='/history-hero.avif'
+    alt='Imatge de fons del Club Bàsquet Granollers jugant contra el Real Madrid de bàsquet amb el pavelló ple.'
+  />
+  <h2>VIATJA A TRAVÉS<br /> DE LA NOSTRA HISTÒRIA</h2>
+  <p>Comença aquí, fent scroll</p>
+  <img
+    class='scroll-line'
+    src='/scroll-line.svg'
+    alt=''
+  />
+</section>
+
+<style>
+  h2 {
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--color-contrast);
+    font-size: 3.75rem;
+    font-weight: var(--fnt-wg-medium);
+    text-align: center;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    line-height: 4.0625rem;
+  }
+  section {
+    height: 100dvh;
+    margin-top: calc(var(--hg-header) * -1);
+    overflow: hidden;
+  }
+
+  .background-hero {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: bottom;
+  }
+  p {
+    position: absolute;
+    bottom: 11.25rem;
+    left: 50%;
+    transform: translateX(-50%);
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    font-size: 1rem;
+  }
+  .scroll-line {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: scroll 1s infinite;
+  }
+</style>
