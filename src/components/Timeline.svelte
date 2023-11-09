@@ -11,15 +11,6 @@
       '81/82',
       '82/83',
       '83/84',
-      '84/85',
-      '85/86',
-      '86/87',
-      '87/88',
-      '88/89',
-      '89/90',
-      '90/91',
-      '91/92',
-      '92/93',
     ]
   let activeSeason = seasons[0];
   let currentSeason = 0;
@@ -51,23 +42,32 @@
 
   </div>
 
-   <div class='right-arrow' class:cursor={currentSeason < seasons.length} on:click={nextSeason}>
-   <TimelineArrow rotate={180} opacity={currentSeason >= seasons.length && "0.3"}/>
+   <div class='right-arrow' class:cursor={currentSeason < seasons.length - 1} on:click={nextSeason}>
+   <TimelineArrow rotate={180} opacity={currentSeason >= seasons.length -1 && "0.3"}/>
 
   </div>
-  <div class='dots-container'>
+  <div class='selection-container'>
     {#each seasons as season, i (season)}
     {#if i < 10}
-      <div class='dot' 
-       class:active={season === activeSeason}
-      on:click={() => selectSeason(season, i)}>
-  
+      <div class='season-container'>
+
+        <p  class:active={season === activeSeason}>75/76</p>
+        <div class='dot' 
+        class:active={season === activeSeason}
+        on:click={() => selectSeason(season, i)}>
       </div>
+  </div>
       {/if}
     {/each}
   </div>
 </div>
 <style>
+  p {
+    color: var(--clr-primary);
+    font-size: 1rem;
+    font-weight: var(--fnt-wg-regular);
+    opacity: 0.3;
+;  }
   .line {
     --arrow-width: 3.3125rem;
     position: absolute;
@@ -101,13 +101,21 @@
   .cursor {
     cursor: pointer;
   }
-  .dots-container {
+  .selection-container {
     display: flex;
     justify-content: space-between;
    position: relative;
     top: 50%;
-    transform: translateY(-50%);
+    transform: translateY(-82%);
     padding-inline: 6rem;
+  }
+
+  .season-container {
+    min-width: 4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
   }
 
   .dot {
@@ -123,7 +131,13 @@
     cursor: pointer;
   }
 
-  .active {
+  .dot.active {
     background-color: var(--clr-accent);
+  }
+
+  p.active {
+    opacity: 1;
+     font-size: 1.25rem;
+    font-weight: var(--fnt-wg-medium);
   }
 </style>
