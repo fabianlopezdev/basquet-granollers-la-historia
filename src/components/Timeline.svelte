@@ -1,10 +1,6 @@
 <script>
   import TimelineArrow from '@assets/TimelineArrow.svelte';
-  let activeSeason = null;
-  function selectSeason(season) {
-    activeSeason = season;
-  }
-  const seasons = [
+   const seasons = [
       '74/75',
       '75/76',
       '77/78',
@@ -25,16 +21,38 @@
       '91/92',
       '92/93',
     ]
+  let activeSeason = seasons[0];
+  let currentSeason = 0;
+
+  function prevSeason() {
+    if (currentSeason > 0) {
+      currentSeason--;
+      activeSeason = seasons[currentSeason];
+    }
+  }
+
+  function nextSeason() {
+    if (currentSeason < seasons.length - 1) {
+      currentSeason++;
+      activeSeason = seasons[currentSeason];
+    }
+  }
+
+  function selectSeason(season, i) {
+    currentSeason = i;
+    activeSeason = season;
+  }
+ 
 </script>
 
 <div class='line'>
-  <div class='left-arrow'>
-   <TimelineArrow opacity="0.3"/>
+  <div class='left-arrow' class:cursor={currentSeason > 0} on:click={prevSeason}>
+   <TimelineArrow opacity={!currentSeason && "0.3"}/>
 
   </div>
 
-   <div class='right-arrow'>
-   <TimelineArrow rotate={180}/>
+   <div class='right-arrow' class:cursor={currentSeason < seasons.length} on:click={nextSeason}>
+   <TimelineArrow rotate={180} opacity={currentSeason >= seasons.length && "0.3"}/>
 
   </div>
   <div class='dots-container'>
@@ -42,7 +60,7 @@
     {#if i < 10}
       <div class='dot' 
        class:active={season === activeSeason}
-      on:click={() => selectSeason(season)}>
+      on:click={() => selectSeason(season, i)}>
   
       </div>
       {/if}
@@ -68,6 +86,7 @@
     top: 50%;
     transform: translateY(-45%);
     left: -1px;
+    z-index: 1;
   }
 
   .right-arrow {
@@ -76,6 +95,11 @@
     top: 50%;
     transform: translateY(-45%);
     right: 2px;
+    z-index: 1;
+  }
+
+  .cursor {
+    cursor: pointer;
   }
   .dots-container {
     display: flex;
