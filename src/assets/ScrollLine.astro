@@ -2,13 +2,16 @@
 ---
 
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-    document.getElementById("pillButton").addEventListener("click", function() {
-        document.getElementById("seasons-timeline").scrollIntoView();
-    });
-});
+document.addEventListener("DOMContentLoaded", (): void => {
+    const button = document.getElementById("pillButton");
+    const target = document.getElementById("seasons-timeline");
 
- 
+    if (button && target) {
+        button.addEventListener("click", (): void => {
+            target.scrollIntoView();
+        });
+    }
+});
 </script>
 
 <div class="svg-container">
