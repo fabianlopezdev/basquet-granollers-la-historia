@@ -118,13 +118,27 @@ function unlockScroll() {
     };
 }
 
-const throttledWheelHandler = throttle(handleWheel, 500);
+  function handleKeyDown(event) {
+    const maxScrollHeight = document.body.scrollHeight - window.innerHeight;
 
+    // Check if the window's scroll position is at its maximum height
+    if (window.scrollY >= maxScrollHeight) {
+      switch (event.key) {
+        case 'ArrowLeft':
+          prevSeason();
+          break;
+        case 'ArrowRight':
+          nextSeason();
+          break;
+      }
+    }}
+const throttledWheelHandler = throttle(handleWheel, 500);
+const throttledKeyDownHandler = throttle(handleKeyDown, 500);
 </script>
 
-<!-- <svelte:window on:wheel={throttledWheelHandler}/> -->
-<div class='line' on:wheel={throttledWheelHandler}  on:mouseenter={handleMouseEnter}
-     on:mouseleave={handleMouseLeave}>
+<svelte:window on:keydown={throttledKeyDownHandler}/>
+<div role='list' aria-label='This is a timeline' class='line' on:wheel={throttledWheelHandler} on:mouseenter={handleMouseEnter} on:mouseleave={handleMouseLeave} 
+     >
   <button class='left-arrow' disabled={currentSeason === 0} on:click={prevSeason}>
    <TimelineArrow opacity={!currentSeason && "0.3"}/>
 
@@ -137,19 +151,14 @@ const throttledWheelHandler = throttle(handleWheel, 500);
   <div class='selection-container' bind:clientWidth={containerWidth}>
     {#each seasons as season, i (season)}
     {#if i < 10}
-      <div class='season-container'>
+      <div role='listitem' class='season-container'>
 
-        <p  class='fade-transition'class:active={season === activeSeason}>{season}</p>
-        <button  class='dot color-transition' 
-        class:active={season === activeSeason}
-        on:click={() => selectSeason(i)}>
-        <img 
-        class:show={season === activeSeason} 
-        style="--distance: {spaceBetweenDots}; --rotation: {rotationDirection}; --duration: {animatioDuration}"
-        src="/ball.png" alt="">
-      </button>
-  </div>
-      {/if}
+        <p class='fade-transition' class:active={season === activeSeason}>{season}</p>
+        <button class='dot color-transition' class:active={season === activeSeason} on:click={() => selectSeason(i)}>
+          <img class:show={season === activeSeason} style="--distance: {spaceBetweenDots}; --rotation: {rotationDirection}; --duration: {animatioDuration}" src="/ball.png" alt="">
+        </button>
+      </div>
+    {/if}
     {/each}
   </div>
 </div>
