@@ -59,11 +59,12 @@ let currentSeason = 0;
     currentSeason = index;
   }
   
-  $: webHeight = window.innerHeight;
+  
   
   
   function handleWheel(event) {
     const scrollPosition = window.scrollY ;
+    const webHeight = document.body.scrollHeight - window.innerHeight;
     if (event.deltaY < 0 && currentSeason === 0) {
       document.body.style.overflow = '';
       return;
@@ -79,10 +80,24 @@ let currentSeason = 0;
     }
   }}}
 
+  function throttle(func, limit) {
+    let inThrottle;
+    return function() {
+        const args = arguments;
+        const context = this;
+        if (!inThrottle) {
+            func.apply(context, args);
+            inThrottle = true;
+            setTimeout(() => inThrottle = false, limit);
+        }
+    };
+}
+
+const throttledWheelHandler = throttle(handleWheel, 500);
 
 </script>
 
-<svelte:window on:wheel={handleWheel}/>
+<svelte:window on:wheel={throttledWheelHandler}/>
 <div class='line'>
   <button class='left-arrow' disabled={currentSeason === 0} on:click={prevSeason}>
    <TimelineArrow opacity={!currentSeason && "0.3"}/>
