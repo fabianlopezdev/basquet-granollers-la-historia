@@ -14,17 +14,32 @@
       '83/84',
     ]
 let currentSeason = 0;
+
+  const baseDuration = 0.5; // Base duration in seconds for moving one season
+  const maxDuration = 2.5;
+
+  $: distance = Math.abs(previousSeason - currentSeason);
+  $: adjustedDuration = Math.min(baseDuration * Math.sqrt(distance), maxDuration);
    $: activeSeason = seasons[currentSeason]; 
-   $: direction = -1;
+   $: direction = previousSeason - currentSeason;
    $: rotationDirection = (360 * -direction) + 'deg';
+   $: animatioDuration = `${adjustedDuration}s`;
+  //  $: timeOutDuration = animatioDuration ? 1000 * parseFloat(animatioDuration) : 500;
+   let previousSeason = 0;
+
+  $: if (currentSeason !== previousSeason) {
+    // Logic to handle animation start position
+    // Update previousSeason after the animation logic
+    setTimeout(() => {
+      previousSeason = currentSeason;
+    },Math.min(baseDuration * Math.sqrt(Math.abs(previousSeason - currentSeason)), maxDuration) * 1001); // Duration of the animation
+  }
   let containerWidth;
+ 
   //The 3x16 is the padding inline of the season container
   $: spaceBetweenDots = containerWidth ? (((containerWidth / (seasons.length - 1)) - (3*16)) * direction) + 'px' : 0;
 
-  // $: translateDistance = (((currentSeason - 1) * spaceBetweenDots) * -1) + 'px';
-
-  $: console.log('containerWidth', containerWidth);
-  $: console.log(spaceBetweenDots);
+  
 
   function prevSeason() {
     direction = 1;
@@ -41,7 +56,6 @@ let currentSeason = 0;
   }
 
   function selectSeason(index) {
-    spaceBetweenDots = spaceBetweenDots * index;
     currentSeason = index;
   }
  
@@ -68,7 +82,7 @@ let currentSeason = 0;
         on:click={() => selectSeason(i)}>
         <img 
         class:show={season === activeSeason} 
-        style="--distance: {spaceBetweenDots}; --rotation: {rotationDirection}"
+        style="--distance: {spaceBetweenDots}; --rotation: {rotationDirection}; --duration: {animatioDuration}"
         src="/ball.png" alt="">
       </button>
   </div>
@@ -98,7 +112,7 @@ let currentSeason = 0;
     width: 1.5rem;
     height: auto;
     object-fit: cover;
-    animation-duration: 0.5s;
+    animation-duration: var(--duration);
   animation-timing-function: linear;
   }
 
