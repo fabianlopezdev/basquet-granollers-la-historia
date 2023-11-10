@@ -40,7 +40,8 @@ let currentSeason = 0;
   $: spaceBetweenDots = containerWidth ? (((containerWidth / (seasons.length - 1)) - (3*16)) * direction) + 'px' : 0;
 
   
-
+  $: scrollbarWidth = getScrollbarWidth();
+  
   function prevSeason() {
     direction = 1;
     if (currentSeason > 0) {
@@ -60,17 +61,29 @@ let currentSeason = 0;
   }
   
   
+  function handleMouseEnter() {
+    if (currentSeason === 0) return;
+    document.body.style.overflow = 'hidden'
+    document.body.style.paddingRight = `${scrollbarWidth}px`;
+  }
+
+  function handleMouseLeave() {
+    document.body.style.overflow = ''; 
+    document.body.style.paddingRight = '';
+  }
   
-  
-  function handleWheel(event) {
+ function handleWheel(event) {
     const scrollPosition = window.scrollY ;
     const webHeight = document.body.scrollHeight - window.innerHeight;
     if (event.deltaY < 0 && currentSeason === 0) {
       document.body.style.overflow = '';
+      document.body.style.paddingRight = '';
       return;
     }
     if (scrollPosition === webHeight) {
       document.body.style.overflow = 'hidden';
+    document.body.style.paddingRight = `${scrollbarWidth}px`;
+
      if (event.deltaY > 0 && currentSeason < seasons.length - 1) { // Scrolling down
         currentSeason++;
       } else if (event.deltaY < 0 && currentSeason > 0) { // Scrolling up
@@ -80,6 +93,18 @@ let currentSeason = 0;
     }
   }}}
 
+ function getScrollbarWidth() {
+  return window.innerWidth - document.documentElement.clientWidth;
+}
+
+function lockScroll() {
+  document.body.style.overflow = 'hidden';
+}
+
+function unlockScroll() {
+  document.body.style.overflow = '';
+  document.body.style.paddingRight = '';
+}
   function throttle(func, limit) {
     let inThrottle;
     return function() {
@@ -97,8 +122,9 @@ const throttledWheelHandler = throttle(handleWheel, 500);
 
 </script>
 
-<svelte:window on:wheel={throttledWheelHandler}/>
-<div class='line'>
+<!-- <svelte:window on:wheel={throttledWheelHandler}/> -->
+<div class='line' on:wheel={throttledWheelHandler}  on:mouseenter={handleMouseEnter}
+     on:mouseleave={handleMouseLeave}>
   <button class='left-arrow' disabled={currentSeason === 0} on:click={prevSeason}>
    <TimelineArrow opacity={!currentSeason && "0.3"}/>
 
