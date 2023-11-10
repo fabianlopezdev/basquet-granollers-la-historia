@@ -98,22 +98,27 @@ let currentSeason = 0;
 
   @keyframes move-horizontal {
   from {
-    transform: translateX(var(--distance)) rotate(0deg);
+    transform: translateX(var(--distance)) rotate(0deg) scale(1.5);
+    border: none;
 
   }
   to {
-    transform: translateX(0%) rotate(var(--rotation));
+    transform: translateX(0%) rotate(var(--rotation)) scale(1.5);
+    border: none;
   }
 }
   img {
     display: none;
     background-color: var(--clr-contrast);
     border-radius: 50%;
+    border: 2px solid var(--clr-contrast);
     width: 1.5rem;
     height: auto;
+    transform: scale(2);
     object-fit: cover;
     animation-duration: var(--duration);
   animation-timing-function: linear;
+  z-index: 1;
   }
 
    .fade-transition {
@@ -162,6 +167,8 @@ let currentSeason = 0;
   button:disabled {
     cursor: default;
   }
+
+
   .selection-container {
     display: flex;
     justify-content: space-between;
@@ -180,6 +187,7 @@ let currentSeason = 0;
   }
 
   .dot {
+    position: relative;
     --brdr-thick: 3px;
     width: calc(1.25rem - var(--brdr-thick));
     height: calc(1.25rem - var(--brdr-thick));
@@ -190,12 +198,17 @@ let currentSeason = 0;
     justify-content: center;
     align-items: center;
   }
+  .dot:hover {
+    background-color: var(--clr-accent);
 
+  }
+
+  .dot:active {
+    transform: scale(0.9);
+  }
   .dot.active {
-    /* background-color: var(--clr-accent); */
-     border: none;
-     width: 1.5rem;
-     height: 1.5rem;
+    background-color: var(--clr-accent);
+  
   }
 
   p.active {
