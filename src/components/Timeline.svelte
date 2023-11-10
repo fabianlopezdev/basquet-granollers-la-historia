@@ -14,21 +14,34 @@
       '83/84',
     ]
 let currentSeason = 0;
-   $: activeSeason = seasons[currentSeason]; // Reactive statement
+   $: activeSeason = seasons[currentSeason]; 
+   $: direction = -1;
+   $: rotationDirection = (360 * -direction) + 'deg';
+  let containerWidth;
+  //The 3x16 is the padding inline of the season container
+  $: spaceBetweenDots = containerWidth ? (((containerWidth / (seasons.length - 1)) - (3*16)) * direction) + 'px' : 0;
+
+  // $: translateDistance = (((currentSeason - 1) * spaceBetweenDots) * -1) + 'px';
+
+  $: console.log('containerWidth', containerWidth);
+  $: console.log(spaceBetweenDots);
 
   function prevSeason() {
+    direction = 1;
     if (currentSeason > 0) {
       currentSeason--;
     }
   }
 
   function nextSeason() {
+    direction = -1;
     if (currentSeason < seasons.length - 1) {
       currentSeason++;
     }
   }
 
   function selectSeason(index) {
+    spaceBetweenDots = spaceBetweenDots * index;
     currentSeason = index;
   }
  
@@ -44,7 +57,7 @@ let currentSeason = 0;
    <TimelineArrow rotate={180} opacity={currentSeason >= seasons.length -1 && "0.3"}/>
 
    </button>
-  <div class='selection-container'>
+  <div class='selection-container' bind:clientWidth={containerWidth}>
     {#each seasons as season, i (season)}
     {#if i < 10}
       <div class='season-container'>
@@ -53,6 +66,10 @@ let currentSeason = 0;
         <button  class='dot color-transition' 
         class:active={season === activeSeason}
         on:click={() => selectSeason(i)}>
+        <img 
+        class:show={season === activeSeason} 
+        style="--distance: {spaceBetweenDots}; --rotation: {rotationDirection}"
+        src="/ball.png" alt="">
       </button>
   </div>
       {/if}
@@ -60,6 +77,31 @@ let currentSeason = 0;
   </div>
 </div>
 <style>
+  .show {
+    display: block;
+    animation-name: move-horizontal;
+  }
+
+  @keyframes move-horizontal {
+  from {
+    transform: translateX(var(--distance)) rotate(0deg);
+
+  }
+  to {
+    transform: translateX(0%) rotate(var(--rotation));
+  }
+}
+  img {
+    display: none;
+    background-color: var(--clr-contrast);
+    border-radius: 50%;
+    width: 1.5rem;
+    height: auto;
+    object-fit: cover;
+    animation-duration: 0.5s;
+  animation-timing-function: linear;
+  }
+
    .fade-transition {
     transition: opacity 0.5s ease;
   }
@@ -84,6 +126,7 @@ let currentSeason = 0;
       var(--clr-primary) 68.89%
     );
   }
+
   .left-arrow {
     position: absolute;
     width: var(--arrow-width);
@@ -135,7 +178,10 @@ let currentSeason = 0;
   }
 
   .dot.active {
-    background-color: var(--clr-accent);
+    /* background-color: var(--clr-accent); */
+     border: none;
+     width: 1.5rem;
+     height: 1.5rem;
   }
 
   p.active {
