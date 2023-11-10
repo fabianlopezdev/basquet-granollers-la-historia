@@ -19,7 +19,7 @@
     justify-content: center;
     gap: 1.25rem;
     position: relative;
-    bottom: 11rem;
+    bottom: 12rem;
   }
   button {
   text-decoration: none;
