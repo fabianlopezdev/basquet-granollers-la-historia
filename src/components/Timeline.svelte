@@ -58,9 +58,60 @@ let currentSeason = 0;
   function selectSeason(index) {
     currentSeason = index;
   }
- 
+
+  let scrollY = 0;
+  $: scrollY = window.scrollY;
+  $: {
+    const atBottom = (window.innerHeight + scrollY) >= document.body.offsetHeight;
+    handleScroll(atBottom);
+  }
+
+  let lastScrollTop = 0;
+  const handleScroll = (atBottom) => {
+    const st = scrollY;
+
+    if (st > lastScrollTop) {
+        // Scrolling down
+        if (atBottom && currentSeason < seasons.length - 1) {
+            currentSeason++;
+        }
+    } else {
+        // Scrolling up
+        if (currentSeason === 0 && st === 0) {
+            // Logic to prevent scrolling up if needed
+        } else if (currentSeason > 0) {
+            currentSeason--;
+        }
+    }
+
+    lastScrollTop = st;
+  };
+  function throttle(func, limit) {
+    let lastFunc;
+    let lastRan;
+    return function() {
+      const context = this;
+      const args = arguments;
+      if (!lastRan) {
+        func.apply(context, args);
+        lastRan = Date.now();
+      } else {
+        clearTimeout(lastFunc);
+        lastFunc = setTimeout(function() {
+          if ((Date.now() - lastRan) >= limit) {
+            func.apply(context, args);
+            lastRan = Date.now();
+          }
+        }, limit - (Date.now() - lastRan));
+      }
+    }
+  }
+
+  // Wrapped handleScroll with throttle
+  const throttledScroll = throttle(handleScroll, 100);
 </script>
 
+<svelte:window on:scroll={event => throttledScroll(event)}/>
 <div class='line'>
   <button class='left-arrow' disabled={currentSeason === 0} on:click={prevSeason}>
    <TimelineArrow opacity={!currentSeason && "0.3"}/>
