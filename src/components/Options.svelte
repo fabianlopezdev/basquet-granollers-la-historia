@@ -1,17 +1,25 @@
 <script>
+  import {display} from '../svelte/store.ts';
 
+  function selectDisplay(e) {
+    const buttonText = e.target.textContent;
+    if (buttonText === $display) display.set('RELATS');
+    else display.set(buttonText);
+  }
 </script>
+
 <div class='options-container'>
-  <button>
+  <button class:active={$display === 'JUGADORS'} on:click={selectDisplay}>
   JUGADORS
 </button>
-<button>
+<button class:active={$display === 'RESULTATS'} on:click={selectDisplay}>
   RESULTATS
 </button>
-<button>
+<button class:active={$display === 'SOCIAL'} on:click={selectDisplay}>
   SOCIAL
 </button>
 </div>
+
 <style>
   .options-container {
     width: 100%;
@@ -19,7 +27,7 @@
     justify-content: center;
     gap: 1.25rem;
     position: relative;
-    bottom: 12rem;
+    bottom: 10rem;
   }
   button {
   text-decoration: none;
@@ -33,12 +41,21 @@
   color: var(--clr-accent);
   border-radius: 1.75rem;
   font-weight: var(--fnt-wg-regular);
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  }
+
+  button:active {
+    transform: scale(0.95); /* Slightly scale down the button */
   }
 
   button:hover {
     cursor: pointer;
   background-color: var(--clr-accent);
-  color: var(--hoverTextColor);
+  color: var(--clr-contrast);
 }
-  
+  .active {
+    background-color: var(--clr-accent);
+  color: var(--clr-contrast);
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.1s ease;
+  }
 </style>

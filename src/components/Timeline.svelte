@@ -76,7 +76,7 @@ let currentSeason = 0;
     --arrow-width: 3.3125rem;
     position: absolute;
     width: 100%;
-    bottom: 4rem;
+    bottom: 2.5rem;
     height: 0.1875rem;
      background: linear-gradient(
       90deg,
