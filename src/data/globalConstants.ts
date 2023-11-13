@@ -51,10 +51,27 @@ const TEAM_PAGES = {
   coaches: 'entrenadors-i-entrenadores',
 };
 
+const OPTIONS = ['relats', 'jugadors', 'resultats', 'social']
+
+const SEASONS = [
+      '74/75',
+      '75/76',
+      '76/77',
+      '77/78',
+      '78/79',
+      '79/80',
+      '80/81',
+      '81/82',
+      '82/83',
+      '83/84',
+    ]
+
 export {
   POST_FIELDS,
   CONFIG_PAGES,
   TEAM_PAGES,
   IMAGE_FIELDS,
+  OPTIONS,
+  SEASONS,
 };
 

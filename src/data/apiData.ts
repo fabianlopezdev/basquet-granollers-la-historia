@@ -35,3 +35,5 @@ export const { generalLinks, fixedLinks } = topFooterContent;
 
 
 export const bottomFooterLinks = extractBottomFooterInfo(footerContent);
+
+  

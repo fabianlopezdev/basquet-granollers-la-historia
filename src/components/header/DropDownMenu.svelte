@@ -1,78 +1,54 @@
----
+<script>
 //Import assets
 import { collapsibleArrowHeader } from '@assets/icons';
 
 //Import stores
-import { seasonSelected} from '../../svelte/store';
+import { currentIndex, display} from '../../svelte/store';
 
-//Import functions
-import { seasonToEndpointMapper } from '@utils/helperFunctions';
 
-const { item } = Astro.props;
+export let item;
+let isDropdownExpanded = false;
+  let isRotated = false;
 
----
-
-<script>
-  document.addEventListener('DOMContentLoaded', (event) => {
-    let buttons = document.querySelectorAll('#drop-down-menu');
-    function handleClick(this: any) {
-      let divArrow = this.querySelector('.rotate');
-      divArrow.classList.toggle('rotated');
-
-      let dropDown =
-        this.nextElementSibling.nextElementSibling.querySelector('.nav'); // Adjusted this line
-      dropDown.classList.toggle('show');
-
-      this.setAttribute('aria-expanded', dropDown.classList.contains('show'));
-    }
-
-    // Check if the device does not support hover
-    if (window.matchMedia('(hover: none)').matches) {
-      // Add the event listener to each button
-      buttons.forEach(function (button) {
-        button.addEventListener('click', handleClick);
-      });
-    } else {
-      // Remove the event listener from each button
-      buttons.forEach(function (button) {
-        button.removeEventListener('click', handleClick);
-      });
-    }
-  });
+  function handleClick() {
+    isDropdownExpanded = !isDropdownExpanded;
+    isRotated = !isRotated;
+  
+  }
+  
+  function setStores(i) {
+    currentIndex.set(i);
+    display.set(item.name);
+  }
 </script>
 
 <div class='dropdown'>
   <button
-    id='drop-down-menu'
     aria-haspopup='true'
-    aria-expanded='false'
+    aria-expanded={isDropdownExpanded}
+    on:click={handleClick}
+    class:rotated={isRotated}
   >
     {item.name.toUpperCase()}
     <div class='rotate'>
-      <Fragment set:html={collapsibleArrowHeader} />
+      {@html collapsibleArrowHeader}
     </div>
   </button>
   <div class='bridge'></div>
-  <nav class='nav'>
+  <nav class='nav' class:show={isDropdownExpanded}>
     <h4>TEMPORADES</h4>
-    <ul
-      id='myDropdown'
-      class='dropdown-content'
-    >
-      {
-        item.dropdown.map((dropDownItem: string) => (
-          <li>
-            <a
-              href={'#seasons-timeline'}
-            >
-              {dropDownItem}
-            </a>
-          </li>
-        ))
-      }
+    <ul class='dropdown-content'>
+      {#each item.dropdown as dropDownItem, i}
+        <li>
+          <a on:click={() => setStores(i)} href="#seasons-timeline" >
+            {dropDownItem}
+          </a>
+        </li>
+      {/each}
     </ul>
   </nav>
 </div>
+
 
 <style>
   .dropdown {

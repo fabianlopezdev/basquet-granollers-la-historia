@@ -1,73 +1,84 @@
 <script>
   //Import components
   import TimelineArrow from '@assets/TimelineArrow.svelte';
-   const seasons = [
-      '74/75',
-      '75/76',
-      '76/77',
-      '77/78',
-      '78/79',
-      '79/80',
-      '80/81',
-      '81/82',
-      '82/83',
-      '83/84',
-    ]
-let currentSeason = 0;
+ import { currentIndex } from "src/svelte/store";
+ 
+  
+ 
+ export let SEASONS = [];
+
+
 let userInteractionCount = 0;
 const baseDuration = 0.5; // Minimum duration for interactions
 const maxDuration = 2.5;
+let containerWidth;
+
+//The 3x16 is the padding inline of the season container
+$: spaceBetweenDots = containerWidth ? (((containerWidth / (SEASONS.length - 1)) - (3*16)) * direction) + 'px' : 0;
 
 
-  $: distance = Math.abs(previousSeason - currentSeason);
-  $: adjustedDuration = Math.min(baseDuration * Math.sqrt(distance), maxDuration);
- $: interactionAdjustedDuration = userInteractionCount === 1
+$: scrollbarWidth = getScrollbarWidth();
+
+
+$: directSelection = $currentIndex && true;
+  let distance 
+ let adjustedDuration;
+
+ let interactionAdjustedDuration;
+let rotationDirection;
+
+   let activeSeason ; 
+   let direction;
+  $: previousSeason = previousSeason || 0; 
+
+   let animationDuration;
+
+
+
+ $: {
+  if ($currentIndex !== previousSeason) {
+    activeSeason = SEASONS[$currentIndex];
+    direction = previousSeason - $currentIndex;
+    rotationDirection = (360 * -direction) + 'deg';
+    distance = Math.abs(direction);
+    adjustedDuration = Math.min(baseDuration * Math.sqrt(distance), maxDuration);
+    
+    interactionAdjustedDuration = userInteractionCount === 1
   ? baseDuration
   : Math.max(
       maxDuration / (1 + Math.sqrt(userInteractionCount)), 
       baseDuration
     );
+    animationDuration = directSelection ? `${adjustedDuration}s` : `${interactionAdjustedDuration}s`;
 
-   $: activeSeason = seasons[currentSeason]; 
-   $: direction = previousSeason - currentSeason;
-   $: rotationDirection = (360 * -direction) + 'deg';
-   let previousSeason = 0;
+      // Debugging logs
+    console.log('Updated values:', {
+      distance,
+      adjustedDuration,
+      interactionAdjustedDuration,
+      animationDuration,
+    });
+    let duration = directSelection
+      ? adjustedDuration * 1000
+      : interactionAdjustedDuration * 1000;
 
-   let animationDuration;
-
-$: animationDuration = directSelection ? `${adjustedDuration}s` : `${interactionAdjustedDuration}s`;
-
- $: if (currentSeason !== previousSeason) {
-  let duration;
-  if (directSelection) {
-    duration = Math.min(baseDuration * Math.sqrt(Math.abs(previousSeason - currentSeason)), maxDuration) * 1000;
-  } else {
-    duration = Math.max(maxDuration / (1 + Math.sqrt(userInteractionCount)), baseDuration) * 1000;
+    setTimeout(() => {
+      previousSeason = $currentIndex;
+      if (!directSelection) {
+        userInteractionCount = 0; // Reset the count after the animation
+      }
+    }, duration);
   }
-
-  setTimeout(() => {
-    previousSeason = currentSeason;
-    if (!directSelection) {
-      userInteractionCount = 0; // Reset the count after the animation
-    }
-    directSelection = false; // Reset directSelection flag
-  }, duration);
 }
 
-  let containerWidth;
- 
-  //The 3x16 is the padding inline of the season container
-  $: spaceBetweenDots = containerWidth ? (((containerWidth / (seasons.length - 1)) - (3*16)) * direction) + 'px' : 0;
+  $: console.log('distance', distance)
 
-  
-  $: scrollbarWidth = getScrollbarWidth();
-  
   function prevSeason() {
      directSelection = false;
      userInteractionCount++;
     direction = 1;
-    if (currentSeason > 0) {
-      currentSeason--;
+    if ($currentIndex > 0) {
+      $currentIndex--;
     }
   }
 
@@ -75,21 +86,20 @@ $: animationDuration = directSelection ? `${adjustedDuration}s` : `${interaction
     userInteractionCount++;
     directSelection = false;
     direction = -1;
-    if (currentSeason < seasons.length - 1) {
-      currentSeason++;
+    if ($currentIndex < SEASONS.length - 1) {
+      $currentIndex++;
     }
   }
 
-  let directSelection = false;
 
   function selectSeason(index) {
     directSelection = true;
-    currentSeason = index;
+    $currentIndex = index;
   }
   
   
   function handleMouseEnter() {
-    if (currentSeason === 0) return;
+    if ($currentIndex === 0) return;
     document.body.style.overflow = 'hidden'
     document.body.style.paddingRight = `${scrollbarWidth}px`;
   }
@@ -104,7 +114,7 @@ $: animationDuration = directSelection ? `${adjustedDuration}s` : `${interaction
    userInteractionCount++;
     const scrollPosition = window.scrollY ;
     const webHeight = document.body.scrollHeight - window.innerHeight;
-    if (event.deltaY < 0 && currentSeason === 0) {
+    if (event.deltaY < 0 && $currentIndex === 0) {
       document.body.style.overflow = '';
       document.body.style.paddingRight = '';
       return;
@@ -113,12 +123,12 @@ $: animationDuration = directSelection ? `${adjustedDuration}s` : `${interaction
       document.body.style.overflow = 'hidden';
     document.body.style.paddingRight = `${scrollbarWidth}px`;
 
-     if (event.deltaY > 0 && currentSeason < seasons.length - 1) { // Scrolling down
-        currentSeason++;
-      } else if (event.deltaY < 0 && currentSeason > 0) { // Scrolling up
+     if (event.deltaY > 0 && $currentIndex < SEASONS.length - 1) { // Scrolling down
+        $currentIndex++;
+      } else if (event.deltaY < 0 && $currentIndex > 0) { // Scrolling up
   
-      if (currentSeason > 0) {
-      currentSeason--;
+      if ($currentIndex > 0) {
+      $currentIndex--;
     }
   }}}
 
@@ -145,17 +155,17 @@ $: animationDuration = directSelection ? `${adjustedDuration}s` : `${interaction
 <svelte:window on:keydown={handleKeyDown}/>
 <div role='list' aria-label='This is a timeline' class='line' on:wheel={handleWheel} on:mouseenter={handleMouseEnter} on:mouseleave={handleMouseLeave} 
      >
-  <button class='left-arrow' disabled={currentSeason === 0} on:click={prevSeason}>
-   <TimelineArrow opacity={!currentSeason && "0.3"} hover={currentSeason && "0.3"}/>
+  <button class='left-arrow' disabled={$currentIndex === 0} on:click={prevSeason}>
+   <TimelineArrow opacity={!$currentIndex && "0.3"} hover={$currentIndex && "0.3"}/>
 
   </button>
 
-   <button class='right-arrow' disabled={currentSeason >= seasons.length - 1} on:click={nextSeason}>
-   <TimelineArrow rotate={180} opacity={currentSeason >= seasons.length -1 && "0.3"} hover={currentSeason < seasons.length -1 && "0.3"}/>
+   <button class='right-arrow' disabled={$currentIndex >= SEASONS.length - 1} on:click={nextSeason}>
+   <TimelineArrow rotate={180} opacity={$currentIndex >= SEASONS.length -1 && "0.3"} hover={$currentIndex < SEASONS.length -1 && "0.3"}/>
 
    </button>
   <div class='selection-container' bind:clientWidth={containerWidth}>
-    {#each seasons as season, i (season)}
+    {#each SEASONS as season, i (season)}
     {#if i < 10}
       <div role='listitem' class='season-container'>
 

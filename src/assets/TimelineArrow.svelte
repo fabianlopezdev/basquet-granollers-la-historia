@@ -33,7 +33,6 @@
 </svg>
 
 <style>
-
     .fade-transition {
         transition: opacity 0.5s ease;
     }

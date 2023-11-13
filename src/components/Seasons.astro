@@ -2,14 +2,13 @@
 //Import components
 import Options from "./Options.svelte";
 import Timeline from "./Timeline.svelte";
-
-
+import { SEASONS } from '@data/globalConstants'
 ---
 
 <section id="seasons-timeline"  >
   <img src="/cancha.png" alt="Dibuix d'una pista de bàsquet" />
   <Options client:visible/>
-  <Timeline client:only/>
+  <Timeline client:only {SEASONS}/>
 </section>
 
 <style>

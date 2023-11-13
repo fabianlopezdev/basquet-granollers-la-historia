@@ -9,13 +9,13 @@
 </script>
 
 <div class='options-container'>
-  <button class:active={$display === 'JUGADORS'} on:click={selectDisplay}>
+  <button class:active={$display === 'jugadors'} on:click={selectDisplay}>
   JUGADORS
 </button>
-<button class:active={$display === 'RESULTATS'} on:click={selectDisplay}>
+<button class:active={$display === 'resultats'} on:click={selectDisplay}>
   RESULTATS
 </button>
-<button class:active={$display === 'SOCIAL'} on:click={selectDisplay}>
+<button class:active={$display === 'social'} on:click={selectDisplay}>
   SOCIAL
 </button>
 </div>
