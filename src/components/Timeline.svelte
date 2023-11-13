@@ -14,26 +14,46 @@
       '83/84',
     ]
 let currentSeason = 0;
+let userInteractionCount = 0;
+const baseDuration = 0.5; // Minimum duration for interactions
+const maxDuration = 2.5;
 
-  const baseDuration = 0.5; // Base duration in seconds for moving one season
-  const maxDuration = 2.5;
 
   $: distance = Math.abs(previousSeason - currentSeason);
   $: adjustedDuration = Math.min(baseDuration * Math.sqrt(distance), maxDuration);
+ $: interactionAdjustedDuration = userInteractionCount === 1
+  ? baseDuration
+  : Math.max(
+      maxDuration / (1 + Math.sqrt(userInteractionCount)), 
+      baseDuration
+    );
+
    $: activeSeason = seasons[currentSeason]; 
    $: direction = previousSeason - currentSeason;
    $: rotationDirection = (360 * -direction) + 'deg';
-   $: animatioDuration = `${adjustedDuration}s`;
-  //  $: timeOutDuration = animatioDuration ? 1000 * parseFloat(animatioDuration) : 500;
    let previousSeason = 0;
 
-  $: if (currentSeason !== previousSeason) {
-    // Logic to handle animation start position
-    // Update previousSeason after the animation logic
-    setTimeout(() => {
-      previousSeason = currentSeason;
-    },Math.min(baseDuration * Math.sqrt(Math.abs(previousSeason - currentSeason)), maxDuration) * 1001); // Duration of the animation
+   let animationDuration;
+
+$: animationDuration = directSelection ? `${adjustedDuration}s` : `${interactionAdjustedDuration}s`;
+
+ $: if (currentSeason !== previousSeason) {
+  let duration;
+  if (directSelection) {
+    duration = Math.min(baseDuration * Math.sqrt(Math.abs(previousSeason - currentSeason)), maxDuration) * 1000;
+  } else {
+    duration = Math.max(maxDuration / (1 + Math.sqrt(userInteractionCount)), baseDuration) * 1000;
   }
+
+  setTimeout(() => {
+    previousSeason = currentSeason;
+    if (!directSelection) {
+      userInteractionCount = 0; // Reset the count after the animation
+    }
+    directSelection = false; // Reset directSelection flag
+  }, duration);
+}
+
   let containerWidth;
  
   //The 3x16 is the padding inline of the season container
@@ -43,6 +63,8 @@ let currentSeason = 0;
   $: scrollbarWidth = getScrollbarWidth();
   
   function prevSeason() {
+     directSelection = false;
+     userInteractionCount++;
     direction = 1;
     if (currentSeason > 0) {
       currentSeason--;
@@ -50,13 +72,18 @@ let currentSeason = 0;
   }
 
   function nextSeason() {
+    userInteractionCount++;
+    directSelection = false;
     direction = -1;
     if (currentSeason < seasons.length - 1) {
       currentSeason++;
     }
   }
 
+  let directSelection = false;
+
   function selectSeason(index) {
+    directSelection = true;
     currentSeason = index;
   }
   
@@ -73,6 +100,8 @@ let currentSeason = 0;
   }
   
  function handleWheel(event) {
+    directSelection = false;
+   userInteractionCount++;
     const scrollPosition = window.scrollY ;
     const webHeight = document.body.scrollHeight - window.innerHeight;
     if (event.deltaY < 0 && currentSeason === 0) {
@@ -97,27 +126,6 @@ let currentSeason = 0;
   return window.innerWidth - document.documentElement.clientWidth;
 }
 
-function lockScroll() {
-  document.body.style.overflow = 'hidden';
-}
-
-function unlockScroll() {
-  document.body.style.overflow = '';
-  document.body.style.paddingRight = '';
-}
-  function throttle(func, limit) {
-    let inThrottle;
-    return function() {
-        const args = arguments;
-        const context = this;
-        if (!inThrottle) {
-            func.apply(context, args);
-            inThrottle = true;
-            setTimeout(() => inThrottle = false, limit);
-        }
-    };
-}
-
   function handleKeyDown(event) {
     const maxScrollHeight = document.body.scrollHeight - window.innerHeight;
 
@@ -132,20 +140,18 @@ function unlockScroll() {
           break;
       }
     }}
-const throttledWheelHandler = throttle(handleWheel, 500);
-const throttledKeyDownHandler = throttle(handleKeyDown, 500);
 </script>
 
-<svelte:window on:keydown={throttledKeyDownHandler}/>
-<div role='list' aria-label='This is a timeline' class='line' on:wheel={throttledWheelHandler} on:mouseenter={handleMouseEnter} on:mouseleave={handleMouseLeave} 
+<svelte:window on:keydown={handleKeyDown}/>
+<div role='list' aria-label='This is a timeline' class='line' on:wheel={handleWheel} on:mouseenter={handleMouseEnter} on:mouseleave={handleMouseLeave} 
      >
   <button class='left-arrow' disabled={currentSeason === 0} on:click={prevSeason}>
-   <TimelineArrow opacity={!currentSeason && "0.3"}/>
+   <TimelineArrow opacity={!currentSeason && "0.3"} hover={currentSeason && "0.3"}/>
 
   </button>
 
    <button class='right-arrow' disabled={currentSeason >= seasons.length - 1} on:click={nextSeason}>
-   <TimelineArrow rotate={180} opacity={currentSeason >= seasons.length -1 && "0.3"}/>
+   <TimelineArrow rotate={180} opacity={currentSeason >= seasons.length -1 && "0.3"} hover={currentSeason < seasons.length -1 && "0.3"}/>
 
    </button>
   <div class='selection-container' bind:clientWidth={containerWidth}>
@@ -155,7 +161,8 @@ const throttledKeyDownHandler = throttle(handleKeyDown, 500);
 
         <p class='fade-transition' class:active={season === activeSeason}>{season}</p>
         <button class='dot color-transition' class:active={season === activeSeason} on:click={() => selectSeason(i)}>
-          <img class:show={season === activeSeason} style="--distance: {spaceBetweenDots}; --rotation: {rotationDirection}; --duration: {animatioDuration}" src="/ball.png" alt="">
+         <img class:show={season === activeSeason} style="--distance: {spaceBetweenDots}; --rotation: {rotationDirection}; --duration: {animationDuration}" src="/ball.png" alt="">
+
         </button>
       </div>
     {/if}
@@ -170,13 +177,13 @@ const throttledKeyDownHandler = throttle(handleKeyDown, 500);
 
   @keyframes move-horizontal {
   from {
-    transform: translateX(var(--distance)) rotate(0deg) scale(1.5);
-    border: none;
+    transform: translateX(var(--distance)) rotate(0deg) scale(2);
+    border-color: none;
 
   }
   to {
-    transform: translateX(0%) rotate(var(--rotation)) scale(1.5);
-    border: none;
+    transform: translateX(0%) rotate(var(--rotation)) scale(2);
+    border-color: var(--clr-contrast);
   }
 }
   img {
@@ -189,7 +196,7 @@ const throttledKeyDownHandler = throttle(handleKeyDown, 500);
     transform: scale(2);
     object-fit: cover;
     animation-duration: var(--duration);
-  animation-timing-function: linear;
+  animation-timing-function: ease-out;
   z-index: 1;
   }
 

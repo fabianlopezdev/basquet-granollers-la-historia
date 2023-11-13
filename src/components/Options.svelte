@@ -45,7 +45,7 @@
   }
 
   button:active {
-    transform: scale(0.95); /* Slightly scale down the button */
+    transform: scale(0.95); 
   }
 
   button:hover {
