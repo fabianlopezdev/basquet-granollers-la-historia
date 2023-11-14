@@ -3,7 +3,7 @@
   import { collapsibleArrowHeader } from "@assets/icons";
 
   //Import stores
-  import { currentIndex, display, isDirectSelection } from "../../svelte/store";
+  import { currentIndex, display, isDirectSelection } from "../../svelte/stores";
 
   export let item;
   let isDropdownExpanded = false;

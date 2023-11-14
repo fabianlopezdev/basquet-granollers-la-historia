@@ -1,21 +1,26 @@
 <script>
   //Import components
   import TimelineArrow from "@assets/TimelineArrow.svelte";
-  import { currentIndex, isDirectSelection } from "src/svelte/store";
 
+  //Import Stores
+  import { currentIndex, isDirectSelection } from "src/svelte/stores";
+
+  //Import svelte hools
+  // import { initialBallMove} from "src/svelte/svelteHooks";
+ $isDirectSelection = true;
   export let SEASONS = [];
 
   let userInteractionCount = 0;
   const baseDuration = 0.5; // Minimum duration for interactions
   const maxDuration = 2.5;
   let containerWidth;
-
+  let timeoutId;
   //The 3x16 is the padding inline of the season container
   $: spaceBetweenDots = containerWidth
     ? (containerWidth / (SEASONS.length - 1) - 3 * 16) * direction + "px"
     : 0;
 
-  $: scrollbarWidth = getScrollbarWidth();
+  let scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
 
   // $: $isDirectSelection = $currentIndex && true;
   let distance;
@@ -26,7 +31,7 @@
 
   let activeSeason;
   let direction;
-  $: previousSeason = previousSeason || 0;
+  let previousSeason;
 
   let animationDuration;
 
@@ -36,6 +41,7 @@
       direction = previousSeason - $currentIndex;
       rotationDirection = 360 * -direction + "deg";
       distance = Math.abs(direction);
+
       adjustedDuration = Math.min(
         baseDuration * Math.sqrt(distance),
         maxDuration,
@@ -48,22 +54,19 @@
               maxDuration / (1 + Math.sqrt(userInteractionCount)),
               baseDuration,
             );
+
       animationDuration = $isDirectSelection
         ? `${adjustedDuration}s`
         : `${interactionAdjustedDuration}s`;
 
-      // Debugging logs
-      console.log("Updated values:", {
-        distance,
-        adjustedDuration,
-        interactionAdjustedDuration,
-        animationDuration,
-      });
       let duration = $isDirectSelection
         ? adjustedDuration * 1000
         : interactionAdjustedDuration * 1000;
 
-      setTimeout(() => {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+      timeoutId = setTimeout(() => {
         previousSeason = $currentIndex;
         if (!$isDirectSelection) {
           userInteractionCount = 0; // Reset the count after the animation
@@ -71,9 +74,6 @@
       }, duration);
     }
   }
-
-  $: console.log("distance", distance);
-  $: console.log("$isDirectSelection", $isDirectSelection);
 
   function prevSeason() {
     $isDirectSelection = false;
@@ -99,7 +99,6 @@
   }
 
   function handleMouseEnter() {
-    if ($currentIndex === 0) return;
     document.body.style.overflow = "hidden";
     document.body.style.paddingRight = `${scrollbarWidth}px`;
   }
@@ -112,52 +111,65 @@
   function handleWheel(event) {
     $isDirectSelection = false;
     userInteractionCount++;
-    const scrollPosition = window.scrollY;
-    const webHeight = document.body.scrollHeight - window.innerHeight;
-    if (event.deltaY < 0 && $currentIndex === 0) {
-      document.body.style.overflow = "";
-      document.body.style.paddingRight = "";
-      return;
-    }
-    if (scrollPosition === webHeight) {
-      document.body.style.overflow = "hidden";
-      document.body.style.paddingRight = `${scrollbarWidth}px`;
 
-      if (event.deltaY > 0 && $currentIndex < SEASONS.length - 1) {
-        // Scrolling down
-        $currentIndex++;
-      } else if (event.deltaY < 0 && $currentIndex > 0) {
-        // Scrolling up
-
-        if ($currentIndex > 0) {
-          $currentIndex--;
-        }
+    if (event.deltaY > 0 && $currentIndex < SEASONS.length - 1) {
+      $currentIndex++;
+    } else if (event.deltaY < 0 && $currentIndex > 0) {
+      if ($currentIndex > 0) {
+        $currentIndex--;
       }
     }
   }
 
-  function getScrollbarWidth() {
-    return window.innerWidth - document.documentElement.clientWidth;
+  function handleResize() {
+    scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
   }
 
+  const KEYACTIONS = {
+    ArrowLeft: prevSeason,
+    ArrowRight: nextSeason,
+    // Add more key actions as needed
+  };
   function handleKeyDown(event) {
     const maxScrollHeight = document.body.scrollHeight - window.innerHeight;
 
     // Check if the window's scroll position is at its maximum height
     if (window.scrollY >= maxScrollHeight) {
-      switch (event.key) {
-        case "ArrowLeft":
-          prevSeason();
-          break;
-        case "ArrowRight":
-          nextSeason();
-          break;
+      if (KEYACTIONS[event.key]) {
+        KEYACTIONS[event.key]();
       }
     }
   }
+
+  function initialBallMove(node) {
+    if ($currentIndex > 0) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+
+          if (entry.isIntersecting) {
+            if ($currentIndex === -1) {
+              $currentIndex = 0;
+            } 
+          } else { 
+            if ($currentIndex === 0) {
+              $currentIndex = -1;
+            }
+          }}
+        );
+      },
+      {
+        rootMargin: "0px",
+        threshold: 1,
+      },
+    );
+
+    observer.observe(node);
+  }
 </script>
 
-<svelte:window on:keydown={handleKeyDown} />
+<svelte:window on:keydown={handleKeyDown} on:resize={handleResize} />
 <div
   role="list"
   aria-label="This is a timeline"
@@ -172,7 +184,7 @@
     on:click={prevSeason}
   >
     <TimelineArrow
-      opacity={!$currentIndex && "0.3"}
+      opacity={$currentIndex <= 0 && "0.3"}
       hover={$currentIndex && "0.3"}
     />
   </button>
@@ -191,12 +203,32 @@
   <div class="selection-container" bind:clientWidth={containerWidth}>
     {#each SEASONS as season, i (season)}
       {#if i < 10}
-        <div role="listitem" class="season-container">
+      {#if i === 0}
+       <div role="listitem" class="season-container">
           <p class="fade-transition" class:active={season === activeSeason}>
             {season}
           </p>
           <button
             class="dot color-transition"
+            class:active={season === activeSeason}
+            on:click={() => selectSeason(i)}
+            use:initialBallMove
+          >
+            <img
+              class:show={season === activeSeason}
+              style="--distance: {spaceBetweenDots}; --rotation: {rotationDirection}; --duration: {animationDuration}"
+              src="/ball.png"
+              alt=""
+            />
+          </button>
+        </div>
+      {:else}
+      <div role="listitem" class="season-container">
+        <p class="fade-transition" class:active={season === activeSeason}>
+            {season}
+          </p>
+          <button
+          class="dot color-transition"
             class:active={season === activeSeason}
             on:click={() => selectSeason(i)}
           >
@@ -208,9 +240,10 @@
             />
           </button>
         </div>
-      {/if}
-    {/each}
-  </div>
+        {/if}
+        {/if}
+        {/each}
+      </div>
 </div>
 
 <style>
@@ -229,6 +262,7 @@
       border-color: var(--clr-contrast);
     }
   }
+
   img {
     display: none;
     background-color: var(--clr-contrast);
