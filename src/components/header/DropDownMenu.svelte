@@ -1,46 +1,45 @@
 <script>
-//Import assets
-import { collapsibleArrowHeader } from '@assets/icons';
+  //Import assets
+  import { collapsibleArrowHeader } from "@assets/icons";
 
-//Import stores
-import { currentIndex, display} from '../../svelte/store';
+  //Import stores
+  import { currentIndex, display, isDirectSelection } from "../../svelte/store";
 
-
-export let item;
-let isDropdownExpanded = false;
+  export let item;
+  let isDropdownExpanded = false;
   let isRotated = false;
 
   function handleClick() {
     isDropdownExpanded = !isDropdownExpanded;
     isRotated = !isRotated;
-  
   }
-  
+
   function setStores(i) {
+    $isDirectSelection = true;
     currentIndex.set(i);
     display.set(item.name);
   }
 </script>
 
-<div class='dropdown'>
+<div class="dropdown">
   <button
-    aria-haspopup='true'
+    aria-haspopup="true"
     aria-expanded={isDropdownExpanded}
     on:click={handleClick}
     class:rotated={isRotated}
   >
     {item.name.toUpperCase()}
-    <div class='rotate'>
+    <div class="rotate">
       {@html collapsibleArrowHeader}
     </div>
   </button>
-  <div class='bridge'></div>
-  <nav class='nav' class:show={isDropdownExpanded}>
+  <div class="bridge"></div>
+  <nav class="nav" class:show={isDropdownExpanded}>
     <h4>TEMPORADES</h4>
-    <ul class='dropdown-content'>
+    <ul class="dropdown-content">
       {#each item.dropdown as dropDownItem, i}
         <li>
-          <a on:click={() => setStores(i)} href="#seasons-timeline" >
+          <a on:click={() => setStores(i)} href="#seasons-timeline">
             {dropDownItem}
           </a>
         </li>
@@ -48,7 +47,6 @@ let isDropdownExpanded = false;
     </ul>
   </nav>
 </div>
-
 
 <style>
   .dropdown {
@@ -99,7 +97,7 @@ let isDropdownExpanded = false;
   }
 
   .dropdown-content:before {
-    content: '';
+    content: "";
     width: 0;
     height: 0;
     border-left: 0.71875rem solid transparent;
@@ -142,7 +140,7 @@ let isDropdownExpanded = false;
 
   .dropdown-content a {
     animation-name: slideInFromTop;
-    animation-duration: 0.5s; 
-    animation-fill-mode: forwards; 
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
   }
 </style>
