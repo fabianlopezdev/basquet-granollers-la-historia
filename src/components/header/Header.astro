@@ -1,5 +1,6 @@
 ---
 import { SEASONS } from '@data/globalConstants';
+import CbgHistoryLogo from '../../assets/CbgHistoryLogo.astro';
 import HeaderResponsive from './HeaderResponsive.svelte';
 // import DropDownMenu from '@components/header/DropDownMenu.astro';
 import DropDownMenu from './DropDownMenu.svelte';
@@ -40,14 +41,9 @@ const navigation = [
 <header>
   <section>
     <div class='desktop'>
-      <a
-        class='logo'
-        href='/'
-        ><img
-          src='/cbg-history-logo.svg'
-          alt='Logo de la història del Club Bàsquet Granollers'
-        /></a
-      >
+      <div class="logo">
+        <CbgHistoryLogo />
+      </div>
 
       <nav >
         <ul class='nav'>
@@ -100,7 +96,7 @@ const navigation = [
 
 <style>
   header {
-    position: sticky;
+    position: relative;
     display: flex;
     flex-direction: column;
     top: 0;
@@ -128,8 +124,8 @@ const navigation = [
     display: none;
   }
   .logo {
-    position: absolute;
-    top: 50%;
+    position: fixed;
+    top: 3rem;
     transform: translateY(-50%);
     left: var(--pd-x);
   }
