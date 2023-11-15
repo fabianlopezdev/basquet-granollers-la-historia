@@ -66,8 +66,8 @@ const SEASONS = [
   "83/84",
   "84/85",
   "85/86", 
-  "86/87",
-  "87/88",
+  // "86/87",
+  // "87/88",
   // "88/89",
   // "89/90",
   // "90/91",
@@ -76,7 +76,6 @@ const SEASONS = [
   // "93/94",
 ];
 
-console.log(SEASONS.length)
 export {
   POST_FIELDS,
   CONFIG_PAGES,

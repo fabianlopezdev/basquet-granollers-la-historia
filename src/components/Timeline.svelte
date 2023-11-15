@@ -17,7 +17,8 @@
     ArrowRight: nextSeason,
     // Add more key actions as needed
   };
-  const MIN_GAP = 2; // Minimum gap between seasons in rem
+  const MIN_GAP = 2;
+   // Minimum gap between seasons in rem
 
   let currentPage = 0;
   let userInteractionCount = 0;
@@ -55,7 +56,7 @@
 
   //The 3x16 is the padding inline of the season container
   $: spaceBetweenDots = timelineWidth
-    ? (timelineWidth / (SEASONS.length - 1) - 3 * 16) * direction + "px"
+    ? ((SEASON_WIDTH + MIN_GAP) * 16) * direction + "px"
     : 0;
 
   $: {
@@ -223,7 +224,6 @@
   </button>
   <div class="selection-container" bind:clientWidth={timelineWidth}>
     {#each displayedSeasons as season, i (season)}
-      {#if i === 0}
         <div role="listitem" class="season-container">
           <p class="fade-transition" class:active={season === activeSeason}>
             {season}
@@ -232,7 +232,7 @@
             class="dot color-transition"
             class:active={season === activeSeason}
             on:click={() => selectSeason(i)}
-            use:initialBallMove
+            use:initialBallMove={i === 0}
           >
             <img
               class:show={season === activeSeason}
@@ -242,25 +242,6 @@
             />
           </button>
         </div>
-      {:else}
-        <div role="listitem" class="season-container">
-          <p class="fade-transition" class:active={season === activeSeason}>
-            {season}
-          </p>
-          <button
-            class="dot color-transition"
-            class:active={season === activeSeason}
-            on:click={() => selectSeason(i)}
-          >
-            <img
-              class:show={season === activeSeason}
-              style="--distance: {spaceBetweenDots}; --rotation: {rotationDirection}; --duration: {animationDuration}"
-              src="/ball.png"
-              alt=""
-            />
-          </button>
-        </div>
-      {/if}
     {/each}
   </div>
 </div>
@@ -345,11 +326,12 @@
 
   .selection-container {
     display: flex;
-    justify-content: space-between;
+    /* justify-content: space-between; */
     position: relative;
     top: 50%;
     transform: translateY(-80%);
     padding-inline: 6rem;
+    gap: 2.75rem;
   }
 
   .season-container {
