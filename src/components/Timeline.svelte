@@ -32,18 +32,20 @@
   let direction;
   let previousSeason;
   let animationDuration;
-  
- $: if ($isOutsideSelection || $currentIndex >= 0 && $currentIndex < SEASONS.length) {
-    currentPage = Math.floor($currentIndex / maxSeasonsPerPage);
-  } else {
-    currentPage = 0;
+
+  $: if ($isOutsideSelection) {
+    if ($currentIndex > 0) {
+      currentPage = Math.floor($currentIndex / maxSeasonsPerPage);
+    } else {
+      currentPage = 0;
+    }
   }
 
-  
   $: isDirectSelection = $isOutsideSelection;
 
-  $: maxSeasonsPerPage = Math.floor((timelineWidth -
-   ( (TIMELINE_PADDING_X * 2 * 16))) / ((SEASON_WIDTH + MIN_GAP) * 16), 
+  $: maxSeasonsPerPage = Math.floor(
+    (timelineWidth - TIMELINE_PADDING_X * 2 * 16) /
+      ((SEASON_WIDTH + MIN_GAP) * 16),
   );
 
   $: displayedSeasons = SEASONS.slice(
@@ -51,11 +53,6 @@
     currentPage * maxSeasonsPerPage + maxSeasonsPerPage,
   );
 
-  $: {
-    console.log("Current Page:", currentPage);
-    console.log("Max Seasons Per Page:", maxSeasonsPerPage);
-    console.log("Displayed Seasons Length:", displayedSeasons.length);
-}
   //The 3x16 is the padding inline of the season container
   $: spaceBetweenDots = timelineWidth
     ? (timelineWidth / (SEASONS.length - 1) - 3 * 16) * direction + "px"
@@ -95,47 +92,42 @@
       timeoutId = setTimeout(() => {
         previousSeason = $currentIndex;
         if (!isDirectSelection) {
-          userInteractionCount = 0; 
+          userInteractionCount = 0;
         }
       }, duration);
     }
   }
 
   function prevSeason() {
+    $isOutsideSelection = false;
     isDirectSelection = false;
     userInteractionCount++;
     direction = 1;
-     console.log('currentIndex', $currentIndex);
-    console.log('currentPage', currentPage);
     if ($currentIndex > 0) {
       $currentIndex--;
       // Check if we need to go to the previous page
       if ($currentIndex < currentPage * maxSeasonsPerPage) {
-        console.log('hereee')
-
         currentPage--;
       }
     }
   }
 
   function nextSeason() {
+    $isOutsideSelection = false;
     isDirectSelection = false;
     userInteractionCount++;
     direction = -1;
     if ($currentIndex < SEASONS.length - 1) {
       $currentIndex++;
-      console.log('currentIndex', $currentIndex);
-      console.log('currentPage', currentPage);
-      console.log('maxSeasonsPerPage', maxSeasonsPerPage)
       // Check if we need to go to the next page
-      if ($currentIndex >= ((currentPage + 1) * maxSeasonsPerPage)) {
-        console.log('hereee')
+      if ($currentIndex >= (currentPage + 1) * maxSeasonsPerPage) {
         currentPage++;
       }
     }
   }
 
   function selectSeason(index) {
+    $isOutsideSelection = false;
     isDirectSelection = true;
     $currentIndex = currentPage * maxSeasonsPerPage + index;
   }
@@ -231,44 +223,44 @@
   </button>
   <div class="selection-container" bind:clientWidth={timelineWidth}>
     {#each displayedSeasons as season, i (season)}
-        {#if i === 0}
-          <div role="listitem" class="season-container">
-            <p class="fade-transition" class:active={season === activeSeason}>
-              {season}
-            </p>
-            <button
-              class="dot color-transition"
-              class:active={season === activeSeason}
-              on:click={() => selectSeason(i)}
-              use:initialBallMove
-            >
-              <img
-                class:show={season === activeSeason}
-                style="--distance: {spaceBetweenDots}; --rotation: {rotationDirection}; --duration: {animationDuration}"
-                src="/ball.png"
-                alt=""
-              />
-            </button>
-          </div>
-        {:else}
-          <div role="listitem" class="season-container">
-            <p class="fade-transition" class:active={season === activeSeason}>
-              {season}
-            </p>
-            <button
-              class="dot color-transition"
-              class:active={season === activeSeason}
-              on:click={() => selectSeason(i)}
-            >
-              <img
-                class:show={season === activeSeason}
-                style="--distance: {spaceBetweenDots}; --rotation: {rotationDirection}; --duration: {animationDuration}"
-                src="/ball.png"
-                alt=""
-              />
-            </button>
-          </div>
-        {/if}
+      {#if i === 0}
+        <div role="listitem" class="season-container">
+          <p class="fade-transition" class:active={season === activeSeason}>
+            {season}
+          </p>
+          <button
+            class="dot color-transition"
+            class:active={season === activeSeason}
+            on:click={() => selectSeason(i)}
+            use:initialBallMove
+          >
+            <img
+              class:show={season === activeSeason}
+              style="--distance: {spaceBetweenDots}; --rotation: {rotationDirection}; --duration: {animationDuration}"
+              src="/ball.png"
+              alt=""
+            />
+          </button>
+        </div>
+      {:else}
+        <div role="listitem" class="season-container">
+          <p class="fade-transition" class:active={season === activeSeason}>
+            {season}
+          </p>
+          <button
+            class="dot color-transition"
+            class:active={season === activeSeason}
+            on:click={() => selectSeason(i)}
+          >
+            <img
+              class:show={season === activeSeason}
+              style="--distance: {spaceBetweenDots}; --rotation: {rotationDirection}; --duration: {animationDuration}"
+              src="/ball.png"
+              alt=""
+            />
+          </button>
+        </div>
+      {/if}
     {/each}
   </div>
 </div>
