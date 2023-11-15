@@ -1,54 +1,65 @@
 <script>
-  import { derived } from "svelte/store";
   //Import components
   import TimelineArrow from "@assets/TimelineArrow.svelte";
 
   //Import Stores
-  import { currentIndex, isDirectSelection } from "src/svelte/stores";
+  import { currentIndex, isOutsideSelection } from "src/svelte/stores";
 
-  //Import svelte hools
-  // import { initialBallMove} from "src/svelte/svelteHooks";
-  $isDirectSelection = true;
+  //Get props
   export let SEASONS = [];
-  const SEASONS_PER_PAGE = 10;
-  const TOTAL_PAGES = Math.ceil(SEASONS.length / SEASONS_PER_PAGE);
-  let currentPage = 0;
- $: displayedSeasons = SEASONS.slice(
-    currentPage * maxSeasonsPerPage,
-    currentPage * maxSeasonsPerPage + maxSeasonsPerPage
-  );
-  //If season is selected outside component, eg, header
-  $: if ($currentIndex >= 0 && $currentIndex < SEASONS.length) {
-    currentPage = Math.floor($currentIndex / maxSeasonsPerPage);
-  }
-  let userInteractionCount = 0;
-  const baseDuration = 0.5; // Minimum duration for interactions
-  const maxDuration = 2.5;
-  let timelineWidth;
-  const seasonContainerWidth = 4.5; // Width of each season container in rem
-  const timelinePaddingX = 6;
 
-  $: maxSeasonsPerPage = Math.floor((timelineWidth - (timelinePaddingX * 2 * 16)) / (seasonContainerWidth * 16));
+  const BASE_DURATION = 0.5;
+  const MAX_DURATION = 2.5;
+  const SEASON_WIDTH = 4.5; // Width of each season container in rem
+  const TIMELINE_PADDING_X = 6;
+  const KEYACTIONS = {
+    ArrowLeft: prevSeason,
+    ArrowRight: nextSeason,
+    // Add more key actions as needed
+  };
+  const MIN_GAP = 2; // Minimum gap between seasons in rem
+
+  let currentPage = 0;
+  let userInteractionCount = 0;
+  let timelineWidth;
   let timeoutId;
+  let scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+  let distance;
+  let adjustedDuration;
+  let interactionAdjustedDuration;
+  let rotationDirection;
+  let activeSeason;
+  let direction;
+  let previousSeason;
+  let animationDuration;
+  
+ $: if ($isOutsideSelection || $currentIndex >= 0 && $currentIndex < SEASONS.length) {
+    currentPage = Math.floor($currentIndex / maxSeasonsPerPage);
+  } else {
+    currentPage = 0;
+  }
+
+  
+  $: isDirectSelection = $isOutsideSelection;
+
+  $: maxSeasonsPerPage = Math.floor((timelineWidth -
+   ( (TIMELINE_PADDING_X * 2 * 16))) / ((SEASON_WIDTH + MIN_GAP) * 16), 
+  );
+
+  $: displayedSeasons = SEASONS.slice(
+    currentPage * maxSeasonsPerPage,
+    currentPage * maxSeasonsPerPage + maxSeasonsPerPage,
+  );
+
+  $: {
+    console.log("Current Page:", currentPage);
+    console.log("Max Seasons Per Page:", maxSeasonsPerPage);
+    console.log("Displayed Seasons Length:", displayedSeasons.length);
+}
   //The 3x16 is the padding inline of the season container
   $: spaceBetweenDots = timelineWidth
     ? (timelineWidth / (SEASONS.length - 1) - 3 * 16) * direction + "px"
     : 0;
-
-  let scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
-
-  // $: $isDirectSelection = $currentIndex && true;
-  let distance;
-  let adjustedDuration;
-
-  let interactionAdjustedDuration;
-  let rotationDirection;
-
-  let activeSeason;
-  let direction;
-  let previousSeason;
-
-  let animationDuration;
 
   $: {
     if ($currentIndex !== previousSeason) {
@@ -58,23 +69,23 @@
       distance = Math.abs(direction);
 
       adjustedDuration = Math.min(
-        baseDuration * Math.sqrt(distance),
-        maxDuration,
+        BASE_DURATION * Math.sqrt(distance),
+        MAX_DURATION,
       );
 
       interactionAdjustedDuration =
         userInteractionCount === 1
-          ? baseDuration
+          ? BASE_DURATION
           : Math.max(
-              maxDuration / (1 + Math.sqrt(userInteractionCount)),
-              baseDuration,
+              MAX_DURATION / (1 + Math.sqrt(userInteractionCount)),
+              BASE_DURATION,
             );
 
-      animationDuration = $isDirectSelection
+      animationDuration = isDirectSelection
         ? `${adjustedDuration}s`
         : `${interactionAdjustedDuration}s`;
 
-      let duration = $isDirectSelection
+      let duration = isDirectSelection
         ? adjustedDuration * 1000
         : interactionAdjustedDuration * 1000;
 
@@ -83,46 +94,50 @@
       }
       timeoutId = setTimeout(() => {
         previousSeason = $currentIndex;
-        if (!$isDirectSelection) {
-          userInteractionCount = 0; // Reset the count after the animation
+        if (!isDirectSelection) {
+          userInteractionCount = 0; 
         }
       }, duration);
     }
   }
-  $: console.log("currentIndex", $currentIndex);
-function prevSeason() {
-  $isDirectSelection = false;
-  userInteractionCount++;
-  direction = 1;
 
-  if ($currentIndex > 0) {
-    $currentIndex--;
-    // Check if we need to go to the previous page
-    if ($currentIndex < currentPage * maxSeasonsPerPage) {
-      currentPage--;
+  function prevSeason() {
+    isDirectSelection = false;
+    userInteractionCount++;
+    direction = 1;
+     console.log('currentIndex', $currentIndex);
+    console.log('currentPage', currentPage);
+    if ($currentIndex > 0) {
+      $currentIndex--;
+      // Check if we need to go to the previous page
+      if ($currentIndex < currentPage * maxSeasonsPerPage) {
+        console.log('hereee')
+
+        currentPage--;
+      }
     }
   }
-}
 
-
- function nextSeason() {
-  $isDirectSelection = false;
-  userInteractionCount++;
-  direction = -1;
-
-  if ($currentIndex < SEASONS.length - 1) {
-    $currentIndex++;
-    // Check if we need to go to the next page
-    if ($currentIndex >= (currentPage + 1) * maxSeasonsPerPage) {
-      currentPage++;
+  function nextSeason() {
+    isDirectSelection = false;
+    userInteractionCount++;
+    direction = -1;
+    if ($currentIndex < SEASONS.length - 1) {
+      $currentIndex++;
+      console.log('currentIndex', $currentIndex);
+      console.log('currentPage', currentPage);
+      console.log('maxSeasonsPerPage', maxSeasonsPerPage)
+      // Check if we need to go to the next page
+      if ($currentIndex >= ((currentPage + 1) * maxSeasonsPerPage)) {
+        console.log('hereee')
+        currentPage++;
+      }
     }
   }
-}
-
 
   function selectSeason(index) {
-    $isDirectSelection = true;
-    $currentIndex = currentPage * SEASONS_PER_PAGE + index;
+    isDirectSelection = true;
+    $currentIndex = currentPage * maxSeasonsPerPage + index;
   }
 
   function handleMouseEnter() {
@@ -136,7 +151,7 @@ function prevSeason() {
   }
 
   function handleWheel(event) {
-    $isDirectSelection = false;
+    isDirectSelection = false;
     userInteractionCount++;
     event.deltaY > 0 ? nextSeason() : prevSeason();
   }
@@ -145,11 +160,6 @@ function prevSeason() {
     scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
   }
 
-  const KEYACTIONS = {
-    ArrowLeft: prevSeason,
-    ArrowRight: nextSeason,
-    // Add more key actions as needed
-  };
   function handleKeyDown(event) {
     const maxScrollHeight = document.body.scrollHeight - window.innerHeight;
 
@@ -221,7 +231,6 @@ function prevSeason() {
   </button>
   <div class="selection-container" bind:clientWidth={timelineWidth}>
     {#each displayedSeasons as season, i (season)}
-      {#if i < 10}
         {#if i === 0}
           <div role="listitem" class="season-container">
             <p class="fade-transition" class:active={season === activeSeason}>
@@ -260,7 +269,6 @@ function prevSeason() {
             </button>
           </div>
         {/if}
-      {/if}
     {/each}
   </div>
 </div>
@@ -350,11 +358,10 @@ function prevSeason() {
     top: 50%;
     transform: translateY(-80%);
     padding-inline: 6rem;
-    /* gap: 2.75rem; */
   }
 
   .season-container {
-    min-width: 4.5rem;
+    width: 4.5rem;
     display: flex;
     flex-direction: column;
     align-items: center;

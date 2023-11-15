@@ -4,4 +4,4 @@ import {OPTIONS} from "@data/globalConstants";
 
 export const display = writable(OPTIONS[0]);
 export const currentIndex = writable(-1);
-export const isDirectSelection = writable(false);
+export const isOutsideSelection = writable(false);
