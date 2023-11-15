@@ -1,4 +1,5 @@
 <script>
+  import { derived } from "svelte/store";
   //Import components
   import TimelineArrow from "@assets/TimelineArrow.svelte";
 
@@ -7,17 +8,31 @@
 
   //Import svelte hools
   // import { initialBallMove} from "src/svelte/svelteHooks";
- $isDirectSelection = true;
+  $isDirectSelection = true;
   export let SEASONS = [];
-
+  const SEASONS_PER_PAGE = 10;
+  const TOTAL_PAGES = Math.ceil(SEASONS.length / SEASONS_PER_PAGE);
+  let currentPage = 0;
+ $: displayedSeasons = SEASONS.slice(
+    currentPage * maxSeasonsPerPage,
+    currentPage * maxSeasonsPerPage + maxSeasonsPerPage
+  );
+  //If season is selected outside component, eg, header
+  $: if ($currentIndex >= 0 && $currentIndex < SEASONS.length) {
+    currentPage = Math.floor($currentIndex / maxSeasonsPerPage);
+  }
   let userInteractionCount = 0;
   const baseDuration = 0.5; // Minimum duration for interactions
   const maxDuration = 2.5;
-  let containerWidth;
+  let timelineWidth;
+  const seasonContainerWidth = 4.5; // Width of each season container in rem
+  const timelinePaddingX = 6;
+
+  $: maxSeasonsPerPage = Math.floor((timelineWidth - (timelinePaddingX * 2 * 16)) / (seasonContainerWidth * 16));
   let timeoutId;
   //The 3x16 is the padding inline of the season container
-  $: spaceBetweenDots = containerWidth
-    ? (containerWidth / (SEASONS.length - 1) - 3 * 16) * direction + "px"
+  $: spaceBetweenDots = timelineWidth
+    ? (timelineWidth / (SEASONS.length - 1) - 3 * 16) * direction + "px"
     : 0;
 
   let scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
@@ -74,28 +89,40 @@
       }, duration);
     }
   }
+  $: console.log("currentIndex", $currentIndex);
+function prevSeason() {
+  $isDirectSelection = false;
+  userInteractionCount++;
+  direction = 1;
 
-  function prevSeason() {
-    $isDirectSelection = false;
-    userInteractionCount++;
-    direction = 1;
-    if ($currentIndex > 0) {
-      $currentIndex--;
+  if ($currentIndex > 0) {
+    $currentIndex--;
+    // Check if we need to go to the previous page
+    if ($currentIndex < currentPage * maxSeasonsPerPage) {
+      currentPage--;
     }
   }
+}
 
-  function nextSeason() {
-    $isDirectSelection = false;
-    userInteractionCount++;
-    direction = -1;
-    if ($currentIndex < SEASONS.length - 1) {
-      $currentIndex++;
+
+ function nextSeason() {
+  $isDirectSelection = false;
+  userInteractionCount++;
+  direction = -1;
+
+  if ($currentIndex < SEASONS.length - 1) {
+    $currentIndex++;
+    // Check if we need to go to the next page
+    if ($currentIndex >= (currentPage + 1) * maxSeasonsPerPage) {
+      currentPage++;
     }
   }
+}
+
 
   function selectSeason(index) {
     $isDirectSelection = true;
-    $currentIndex = index;
+    $currentIndex = currentPage * SEASONS_PER_PAGE + index;
   }
 
   function handleMouseEnter() {
@@ -111,14 +138,7 @@
   function handleWheel(event) {
     $isDirectSelection = false;
     userInteractionCount++;
-
-    if (event.deltaY > 0 && $currentIndex < SEASONS.length - 1) {
-      $currentIndex++;
-    } else if (event.deltaY < 0 && $currentIndex > 0) {
-      if ($currentIndex > 0) {
-        $currentIndex--;
-      }
-    }
+    event.deltaY > 0 ? nextSeason() : prevSeason();
   }
 
   function handleResize() {
@@ -147,17 +167,16 @@
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-
           if (entry.isIntersecting) {
             if ($currentIndex === -1) {
               $currentIndex = 0;
-            } 
-          } else { 
+            }
+          } else {
             if ($currentIndex === 0) {
               $currentIndex = -1;
             }
-          }}
-        );
+          }
+        });
       },
       {
         rootMargin: "0px",
@@ -200,50 +219,50 @@
       hover={$currentIndex < SEASONS.length - 1 && "0.3"}
     />
   </button>
-  <div class="selection-container" bind:clientWidth={containerWidth}>
-    {#each SEASONS as season, i (season)}
+  <div class="selection-container" bind:clientWidth={timelineWidth}>
+    {#each displayedSeasons as season, i (season)}
       {#if i < 10}
-      {#if i === 0}
-       <div role="listitem" class="season-container">
-          <p class="fade-transition" class:active={season === activeSeason}>
-            {season}
-          </p>
-          <button
-            class="dot color-transition"
-            class:active={season === activeSeason}
-            on:click={() => selectSeason(i)}
-            use:initialBallMove
-          >
-            <img
-              class:show={season === activeSeason}
-              style="--distance: {spaceBetweenDots}; --rotation: {rotationDirection}; --duration: {animationDuration}"
-              src="/ball.png"
-              alt=""
-            />
-          </button>
-        </div>
-      {:else}
-      <div role="listitem" class="season-container">
-        <p class="fade-transition" class:active={season === activeSeason}>
-            {season}
-          </p>
-          <button
-          class="dot color-transition"
-            class:active={season === activeSeason}
-            on:click={() => selectSeason(i)}
-          >
-            <img
-              class:show={season === activeSeason}
-              style="--distance: {spaceBetweenDots}; --rotation: {rotationDirection}; --duration: {animationDuration}"
-              src="/ball.png"
-              alt=""
-            />
-          </button>
-        </div>
+        {#if i === 0}
+          <div role="listitem" class="season-container">
+            <p class="fade-transition" class:active={season === activeSeason}>
+              {season}
+            </p>
+            <button
+              class="dot color-transition"
+              class:active={season === activeSeason}
+              on:click={() => selectSeason(i)}
+              use:initialBallMove
+            >
+              <img
+                class:show={season === activeSeason}
+                style="--distance: {spaceBetweenDots}; --rotation: {rotationDirection}; --duration: {animationDuration}"
+                src="/ball.png"
+                alt=""
+              />
+            </button>
+          </div>
+        {:else}
+          <div role="listitem" class="season-container">
+            <p class="fade-transition" class:active={season === activeSeason}>
+              {season}
+            </p>
+            <button
+              class="dot color-transition"
+              class:active={season === activeSeason}
+              on:click={() => selectSeason(i)}
+            >
+              <img
+                class:show={season === activeSeason}
+                style="--distance: {spaceBetweenDots}; --rotation: {rotationDirection}; --duration: {animationDuration}"
+                src="/ball.png"
+                alt=""
+              />
+            </button>
+          </div>
         {/if}
-        {/if}
-        {/each}
-      </div>
+      {/if}
+    {/each}
+  </div>
 </div>
 
 <style>
@@ -331,6 +350,7 @@
     top: 50%;
     transform: translateY(-80%);
     padding-inline: 6rem;
+    /* gap: 2.75rem; */
   }
 
   .season-container {
