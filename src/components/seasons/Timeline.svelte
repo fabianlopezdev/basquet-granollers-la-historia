@@ -170,32 +170,32 @@
     }
   }
 
-  function initialBallMove(node) {
-    if ($currentIndex > 0) return;
+  // function initialBallMove(node) {
+  //   if ($currentIndex > 0) return;
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            if ($currentIndex === -1) {
-              animationInView = true;
-              $currentIndex = 0;
-            }
-          } else {
-            if ($currentIndex === 0) {
-              $currentIndex = -1;
-            }
-          }
-        });
-      },
-      {
-        rootMargin: "0px",
-        threshold: 1,
-      },
-    );
+  //   const observer = new IntersectionObserver(
+  //     (entries) => {
+  //       entries.forEach((entry) => {
+  //         if (entry.isIntersecting) {
+  //           if ($currentIndex === -1) {
+  //             animationInView = true;
+  //             $currentIndex = 0;
+  //           }
+  //         } else {
+  //           if ($currentIndex === 0) {
+  //             $currentIndex = -1;
+  //           }
+  //         }
+  //       });
+  //     },
+  //     {
+  //       rootMargin: "0px",
+  //       threshold: 1,
+  //     },
+  //   );
 
-    observer.observe(node);
-  }
+  //   observer.observe(node);
+  // }
 </script>
 
 <svelte:window on:keydown={handleKeyDown} on:resize={handleResize} />
@@ -239,7 +239,7 @@
           class="dot color-transition"
           class:active={season === activeSeason}
           on:click={() => selectSeason(i)}
-          use:initialBallMove={i === 0}
+          
         >
           <img
             class:show={season === activeSeason}
