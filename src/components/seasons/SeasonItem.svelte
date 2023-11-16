@@ -19,6 +19,8 @@
   let imgHeight;
   let imgWidth2;
   let imgHeight2;
+  let parentWidth;
+  let parentHeight;
 
   // Reactive statement to update the style based on image dimensions
   function determineContainerSize(width, height) {
@@ -32,12 +34,42 @@
       ? "width: 100%; height: auto;"
       : "width: auto; height: 100%;";
   }
+  let relatLeft;
+  let relatTop;
+  let imgLeft;
+  let imgTop;
+  let img2Left;
+  let img2Top;
+
+  $: if (parentWidth) {
+    let relatPosition = determinePosition();
+    relatLeft = relatPosition.left;
+    relatTop = relatPosition.top;
+    let imgPosition = determinePosition();
+    imgLeft = imgPosition.left;
+    imgTop = imgPosition.top;
+    let img2Position = determinePosition();
+    img2Left = img2Position.left;
+    img2Top = img2Position.top;
+  }
+  function determinePosition() {
+    console.log('parentWidth', parentWidth)
+    console.log('parentHeight', parentHeight)
+    let maxLeftBoundary = (parentWidth / 16) - 26.9375;
+    let maxTopBoundary = (parentHeight / 16) - 26.475;
+
+    let left = Math.random() * maxLeftBoundary;
+    let top = Math.random() * maxTopBoundary;
+    console.log('left', left)
+    console.log('top', top)
+    return {left, top}
+  }
 </script>
 
-<div class="season-container">
+<div bind:clientWidth={parentWidth} bind:clientHeight={parentHeight} class="season-container">
   <div
     class="relat-container"
-    style={`--clr-background: ${colorOptions[clrIndex]}; --wd: ${widthOptions[szIndex]}rem; --hg: ${heightOptions[szIndex]}rem;`}
+    style={`--clr-background: ${colorOptions[clrIndex]}; --wd: ${widthOptions[szIndex]}rem; --hg: ${heightOptions[szIndex]}rem; left: ${relatLeft}rem; top: ${relatTop}rem`}
   >
     <h3>El Relat</h3>
     <p>{truncateString($currentSeason.relat)}</p>
@@ -45,7 +77,7 @@
   </div>
   <div
     class="img-container img-1"
-    style={determineContainerSize(imgWidth, imgHeight)}
+    style={`${determineContainerSize(imgWidth, imgHeight)}; left: ${imgLeft}rem; top: ${imgTop}rem `}
   >
     <img
       bind:naturalWidth={imgWidth}
@@ -62,7 +94,7 @@
     <img
       bind:naturalWidth={imgWidth2}
       bind:naturalHeight={imgHeight2}
-      style={determineImageSize(imgWidth2, imgHeight2)}
+      style={`${determineContainerSize(imgWidth2, imgHeight2)}; left: ${img2Left}rem; top: ${img2Top}rem `}
       src="./74-75-2.avif"
       alt=""
     />
@@ -87,6 +119,7 @@
     place-content: center; */
   }
   .relat-container {
+    position: absolute;
     display: flex;
     flex-direction: column;
     gap: 1rem;
