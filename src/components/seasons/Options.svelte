@@ -1,5 +1,5 @@
 <script>
-  import {display} from '../svelte/stores.ts';
+  import {display} from '../../svelte/stores.ts';
 
   function selectDisplay(e) {
     const buttonText = e.target.textContent;
