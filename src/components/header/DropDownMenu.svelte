@@ -40,7 +40,7 @@
       {#each item.dropdown as dropDownItem, i}
         <li>
           <a on:click={() => setStores(i)} href="#seasons-timeline">
-            {dropDownItem}
+            {dropDownItem.name}
           </a>
         </li>
       {/each}

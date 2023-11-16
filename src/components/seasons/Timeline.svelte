@@ -233,7 +233,7 @@
     {#each displayedSeasons as season, i (season)}
       <div role="listitem" class="season-container">
         <p class="fade-transition" class:active={season === activeSeason}>
-          {season}
+          {season.name}
         </p>
         <button
           class="dot color-transition"

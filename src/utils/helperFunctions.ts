@@ -73,3 +73,20 @@ export function seasonToEndpointMapper(season: string) {
 }
 
 
+export function truncateString(str: string) {
+  if (str.length <= 198) {
+    return str;
+  }
+
+  let truncated = str.slice(0, 198);
+
+  // Find the index of the last space character in the truncated string
+  let lastSpaceIndex = truncated.lastIndexOf(" ");
+
+  // If a space character is found, truncate the string to end at this last space
+  if (lastSpaceIndex !== -1) {
+    truncated = truncated.slice(0, lastSpaceIndex);
+  }
+  //Trim in case the content starts with empty spaces
+  return truncated.trim() + "...";
+}
