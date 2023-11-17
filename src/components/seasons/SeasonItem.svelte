@@ -10,23 +10,68 @@
   let szIndex;
   let clrIndex;
 
-  $: if ($currentSeason) {
+  $: if ($currentSeason || (parentWidth && parentHeight)) {
     szIndex = Math.round(Math.random());
     clrIndex = Math.round(Math.random());
+    relatWidth = widthOptions[szIndex];
+    relatHeight = heightOptions[szIndex];
   }
 
-  let imgWidth;
-  let imgHeight;
+  $: if (parentWidth && parentHeight && (imgContainerWidth || imgContainerWidth2)) {
+    let calculatedPositions = determinePositions();
+    [
+      { left: relatLeft, top: relatTop },
+      { left: imgLeft, top: imgTop },
+      { left: img2Left, top: img2Top },
+    ] = calculatedPositions;
+  }
+  let imgNaturalWidth;
+  let imgNaturalHeight;
   let imgWidth2;
   let imgHeight2;
   let parentWidth;
   let parentHeight;
+  let relatWidth;
+  let relatHeight;
+  let imgContainerWidth;
+  let imgContainerHeight;
+  let imgContainerWidth2;
+  let imgContainerHeight2;
 
+  function isOverlapping(item1, item2) {
+    return !(
+      item1.left > item2.left + item2.width ||
+      item1.left + item1.width < item2.left ||
+      item1.top > item2.top + item2.height ||
+      item1.top + item1.height < item2.top
+    );
+  }
+
+  function getRandomPosition() {
+    console.log("parentWidth", parentWidth);
+    let maxLeftBoundary = parentWidth / 16 - 26.9375; // Adjust this as necessary
+    let maxTopBoundary = parentHeight / 16 - 17; // Adjust this as necessary
+
+    let left = Math.random() * maxLeftBoundary;
+    let top = Math.random() * maxTopBoundary;
+
+    return { left, top };
+  }
   // Reactive statement to update the style based on image dimensions
-  function determineContainerSize(width, height) {
-    return width > height
-      ? "max-width: 26.9375rem; height: auto;"
-      : "max-height: 26.4375rem; width: auto";
+  function determineContainerSize(width, height, imgNum) {
+    let style;
+    if (imgNum === 1) {
+      style =
+        width > height
+          ? "max-width: 26.9375rem; height: auto;"
+          : "max-height: 26.4375rem; width: auto";
+    } else {
+      style =
+        width > height
+          ? "max-width: 13.9375rem; height: auto;"
+          : "max-height: 13.4375rem; width: auto";
+    }
+    return style;
   }
 
   function determineImageSize(width, height) {
@@ -41,60 +86,97 @@
   let img2Left;
   let img2Top;
 
-  $: if (parentWidth) {
-    let relatPosition = determinePosition();
-    relatLeft = relatPosition.left;
-    relatTop = relatPosition.top;
-    let imgPosition = determinePosition();
-    imgLeft = imgPosition.left;
-    imgTop = imgPosition.top;
-    let img2Position = determinePosition();
-    img2Left = img2Position.left;
-    img2Top = img2Position.top;
-  }
-  function determinePosition() {
-    console.log('parentWidth', parentWidth)
-    console.log('parentHeight', parentHeight)
-    let maxLeftBoundary = (parentWidth / 16) - 26.9375;
-    let maxTopBoundary = (parentHeight / 16) - 26.475;
+  function determinePositions() {
+    let positions = [];
+    let maxAttempts = 100;
 
-    let left = Math.random() * maxLeftBoundary;
-    let top = Math.random() * maxTopBoundary;
-    console.log('left', left)
-    console.log('top', top)
-    return {left, top}
+    const elementSizes = [
+      { width: relatWidth, height: relatHeight }, // Dimensions for relat-container
+      { width: imgContainerWidth / 16, height: imgContainerHeight / 16 }, // Dimensions for img-1
+      { width: imgContainerWidth2 / 16, height: imgContainerHeight2 / 16 }, // Dimensions for img-2
+    ];
+
+    for (let i = 0; i < 3; i++) {
+      let attempts = 0;
+      let newPos, isOverlap;
+      do {
+        isOverlap = false;
+        newPos = getRandomPosition();
+        newPos.width = elementSizes[i].width; // Set the width of the current element
+        newPos.height = elementSizes[i].height; // Set the height of the current element
+
+        // Adjust max boundaries based on element size
+        newPos.maxLeft = parentWidth / 16 - newPos.width;
+        newPos.maxTop = parentHeight / 16 - newPos.height;
+
+        // Generate a random position within boundaries
+        newPos.left = Math.random() * newPos.maxLeft;
+        newPos.top = Math.random() * newPos.maxTop;
+
+        // Check for overlap with already positioned elements
+        for (let pos of positions) {
+          if (isOverlapping(newPos, pos)) {
+            isOverlap = true;
+            break;
+          }
+        }
+        attempts++;
+        if (attempts === maxAttempts) break;
+      } while (isOverlap);
+
+      positions.push({ left: newPos.left, top: newPos.top });
+    }
+
+    return positions;
   }
 </script>
 
-<div bind:clientWidth={parentWidth} bind:clientHeight={parentHeight} class="season-container">
+<div
+  bind:clientWidth={parentWidth}
+  bind:clientHeight={parentHeight}
+  class="season-container"
+>
   <div
+    bind:clientWidth={relatWidth}
+    bind:clientHeight={relatHeight}
     class="relat-container"
-    style={`--clr-background: ${colorOptions[clrIndex]}; --wd: ${widthOptions[szIndex]}rem; --hg: ${heightOptions[szIndex]}rem; left: ${relatLeft}rem; top: ${relatTop}rem`}
+    style={`--clr-background: ${colorOptions[clrIndex]}; --wd: ${relatWidth}rem; --hg: ${relatHeight}rem; left: ${relatLeft}rem; top: ${relatTop}rem`}
   >
     <h3>El Relat</h3>
     <p>{truncateString($currentSeason.relat)}</p>
     <a href="/">Llegir més</a>
   </div>
   <div
+    bind:clientWidth={imgContainerWidth}
+    bind:clientHeight={imgContainerHeight}
     class="img-container img-1"
-    style={`${determineContainerSize(imgWidth, imgHeight)}; left: ${imgLeft}rem; top: ${imgTop}rem `}
+    style={`${determineContainerSize(
+      imgNaturalWidth,
+      imgNaturalHeight,
+      1,
+    )}; left: ${imgLeft}rem; top: ${imgTop}rem `}
   >
     <img
-      bind:naturalWidth={imgWidth}
-      bind:naturalHeight={imgHeight}
-      style={determineImageSize(imgWidth, imgHeight)}
+      bind:naturalWidth={imgNaturalWidth}
+      bind:naturalHeight={imgNaturalHeight}
+      style={determineImageSize(imgNaturalWidth, imgNaturalHeight)}
       src="./74-75-1.avif"
       alt=""
     />
   </div>
   <div
+    bind:clientWidth={imgContainerWidth2}
+    bind:clientHeight={imgContainerHeight2}
     class="img-container img-2"
-    style={determineContainerSize(imgWidth2, imgHeight2)}
+    style={`${determineContainerSize(
+      imgWidth2,
+      imgHeight2,
+    )}; left: ${img2Left}rem; top: ${img2Top}rem `}
   >
     <img
       bind:naturalWidth={imgWidth2}
       bind:naturalHeight={imgHeight2}
-      style={`${determineContainerSize(imgWidth2, imgHeight2)}; left: ${img2Left}rem; top: ${img2Top}rem `}
+      style={determineImageSize(imgWidth2, imgHeight2)}
       src="./74-75-2.avif"
       alt=""
     />
