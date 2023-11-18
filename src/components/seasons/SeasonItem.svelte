@@ -1,96 +1,16 @@
 <script>
   //Import stores
-  import { truncateString } from "@utils/helperFunctions";
-  import { currentIndex } from "src/svelte/stores";
-  import { SEASONS } from "../../data/globalConstants";
-  const relatColors = ["rgba(8, 67, 149, 0.90)", "rgba(251, 115, 38, 0.84)"];
- 
+  import { seasonToEndpointMapper, truncateString } from "@utils/helperFunctions";
   
-  let clrIndex;
+  export let season;
+
+  // console.log('season', season)
   let imgNaturalWidth;
   let imgNaturalHeight;
   let img2NaturalWidth;
   let img2NaturalHeight;
-  let parentWidth = 1308;
-  let parentHeight = 707;
-  let relatLeft;
-  let relatTop;
-  let imgLeft;
-  let imgTop;
-  let img2Left;
-  let img2Top;
-  
-  let seasonsPositions;
 
-  
-  function setSlide() {
-    clrIndex = Math.round(Math.random());
-    let item1 = getRandomPosition(1);
-    let item2 = getRandomPosition(2);
-    let item3 = getRandomPosition(3);
-    imgLeft = item1.left;
-    imgTop = item1.top;
-    relatLeft = item2.left;
-    relatTop = item2.top;
-    img2Left = item3.left;
-    img2Top = item3.top;
-    return { clrIndex, imgLeft, imgTop, relatLeft, relatTop, img2Left, img2Top };
-  }
-
-  setSlide();
-  $: if (parentWidth !== undefined) {
-    setSlide();
-    seasonsPositions = SEASONS.map(() => {
-    let season = setSlide();
-   
-    return season;
-  });
-  }
-
-  function getRandomPosition(itemNum) {
-    let thirdWidth = parentWidth / 16 / 3;
-
-    //So the items make the season year number quite visible
-    let excludedMinHeight = 9.375;
-    let excludedMaxHeight = 21.875;
-
-    if (itemNum === 1) {
-      let left = (Math.random() * thirdWidth) / 2;
-      let maxTop = parentHeight / 16 - 16.5625; //
-      let minTop = 16;
-      let topRange = maxTop - minTop;
-      let top = minTop + Math.random() * topRange;
-      return { left, top };
-    }
-
-    if (itemNum === 2) {
-      let leftStart = thirdWidth;
-      let left = leftStart + (Math.random() * thirdWidth) / 2;
-      let minTop = 0;
-      let maxTop = parentHeight / 16 - 16.125; //
-      let topRange = maxTop - minTop;
-      let top = Math.random() * topRange;
-      while (top > excludedMinHeight && top < excludedMaxHeight) {
-        top = Math.random() * topRange;
-      }
-      return { left, top };
-    }
-
-    if (itemNum === 3) {
-      let leftStart = 2 * thirdWidth;
-      let left = leftStart + Math.random() * thirdWidth;
-      let minTop = 0;
-      let maxTop = 9.375;
-      let topRange = maxTop - minTop;
-      let top = Math.random() * topRange;
-      while (top > excludedMinHeight && top < excludedMaxHeight) {
-        top = Math.random() * topRange;
-      }
-      return { left, top };
-    }
-  }
-  // Reactive statement to update the style based on image dimensions
-  function determineContainerSize(width, height, imgNum) {
+   function determineContainerSize(width, height, imgNum) {
     let style;
     if (imgNum === 1) {
       style =
@@ -113,73 +33,58 @@
   }
 </script>
 
-<div
-  bind:clientWidth={parentWidth}
-  bind:clientHeight={parentHeight}
-  class="season-container"
->
+
   <div
     class="relat-container"
-    style={`--clr-background: ${relatColors[clrIndex]}; left: ${relatLeft}rem; top: ${relatTop}rem`}
+    style={`--clr-background: ${season.relatColor}; left: ${season.relatLeft}rem; top: ${season.relatTop}rem`}
   >
     <h3>El Relat</h3>
-    <p>{truncateString(SEASONS[$currentIndex].relat)}</p>
+    <p>{truncateString(season.relat)}</p>
     <a href="/">Llegir més</a>
-  </div>
-  {#if SEASONS[$currentIndex].images && SEASONS[$currentIndex].images[0]}
+  </div> 
+  {#if season.images && season.images[0]}
     <div
       class="img-container img-1"
       style={`${determineContainerSize(
         imgNaturalWidth,
         imgNaturalHeight,
         1,
-      )}; left: ${imgLeft}rem; top: ${imgTop}rem `}
+      )}; left: ${season.imgLeft}rem; top: ${season.imgTop}rem `}
     >
       <img
         bind:naturalWidth={imgNaturalWidth}
         bind:naturalHeight={imgNaturalHeight}
         style={determineImageSize(imgNaturalWidth, imgNaturalHeight)}
-        src={SEASONS[$currentIndex].images[0].src}
-        alt={SEASONS[$currentIndex].images[0].alt}
+        src={season.images[0].src}
+        alt={season.images[0].alt}
       />
     </div>
   {/if}
-  {#if SEASONS[$currentIndex].images && SEASONS[$currentIndex].images[1]}
+  {#if season.images && season.images[1]}
     <div
       class="img-container img-2"
       style={`${determineContainerSize(
         img2NaturalWidth,
         img2NaturalHeight,
-      )}; left: ${img2Left}rem; top: ${img2Top}rem `}
+      )}; left: ${season.img2Left}rem; top: ${season.img2Top}rem `}
     >
       <img
         bind:naturalWidth={img2NaturalWidth}
         bind:naturalHeight={img2NaturalHeight}
         style={determineImageSize(img2NaturalWidth, img2NaturalHeight)}
-        src={SEASONS[$currentIndex].images[1].src}
-        alt={SEASONS[$currentIndex].images[1].alt}
+        src={season.images[1].src}
+        alt={season.images[1].alt}
       />
     </div>
   {/if}
   <div class="season-title">
     <aside>Temporada</aside>
-    <h2 class="big-number">{SEASONS[$currentIndex].name}</h2>
+    <h2 class="big-number">{season.name}</h2>
   </div>
-</div>
+
 
 <style>
-  .season-container {
-    position: absolute;
-    left: 0;
-    top: 0;
-    height: calc(100dvh - var(--pd-y-options-btns) - 2.12rem);
-    width: 100%;
-    color: var(--clr-primary);
-    overflow: hidden;
-    display: grid;
-    /* display: grid;
-    place-content: center; */
-  }
+  
   .relat-container {
     position: absolute;
     display: flex;

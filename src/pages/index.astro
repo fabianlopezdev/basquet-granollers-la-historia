@@ -4,11 +4,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 //Import components
 import Hero from '@components/Hero.astro';
-import Seasons from '@components/seasons/Seasons.astro';
+import Seasons from '@components/seasons/Seasons.svelte';
 ---
 
 <BaseLayout>
     <Hero />
-    <Seasons />
+    <Seasons client:only/>
 </BaseLayout>
 
