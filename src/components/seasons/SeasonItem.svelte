@@ -3,25 +3,17 @@
   import { truncateString } from "@utils/helperFunctions";
   import { currentSeason } from "src/svelte/stores";
 
-  const widthOptions = [19.5, 38.625]; // in rem
-  const heightOptions = [16.5625, 11.75]; // in rem
   const colorOptions = ["rgba(8, 67, 149, 0.90)", "rgba(251, 115, 38, 0.84)"];
 
   let szIndex;
   let clrIndex;
 
-  $: if ($currentSeason || (parentWidth && parentHeight)) {
+  $: if ($currentSeason) {
     szIndex = Math.round(Math.random());
     clrIndex = Math.round(Math.random());
-    relatWidth = widthOptions[szIndex];
-    relatHeight = heightOptions[szIndex];
   }
 
-  $: if (
-    parentWidth &&
-    parentHeight &&
-    (imgContainerWidth || imgContainerWidth2)
-  ) {
+  $: if (parentWidth && (imgContainerWidth || imgContainerWidth2)) {
     let item1 = getRandomPosition(1);
     let item2 = getRandomPosition(2);
     let item3 = getRandomPosition(3);
@@ -48,16 +40,20 @@
   let imgContainerHeight2;
 
   function getRandomPosition(itemNum) {
-    let thirdWidth = (parentWidth / 16 / 3); // One third of the parent width
-    console.log('thirdwidth', thirdWidth)
+    let thirdWidth = parentWidth / 16 / 3;
+
+    let excludedMinHeight = 9.375;
+    let excludedMaxHeight = 21.875;
+    // One third of thr)e parent width
+    console.log("thirdwidth", thirdWidth);
     if (itemNum === 1) {
       // For the first third, range is from 0 to thirdWidth
-      let left =( Math.random() * (thirdWidth)) / 2;
+      let left = (Math.random() * thirdWidth) / 2;
 
       // Calculate top similarly as before
-      let maxTopBoundary = parentHeight / 16 - 16.5625; // Adjust as necessary
+      let maxTop = parentHeight / 16 - 16.5625; // Adjust as necessary
       let minTop = 16;
-      let topRange = maxTopBoundary - minTop;
+      let topRange = maxTop - minTop;
       let top = minTop + Math.random() * topRange;
 
       return { left, top };
@@ -66,14 +62,16 @@
     if (itemNum === 2) {
       // For the second third, range is from thirdWidth to 2 * thirdWidth
       let leftStart = thirdWidth;
-      let left = (leftStart + Math.random() * thirdWidth /2)
+      let left = leftStart + (Math.random() * thirdWidth) / 2;
 
       // Calculate top similarly as before
       let minTop = 0;
       let maxTop = parentHeight / 16 - 11.75; // Adjust as necessary
       let topRange = maxTop - minTop;
       let top = Math.random() * topRange;
-
+      while (top > excludedMinHeight && top < excludedMaxHeight) {
+        top = Math.random() * topRange;
+      }
       return { left, top };
     }
 
@@ -81,15 +79,17 @@
       // For the third third, range is from 2 * thirdWidth to 3 * thirdWidth (end of parentWidth)
       let leftStart = 2 * thirdWidth;
 
-      console.log()
-      let left = (leftStart + Math.random() * thirdWidth);
+      let left = leftStart + Math.random() * thirdWidth;
 
       // Calculate top similarly as before
       let minTop = 0;
-      let maxTop = parentHeight / 16; // Adjust as necessary
+      let maxTop = parentHeight / 16 - 16.5625;
       let topRange = maxTop - minTop;
       let top = Math.random() * topRange;
 
+      while (top > excludedMinHeight && top < excludedMaxHeight) {
+        top = Math.random() * topRange;
+      }
       return { left, top };
     }
   }
@@ -132,7 +132,7 @@
     bind:clientWidth={relatWidth}
     bind:clientHeight={relatHeight}
     class="relat-container"
-    style={`--clr-background: ${colorOptions[clrIndex]}; --wd: ${relatWidth}rem; --hg: ${relatHeight}rem; left: ${relatLeft}rem; top: ${relatTop}rem`}
+    style={`--clr-background: ${colorOptions[clrIndex]}; left: ${relatLeft}rem; top: ${relatTop}rem`}
   >
     <h3>El Relat</h3>
     <p>{truncateString($currentSeason.relat)}</p>
@@ -203,8 +203,7 @@
     gap: 1rem;
     color: var(--clr-contrast);
     background-color: var(--clr-background);
-    max-width: var(--wd);
-    max-height: var(--hg);
+    max-width: 19.5rem;
     padding-inline: 2.5rem;
     padding-block: 2rem;
     opacity: 0.84;
