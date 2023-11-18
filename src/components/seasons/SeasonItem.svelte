@@ -3,70 +3,64 @@
   import { truncateString } from "@utils/helperFunctions";
   import { currentSeason } from "src/svelte/stores";
 
-  const colorOptions = ["rgba(8, 67, 149, 0.90)", "rgba(251, 115, 38, 0.84)"];
+  const relatColors = ["rgba(8, 67, 149, 0.90)", "rgba(251, 115, 38, 0.84)"];
 
   let szIndex;
   let clrIndex;
+  let imgNaturalWidth;
+  let imgNaturalHeight;
+  let img2NaturalWidth;
+  let img2NaturalHeight;
+  let parentWidth = 1308;
+  let parentHeight = 707;
+  let relatLeft;
+  let relatTop;
+  let imgLeft;
+  let imgTop;
+  let img2Left;
+  let img2Top;
 
-  $: if ($currentSeason) {
+  function setSlide() {
     szIndex = Math.round(Math.random());
     clrIndex = Math.round(Math.random());
-  }
-
-  $: if (parentWidth && (imgContainerWidth || imgContainerWidth2)) {
     let item1 = getRandomPosition(1);
     let item2 = getRandomPosition(2);
     let item3 = getRandomPosition(3);
-
     imgLeft = item1.left;
     imgTop = item1.top;
     relatLeft = item2.left;
     relatTop = item2.top;
     img2Left = item3.left;
     img2Top = item3.top;
-    // let { left: img2Left, top: img2Top } = item2;
   }
-  let imgNaturalWidth;
-  let imgNaturalHeight;
-  let imgWidth2;
-  let imgHeight2;
-  let parentWidth;
-  let parentHeight;
-  let relatWidth;
-  let relatHeight;
-  let imgContainerWidth;
-  let imgContainerHeight;
-  let imgContainerWidth2;
-  let imgContainerHeight2;
+
+  setSlide();
+  $: if (parentWidth !== 1308 || parentHeight!== 707) {
+    setSlide();
+  }
 
   function getRandomPosition(itemNum) {
     let thirdWidth = parentWidth / 16 / 3;
 
+    //So the items make the season year number quite visible
     let excludedMinHeight = 9.375;
     let excludedMaxHeight = 21.875;
-    // One third of thr)e parent width
+
     console.log("thirdwidth", thirdWidth);
     if (itemNum === 1) {
-      // For the first third, range is from 0 to thirdWidth
       let left = (Math.random() * thirdWidth) / 2;
-
-      // Calculate top similarly as before
-      let maxTop = parentHeight / 16 - 16.5625; // Adjust as necessary
+      let maxTop = parentHeight / 16 - 16.5625; //
       let minTop = 16;
       let topRange = maxTop - minTop;
       let top = minTop + Math.random() * topRange;
-
       return { left, top };
     }
 
     if (itemNum === 2) {
-      // For the second third, range is from thirdWidth to 2 * thirdWidth
       let leftStart = thirdWidth;
       let left = leftStart + (Math.random() * thirdWidth) / 2;
-
-      // Calculate top similarly as before
       let minTop = 0;
-      let maxTop = parentHeight / 16 - 11.75; // Adjust as necessary
+      let maxTop = parentHeight / 16 - 16.125; //
       let topRange = maxTop - minTop;
       let top = Math.random() * topRange;
       while (top > excludedMinHeight && top < excludedMaxHeight) {
@@ -76,17 +70,12 @@
     }
 
     if (itemNum === 3) {
-      // For the third third, range is from 2 * thirdWidth to 3 * thirdWidth (end of parentWidth)
       let leftStart = 2 * thirdWidth;
-
       let left = leftStart + Math.random() * thirdWidth;
-
-      // Calculate top similarly as before
       let minTop = 0;
-      let maxTop = parentHeight / 16 - 16.5625;
+      let maxTop = 9.375;
       let topRange = maxTop - minTop;
       let top = Math.random() * topRange;
-
       while (top > excludedMinHeight && top < excludedMaxHeight) {
         top = Math.random() * topRange;
       }
@@ -115,12 +104,6 @@
       ? "width: 100%; height: auto;"
       : "width: auto; height: 100%;";
   }
-  let relatLeft;
-  let relatTop;
-  let imgLeft;
-  let imgTop;
-  let img2Left;
-  let img2Top;
 </script>
 
 <div
@@ -129,10 +112,8 @@
   class="season-container"
 >
   <div
-    bind:clientWidth={relatWidth}
-    bind:clientHeight={relatHeight}
     class="relat-container"
-    style={`--clr-background: ${colorOptions[clrIndex]}; left: ${relatLeft}rem; top: ${relatTop}rem`}
+    style={`--clr-background: ${relatColors[clrIndex]}; left: ${relatLeft}rem; top: ${relatTop}rem`}
   >
     <h3>El Relat</h3>
     <p>{truncateString($currentSeason.relat)}</p>
@@ -140,8 +121,6 @@
   </div>
   {#if $currentSeason.images && $currentSeason.images[0]}
     <div
-      bind:clientWidth={imgContainerWidth}
-      bind:clientHeight={imgContainerHeight}
       class="img-container img-1"
       style={`${determineContainerSize(
         imgNaturalWidth,
@@ -160,18 +139,16 @@
   {/if}
   {#if $currentSeason.images && $currentSeason.images[1]}
     <div
-      bind:clientWidth={imgContainerWidth2}
-      bind:clientHeight={imgContainerHeight2}
       class="img-container img-2"
       style={`${determineContainerSize(
-        imgWidth2,
-        imgHeight2,
+        img2NaturalWidth,
+        img2NaturalHeight,
       )}; left: ${img2Left}rem; top: ${img2Top}rem `}
     >
       <img
-        bind:naturalWidth={imgWidth2}
-        bind:naturalHeight={imgHeight2}
-        style={determineImageSize(imgWidth2, imgHeight2)}
+        bind:naturalWidth={img2NaturalWidth}
+        bind:naturalHeight={img2NaturalHeight}
+        style={determineImageSize(img2NaturalWidth, img2NaturalHeight)}
         src={$currentSeason.images[1].src}
         alt={$currentSeason.images[1].alt}
       />
