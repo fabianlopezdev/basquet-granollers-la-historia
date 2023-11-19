@@ -4,8 +4,9 @@
 <script>
 document.addEventListener("DOMContentLoaded", (): void => {
     const button = document.getElementById("pillButton");
-    const target = document.getElementById("seasons-timeline");
-
+    const target = document.getElementById("seasons");
+    console.log('button', button)
+    console.log('target', target)
     if (button && target) {
         button.addEventListener("click", (): void => {
             target.scrollIntoView();

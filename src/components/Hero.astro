@@ -1,6 +1,6 @@
 ---
 //Import components
-import ScrollLine from "@assets/ScrollLine.astro";
+import ScrollLine from "@assets/ScrollLine.svelte";
 ---
 
 <section>
@@ -12,7 +12,7 @@ import ScrollLine from "@assets/ScrollLine.astro";
   <h2>VIATJA A TRAVÉS<br /> DE LA NOSTRA HISTÒRIA</h2>
   <p>Comença aquí, fent scroll</p>
   <div class='scroll-line'>
-    <ScrollLine/>
+    <ScrollLine client:only/>
   </div>
 </section>
 

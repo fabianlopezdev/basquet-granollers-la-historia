@@ -41,7 +41,6 @@
     };
   }
 
-  setSlide();
   $: if (parentWidth !== undefined) {
     setSlide();
     seasonsPositions = SEASONS.map(() => {
@@ -99,7 +98,7 @@
   }
 </script>
 
-<section id="seasons-timeline">
+<section id="seasons">
   <img src="/cancha.png" alt="Dibuix d'una pista de bàsquet" />
   <div class="seasons-container">
     <div 
@@ -121,7 +120,7 @@
     height: calc(100dvh - var(--pd-y-options-btns) - 2.12rem);
     width: 100%;
     color: var(--clr-primary);
-    overflow: hidden;
+    /* overflow: hidden; */
   }
   section {
     position: relative;
