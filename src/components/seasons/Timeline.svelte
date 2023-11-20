@@ -37,7 +37,9 @@
   let previousSeason;
   let animationDuration;
   let animationInView = false;
+  let previousIndex = $currentIndex;
 
+  export let animationDirection;
   $: if ($isOutsideSelection) {
     if ($currentIndex > 0) {
       currentPage = Math.floor($currentIndex / maxSeasonsPerPage);
@@ -108,11 +110,18 @@
     }
   }
 
+  $: if (previousIndex > $currentIndex) {
+    animationDirection = "left";
+  } else if (previousIndex < $currentIndex) {
+    animationDirection = "right";
+  }
+  
   function prevSeason() {
     $isOutsideSelection = false;
     isDirectSelection = false;
     userInteractionCount++;
     direction = 1;
+    previousIndex = $currentIndex;
     if ($currentIndex > 0) {
       $currentIndex--;
       // Check if we need to go to the previous page
@@ -127,6 +136,7 @@
     isDirectSelection = false;
     userInteractionCount++;
     direction = -1;
+    previousIndex = $currentIndex;
     if ($currentIndex < SEASONS.length - 1) {
       $currentIndex++;
       // Check if we need to go to the next page
@@ -159,9 +169,6 @@
     event.deltaY > 0 ? nextSeason() : prevSeason();
   }
 
-  function handleResize() {
-    scrollbarWidth = windowWidth - document.documentElement.clientWidth;
-  }
 
   function handleKeyDown(event) { 
     if (windowScrollY >= windowHeight) {

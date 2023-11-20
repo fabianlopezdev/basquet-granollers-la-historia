@@ -8,8 +8,7 @@
   import { currentIndex } from "src/svelte/stores";
 
   const RELAT_COLORS = ["rgba(8, 67, 149, 0.90)", "rgba(251, 115, 38, 0.84)"];
-   
- 
+
   let relatColor;
   let parentWidth = 1308;
   let parentHeight = 707;
@@ -24,6 +23,7 @@
   let windowWidth;
   let windowHeight;
   let windowScrollY;
+  let animationDirection;
 
   function setSlide() {
     relatColor = RELAT_COLORS[Math.round(Math.random())];
@@ -102,15 +102,12 @@
       return { left, top };
     }
   }
-
-
 </script>
 
 <svelte:window
   bind:innerWidth={windowWidth}
   bind:innerHeight={windowHeight}
   bind:scrollY={windowScrollY}
- 
 />
 
 <section id="seasons">
@@ -121,10 +118,21 @@
       bind:clientWidth={parentWidth}
       bind:clientHeight={parentHeight}
     >
-      <SeasonItem {season} {windowHeight} {windowScrollY} />
+      <SeasonItem
+        {season}
+        {windowHeight}
+        {windowScrollY}
+        {animationDirection}
+      />
     </div>
     <Options />
-    <Timeline {SEASONS} {windowHeight} {windowScrollY} {windowWidth}/>
+    <Timeline
+      {SEASONS}
+      {windowHeight}
+      {windowScrollY}
+      {windowWidth}
+      bind:animationDirection
+    />
   </div>
 </section>
 

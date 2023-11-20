@@ -1,19 +1,21 @@
 <script>
   //Import stores
   import {
-    seasonToEndpointMapper,
     truncateString,
   } from "@utils/helperFunctions";
 
+  import { currentIndex } from "src/svelte/stores";
   export let season;
 
   // console.log('season', season)
-  let height;
+
   let imgNaturalWidth;
   let imgNaturalHeight;
   let img2NaturalWidth;
   let img2NaturalHeight;
   let translateY;
+  let previousIndex = $currentIndex;
+
   
   export let windowScrollY;
   export let windowHeight;
