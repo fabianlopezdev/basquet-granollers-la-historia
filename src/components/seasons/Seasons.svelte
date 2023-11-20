@@ -48,7 +48,6 @@
   }
 
   $: if (parentWidth !== undefined) {
-    setSlide();
     seasonsPositions = SEASONS.map(() => {
       let season = setSlide();
 
@@ -154,6 +153,12 @@
     to { transform: translateX(-100%); }
   }
 
+  @keyframes slideOutRight {
+    from { transform: translateX(0); }
+    to { transform: translateX(100%); }
+  }
+  
+
   .slide-in-left {
     animation: slideInLeft 0.5s;
   }
@@ -165,6 +170,11 @@
   .slide-out-left {
     animation: slideOutLeft 0.5s;
   }
+
+  .slide-out-right {
+    animation: slideOutRight 0.5s;
+  }
+
   .season-container {
     position: absolute;
     left: 0;

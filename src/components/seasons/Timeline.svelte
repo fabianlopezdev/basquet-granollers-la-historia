@@ -38,6 +38,31 @@
   let animationDuration;
   let animationInView = false;
   let previousIndex = $currentIndex;
+  let incomingAnimationClass = '';
+  let outgoingAnimationClass = '';
+
+  function updateAnimationClasses(newIndex) {
+    if (newIndex > previousIndex) {
+      incomingAnimationClass = 'slide-in-right';
+      outgoingAnimationClass = 'slide-out-left';
+    } else {
+      incomingAnimationClass = 'slide-in-left';
+      outgoingAnimationClass = 'slide-out-right';
+    }
+
+    // Apply the outgoing animation immediately
+    animationClass = outgoingAnimationClass;
+
+    // After the outgoing animation, apply the incoming animation
+    setTimeout(() => {
+      animationClass = incomingAnimationClass;
+    }, 300); // Assuming 0.5s is your animation duration for outgoing animation
+
+    // Reset the animation class after the incoming animation
+    setTimeout(() => {
+      animationClass = '';
+    }, 800); // Total duration for both animations
+  }
 
   export let animationClass;
   $: if ($isOutsideSelection) {
@@ -115,57 +140,42 @@
     isDirectSelection = false;
     userInteractionCount++;
     direction = 1;
-    previousIndex = $currentIndex;
-    animationClass = "slide-in-left";
-    setTimeout(() => {
-      animationClass = "";
-    }, 500);
     if ($currentIndex > 0) {
-      $currentIndex--;
-      // Check if we need to go to the previous page
-      if ($currentIndex < currentPage * maxSeasonsPerPage) {
-        currentPage--;
-      }
+    let newIndex = $currentIndex - 1;
+    updateAnimationClasses(newIndex);
+    $currentIndex = newIndex;
+    previousIndex = $currentIndex;
+
+    // Additional logic if needed, like updating currentPage
+    if ($currentIndex < currentPage * maxSeasonsPerPage) {
+      currentPage--;
     }
   }
+}
 
   function nextSeason() {
     $isOutsideSelection = false;
     isDirectSelection = false;
     userInteractionCount++;
     direction = -1;
-    previousIndex = $currentIndex;
-    animationClass = "slide-in-right";
-    setTimeout(() => {
-      animationClass = "";
-    }, 500);
-    if ($currentIndex < SEASONS.length - 1) {
-      $currentIndex++;
-      // Check if we need to go to the next page
-      if ($currentIndex >= (currentPage + 1) * maxSeasonsPerPage) {
-        currentPage++;
-      }
-    }
-  }
-
-  function selectSeason(index) {
-    $isOutsideSelection = false;
-    isDirectSelection = true;
-    // Determine the new index based on the selected season
-    let newIndex = currentPage * maxSeasonsPerPage + index;
-
-    // Set the animation class based on the direction of change
-    animationClass = previousIndex > newIndex ? "slide-in-left" : "slide-in-right";
-
-    // Update the current index
+   if ($currentIndex < SEASONS.length - 1) {
+    let newIndex = $currentIndex + 1;
+    updateAnimationClasses(newIndex);
     $currentIndex = newIndex;
     previousIndex = $currentIndex;
 
-    // Reset the animation class after the animation duration
-    setTimeout(() => {
-        animationClass = "";
-    }, 500);
+    // Additional logic if needed, like updating currentPage
+    if ($currentIndex >= (currentPage + 1) * maxSeasonsPerPage) {
+      currentPage++;
+    }
+  }
 }
+ function selectSeason(index) {
+    let newIndex = currentPage * maxSeasonsPerPage + index;
+    updateAnimationClasses(newIndex);
+    $currentIndex = newIndex;
+    previousIndex = $currentIndex;
+  }
 
   function handleMouseEnter() {
     document.body.style.overflow = "hidden";
