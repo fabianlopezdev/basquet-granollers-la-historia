@@ -110,7 +110,6 @@
     }
   }
 
-  
   function prevSeason() {
     $isOutsideSelection = false;
     isDirectSelection = false;
@@ -119,8 +118,8 @@
     previousIndex = $currentIndex;
     animationClass = "slide-in-left";
     setTimeout(() => {
-        animationClass = "";
-      }, 500);
+      animationClass = "";
+    }, 500);
     if ($currentIndex > 0) {
       $currentIndex--;
       // Check if we need to go to the previous page
@@ -135,11 +134,11 @@
     isDirectSelection = false;
     userInteractionCount++;
     direction = -1;
-     previousIndex = $currentIndex;
+    previousIndex = $currentIndex;
     animationClass = "slide-in-right";
     setTimeout(() => {
-        animationClass = "";
-      }, 500);
+      animationClass = "";
+    }, 500);
     if ($currentIndex < SEASONS.length - 1) {
       $currentIndex++;
       // Check if we need to go to the next page
@@ -152,12 +151,25 @@
   function selectSeason(index) {
     $isOutsideSelection = false;
     isDirectSelection = true;
-    $currentIndex = currentPage * maxSeasonsPerPage + index;
-  }
+    // Determine the new index based on the selected season
+    let newIndex = currentPage * maxSeasonsPerPage + index;
+
+    // Set the animation class based on the direction of change
+    animationClass = previousIndex > newIndex ? "slide-in-left" : "slide-in-right";
+
+    // Update the current index
+    $currentIndex = newIndex;
+    previousIndex = $currentIndex;
+
+    // Reset the animation class after the animation duration
+    setTimeout(() => {
+        animationClass = "";
+    }, 500);
+}
 
   function handleMouseEnter() {
     document.body.style.overflow = "hidden";
-    console.log('scrollbarWidth', scrollbarWidth)
+    console.log("scrollbarWidth", scrollbarWidth);
     document.body.style.paddingRight = `${scrollbarWidth}px`;
   }
 
@@ -172,8 +184,7 @@
     event.deltaY > 0 ? nextSeason() : prevSeason();
   }
 
-
-  function handleKeyDown(event) { 
+  function handleKeyDown(event) {
     if (windowScrollY >= windowHeight) {
       if (KEYACTIONS[event.key]) {
         KEYACTIONS[event.key]();
@@ -250,7 +261,6 @@
           class="dot color-transition"
           class:active={season === activeSeason}
           on:click={() => selectSeason(i)}
-          
         >
           <img
             class:show={season === activeSeason}
