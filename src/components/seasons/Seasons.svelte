@@ -19,6 +19,10 @@
   let img2Top;
   let seasonsPositions;
   let season;
+  let windowWidth;
+  let windowHeight;
+  let windowScrollY;
+
   function setSlide() {
     relatColor = relatColors[Math.round(Math.random())];
     let item1 = getRandomPosition(1);
@@ -98,6 +102,8 @@
   }
 </script>
 
+<svelte:window bind:innerWidth={windowWidth} bind:innerHeight={windowHeight} bind:scrollY={windowScrollY}/>
+
 <section id="seasons">
   <img src="/cancha.png" alt="Dibuix d'una pista de bàsquet" />
   <div class="seasons-container">
@@ -105,7 +111,7 @@
     class='season-container'
       bind:clientWidth={parentWidth}
       bind:clientHeight={parentHeight}>
-        <SeasonItem {season} />
+        <SeasonItem {season} {windowHeight} {windowScrollY} />
     </div>
     <Options />
     <Timeline {SEASONS} />

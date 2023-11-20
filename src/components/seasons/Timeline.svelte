@@ -19,7 +19,7 @@
   };
   const MIN_GAP = 2;
   // Minimum gap between seasons in rem
-
+  let windowWidth;
   let currentPage = 0;
   let userInteractionCount = 0;
   let timelineWidth;
@@ -141,6 +141,7 @@
 
   function handleMouseEnter() {
     document.body.style.overflow = "hidden";
+    console.log('scrollbarWidth', scrollbarWidth)
     document.body.style.paddingRight = `${scrollbarWidth}px`;
   }
 

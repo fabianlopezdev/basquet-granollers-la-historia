@@ -8,14 +8,20 @@
   export let season;
 
   // console.log('season', season)
-  let scroll;
   let height;
   let imgNaturalWidth;
   let imgNaturalHeight;
   let img2NaturalWidth;
   let img2NaturalHeight;
+  let translateY;
+  
+  export let windowScrollY;
+  export let windowHeight;
 
-  $: translateY = `translateY(${100 - (scroll / height) * 100}%)`;
+  $: {
+    const progress = windowScrollY / windowHeight;
+    translateY = `translateY(${100 - 100 * progress * progress}%)`;
+  }
 
   function determineContainerSize(width, height, imgNum) {
     let style;
@@ -39,8 +45,6 @@
       : "width: auto; height: 100%;";
   }
 </script>
-
-<svelte:window bind:innerHeight={height} bind:scrollY={scroll} />
 
 <div
   style:transform={translateY}
