@@ -39,7 +39,7 @@
   let animationInView = false;
   let previousIndex = $currentIndex;
 
-  export let animationDirection;
+  export let animationClass;
   $: if ($isOutsideSelection) {
     if ($currentIndex > 0) {
       currentPage = Math.floor($currentIndex / maxSeasonsPerPage);
@@ -110,11 +110,6 @@
     }
   }
 
-  $: if (previousIndex > $currentIndex) {
-    animationDirection = "left";
-  } else if (previousIndex < $currentIndex) {
-    animationDirection = "right";
-  }
   
   function prevSeason() {
     $isOutsideSelection = false;
@@ -122,6 +117,10 @@
     userInteractionCount++;
     direction = 1;
     previousIndex = $currentIndex;
+    animationClass = "slide-in-left";
+    setTimeout(() => {
+        animationClass = "";
+      }, 500);
     if ($currentIndex > 0) {
       $currentIndex--;
       // Check if we need to go to the previous page
@@ -136,7 +135,11 @@
     isDirectSelection = false;
     userInteractionCount++;
     direction = -1;
-    previousIndex = $currentIndex;
+     previousIndex = $currentIndex;
+    animationClass = "slide-in-right";
+    setTimeout(() => {
+        animationClass = "";
+      }, 500);
     if ($currentIndex < SEASONS.length - 1) {
       $currentIndex++;
       // Check if we need to go to the next page

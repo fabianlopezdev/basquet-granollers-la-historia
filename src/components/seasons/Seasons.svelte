@@ -23,7 +23,7 @@
   let windowWidth;
   let windowHeight;
   let windowScrollY;
-  let animationDirection;
+  let animationClass;
 
   function setSlide() {
     relatColor = RELAT_COLORS[Math.round(Math.random())];
@@ -55,6 +55,8 @@
       return season;
     });
   }
+
+  $: if (animationClass) console.log('animationClass', animationClass)
 
   $: if (seasonsPositions.length) {
     season = { ...SEASONS[$currentIndex], ...seasonsPositions[$currentIndex] };
@@ -112,9 +114,9 @@
 
 <section id="seasons">
   <img src="/cancha.png" alt="Dibuix d'una pista de bàsquet" />
-  <div class="seasons-container">
+  <div class="seasons-container ">
     <div
-      class="season-container"
+      class="season-container {animationClass}"
       bind:clientWidth={parentWidth}
       bind:clientHeight={parentHeight}
     >
@@ -122,7 +124,7 @@
         {season}
         {windowHeight}
         {windowScrollY}
-        {animationDirection}
+        {animationClass}
       />
     </div>
     <Options />
@@ -131,12 +133,38 @@
       {windowHeight}
       {windowScrollY}
       {windowWidth}
-      bind:animationDirection
+      bind:animationClass
     />
   </div>
 </section>
 
 <style>
+  @keyframes slideInLeft {
+    from { transform: translateX(-100%); }
+    to { transform: translateX(0); }
+  }
+
+   @keyframes slideInRight {
+    from { transform: translateX(100%); }
+    to { transform: translateX(0); }
+  }
+
+  @keyframes slideOutLeft {
+    from { transform: translateX(0); }
+    to { transform: translateX(-100%); }
+  }
+
+  .slide-in-left {
+    animation: slideInLeft 0.5s;
+  }
+
+  .slide-in-right {
+    animation: slideInRight 0.5s;
+  }
+
+  .slide-out-left {
+    animation: slideOutLeft 0.5s;
+  }
   .season-container {
     position: absolute;
     left: 0;

@@ -14,11 +14,11 @@
   let img2NaturalWidth;
   let img2NaturalHeight;
   let translateY;
-  let previousIndex = $currentIndex;
 
   
   export let windowScrollY;
   export let windowHeight;
+  
 
   $: {
     const progress = windowScrollY / windowHeight;
