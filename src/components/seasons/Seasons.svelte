@@ -7,7 +7,9 @@
   import { SEASONS } from "@data/globalConstants";
   import { currentIndex } from "src/svelte/stores";
 
-  const relatColors = ["rgba(8, 67, 149, 0.90)", "rgba(251, 115, 38, 0.84)"];
+  const RELAT_COLORS = ["rgba(8, 67, 149, 0.90)", "rgba(251, 115, 38, 0.84)"];
+   
+ 
   let relatColor;
   let parentWidth = 1308;
   let parentHeight = 707;
@@ -24,7 +26,7 @@
   let windowScrollY;
 
   function setSlide() {
-    relatColor = relatColors[Math.round(Math.random())];
+    relatColor = RELAT_COLORS[Math.round(Math.random())];
     let item1 = getRandomPosition(1);
     let item2 = getRandomPosition(2);
     let item3 = getRandomPosition(3);
@@ -100,27 +102,35 @@
       return { left, top };
     }
   }
+
+
 </script>
 
-<svelte:window bind:innerWidth={windowWidth} bind:innerHeight={windowHeight} bind:scrollY={windowScrollY}/>
+<svelte:window
+  bind:innerWidth={windowWidth}
+  bind:innerHeight={windowHeight}
+  bind:scrollY={windowScrollY}
+ 
+/>
 
 <section id="seasons">
   <img src="/cancha.png" alt="Dibuix d'una pista de bàsquet" />
   <div class="seasons-container">
-    <div 
-    class='season-container'
+    <div
+      class="season-container"
       bind:clientWidth={parentWidth}
-      bind:clientHeight={parentHeight}>
-        <SeasonItem {season} {windowHeight} {windowScrollY} />
+      bind:clientHeight={parentHeight}
+    >
+      <SeasonItem {season} {windowHeight} {windowScrollY} />
     </div>
     <Options />
-    <Timeline {SEASONS} />
+    <Timeline {SEASONS} {windowHeight} {windowScrollY} {windowWidth}/>
   </div>
 </section>
 
 <style>
-  .season-container { 
-      position: absolute;
+  .season-container {
+    position: absolute;
     left: 0;
     top: 0;
     height: calc(100dvh - var(--pd-y-options-btns) - 2.12rem);

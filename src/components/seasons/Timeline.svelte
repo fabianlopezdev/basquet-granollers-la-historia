@@ -7,6 +7,9 @@
 
   //Get props
   export let SEASONS = [];
+  export let windowHeight;
+  export let windowScrollY;
+  export let windowWidth;
 
   const BASE_DURATION = 0.5;
   const MAX_DURATION = 2.5;
@@ -19,12 +22,12 @@
   };
   const MIN_GAP = 2;
   // Minimum gap between seasons in rem
-  let windowWidth;
+
   let currentPage = 0;
   let userInteractionCount = 0;
   let timelineWidth;
   let timeoutId;
-  let scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+  $: scrollbarWidth = windowWidth - document.documentElement.clientWidth;
   let distance;
   let adjustedDuration;
   let interactionAdjustedDuration;
@@ -157,14 +160,11 @@
   }
 
   function handleResize() {
-    scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+    scrollbarWidth = windowWidth - document.documentElement.clientWidth;
   }
 
-  function handleKeyDown(event) {
-    const maxScrollHeight = document.body.scrollHeight - window.innerHeight;
-
-    // Check if the window's scroll position is at its maximum height
-    if (window.scrollY >= maxScrollHeight) {
+  function handleKeyDown(event) { 
+    if (windowScrollY >= windowHeight) {
       if (KEYACTIONS[event.key]) {
         KEYACTIONS[event.key]();
       }
@@ -199,7 +199,7 @@
   // }
 </script>
 
-<svelte:window on:keydown={handleKeyDown} on:resize={handleResize} />
+<svelte:window on:keydown={handleKeyDown} />
 <div
   role="list"
   aria-label="This is a timeline"
