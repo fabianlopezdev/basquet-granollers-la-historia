@@ -286,6 +286,7 @@
 
 <style>
   .line {
+    position: relative;
     --arrow-width: 3.3125rem;
     /* position: absolute; */
     margin-top: auto;
@@ -343,7 +344,7 @@
   .left-arrow {
     position: absolute;
     width: var(--arrow-width);
-    bottom: 0.2rem;
+    bottom: -1.9rem;
     left: -1px;
     z-index: 1;
   }
@@ -351,7 +352,7 @@
   .right-arrow {
     position: absolute;
     width: var(--arrow-width);
-    bottom: 0.2rem;
+    bottom: -1.9rem;
     right: 2px;
     z-index: 1;
   }

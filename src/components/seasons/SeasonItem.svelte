@@ -7,15 +7,19 @@
   export let windowHeight;
 
   let translateY;
-
+  
   $: {
     const progress = windowScrollY / windowHeight;
     translateY = `translateY(${100 - 100 * progress * progress}%)`;
   }
-
+  
 </script>
 
-
+<div class="season-container">
+   <div class="season-title">
+     <aside>Temporada</aside>
+     <h2 class="big-number">{season.name}</h2>
+   </div>
   <div
     style:transform={translateY}
     class="relat-container"
@@ -49,14 +53,43 @@
       />
     </div>
   {/if}
-  <div class="season-title">
-    <aside>Temporada</aside>
-    <h2 class="big-number">{season.name}</h2>
-  </div>
-
+</div>
 
 <style>
- 
+  .season-container {
+    position: relative;
+    width: 100%;
+    height: inherit;
+  }
+
+  .season-title {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+    aside {
+    position: relative;
+    top: 0;
+    left: 0.5rem;
+    top: -6.2rem;
+    color: var(--clr-accent-2);
+    font-size: 2.225rem;
+    font-weight: var(--fnt-wg-medium);
+  }
+  .big-number {
+    text-align: center;
+    padding-bottom: 8rem;
+    font-size: 14rem;
+    font-size: clamp(
+      14rem,
+      1.3846153846153832rem + 26.282051282051285vw,
+      24.25rem
+    );
+    font-weight: var(--fnt-wg-medium);
+    mix-blend-mode: multiply;
+    /* opacity: 0.95; */
+  }
   .relat-container {
     position: relative;
     display: flex;
@@ -95,30 +128,5 @@
     object-fit: cover;
   }
 
-  .season-title {
-   align-self: center;
-  }
-  aside {
-    position: relative;
-    top: 0;
-    left: 0.5rem;
-    top: -6.2rem;
-    color: var(--clr-accent-2);
-    font-size: 2.225rem;
-    font-weight: var(--fnt-wg-medium);
-  }
-  .big-number {
-    text-align: center;
-    margin: 0;
-    /*from 784px screen to 1400px*/
-    font-size: 14rem;
-    font-size: clamp(
-      14rem,
-      1.3846153846153832rem + 26.282051282051285vw,
-      24.25rem
-    );
-    font-weight: var(--fnt-wg-medium);
-    mix-blend-mode: multiply;
-    /* opacity: 0.95; */
-  }
+
 </style>

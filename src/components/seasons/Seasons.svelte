@@ -45,6 +45,8 @@
     },
   ];
 
+  const TOTAL_SEASONS = SEASONS_INFO.length;
+
   let windowWidth;
   let windowHeight;
   let windowScrollY;
@@ -69,11 +71,9 @@
 
 <section id="seasons">
   <!-- <img src="/cancha.png" alt="Dibuix d'una pista de bàsquet" /> -->
-  <div class="seasons-container" >
+  <div class="seasons-container" style='--totalSeasons: {TOTAL_SEASONS}' >
     {#each SEASONS as season}
-      <div class="season-container">
         <SeasonItem {season} {windowHeight} {windowScrollY} />
-      </div>
     {/each}
   </div>
   <Options />
@@ -88,11 +88,11 @@
 
 <style>
   section {
-    position: relative;
     background-color: var(--clr-contrast);
     height: 100dvh;
     scroll-snap-align: start;
     background-image: url("/cancha.png");
+    background-position: center;
     max-width: var(--wd-regular);
     margin: auto;
     overflow: hidden;
@@ -101,27 +101,11 @@
   }
 
   .seasons-container {
-    width: 100%;
+    width: calc(100% * var(--totalSeasons));
     height: calc(100dvh - var(--pd-y-options-btns) - 2.12rem);
-    top: 0;
-    left: 0;
     display: flex;
-    /* transition: transform 0.5s ease; */
     color: var(--clr-primary);
-    /* overflow: hidden; */
+    overflow: hidden;
   }
-  .season-container {
-    width: 100%; /* Each container takes full width */
-    flex-shrink: 0;
-    /* overflow: hidden; */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
+  
 </style>
