@@ -14,12 +14,12 @@
 
   const SEASONS_LAYOUT = [
     {
-      imgLeft: 16.3,
-      imgTop: 30,
-      img2Left: 36.66,
+      imgLeft: 12.5,
+      imgTop: 32,
+      img2Left: 24,
       img2Top: 5,
-      relatLeft: 51.25,
-      relatTop: 19,
+      relatLeft: 48.5,
+      relatTop: 24,
       relatColor: RELATS_PROPS.colors.blue,
       relatWidth: RELATS_PROPS.width.short,
     },
@@ -73,7 +73,7 @@
   <!-- <img src="/cancha.png" alt="Dibuix d'una pista de bàsquet" /> -->
   <div class="seasons-container" style='--totalSeasons: {TOTAL_SEASONS}' >
     {#each SEASONS as season}
-        <SeasonItem {season} {windowHeight} {windowScrollY} />
+        <SeasonItem {season} {windowHeight} {windowScrollY} {windowWidth} />
     {/each}
   </div>
   <Options />

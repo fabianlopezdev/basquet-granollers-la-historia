@@ -5,21 +5,28 @@
   export let season;
   export let windowScrollY;
   export let windowHeight;
+  export let windowWidth;
 
   let translateY;
-  
+  let maxWidth = 1301 / 16;
+  let imgLeft = (season.imgLeft / maxWidth) * (1301 / 16);
   $: {
     const progress = windowScrollY / windowHeight;
     translateY = `translateY(${100 - 100 * progress * progress}%)`;
   }
-  
+
+  $: if (windowWidth) {
+    imgLeft = (season.imgLeft / maxWidth) * (windowWidth / 16);
+    imgLeft = (season.imgLeft / maxWidth) * (windowWidth / 16);
+    relatLeft = (season.imgLeft / maxWidth) * (windowWidth / 16);
+  }
 </script>
 
 <div class="season-container">
-   <div class="season-title">
-     <aside>Temporada</aside>
-     <h2 class="big-number">{season.name}</h2>
-   </div>
+  <div class="season-title">
+    <aside>Temporada</aside>
+    <h2 class="big-number">{season.name}</h2>
+  </div>
   <div
     style:transform={translateY}
     class="relat-container"
@@ -33,24 +40,18 @@
     <div
       style:transform={translateY}
       class="img-container img-1"
-      style={`left: ${season.imgLeft}rem; top: ${season.imgTop}rem `}
+      style={`--left: ${imgLeft}rem; --top: ${season.imgTop}rem`}
     >
-      <img
-        src={season.images[0].src}
-        alt={season.images[0].alt}
-      />
+      <img src={season.images[0].src} alt={season.images[0].alt} />
     </div>
   {/if}
   {#if season.images && season.images[1]}
     <div
       style:transform={translateY}
       class="img-container img-2"
-      style={`left: ${season.img2Left}rem; top: ${season.img2Top}rem `}
+      style={`--left: ${season.img2Left}rem; --top: ${season.img2Top}rem`}
     >
-      <img
-        src={season.images[1].src}
-        alt={season.images[1].alt}
-      />
+      <img src={season.images[1].src} alt={season.images[1].alt} />
     </div>
   {/if}
 </div>
@@ -67,8 +68,9 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    mix-blend-mode: multiply;
   }
-    aside {
+  aside {
     position: relative;
     top: 0;
     left: 0.5rem;
@@ -79,7 +81,7 @@
   }
   .big-number {
     text-align: center;
-    padding-bottom: 8rem;
+    /* padding-bottom: 8rem; */
     font-size: 14rem;
     font-size: clamp(
       14rem,
@@ -87,11 +89,10 @@
       24.25rem
     );
     font-weight: var(--fnt-wg-medium);
-    mix-blend-mode: multiply;
     /* opacity: 0.95; */
   }
   .relat-container {
-    position: relative;
+    position: absolute;
     display: flex;
     flex-direction: column;
     left: var(--left);
@@ -116,17 +117,23 @@
     text-decoration: underline;
   }
   .img-container {
-    position: relative;
+    position: absolute;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
     z-index: 10;
     mix-blend-mode: multiply;
     /* opacity: 0.75; */
   }
+  .img-1 {
+    left: var(--left);
+    top: var(--top);
+  }
 
+  .img-2 {
+    left: var(--left);
+    top: var(--top);
+  }
   img {
     filter: grayscale(100%);
     object-fit: cover;
   }
-
-
 </style>

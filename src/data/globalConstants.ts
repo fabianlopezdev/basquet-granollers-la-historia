@@ -59,8 +59,8 @@ const SEASONS_INFO = [
     relat:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas porta nisl quis dui tristique, id mattis felis posuere. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas porta nisl quis dui tristique, id mattis felis posuere. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas porta nisl quis dui tristique, id mattis felis posuere. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae",
     images: [
-      { src: "./74-75-1.avif", alt: "" },
       { src: "./74-75-2.avif", alt: "" },
+      { src: "./74-75-1.avif", alt: "" },
     ],
   },
   {
