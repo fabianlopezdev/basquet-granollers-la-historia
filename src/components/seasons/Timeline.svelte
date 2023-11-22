@@ -6,7 +6,7 @@
   import { currentIndex, isOutsideSelection } from "src/svelte/stores";
 
   //Get props
-  export let SEASONS = [];
+  export let SEASONS_INFO = [];
   export let windowHeight;
   export let windowScrollY;
   export let windowWidth;
@@ -80,7 +80,7 @@
       ((SEASON_WIDTH + MIN_GAP) * 16),
   );
 
-  $: displayedSeasons = SEASONS.slice(
+  $: displayedSeasons = SEASONS_INFO.slice(
     currentPage * maxSeasonsPerPage,
     currentPage * maxSeasonsPerPage + maxSeasonsPerPage,
   );
@@ -92,7 +92,7 @@
 
   $: {
     if ($currentIndex !== previousSeason) {
-      activeSeason = SEASONS[$currentIndex];
+      activeSeason = SEASONS_INFO[$currentIndex];
       direction = previousSeason - $currentIndex;
       rotationDirection = 360 * -direction + "deg";
       distance = Math.abs(direction);
@@ -158,7 +158,7 @@
     isDirectSelection = false;
     userInteractionCount++;
     direction = -1;
-   if ($currentIndex < SEASONS.length - 1) {
+   if ($currentIndex < SEASONS_INFO.length - 1) {
     let newIndex = $currentIndex + 1;
     updateAnimationClasses(newIndex);
     $currentIndex = newIndex;
@@ -252,13 +252,13 @@
 
   <button
     class="right-arrow"
-    disabled={$currentIndex >= SEASONS.length - 1}
+    disabled={$currentIndex >= SEASONS_INFO.length - 1}
     on:click={nextSeason}
   >
     <TimelineArrow
       rotate={180}
-      opacity={$currentIndex >= SEASONS.length - 1 && "0.3"}
-      hover={$currentIndex < SEASONS.length - 1 && "0.3"}
+      opacity={$currentIndex >= SEASONS_INFO.length - 1 && "0.3"}
+      hover={$currentIndex < SEASONS_INFO.length - 1 && "0.3"}
     />
   </button>
   <div class="selection-container" bind:clientWidth={timelineWidth}>
@@ -285,6 +285,18 @@
 </div>
 
 <style>
+  .line {
+    --arrow-width: 3.3125rem;
+    /* position: absolute; */
+    margin-top: auto;
+    margin-bottom: 2rem;
+    height: 0.1875rem;
+    background: linear-gradient(
+      90deg,
+      var(--clr-accent) 35.36%,
+      var(--clr-primary) 68.89%
+    );
+  }
   .show {
     display: block;
     animation-name: move-horizontal;
@@ -327,24 +339,11 @@
     font-weight: var(--fnt-wg-regular);
     opacity: 0.3;
   }
-  .line {
-    --arrow-width: 3.3125rem;
-    position: absolute;
-    width: 100%;
-    bottom: 2.5rem;
-    height: 0.1875rem;
-    background: linear-gradient(
-      90deg,
-      var(--clr-accent) 35.36%,
-      var(--clr-primary) 68.89%
-    );
-  }
 
   .left-arrow {
     position: absolute;
     width: var(--arrow-width);
-    top: 50%;
-    transform: translateY(-50%);
+    bottom: 0.2rem;
     left: -1px;
     z-index: 1;
   }
@@ -352,8 +351,7 @@
   .right-arrow {
     position: absolute;
     width: var(--arrow-width);
-    top: 50%;
-    transform: translateY(-50%);
+    bottom: 0.2rem;
     right: 2px;
     z-index: 1;
   }

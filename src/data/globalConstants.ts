@@ -53,7 +53,7 @@ const TEAM_PAGES = {
 
 const OPTIONS = ['relats', 'jugadors', 'resultats', 'social']
 
-const SEASONS = [
+const SEASONS_INFO = [
   {
     name: "74/75",
     relat:
@@ -144,6 +144,6 @@ export {
   TEAM_PAGES,
   IMAGE_FIELDS,
   OPTIONS,
-  SEASONS,
+  SEASONS_INFO,
 };
 

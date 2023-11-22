@@ -22,12 +22,11 @@
 
 <style>
   .options-container {
-    width: 100%;
     display: flex;
     justify-content: center;
+    padding-bottom: 2rem;
     gap: 1.25rem;
-    position: relative;
-    bottom: var( --pd-y-options-btns);
+    margin-top: auto;
   }
   button {
     text-decoration: none;

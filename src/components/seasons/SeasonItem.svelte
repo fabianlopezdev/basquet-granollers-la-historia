@@ -1,119 +1,77 @@
 <script>
   //Import stores
-  import {
-    truncateString,
-  } from "@utils/helperFunctions";
+  import { truncateString } from "@utils/helperFunctions";
 
-  import { currentIndex } from "src/svelte/stores";
   export let season;
-
-  // console.log('season', season)
-
-  let imgNaturalWidth;
-  let imgNaturalHeight;
-  let img2NaturalWidth;
-  let img2NaturalHeight;
-  let translateY;
-
-  
   export let windowScrollY;
   export let windowHeight;
-  
+
+  let translateY;
 
   $: {
     const progress = windowScrollY / windowHeight;
     translateY = `translateY(${100 - 100 * progress * progress}%)`;
   }
 
-  function determineContainerSize(width, height, imgNum) {
-    let style;
-    if (imgNum === 1) {
-      style =
-        width > height
-          ? "max-width: 26.9375rem; height: auto;"
-          : "max-height: 26.4375rem; width: auto";
-    } else {
-      style =
-        width > height
-          ? "max-width: 18.9375rem; height: auto;"
-          : "max-height: 18.4375rem; width: auto";
-    }
-    return style;
-  }
-
-  function determineImageSize(width, height) {
-    return width > height
-      ? "width: 100%; height: auto;"
-      : "width: auto; height: 100%;";
-  }
 </script>
 
-<div
-  style:transform={translateY}
-  class="relat-container"
-  style={`--clr-background: ${season.relatColor}; left: ${season.relatLeft}rem; top: ${season.relatTop}rem`}
->
-  <h3>El Relat</h3>
-  <p>{truncateString(season.relat)}</p>
-  <a href="/">Llegir més</a>
-</div>
-{#if season.images && season.images[0]}
+
   <div
     style:transform={translateY}
-    class="img-container img-1"
-    style={`${determineContainerSize(
-      imgNaturalWidth,
-      imgNaturalHeight,
-      1,
-    )}; left: ${season.imgLeft}rem; top: ${season.imgTop}rem `}
+    class="relat-container"
+    style={`--clr-background: ${season.relatColor}; --left: ${season.relatLeft}rem; --top: ${season.relatTop}rem; --width: ${season.relatWidth}rem`}
   >
-    <img
-      bind:naturalWidth={imgNaturalWidth}
-      bind:naturalHeight={imgNaturalHeight}
-      style={determineImageSize(imgNaturalWidth, imgNaturalHeight)}
-      src={season.images[0].src}
-      alt={season.images[0].alt}
-    />
+    <h3>El Relat</h3>
+    <p>{truncateString(season.relat)}</p>
+    <a href="/">Llegir més</a>
   </div>
-{/if}
-{#if season.images && season.images[1]}
-  <div
-    style:transform={translateY}
-    class="img-container img-2"
-    style={`${determineContainerSize(
-      img2NaturalWidth,
-      img2NaturalHeight,
-    )}; left: ${season.img2Left}rem; top: ${season.img2Top}rem `}
-  >
-    <img
-      bind:naturalWidth={img2NaturalWidth}
-      bind:naturalHeight={img2NaturalHeight}
-      style={determineImageSize(img2NaturalWidth, img2NaturalHeight)}
-      src={season.images[1].src}
-      alt={season.images[1].alt}
-    />
+  {#if season.images && season.images[0]}
+    <div
+      style:transform={translateY}
+      class="img-container img-1"
+      style={`left: ${season.imgLeft}rem; top: ${season.imgTop}rem `}
+    >
+      <img
+        src={season.images[0].src}
+        alt={season.images[0].alt}
+      />
+    </div>
+  {/if}
+  {#if season.images && season.images[1]}
+    <div
+      style:transform={translateY}
+      class="img-container img-2"
+      style={`left: ${season.img2Left}rem; top: ${season.img2Top}rem `}
+    >
+      <img
+        src={season.images[1].src}
+        alt={season.images[1].alt}
+      />
+    </div>
+  {/if}
+  <div class="season-title">
+    <aside>Temporada</aside>
+    <h2 class="big-number">{season.name}</h2>
   </div>
-{/if}
-<div class="season-title">
-  <aside>Temporada</aside>
-  <h2 class="big-number">{season.name}</h2>
-</div>
+
 
 <style>
+ 
   .relat-container {
-    position: absolute;
+    position: relative;
     display: flex;
     flex-direction: column;
+    left: var(--left);
+    top: var(--top);
+    width: var(--width);
     gap: 1rem;
     color: var(--clr-contrast);
     background-color: var(--clr-background);
     max-width: 19.5rem;
     padding-inline: 2.5rem;
     padding-block: 2rem;
-    opacity: 0.84;
     z-index: 10;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-    z-index: 1000;
     transform: translateY(100%);
   }
   h3 {
@@ -125,7 +83,7 @@
     text-decoration: underline;
   }
   .img-container {
-    position: absolute;
+    position: relative;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
     z-index: 10;
     mix-blend-mode: multiply;
@@ -138,10 +96,7 @@
   }
 
   .season-title {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+   align-self: center;
   }
   aside {
     position: relative;
