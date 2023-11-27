@@ -4,46 +4,8 @@
   import Timeline from "./Timeline.svelte";
   import SeasonItem from "./SeasonItem.svelte";
   //Import data
-  import { SEASONS_INFO } from "@data/globalConstants";
+  import { SEASONS_INFO, SEASONS_LAYOUT } from "@data/globalConstants";
   import { currentIndex } from "src/svelte/stores";
-
-  const RELATS_PROPS =  {colors:{
-    blue: "rgba(8, 67, 149, 0.90)",
-    orange: "rgba(251, 115, 38, 0.84)"}, width: {short: 19.5, large: 38.625} 
-  }
-
-  const SEASONS_LAYOUT = [
-    {
-      imgLeft: 12.5,
-      imgTop: 32,
-      img2Left: 24,
-      img2Top: 5,
-      relatLeft: 48.5,
-      relatTop: 24,
-      relatColor: RELATS_PROPS.colors.blue,
-      relatWidth: RELATS_PROPS.width.short,
-    },
-    {
-      imgLeft: 0,
-      imgTop: 30,
-      img2Left: 61,
-      img2Top: 5,
-      relatLeft: 24.5,
-      relatTop: 40,
-      relatColor: RELATS_PROPS.colors.orange,
-      relatWidth: RELATS_PROPS.width.large,
-    },
-    {
-      imgLeft: 20,
-      imgTop: 5,
-      img2Left: 65.06,
-      img2Top: 40,
-      relatLeft: 8,
-      relatTop: 40,
-      relatColor: RELATS_PROPS.colors.blue,
-      relatWidth: RELATS_PROPS.width.short,
-    },
-  ];
 
   const TOTAL_SEASONS = SEASONS_INFO.length;
 
@@ -56,11 +18,10 @@
     ...season,
     ...SEASONS_LAYOUT[index],
   }));
+  let seasonWidth = 100 / TOTAL_SEASONS;
+  $: transform = `translateX(${-seasonWidth * $currentIndex}%)`;
 
-  $: transform = `translateX(${-100 * $currentIndex}%)`;
-  
-  console.log('transfrom', transform)
-  console.log("SEASONS", SEASONS);
+  $: console.log("transform", transform);
 </script>
 
 <svelte:window
@@ -70,10 +31,12 @@
 />
 
 <section id="seasons">
-  <!-- <img src="/cancha.png" alt="Dibuix d'una pista de bàsquet" /> -->
-  <div class="seasons-container" style='--totalSeasons: {TOTAL_SEASONS}' >
+  <div
+    class="seasons-container"
+    style="--totalSeasons: {TOTAL_SEASONS}; transform: {transform}"
+  >
     {#each SEASONS as season}
-        <SeasonItem {season} {windowHeight} {windowScrollY} {windowWidth} />
+      <SeasonItem {season} {windowHeight} {windowScrollY} {windowWidth} />
     {/each}
   </div>
   <Options />
@@ -96,7 +59,7 @@
     max-width: var(--wd-regular);
     margin: auto;
     overflow: hidden;
-    display:flex;
+    display: flex;
     flex-direction: column;
   }
 
@@ -106,6 +69,6 @@
     display: flex;
     color: var(--clr-primary);
     overflow: hidden;
+    transition: transform 1s ease-in-out;
   }
-  
 </style>

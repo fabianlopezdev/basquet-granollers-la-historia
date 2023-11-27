@@ -138,6 +138,47 @@ const SEASONS_INFO = [
   },
 ];
 
+const RELATS_PROPS = {
+  colors: {
+    blue: "rgba(8, 67, 149, 0.90)",
+    orange: "rgba(251, 115, 38, 0.84)",
+  },
+  width: { short: 19.5, large: 38.625 },
+};
+
+const SEASONS_LAYOUT = [
+  {
+    imgLeft: 12.5,
+    imgTop: 32,
+    img2Left: 24,
+    img2Top: 5,
+    relatLeft: 48.5,
+    relatTop: 24,
+    relatColor: RELATS_PROPS.colors.blue,
+    relatWidth: RELATS_PROPS.width.short,
+  },
+  {
+    imgLeft: 0,
+    imgTop: 30,
+    img2Left: 61,
+    img2Top: 5,
+    relatLeft: 24.5,
+    relatTop: 40,
+    relatColor: RELATS_PROPS.colors.orange,
+    relatWidth: RELATS_PROPS.width.large,
+  },
+  {
+    imgLeft: 20,
+    imgTop: 5,
+    img2Left: 65.06,
+    img2Top: 40,
+    relatLeft: 8,
+    relatTop: 40,
+    relatColor: RELATS_PROPS.colors.blue,
+    relatWidth: RELATS_PROPS.width.short,
+  },
+];
+
 export {
   POST_FIELDS,
   CONFIG_PAGES,
@@ -145,5 +186,7 @@ export {
   IMAGE_FIELDS,
   OPTIONS,
   SEASONS_INFO,
+  SEASONS_LAYOUT,
+  RELATS_PROPS
 };
 

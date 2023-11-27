@@ -8,21 +8,21 @@
   export let windowWidth;
 
   let translateY;
-  let maxWidth = 1301 / 16;
-  let imgLeft = (season.imgLeft / maxWidth) * (1301 / 16);
+  let maxWidth = 1308 / 16;
+
+  let containerWidth;
+
+  let imgLeft = (season.imgLeft / maxWidth) * (1308 / 16);
+  let img2Left = (season.img2Left / maxWidth) * (1308 / 16);
+  let relatLeft = (season.relatLeft / maxWidth) * (1308 / 16);
+
   $: {
     const progress = windowScrollY / windowHeight;
     translateY = `translateY(${100 - 100 * progress * progress}%)`;
   }
-
-  $: if (windowWidth) {
-    imgLeft = (season.imgLeft / maxWidth) * (windowWidth / 16);
-    imgLeft = (season.imgLeft / maxWidth) * (windowWidth / 16);
-    relatLeft = (season.imgLeft / maxWidth) * (windowWidth / 16);
-  }
 </script>
 
-<div class="season-container">
+<div class="season-container" bind:clientWidth={containerWidth} >
   <div class="season-title">
     <aside>Temporada</aside>
     <h2 class="big-number">{season.name}</h2>
@@ -30,7 +30,7 @@
   <div
     style:transform={translateY}
     class="relat-container"
-    style={`--clr-background: ${season.relatColor}; --left: ${season.relatLeft}rem; --top: ${season.relatTop}rem; --width: ${season.relatWidth}rem`}
+    style={`--clr-background: ${season.relatColor}; --left: ${relatLeft}rem; --top: ${season.relatTop}rem; --width: ${season.relatWidth}rem`}
   >
     <h3>El Relat</h3>
     <p>{truncateString(season.relat)}</p>
@@ -49,7 +49,7 @@
     <div
       style:transform={translateY}
       class="img-container img-2"
-      style={`--left: ${season.img2Left}rem; --top: ${season.img2Top}rem`}
+      style={`--left: ${img2Left}rem; --top: ${season.img2Top}rem`}
     >
       <img src={season.images[1].src} alt={season.images[1].alt} />
     </div>
