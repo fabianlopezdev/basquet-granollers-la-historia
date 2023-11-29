@@ -8,6 +8,7 @@
   export let windowHeight;
   export let seasonIndex;
   console.log("seasonWidth", season.relatWidth);
+  console.log("hoverColor", season.hoverColor);
   let translateY;
   let maxWidth = 1308 / 16;
 
@@ -23,7 +24,6 @@
   }
 
   $: internalOffset = (seasonIndex - $currentIndex) * 100;
-  $: console.log("internalOffset", internalOffset);
 </script>
 
 <div
@@ -42,7 +42,7 @@
     >
       <header>El Relat</header>
       <p>{truncateString(season.relat)}</p>
-      <a href="/">Llegir més</a>
+      <a href="/" style="--hoverColor: {season.hoverColor}">Llegir més</a>
     </article>
   </div>
   {#if season.images && season.images[0]}
@@ -136,6 +136,9 @@
   
   a {
     text-decoration: underline;
+  }
+  a:hover {
+   color: var(--hoverColor);
   }
   img {
     filter: grayscale(100%);

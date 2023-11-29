@@ -155,6 +155,7 @@ const SEASONS_LAYOUT = [
     relatLeft: 48.5,
     relatTop: 24,
     relatColor: RELATS_PROPS.colors.blue,
+    hoverColor: RELATS_PROPS.colors.orange,
     relatWidth: RELATS_PROPS.width.short,
   },
   {
@@ -165,6 +166,7 @@ const SEASONS_LAYOUT = [
     relatLeft: 22.5,
     relatTop: 32,
     relatColor: RELATS_PROPS.colors.orange,
+    hoverColor: RELATS_PROPS.colors.blue,
     relatWidth: RELATS_PROPS.width.large,
   },
   {
@@ -175,6 +177,7 @@ const SEASONS_LAYOUT = [
     relatLeft: 8,
     relatTop: 40,
     relatColor: RELATS_PROPS.colors.blue,
+    hoverColor: RELATS_PROPS.colors.orange,
     relatWidth: RELATS_PROPS.width.short,
   },
 ];
