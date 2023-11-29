@@ -28,14 +28,14 @@
 
 <div
   class="season-container"
-  style="--internal-offset: {internalOffset}%"
+  style="--translateX: {internalOffset}%; --translateY: {translateY};}"
   bind:clientWidth={containerWidth}
 >
   <div class="season-title">
     <aside>Temporada</aside>
     <h2 class="big-number">{season.name}</h2>
   </div>
-  <div class="translateY-wrapper" style="transform: {translateY}">
+  <div class="translateY-wrapper">
     <article
       class="relat-container"
       style="--clr-background: {season.relatColor}; --left: {relatLeft}rem; --top: {season.relatTop}rem; --width: {season.relatWidth}rem;"
@@ -46,20 +46,24 @@
     </article>
   </div>
   {#if season.images && season.images[0]}
+   <div class="translateY-wrapper blender" style="transform: {translateY}">
     <div
-      class="img-container img-1"
-      style={`--left: ${imgLeft}rem; --top: ${season.imgTop}rem`}
+    class="img-container img-1"
+    style={`--left: ${imgLeft}rem; --top: ${season.imgTop}rem`}
     >
-      <img src={season.images[0].src} alt={season.images[0].alt} />
-    </div>
+    <img src={season.images[0].src} alt={season.images[0].alt} />
+  </div>
+</div>
   {/if}
   {#if season.images && season.images[1]}
+   <div class="translateY-wrapper blender" style="transform: {translateY}">
     <div
-      class="img-container img-2"
-      style={`--left: ${img2Left}rem; --top: ${season.img2Top}rem`}
+    class="img-container img-2"
+    style={`--left: ${img2Left}rem; --top: ${season.img2Top}rem`}
     >
-      <img src={season.images[1].src} alt={season.images[1].alt} />
-    </div>
+    <img src={season.images[1].src} alt={season.images[1].alt} />
+  </div>
+</div>
   {/if}
 </div>
 
@@ -87,6 +91,7 @@
     font-weight: var(--fnt-wg-medium);
   }
   .big-number {
+    position: relative;
     text-align: center;
     /* padding-bottom: 8rem; */
     font-size: 14rem;
@@ -96,11 +101,17 @@
       24.25rem
     );
     font-weight: var(--fnt-wg-medium);
+
     /* opacity: 0.95; */
   }
   .translateY-wrapper {
-    transform: translateY(100%);
-    transition: transform 0.2s ease-out;
+    transform: var(--translateY);
+    transition: transform 0.5s ease-out;
+    position: absolute;
+  }
+
+  .blender {
+    mix-blend-mode: multiply;
   }
   .relat-container {
     position: relative;
@@ -114,7 +125,6 @@
     background-color: var(--clr-background);
     padding-inline: 2.5rem;
     padding-block: 2rem;
-    z-index: 10;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   }
 
@@ -132,17 +142,15 @@
     object-fit: cover;
   }
   .img-container {
-    position: absolute;
+    position: relative;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-    z-index: 10;
-    mix-blend-mode: multiply;
     /* opacity: 0.75; */
   }
 
   .relat-container,
   .img-container {
-    transition: transform 1.7s ease-out;
-    transform: translateX(var(--internal-offset));
+    transition: transform 1.9s ease-out;
+    transform: translateX(var(--translateX));
   }
   .img-1 {
     left: var(--left);
