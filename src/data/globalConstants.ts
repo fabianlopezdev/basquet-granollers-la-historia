@@ -77,8 +77,8 @@ const SEASONS_INFO = [
     relat:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas porta nisl quis dui tristique, id mattis felis posuere. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas porta nisl quis dui tristique, id mattis felis posuere. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas porta nisl quis dui tristique, id mattis felis posuere. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae",
     images: [
-      { src: "./76-77-2.avif", alt: "" },
       { src: "./76-77-1.avif", alt: "" },
+      { src: "./76-77-2.avif", alt: "" },
     ],
   },
   {
@@ -172,10 +172,10 @@ const SEASONS_LAYOUT = [
   {
     imgLeft: 20,
     imgTop: 5,
-    img2Left: 65.06,
-    img2Top: 40,
+    img2Left: 60,
+    img2Top: 31,
     relatLeft: 8,
-    relatTop: 40,
+    relatTop: 30,
     relatColor: RELATS_PROPS.colors.blue,
     hoverColor: RELATS_PROPS.colors.orange,
     relatWidth: RELATS_PROPS.width.short,
