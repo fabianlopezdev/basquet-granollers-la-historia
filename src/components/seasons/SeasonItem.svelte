@@ -2,11 +2,12 @@
   //Import stores
   import { truncateString } from "@utils/helperFunctions";
 
+  import { currentIndex } from "src/svelte/stores";
   export let season;
   export let windowScrollY;
   export let windowHeight;
-  export let windowWidth;
-
+  export let seasonIndex;
+  console.log("seasonWidth", season.relatWidth);
   let translateY;
   let maxWidth = 1308 / 16;
 
@@ -17,28 +18,35 @@
   let relatLeft = (season.relatLeft / maxWidth) * (1308 / 16);
 
   $: {
-    const progress = windowScrollY / windowHeight;
-    translateY = `translateY(${100 - 100 * progress * progress}%)`;
+    const progressY = windowScrollY / windowHeight;
+    translateY = `translateY(${100 - 100 * progressY * progressY}%)`;
   }
+
+  $: internalOffset = (seasonIndex - $currentIndex) * 100;
+  $: console.log("internalOffset", internalOffset);
 </script>
 
-<div class="season-container" bind:clientWidth={containerWidth} >
+<div
+  class="season-container"
+  style="--internal-offset: {internalOffset}%"
+  bind:clientWidth={containerWidth}
+>
   <div class="season-title">
     <aside>Temporada</aside>
     <h2 class="big-number">{season.name}</h2>
   </div>
-  <div
-    style:transform={translateY}
-    class="relat-container"
-    style={`--clr-background: ${season.relatColor}; --left: ${relatLeft}rem; --top: ${season.relatTop}rem; --width: ${season.relatWidth}rem`}
-  >
-    <h3>El Relat</h3>
-    <p>{truncateString(season.relat)}</p>
-    <a href="/">Llegir més</a>
+  <div class="translateY-wrapper" style="transform: {translateY}">
+    <article
+      class="relat-container"
+      style="--clr-background: {season.relatColor}; --left: {relatLeft}rem; --top: {season.relatTop}rem; --width: {season.relatWidth}rem;"
+    >
+      <header>El Relat</header>
+      <p>{truncateString(season.relat)}</p>
+      <a href="/">Llegir més</a>
+    </article>
   </div>
   {#if season.images && season.images[0]}
     <div
-      style:transform={translateY}
       class="img-container img-1"
       style={`--left: ${imgLeft}rem; --top: ${season.imgTop}rem`}
     >
@@ -47,7 +55,6 @@
   {/if}
   {#if season.images && season.images[1]}
     <div
-      style:transform={translateY}
       class="img-container img-2"
       style={`--left: ${img2Left}rem; --top: ${season.img2Top}rem`}
     >
@@ -91,8 +98,12 @@
     font-weight: var(--fnt-wg-medium);
     /* opacity: 0.95; */
   }
+  .translateY-wrapper {
+    transform: translateY(100%);
+    transition: transform 0.2s ease-out;
+  }
   .relat-container {
-    position: absolute;
+    position: relative;
     display: flex;
     flex-direction: column;
     left: var(--left);
@@ -101,20 +112,24 @@
     gap: 1rem;
     color: var(--clr-contrast);
     background-color: var(--clr-background);
-    max-width: 19.5rem;
     padding-inline: 2.5rem;
     padding-block: 2rem;
     z-index: 10;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-    transform: translateY(100%);
   }
-  h3 {
+
+  
+  header {
     font-size: 1.2rem;
     font-weight: var(--fnt-wg-medium);
   }
-
+  
   a {
     text-decoration: underline;
+  }
+  img {
+    filter: grayscale(100%);
+    object-fit: cover;
   }
   .img-container {
     position: absolute;
@@ -122,6 +137,12 @@
     z-index: 10;
     mix-blend-mode: multiply;
     /* opacity: 0.75; */
+  }
+
+  .relat-container,
+  .img-container {
+    transition: transform 1.7s ease-out;
+    transform: translateX(var(--internal-offset));
   }
   .img-1 {
     left: var(--left);
@@ -131,9 +152,5 @@
   .img-2 {
     left: var(--left);
     top: var(--top);
-  }
-  img {
-    filter: grayscale(100%);
-    object-fit: cover;
   }
 </style>

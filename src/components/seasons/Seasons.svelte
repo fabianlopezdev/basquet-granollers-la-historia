@@ -20,8 +20,6 @@
   }));
   let seasonWidth = 100 / TOTAL_SEASONS;
   $: transform = `translateX(${-seasonWidth * $currentIndex}%)`;
-
-  $: console.log("transform", transform);
 </script>
 
 <svelte:window
@@ -35,8 +33,8 @@
     class="seasons-container"
     style="--totalSeasons: {TOTAL_SEASONS}; transform: {transform}"
   >
-    {#each SEASONS as season}
-      <SeasonItem {season} {windowHeight} {windowScrollY} {windowWidth} />
+    {#each SEASONS as season, seasonIndex}
+      <SeasonItem {season} {windowHeight} {windowScrollY} {windowWidth} {seasonIndex}/>
     {/each}
   </div>
   <Options />
@@ -68,7 +66,7 @@
     height: calc(100dvh - var(--pd-y-options-btns) - 2.12rem);
     display: flex;
     color: var(--clr-primary);
-    overflow: hidden;
-    transition: transform 1s ease-in-out;
+    /* overflow: hidden; */
+    transition: transform 1.5s ease-out;
   }
 </style>
