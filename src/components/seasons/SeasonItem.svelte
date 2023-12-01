@@ -5,66 +5,92 @@
   import { currentIndex } from "src/svelte/stores";
   export let season;
   export let windowScrollY;
-  export let windowHeight;
   export let seasonIndex;
-  console.log("seasonWidth", season.relatWidth);
-  console.log("hoverColor", season.hoverColor);
+  export let windowHeight;
+
   let translateY;
-  let maxWidth = 1308 / 16;
 
-  let containerWidth;
+  console.log("season", season);
 
-  let imgLeft = (season.imgLeft / maxWidth) * (1308 / 16);
-  let img2Left = (season.img2Left / maxWidth) * (1308 / 16);
-  let relatLeft = (season.relatLeft / maxWidth) * (1308 / 16);
+  // $: {
+  //   const xDifference = (MAX_WIDTH - containerWidth) / 16;
+  //   const yDifference = (900 - containerHeight) / 16;
 
+  //   if(containerWidth < MAX_WIDTH) {
+  //   imgLeft = season.imgLeft - xDifference > 0 ? season.imgLeft - xDifference : 0;
+  //   img2Left = season.img2Left - xDifference > 0 ? season.imgLeft - xDifference : 0;;
+  //   relatLeft = season.relatLeft - xDifference;
+  //   }
+
+  //   if (containerHeight > IDEAL_HEIGHT) {
+  //     imgTop = season.imgTop - yDifference;
+  //     img2Top = season.img2Top - yDifference;
+  //     relatTop = season.relatTop - yDifference;
+  //   }
+  // }
   $: {
     const progressY = windowScrollY / windowHeight;
     translateY = `translateY(${100 - 100 * progressY * progressY}%)`;
   }
 
-  $: internalOffset = (seasonIndex - $currentIndex) * 100;
+  $: translateX = (seasonIndex - $currentIndex) * 100;
 </script>
 
 <div
   class="season-container"
-  style="--translateX: {internalOffset}%; --translateY: {translateY};}"
-  bind:clientWidth={containerWidth}
+  style="--translateX: {translateX}%; --translateY: {translateY};}"
 >
   <div class="season-title">
     <aside>Temporada</aside>
     <h2 class="big-number">{season.name}</h2>
   </div>
-  <div class="translateY-wrapper">
-    <article
-      class="relat-container"
-      style="--clr-background: {season.relatColor}; --left: {relatLeft}rem; --top: {season.relatTop}rem; --width: {season.relatWidth}rem;"
-    >
-      <header>El Relat</header>
-      <p>{truncateString(season.relat)}</p>
-      <a href="/" style="--hoverColor: {season.hoverColor}">Llegir més</a>
-    </article>
+  <div class="items-container">
+    {#if season.relatProps !== undefined}
+      <div
+        class="translateY-wrapper relat"
+        style="--rowStart: {season.relatProps.rowStart}; --rowEnd: {season
+          .relatProps.rowEnd}; --colStart: {season.relatProps
+          .colStart}; --colEnd: {season.relatProps.colEnd};"
+      >
+        <article
+          class="relat-container"
+          style="--clr-background: {season.relatProps.color};  --width: {season
+            .relatProps.width}rem;"
+        >
+          <header>El Relat</header>
+          <p>{truncateString(season.relat)}</p>
+          <a href="/" style="--hoverColor: {season.relatProps.hoverColor}"
+            >Llegir més</a
+          >
+        </article>
+      </div>
+    {/if}
+    {#if season.images}
+      {#each season.images as image, i}
+        {#if i < 2}
+          <div
+            class="translateY-wrapper blender img-{i}"
+            style="transform: {translateY}; --rowStart: {
+                i === 0 ? season.img1.rowStart : season.img2.rowStart
+              }; --rowEnd: {
+                i === 0 ? season.img1.rowEnd : season.img2.rowEnd
+              }; --colStart: {
+                i === 0 ? season.img1.colStart : season.img2.colStart
+              }; --colEnd: {
+                i === 0 ? season.img1.colEnd : season.img2.colEnd
+              }"
+          >
+            <div
+              class="img-container"
+              
+            >
+              <img src={image.src} alt={image.alt} />
+            </div>
+          </div>
+        {/if}
+      {/each}
+    {/if}
   </div>
-  {#if season.images && season.images[0]}
-   <div class="translateY-wrapper blender" style="transform: {translateY}">
-    <div
-    class="img-container img-1"
-    style={`--left: ${imgLeft}rem; --top: ${season.imgTop}rem`}
-    >
-    <img src={season.images[0].src} alt={season.images[0].alt} />
-  </div>
-</div>
-  {/if}
-  {#if season.images && season.images[1]}
-   <div class="translateY-wrapper blender" style="transform: {translateY}">
-    <div
-    class="img-container img-2"
-    style={`--left: ${img2Left}rem; --top: ${season.img2Top}rem`}
-    >
-    <img src={season.images[1].src} alt={season.images[1].alt} />
-  </div>
-</div>
-  {/if}
 </div>
 
 <style>
@@ -73,7 +99,16 @@
     width: 100%;
     height: inherit;
   }
-
+  .items-container {
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(12, 8.32%);
+    grid-template-rows: repeat(10, 10%);
+  }
+  .relat {
+    grid-column: var(--colStart) / var(--colEnd);
+    grid-row: var(--rowStart) / var(--rowEnd);
+  }
   .season-title {
     position: absolute;
     top: 50%;
@@ -107,7 +142,6 @@
   .translateY-wrapper {
     transform: var(--translateY);
     transition: transform 0.5s ease-out;
-    position: absolute;
   }
 
   .blender {
@@ -117,8 +151,7 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    left: var(--left);
-    top: var(--top);
+
     width: var(--width);
     gap: 1rem;
     color: var(--clr-contrast);
@@ -128,26 +161,25 @@
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   }
 
-  
   header {
     font-size: 1.2rem;
     font-weight: var(--fnt-wg-medium);
   }
-  
+
   a {
     text-decoration: underline;
   }
   a:hover {
-   color: var(--hoverColor);
+    color: var(--hoverColor);
   }
   img {
     filter: grayscale(100%);
     object-fit: cover;
   }
   .img-container {
-    position: relative;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
     /* opacity: 0.75; */
+    width: fit-content;
   }
 
   .relat-container,
@@ -155,13 +187,13 @@
     transition: transform 1.9s ease-out;
     transform: translateX(var(--translateX));
   }
-  .img-1 {
-    left: var(--left);
-    top: var(--top);
+  .img-0 {
+    grid-column: var(--colStart) / var(--colEnd);
+    grid-row: var(--rowStart) / var(--rowEnd);
   }
 
-  .img-2 {
-    left: var(--left);
-    top: var(--top);
+  .img-1 {
+    grid-column: var(--colStart) / var(--colEnd);
+    grid-row: var(--rowStart) / var(--rowEnd);
   }
 </style>

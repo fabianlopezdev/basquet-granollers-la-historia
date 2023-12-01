@@ -34,7 +34,7 @@
     style="--totalSeasons: {TOTAL_SEASONS}; transform: {transform}"
   >
     {#each SEASONS as season, seasonIndex}
-      <SeasonItem {season} {windowHeight} {windowScrollY} {windowWidth} {seasonIndex}/>
+      <SeasonItem {season} {windowHeight} {windowScrollY} {seasonIndex}/>
     {/each}
   </div>
   <Options />
