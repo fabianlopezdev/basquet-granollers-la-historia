@@ -70,20 +70,17 @@
         {#if i < 2}
           <div
             class="translateY-wrapper blender img-{i}"
-            style="transform: {translateY}; --rowStart: {
-                i === 0 ? season.img1.rowStart : season.img2.rowStart
-              }; --rowEnd: {
-                i === 0 ? season.img1.rowEnd : season.img2.rowEnd
-              }; --colStart: {
-                i === 0 ? season.img1.colStart : season.img2.colStart
-              }; --colEnd: {
-                i === 0 ? season.img1.colEnd : season.img2.colEnd
-              }"
+            style="transform: {translateY}; --rowStart: {i === 0
+              ? season.img1.rowStart
+              : season.img2.rowStart}; --rowEnd: {i === 0
+              ? season.img1.rowEnd
+              : season.img2.rowEnd}; --colStart: {i === 0
+              ? season.img1.colStart
+              : season.img2.colStart}; --colEnd: {i === 0
+              ? season.img1.colEnd
+              : season.img2.colEnd}"
           >
-            <div
-              class="img-container"
-              
-            >
+            <div class="img-container">
               <img src={image.src} alt={image.alt} />
             </div>
           </div>
@@ -146,6 +143,11 @@
 
   .blender {
     mix-blend-mode: multiply;
+    transition: mix-blend-mode 0.5s ease-out;
+  }
+
+  .blender:hover {
+    mix-blend-mode: normal;
   }
   .relat-container {
     position: relative;
@@ -175,12 +177,21 @@
   img {
     filter: grayscale(100%);
     object-fit: cover;
+    transition: transform 0.5s ease-out;
   }
+
+  img:hover {
+    filter: grayscale(0%);
+    transform: scale(1.5);
+  
+  }
+
   .img-container {
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
     /* opacity: 0.75; */
     width: fit-content;
   }
+
+  
 
   .relat-container,
   .img-container {
