@@ -6,6 +6,15 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '@components/Hero.astro';
 import Seasons from '@components/seasons/Seasons.svelte';
 ---
+<script>
+  document.addEventListener('keyup', (event) => {
+    if (event.key === 'ArrowUp') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else if (event.key === 'ArrowDown') {
+      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    }
+  });
+</script>
 
 <BaseLayout>
     <Hero />
