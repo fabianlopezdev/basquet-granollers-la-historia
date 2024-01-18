@@ -10,24 +10,6 @@
 
   let translateY;
 
-  console.log("season", season);
-
-  // $: {
-  //   const xDifference = (MAX_WIDTH - containerWidth) / 16;
-  //   const yDifference = (900 - containerHeight) / 16;
-
-  //   if(containerWidth < MAX_WIDTH) {
-  //   imgLeft = season.imgLeft - xDifference > 0 ? season.imgLeft - xDifference : 0;
-  //   img2Left = season.img2Left - xDifference > 0 ? season.imgLeft - xDifference : 0;;
-  //   relatLeft = season.relatLeft - xDifference;
-  //   }
-
-  //   if (containerHeight > IDEAL_HEIGHT) {
-  //     imgTop = season.imgTop - yDifference;
-  //     img2Top = season.img2Top - yDifference;
-  //     relatTop = season.relatTop - yDifference;
-  //   }
-  // }
   $: {
     const progressY = windowScrollY / windowHeight;
     translateY = `translateY(${100 - 100 * progressY * progressY}%)`;
@@ -143,7 +125,6 @@
 
   .blender {
     mix-blend-mode: multiply;
-    transition: mix-blend-mode 0.5s ease-out;
   }
 
   .blender:hover {
@@ -183,15 +164,12 @@
   img:hover {
     filter: grayscale(0%);
     transform: scale(1.5);
-  
   }
 
   .img-container {
     /* opacity: 0.75; */
     width: fit-content;
   }
-
-  
 
   .relat-container,
   .img-container {

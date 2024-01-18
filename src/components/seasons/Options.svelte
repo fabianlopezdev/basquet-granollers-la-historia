@@ -2,8 +2,9 @@
   import { display } from "../../svelte/stores.ts";
 
   function selectDisplay(e) {
-    const buttonText = e.target.textContent;
-    if (buttonText === $display) display.set("RELATS");
+    const buttonText = e.target.textContent.toLowerCase();
+    console.log('buttonteext', buttonText)
+    if (buttonText === $display) display.set("relats");
     else display.set(buttonText);
   }
 </script>

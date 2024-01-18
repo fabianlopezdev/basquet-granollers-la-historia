@@ -300,9 +300,8 @@
   }
   .show {
     display: block;
-    animation-name: move-horizontal;
   }
-
+  
   @keyframes move-horizontal {
     from {
       transform: translateX(var(--distance)) rotate(0deg) scale(2);
@@ -313,7 +312,7 @@
       border-color: var(--clr-contrast);
     }
   }
-
+  
   img {
     display: none;
     background-color: var(--clr-contrast);
@@ -323,6 +322,7 @@
     height: auto;
     transform: scale(2);
     object-fit: cover;
+    animation-name: move-horizontal;
     animation-duration: var(--duration);
     animation-timing-function: ease-out;
     z-index: 1;

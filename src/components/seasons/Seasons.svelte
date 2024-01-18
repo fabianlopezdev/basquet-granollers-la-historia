@@ -6,6 +6,7 @@
   //Import data
   import { SEASONS_INFO, SEASONS_LAYOUT } from "@data/globalConstants";
   import { currentIndex } from "src/svelte/stores";
+  import { display } from "src/svelte/stores";
 
   const TOTAL_SEASONS = SEASONS_INFO.length;
 
@@ -28,7 +29,7 @@
   bind:scrollY={windowScrollY}
 />
 
-<section id="seasons">
+<main id="seasons">
   <div
     class="seasons-container"
     style="--totalSeasons: {TOTAL_SEASONS}; transform: {transform}"
@@ -45,10 +46,15 @@
     {windowWidth}
     bind:animationClass
   />
-</section>
+  {#if $display === 'jugadors'}
+    <section class='more-info-menu'>
+
+    </section>
+  {/if}
+</main>
 
 <style>
-  section {
+  main {
     background-color: var(--clr-contrast);
     height: 100dvh;
     scroll-snap-align: start;
@@ -59,8 +65,16 @@
     overflow: hidden;
     display: flex;
     flex-direction: column;
+    position: relative;
   }
 
+  .more-info-menu {
+    position: absolute;
+    height: inherit;
+    width: 100%;
+    background-color: red;
+    z-index: 1;
+  }
   .seasons-container {
     width: calc(100% * var(--totalSeasons));
     height: calc(100dvh - var(--pd-y-options-btns) - 2.12rem);
