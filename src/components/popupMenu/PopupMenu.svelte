@@ -3,6 +3,7 @@
   import { display } from "src/svelte/stores";
   import { slide } from "svelte/transition";
   import { upperCaseFirstLetter } from "@utils/helperFunctions";
+  import {PLAYERS} from "@data/globalConstants";
   export let SEASONS_INFO;
 </script>
 
@@ -21,12 +22,13 @@
     >
   </header>
   <div class="menu-container">
-    <article class="player">
+    {#each PLAYERS as player}
+      <article class="player">
       <div class="image-container">
         <img src={"/player-avatar.png"} alt="" />
       </div>
       <div class="info-container">
-        <p class="name">Eliodoro Martinez</p>
+        <p class="name">{PLAYERS[0].name}</p>
       </div>
       <div class="player-details">
         <p>Data de naixement <span>18/02/1995</span></p>
@@ -37,6 +39,8 @@
         <p>Temporades <br><span>16 temporades CBG <br>{'(1953-99)'}</span></p>
       </div>
     </article>
+    {/each}
+    
     <!-- {#if $display === "jugadors"}
       <ul>
         {#each SEASONS_INFO.players as player}
@@ -64,13 +68,15 @@
     --hg-header-menu: 8.25rem;
     --mg-left-top-header: 1rem;
     position: absolute;
-    height: inherit;
+    min-height: inherit;
     width: 100%;
     margin: 0;
     background-color: var(--clr-contrast);
     z-index: 10;
-    overflow: hidden;
+    overflow-x: hidden;
+    /* overflow: hidden; */
   }
+
   .menu-header {
     background-color: var(--clr-primary);
     display: flex;
@@ -83,7 +89,11 @@
   }
 
   .menu-container {
-    padding-top: 4.75rem;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    padding-block: 4.75rem;
     max-width: var(--wd-regular);
     margin: auto;
     height: calc(100% - var(--hg-header-menu) - var(--mg-left-top-header));

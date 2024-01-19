@@ -1,57 +1,175 @@
-import type {
-  PostFields,
-} from '../types/types';
+import type { PostFields } from "../types/types";
 
 /*Pages to exclude when generating dynamic routes*/
 
 const IMAGE_FIELDS = [
-  'id',
-  'source_url',
-  'title',
-  'alt_text',
-  'caption',
-  'description',
+  "id",
+  "source_url",
+  "title",
+  "alt_text",
+  "caption",
+  "description",
 ];
-
-
 
 /*API constants fields*/
 const POST_FIELDS: PostFields[] = [
-  'title',
-  'content',
-  'link',
-  'slug',
-  'categories',
-  'date',
-  'image',
-  'id',
+  "title",
+  "content",
+  "link",
+  "slug",
+  "categories",
+  "date",
+  "image",
+  "id",
 ];
 
-
-
 const CONFIG_PAGES = {
-  header: 'capcalera',
-  footer: 'peu-de-pagina',
-  socialMedia: 'xarxes-socials',
-  homePageJoinSection: 'la-familia-cbg',
-  homePageTeamsSection: 'equips',
-  homePageMainSponsorsWhite: 'patrocinadors-principals-logos-blancs',
-  homePageMainSponsorsBlue: 'patrocinadors-principals-logos-blaus',
-  homePageOtherSponsors: 'altres-patrocinadors',
+  header: "capcalera",
+  footer: "peu-de-pagina",
+  socialMedia: "xarxes-socials",
+  homePageJoinSection: "la-familia-cbg",
+  homePageTeamsSection: "equips",
+  homePageMainSponsorsWhite: "patrocinadors-principals-logos-blancs",
+  homePageMainSponsorsBlue: "patrocinadors-principals-logos-blaus",
+  homePageOtherSponsors: "altres-patrocinadors",
 };
 
 const TEAM_PAGES = {
-  allTeams: 'equips',
-  maleTeams: 'equips-masculins',
-  femaleTeams: 'equips-femenins',
-  school: 'escola-de-basquet',
-  wheelchair: 'basquet-en-cadira-de-rodes',
-  maleSenior: 'jugadors-equip-senior-masculi',
-  femaleSenior: 'jugadores-equip-senior-femeni',
-  coaches: 'entrenadors-i-entrenadores',
+  allTeams: "equips",
+  maleTeams: "equips-masculins",
+  femaleTeams: "equips-femenins",
+  school: "escola-de-basquet",
+  wheelchair: "basquet-en-cadira-de-rodes",
+  maleSenior: "jugadors-equip-senior-masculi",
+  femaleSenior: "jugadores-equip-senior-femeni",
+  coaches: "entrenadors-i-entrenadores",
 };
 
-const OPTIONS = ['relats', 'jugadors', 'resultats', 'social']
+const OPTIONS = ["relats", "jugadors", "resultats", "social"];
+
+const PLAYERS = [
+  {
+    name: "Joan 'Chichi' Creus",
+    image: "/player-image.png",
+    birth: "18/02/1995",
+    nacionality: "Espanya",
+    height: "1,76",
+    stats: { matches: "585", points: "7000", rebounds: "5000" },
+    seasons: "16",
+    start: "1983",
+    end: "99",
+  },
+  {
+    name: "Claude Riley",
+    image: "/player-image.png",
+    birth: "18/02/1995",
+    nacionality: "Espanya",
+    height: "1,76",
+    stats: { matches: "585", points: "7000", rebounds: "5000" },
+    seasons: "16",
+    start: "1983",
+    end: "99",
+  },
+  {
+    name: "Claude Riley",
+    image: "/player-image.png",
+    birth: "18/02/1995",
+    nacionality: "Espanya",
+    height: "1,76",
+    stats: { matches: "585", points: "7000", rebounds: "5000" },
+    seasons: "16",
+    start: "1983",
+    end: "99",
+  },
+  {
+    name: "Claude Riley",
+    image: "/player-image.png",
+    birth: "18/02/1995",
+    nacionality: "Espanya",
+    height: "1,76",
+    stats: { matches: "585", points: "7000", rebounds: "5000" },
+    seasons: "16",
+    start: "1983",
+    end: "99",
+  },
+  {
+    name: "Claude Riley",
+    image: "/player-image.png",
+    birth: "18/02/1995",
+    nacionality: "Espanya",
+    height: "1,76",
+    stats: { matches: "585", points: "7000", rebounds: "5000" },
+    seasons: "16",
+    start: "1983",
+    end: "99",
+  },
+  {
+    name: "Claude Riley",
+    image: "/player-image.png",
+    birth: "18/02/1995",
+    nacionality: "Espanya",
+    height: "1,76",
+    stats: { matches: "585", points: "7000", rebounds: "5000" },
+    seasons: "16",
+    start: "1983",
+    end: "99",
+  },
+  {
+    name: "Claude Riley",
+    image: "/player-image.png",
+    birth: "18/02/1995",
+    nacionality: "Espanya",
+    height: "1,76",
+    stats: { matches: "585", points: "7000", rebounds: "5000" },
+    seasons: "16",
+    start: "1983",
+    end: "99",
+  },
+  {
+    name: "Claude Riley",
+    image: "/player-image.png",
+    birth: "18/02/1995",
+    nacionality: "Espanya",
+    height: "1,76",
+    stats: { matches: "585", points: "7000", rebounds: "5000" },
+    seasons: "16",
+    start: "1983",
+    end: "99",
+  },
+  {
+    name: "Claude Riley",
+    image: "/player-image.png",
+    birth: "18/02/1995",
+    nacionality: "Espanya",
+    height: "1,76",
+    stats: { matches: "585", points: "7000", rebounds: "5000" },
+    seasons: "16",
+    start: "1983",
+    end: "99",
+  },
+  {
+    name: "Claude Riley",
+    image: "/player-image.png",
+    birth: "18/02/1995",
+    nacionality: "Espanya",
+    height: "1,76",
+    stats: { matches: "585", points: "7000", rebounds: "5000" },
+    seasons: "16",
+    start: "1983",
+    end: "99",
+  },
+  {
+    name: "Claude Riley",
+    image: "/player-image.png",
+    birth: "18/02/1995",
+    nacionality: "Espanya",
+    height: "1,76",
+    stats: { matches: "585", points: "7000", rebounds: "5000" },
+    seasons: "16",
+    start: "1983",
+    end: "99",
+  },
+];
 
 const SEASONS_INFO = [
   {
@@ -216,7 +334,6 @@ const SEASONS_LAYOUT = [
       width: RELATS_PROPS.width.short,
     },
   },
-
 ];
 
 export {
@@ -227,6 +344,6 @@ export {
   OPTIONS,
   SEASONS_INFO,
   SEASONS_LAYOUT,
-  RELATS_PROPS
+  RELATS_PROPS,
+  PLAYERS,
 };
-
