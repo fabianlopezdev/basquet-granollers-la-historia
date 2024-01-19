@@ -3,8 +3,9 @@
   import { display } from "src/svelte/stores";
   import { slide } from "svelte/transition";
   import { upperCaseFirstLetter } from "@utils/helperFunctions";
-  import { PLAYERS } from "@data/globalConstants";
+  import { PLAYERS, SCORES } from "@data/globalConstants";
   import PlayerCard from "./PlayerCard.svelte";
+  import ResultsRow from "./ResultsRow.svelte";
   export let SEASONS_INFO;
 </script>
 
@@ -31,13 +32,9 @@
     {:else if $display === "resultats"}
       <table class="my-table">
         <tbody>
-          <tr>
-            <td class='date'>27/10/74</td>
-            <td class='team' style={'background-color:var(--clr-primary); color: var(--clr-contrast)'}>C.B. GRANOLLERS</td>
-            <td class='score score-one'>58</td>
-            <td class='score score-two'>59</td>
-            <td class='team'>C.B. MOLLET</td>
-          </tr>
+           {#each SCORES as score}
+        <ResultsRow {score}/>
+      {/each}
   
           <!-- Add more rows as needed -->
         </tbody>
@@ -108,7 +105,7 @@
   }
 
 
-  .date {
+  /* .date {
     width: 5.5rem;
     background-color: var(--clr-contrast);
     text-align: center;
@@ -130,5 +127,5 @@
 
     .score-two {
     border-left-color: #F3F3F3 !important;
-    }
+    } */
 </style>

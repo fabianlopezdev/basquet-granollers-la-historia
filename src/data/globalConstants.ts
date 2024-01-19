@@ -395,4 +395,5 @@ export {
   SEASONS_LAYOUT,
   RELATS_PROPS,
   PLAYERS,
+  SCORES,
 };
