@@ -25,18 +25,18 @@
     {#each PLAYERS as player}
       <article class="player">
       <div class="image-container">
-        <img src={"/player-avatar.png"} alt="" />
+        <img src={player.image || "/player-avatar.png"} alt="" />
       </div>
       <div class="info-container">
-        <p class="name">{PLAYERS[0].name}</p>
+        <p class="name">{player.name}</p>
       </div>
       <div class="player-details">
-        <p>Data de naixement <span>18/02/1995</span></p>
-        <p>Nacionalitat <span>Espanya</span></p>
-        <p>Posició <span>Base</span></p>
-        <p>Alçada <span>1,76</span></p>
-        <p>Estadístiques <br><span>585 partits <br>7000 punts / 5000 rebots</span></p>
-        <p>Temporades <br><span>16 temporades CBG <br>{'(1953-99)'}</span></p>
+        <p>Data de naixement <br><span>{player.birth}</span></p>
+        <p>Nacionalitat <span>{player.nacionality}</span></p>
+        <p>Posició <span>{player.position}</span></p>
+        <p>Alçada <span>{player.height}</span></p>
+        <p>Estadístiques <br><span>{player.stats.matches} partits <br>{player.stats.points} punts / {player.stats.rebounds} rebots</span></p>
+        <p>Temporades <br><span>{player.seasons} temporades CBG <br>{`(${player.start}-${player.end})`}</span></p>
       </div>
     </article>
     {/each}
@@ -122,17 +122,18 @@
     padding-inline: 1.5rem;
     padding-block: 2.12rem; 
     
-    /* opacity: 0;  */
-    background-color: rgba(7, 61, 134, 0.9);;
+    opacity: 0; 
+    /*It is the secondary color with opacity*/
+    background-color: rgba(7, 61, 134, 0.7);;
 
-    transition: opacity 0.3s ease-in-out; /* Transition both transform and opacity */
+    transition: opacity 0.5s ease-in-out; /* Transition both transform and opacity */
     border-top-left-radius: var(--brdr-left-top-radius);
   }
 
   .player:hover .player-details {
 
-    /*It is the secondary color with opacity*/
-    background-color: rgba(7, 61, 134, 0.9);;
+    opacity: 1;
+  
   }
 
   .image-container {
