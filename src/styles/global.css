@@ -12,7 +12,7 @@
   --clr-contrast: #fff;
   --clr-accent: #fa6e19;
   --clr-accent-2: #FB7326;
-  --clr-secondary: #084395;
+  --clr-secondary: #073D86;
   --clr-footer-top: #142847;
 
   /*Element sizes*/
@@ -54,7 +54,6 @@
   --pd-y-options-btns: 10rem;
   /*Font sizes*/
   --fnt-sz-regular: 0.78125rem;
-  --fnt-sz-regular: 0.75rem;
   --fnt-sz-h1: 3.375rem;
   --fnt-sz-h2: 2.25rem;
   --fnt-sz-h2-medium: 1.625rem;

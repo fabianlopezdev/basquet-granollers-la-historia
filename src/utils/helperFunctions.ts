@@ -90,3 +90,7 @@ export function truncateString(str: string) {
   //Trim in case the content starts with empty spaces
   return truncated.trim() + "...";
 }
+
+export function upperCaseFirstLetter(string: string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}

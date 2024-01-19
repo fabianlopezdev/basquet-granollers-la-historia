@@ -8,7 +8,6 @@
   import { SEASONS_INFO, SEASONS_LAYOUT } from "@data/globalConstants";
   import { currentIndex } from "src/svelte/stores";
   import { display } from "src/svelte/stores";
-  import {closeMenuIcon} from "@assets/icons"
   
   const TOTAL_SEASONS = SEASONS_INFO.length;
 
@@ -32,14 +31,9 @@ bind:scrollY={windowScrollY}
 />
 
 <section id="seasons">
-  {#if $display !== "relats"}
-  <PopupMenu {SEASONS} />
-    <!-- <section class="more-info-menu">
-      <header class="players-header">
-        <h2><span style="color: var(--clr-accent)">Jugadors</span> Temporada {SEASONS[$currentIndex].name}</h2>
-        <button on:click={() => display.set("relats")}>{@html closeMenuIcon}</button>
-      </header>
-    </section> -->
+  {#if $display === "relats"}
+    <PopupMenu SEASONS_INFO={SEASONS_INFO[$currentIndex]} />
+
   {/if}
   <div class="season-wrapper">
     <div
@@ -80,25 +74,6 @@ bind:scrollY={windowScrollY}
     max-width: var(--wd-regular);
   }
 
-  /* .more-info-menu {
-    position: absolute;
-    height: inherit;
-    width: 100vw;
-    margin: 0;
-    background-color: var(--clr-contrast);
-    z-index: 10;
-  }
-  
-  .players-header {
-    background-color: var(--clr-primary);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-inline: 7.12rem;
-    height: 8.25rem;
-    margin-top: 1rem;
-    margin-left: 1rem;
-  } */
   .seasons-container {
     width: calc(100% * var(--totalSeasons));
     height: calc(100dvh - var(--pd-y-options-btns) - 2.12rem);
