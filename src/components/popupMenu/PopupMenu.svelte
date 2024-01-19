@@ -3,16 +3,17 @@
   import { display } from "src/svelte/stores";
   import { slide } from "svelte/transition";
   import { upperCaseFirstLetter } from "@utils/helperFunctions";
-  import {PLAYERS} from "@data/globalConstants";
+  import { PLAYERS } from "@data/globalConstants";
   import PlayerCard from "./PlayerCard.svelte";
   export let SEASONS_INFO;
 </script>
 
 <section
   class="more-info-menu"
+  style={$display === 'resultats' && 'background-color: #F3F3F3'}
   transition:slide={{ duration: 300, axis: "-x" }}
 >
-  <header class="menu-header">
+  <header class="menu-header" >
     <h2>
       <span style="color: var(--clr-accent)"
         >{upperCaseFirstLetter($display)}</span
@@ -25,9 +26,23 @@
   <ul class="menu-container">
     {#if $display === "jugadors"}
       {#each PLAYERS as player}
-        <PlayerCard {player}/>
+        <PlayerCard {player} />
       {/each}
-      <!-- {:else if $display === "resultats"}
+    {:else if $display === "resultats"}
+      <table class="my-table">
+        <tbody>
+          <tr>
+            <td class='date'>27/10/74</td>
+            <td class='team' style={'background-color:var(--clr-primary); color: var(--clr-contrast)'}>C.B. GRANOLLERS</td>
+            <td class='score score-one'>58</td>
+            <td class='score score-two'>59</td>
+            <td class='team'>C.B. MOLLET</td>
+          </tr>
+  
+          <!-- Add more rows as needed -->
+        </tbody>
+      </table>
+      <!-- 
       <ul>
         {#each SEASONS_INFO.results as result}
           <li>{result}</li>
@@ -48,7 +63,7 @@
     --hg-header-menu: 8.25rem;
     --mg-left-top-header: 1rem;
     position: absolute;
-    min-height: inherit;
+    min-height: 100%;
     width: 100%;
     margin: 0;
     background-color: var(--clr-contrast);
@@ -76,7 +91,44 @@
     padding-block: 4.75rem;
     max-width: var(--wd-regular);
     margin: auto;
+
     height: calc(100% - var(--hg-header-menu) - var(--mg-left-top-header));
   }
-  
+
+  .my-table {
+    border-collapse: collapse;
+    color: var(--clr-primary);
+  }
+
+  .my-table,
+  .my-table td {
+    border: 2.097px solid #D9D9D9;
+    height: 2.22rem;
+    font-weight: var(--fnt-wg-regular);
+  }
+
+
+  .date {
+    width: 5.5rem;
+    background-color: var(--clr-contrast);
+    text-align: center;
+  }
+  .team {
+    width: 13.4rem;
+    background-color: var(--clr-contrast);
+     padding-left: 1.44rem;
+  }
+  .score {
+    width: 3.5rem;
+    text-align: center;
+    background-color: #D9D9D9;
+  }
+
+  .score-one {
+    border-right-color: #F3F3F3 !important;
+    }
+
+    .score-two {
+    border-left-color: #F3F3F3 !important;
+    }
 </style>

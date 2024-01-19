@@ -182,6 +182,44 @@ const PLAYERS = [
   },
 ];
 
+const SCORES = [
+  {
+    date: "27/10/74",
+    rival: "C.B. Mollet",
+    result1: "58",
+    result2: "59",
+    home: true,
+  },
+  {
+    date: "27/10/74",
+    rival: "C.B. Lliria",
+    result1: "65",
+    result2: "77",
+    home: false,
+  },
+  {
+    date: "27/10/74",
+    rival: "C.B. Manresa",
+    result1: "76",
+    result2: "67",
+    home: true,
+  },
+  {
+    date: "27/10/74",
+    rival: "C.B. Granada",
+    result1: "89",
+    result2: "58",
+    home: true,
+  },
+  {
+    date: "27/10/74",
+    rival: "R.C.D. Espanyol",
+    result1: "66",
+    result2: "85",
+    home: false,
+  },
+];
+
 const SEASONS_INFO = [
   {
     name: "74/75",
