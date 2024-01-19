@@ -11,10 +11,10 @@
 
 <section
   class="more-info-menu"
-  style={$display === 'resultats' && 'background-color: #F3F3F3'}
+  style={$display === "resultats" && "background-color: #F3F3F3"}
   transition:slide={{ duration: 300, axis: "-x" }}
 >
-  <header class="menu-header" >
+  <header class="menu-header">
     <h2>
       <span style="color: var(--clr-accent)"
         >{upperCaseFirstLetter($display)}</span
@@ -26,19 +26,55 @@
   </header>
   <ul class="menu-container">
     {#if $display === "jugadors"}
-      {#each PLAYERS as player}
-        <PlayerCard {player} />
-      {/each}
+      <div class="players-container">
+        {#each PLAYERS as player}
+          <PlayerCard {player} />
+        {/each}
+      </div>
     {:else if $display === "resultats"}
-      <table class="my-table">
-        <tbody>
-           {#each SCORES as score}
-        <ResultsRow {score}/>
-      {/each}
-  
-          <!-- Add more rows as needed -->
-        </tbody>
-      </table>
+      <div class="stats-container">
+        <div>
+          <h3>Resultats</h3>
+          <table class="my-table">
+            <tbody>
+              {#each SCORES as score}
+                <ResultsRow {score} />
+              {/each}
+            </tbody>
+          </table>
+        </div>
+        <div>
+          <h3>Classificació</h3>
+          <table class="my-table">
+       
+            
+            <tbody>
+              <tr>
+                <th class='position'></th>
+                <th class='team'>Equip</th>
+                <th class='short-stat'>PJ</th>
+                <th class='short-stat'>PG</th>
+                <th class='short-stat'>PE</th>
+                <th class='short-stat'>PP</th>
+                <th class='long-stat'>RF</th>
+                <th class='long-stat'>PC</th>
+                <th class='points'>PUNTS</th>
+              </tr>
+             <tr>
+              <td class='position'>1</td>
+              <td  class='team'>C.B. GRANOLLERS</td>
+              <td class='short-stat'>22</td>
+              <td class='short-stat'>18</td>
+              <td class='short-stat'>0</td>
+              <td class='short-stat'>4</td>
+              <td class='long-stat'>1,779</td>
+              <td class='long-stat'>1,511</td>
+              <td class='points'>36</td>
+             </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
       <!-- 
       <ul>
         {#each SEASONS_INFO.results as result}
@@ -56,6 +92,12 @@
 </section>
 
 <style>
+  h3 {
+    font-size: var(--fnt-sz-h3-medium);
+    color: var(--clr-primary);
+    padding-bottom: 2rem;
+    font-weight: var(--fnt-wg-medium);
+  }
   .more-info-menu {
     --hg-header-menu: 8.25rem;
     --mg-left-top-header: 1rem;
@@ -81,51 +123,49 @@
   }
 
   .menu-container {
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
-    flex-wrap: wrap;
     padding-block: 4.75rem;
     max-width: var(--wd-regular);
     margin: auto;
-
     height: calc(100% - var(--hg-header-menu) - var(--mg-left-top-header));
+  }
+
+  .players-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .stats-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+    width: 100%;
   }
 
   .my-table {
     border-collapse: collapse;
     color: var(--clr-primary);
-  }
-
-  .my-table,
-  .my-table td {
-    border: 2.097px solid #D9D9D9;
-    height: 2.22rem;
+    border: 2.097px solid #d9d9d9;
     font-weight: var(--fnt-wg-regular);
   }
 
+  tbody {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
 
-  /* .date {
-    width: 5.5rem;
-    background-color: var(--clr-contrast);
-    text-align: center;
+  .position {
+    width: 2.37rem;
   }
   .team {
     width: 13.4rem;
-    background-color: var(--clr-contrast);
-     padding-left: 1.44rem;
-  }
-  .score {
-    width: 3.5rem;
-    text-align: center;
-    background-color: #D9D9D9;
   }
 
-  .score-one {
-    border-right-color: #F3F3F3 !important;
-    }
-
-    .score-two {
-    border-left-color: #F3F3F3 !important;
-    } */
+  .short-stat {
+    width: 2.37rem;
+  }
 </style>

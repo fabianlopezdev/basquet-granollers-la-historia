@@ -21,10 +21,9 @@
 </tr>
 
 <style>
-  tr {
-    height: 2.22rem;
-  }
+
   td {
+    height: 2.22rem;
     border: 2.097px solid #d9d9d9;
   }
 
