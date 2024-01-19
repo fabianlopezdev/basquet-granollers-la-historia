@@ -31,7 +31,7 @@ bind:scrollY={windowScrollY}
 />
 
 <section id="seasons">
-  {#if $display === "relats"}
+  {#if $display !== "relats"}
     <PopupMenu SEASONS_INFO={SEASONS_INFO[$currentIndex]} />
 
   {/if}
