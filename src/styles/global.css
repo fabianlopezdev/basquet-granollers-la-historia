@@ -140,6 +140,11 @@ h3 {
   padding-bottom: 2rem;
   font-weight: var(--fnt-wg-medium);
 }
+
+  td {
+    height: 2.22rem;
+    border: 2.097px solid #d9d9d9;
+  }
 /*Global classes*/
 .g-table {
   border-collapse: collapse;

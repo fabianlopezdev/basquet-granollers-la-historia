@@ -4,7 +4,7 @@
 
 <h3>Resultats</h3>
 <table class="g-table">
-  <tbody>
+  <tbody class='g-body-table'>
     {#each SCORES as score}
       <tr>
         <td class="date">{score.date}</td>
@@ -29,10 +29,7 @@
 
 <style>
 
-  td {
-    height: 2.22rem;
-    border: 2.097px solid #d9d9d9;
-  }
+
 
   .date {
     width: 5.5rem;
