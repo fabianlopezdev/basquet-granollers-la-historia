@@ -11,8 +11,8 @@
   --clr-primary: #002e6d;
   --clr-contrast: #fff;
   --clr-accent: #fa6e19;
-  --clr-accent-2: #FB7326;
-  --clr-secondary: #073D86;
+  --clr-accent-2: #fb7326;
+  --clr-secondary: #073d86;
   --clr-footer-top: #142847;
 
   /*Element sizes*/
@@ -87,7 +87,7 @@ html {
 }
 body {
   background-color: var(--clr-contrast);
-  font-family: 'obviously', sans-serif;
+  font-family: "obviously", sans-serif;
   font-size: var(--fnt-sz-regular);
   line-height: var(--line-hg-regular);
   color: var(--clr-contrast);
@@ -133,9 +133,20 @@ h2 {
   font-size: var(--fnt-sz-h2);
   font-weight: var(--fnt-wg-medium);
 }
-
+/*Used in the popMenu for results*/
+h3 {
+  font-size: var(--fnt-sz-h3-medium);
+  color: var(--clr-primary);
+  padding-bottom: 2rem;
+  font-weight: var(--fnt-wg-medium);
+}
 /*Global classes*/
-
+.g-my-table {
+    border-collapse: collapse;
+    color: var(--clr-primary);
+    border: 2.097px solid #d9d9d9;
+    font-weight: var(--fnt-wg-regular);
+  }
 .g-top-footer-articles {
   display: flex;
   flex-direction: column;
