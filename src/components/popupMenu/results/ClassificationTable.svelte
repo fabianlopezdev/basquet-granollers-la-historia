@@ -2,8 +2,8 @@
 </script>
 
 <h3>Classificació</h3>
-<table class="g-my-table">
-  <tbody>
+<table class="g-table">
+  <tbody class='g-body-table'>
     <tr>
       <th class="position"></th>
       <th class="team">Equip</th>
@@ -33,12 +33,7 @@
  
 
 
-  tbody {
-    display: flex;
-    flex-direction: column;
-    gap: 0.3rem;
-  }
-
+  
   .position {
     width: 2.37rem;
   }

@@ -3,7 +3,7 @@
 </script>
 
 <h3>Resultats</h3>
-<table class="g-my-table">
+<table class="g-table">
   <tbody>
     {#each SCORES as score}
       <tr>
@@ -28,11 +28,7 @@
 </table>
 
 <style>
-  tbody {
-    display: flex;
-    flex-direction: column;
-    gap: 0.3rem;
-  }
+
   td {
     height: 2.22rem;
     border: 2.097px solid #d9d9d9;

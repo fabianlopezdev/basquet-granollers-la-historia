@@ -141,12 +141,19 @@ h3 {
   font-weight: var(--fnt-wg-medium);
 }
 /*Global classes*/
-.g-my-table {
-    border-collapse: collapse;
-    color: var(--clr-primary);
-    border: 2.097px solid #d9d9d9;
-    font-weight: var(--fnt-wg-regular);
-  }
+.g-table {
+  border-collapse: collapse;
+  color: var(--clr-primary);
+  border: 2.097px solid #d9d9d9;
+  font-weight: var(--fnt-wg-regular);
+}
+
+.g-body-table {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
 .g-top-footer-articles {
   display: flex;
   flex-direction: column;

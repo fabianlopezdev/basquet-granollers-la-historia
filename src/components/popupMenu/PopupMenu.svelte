@@ -8,12 +8,21 @@
   import ResultsTable from "./results/ResultsTable.svelte";
   import ClassificationTable from "./results/ClassificationTable.svelte";
   export let SEASONS_INFO;
+
+  function handleEscape(e) {
+    if (e.key === "Escape") {
+      if ($display === "relats") return;
+      display.set("relats");
+    }
+  }
+
 </script>
 
+<svelte:window on:keydown={handleEscape} />
 <section
   class="more-info-menu"
   style={$display === "resultats" && "background-color: #F3F3F3"}
-  transition:slide={{ duration: 300, axis: "-x" }}
+  in:slide={{ duration: 300, axis: "x" }}
 >
   <header class="menu-header">
     <h2>
@@ -104,5 +113,4 @@
     gap: 2rem;
     width: 100%;
   }
-
 </style>
