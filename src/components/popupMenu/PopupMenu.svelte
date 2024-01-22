@@ -35,13 +35,15 @@
     <button on:click={() => display.set("relats")}>{@html closeMenuIcon}</button
     >
   </header>
-  <ul class="menu-container">
+  <div class="menu-container">
     {#if $display === "jugadors"}
-      <div class="players-container">
+      <ul class="players-container">
         {#each PLAYERS as player}
+        <li>
           <PlayerCard {player} />
+        </li>
         {/each}
-      </div>
+      </ul>
     {:else if $display === "resultats"}
       <div class="stats-container">
         <div>
@@ -51,20 +53,8 @@
           <ClassificationTable {SEASON_STANDINGS} />
         </div>
       </div>
-      <!-- 
-      <ul>
-        {#each SEASONS_INFO.results as result}
-          <li>{result}</li>
-        {/each}
-      </ul>
-    {:else if $display === "social"}
-      <ul>
-        {#each SEASONS_INFO.social as social}
-          <li>{social}</li>
-        {/each}
-      </ul> -->
     {/if}
-  </ul>
+  </div>
 </section>
 
 <style>
