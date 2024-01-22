@@ -4,8 +4,9 @@
 
 <details>
   <summary>
-    <p>{item.name.toUpperCase()}</p>
+    {item.name.toUpperCase()}
   </summary>
+  <p>TEMPORADES</p>
   <ul class="links-container">
     {#each item.dropdown as dropDownItem}
       <li>
@@ -16,8 +17,15 @@
 </details>
 
 <style>
-  p {
+  summary {
     font-size: 1.125rem;
+  }
+  p {
+    font-size: 0.9rem;
+    padding-left: 1rem;
+    padding-bottom: 0.5rem;
+    color: var(--clr-accent);
+    /* font-weight: bold; */
   }
   details > summary {
     list-style: none;
