@@ -9,7 +9,12 @@ import ScrollLine from "@assets/ScrollLine.svelte";
     src='/history-hero.avif'
     alt='Imatge de fons del Club Bàsquet Granollers jugant contra el Real Madrid de bàsquet amb el pavelló ple.'
   />
-  <h2>VIATJA A TRAVÉS<br /> DE LA NOSTRA HISTÒRIA</h2>
+  <div class="desktop">
+    <h2 class="hero-title">VIATJA A TRAVÉS<br> DE LA NOSTRA HISTÒRIA</h2>
+  </div>
+  <div class="responsive">
+     <h2 class="hero-title">VIATJA <br>A TRAVÉS DE <br> LA NOSTRA HISTÒRIA</h2>
+  </div>
   <p>Comença aquí, fent scroll</p>
   <div class='scroll-line'>
     <ScrollLine client:only/>
@@ -17,6 +22,9 @@ import ScrollLine from "@assets/ScrollLine.svelte";
 </section>
 
 <style>
+  .responsive {
+    display: none;
+  }
   section {
     height: 100vh;
     scroll-snap-align: start;
@@ -24,14 +32,14 @@ import ScrollLine from "@assets/ScrollLine.svelte";
     overflow: hidden;
   }
   
-  h2 {
+  .hero-title {
     position: absolute;
     width: 100%;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     color: var(--color-contrast);
-    font-size: 3.75rem;
+    font-size: clamp(2.5rem, 5vw, 3.75rem);
     font-weight: var(--fnt-wg-medium);
     text-align: center;
     text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
@@ -58,5 +66,24 @@ import ScrollLine from "@assets/ScrollLine.svelte";
     left: 50%;
     transform: translateX(-50%);
     animation: scroll 1s infinite;
+  }
+
+  @media (max-width: 648px) {
+    .hero-title {
+      line-height: 2.8125rem;
+    }
+
+    .desktop {
+      display: none;
+    }
+
+    .responsive {
+      display: block;
+    }
+    p {
+      font-size: 0.875rem;
+      width: 100%;
+      text-align: center;
+    }
   }
 </style>
