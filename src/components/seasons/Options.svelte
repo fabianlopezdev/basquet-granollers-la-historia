@@ -28,6 +28,7 @@
     padding-bottom: 2rem;
     gap: 1.25rem;
     margin-top: auto;
+    z-index: 1;
   }
   button {
     text-decoration: none;
@@ -64,5 +65,11 @@
       color 0.3s ease,
       border-color 0.3s ease,
       transform 0.1s ease;
+  }
+
+  @media (max-height: 901px) {
+    .options-container {
+      margin-bottom: -2.7rem;
+    }
   }
 </style>

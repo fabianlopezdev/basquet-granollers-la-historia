@@ -79,6 +79,14 @@
   --line-hg-h3: 1.5625rem;
 
   --brdr-left-top-radius: 2.9375rem;
+
+  --bottom-timeline: 2.1rem;
+  
+  
+  /*Calculated with Chrome extension Visbug with paddings etc. From top of season number in timeline to bottom edge of screen*/
+  --sz-timeline: 5.06rem;
+  --bottom-options: calc(var(--sz-timeline) + 2rem);
+  --sz-timeline-plus-options: calc(var(--bottom-options) + var(--hg-btn));
 }
 
 html {

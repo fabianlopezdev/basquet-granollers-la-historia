@@ -8,7 +8,7 @@
   import { SEASONS_INFO, SEASONS_LAYOUT } from "@data/globalConstants";
   import { currentIndex } from "src/svelte/stores";
   import { display } from "src/svelte/stores";
-  
+
   const TOTAL_SEASONS = SEASONS_INFO.length;
 
   let windowWidth;
@@ -33,11 +33,10 @@ bind:scrollY={windowScrollY}
 <section id="seasons">
   {#if $display !== "relats"}
     <PopupMenu SEASONS_INFO={SEASONS_INFO[$currentIndex]} />
-
   {/if}
   <div class="season-wrapper">
     <div
-    class="seasons-container"
+      class="seasons-container"
       style="--totalSeasons: {TOTAL_SEASONS}; transform: {transform}"
     >
       {#each SEASONS as season, seasonIndex}

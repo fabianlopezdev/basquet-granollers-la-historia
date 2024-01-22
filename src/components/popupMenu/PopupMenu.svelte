@@ -39,9 +39,7 @@
     {#if $display === "jugadors"}
       <ul class="players-container">
         {#each PLAYERS as player}
-        <li>
           <PlayerCard {player} />
-        </li>
         {/each}
       </ul>
     {:else if $display === "resultats"}
@@ -71,6 +69,13 @@
     /* overflow: hidden; */
   }
 
+  .menu-container {
+    padding-block: calc(var(--mg-left-top-header) * 2);
+    max-width: var(--wd-regular);
+    margin: auto;
+    min-height: calc(100% - var(--hg-header-menu) - var(--mg-left-top-header));
+  }
+
   .menu-header {
     background-color: var(--clr-primary);
     display: flex;
@@ -82,19 +87,13 @@
     margin-left: var(--mg-left-top-header);
   }
 
-  .menu-container {
-    padding-block: 4.75rem;
-    max-width: var(--wd-regular);
-    margin: auto;
-    height: calc(100% - var(--hg-header-menu) - var(--mg-left-top-header));
-  }
-
   .players-container {
     display: flex;
     flex-wrap: wrap;
     gap: 2rem;
     justify-content: center;
     width: 100%;
+ 
   }
 
   .stats-container {
