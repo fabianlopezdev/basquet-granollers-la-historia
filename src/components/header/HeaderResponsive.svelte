@@ -1,8 +1,11 @@
 <script>
   import { hamburgerMenuIcon } from "@assets/icons";
-  // export let navigation;
+  import DropDownAccordion from "./DropDownAccordion.svelte";
+  export let navigation;
   // export let headerSponsors;
   let isDropDownMenuOpen = false;
+
+  console.log('navigation', navigation)
 
   $: {
     if (isDropDownMenuOpen) {
@@ -20,7 +23,23 @@
   {@html hamburgerMenuIcon}
 </button>
 
-<ul class:visible={isDropDownMenuOpen} class="dropdown-menu-content"></ul>
+<ul class:visible={isDropDownMenuOpen} class="dropdown-menu-content">
+    {#each navigation as item}
+    <li>
+      {#if item.dropdown}
+        <DropDownAccordion {item} />
+      <!-- {:else if item.link.includes("http")}
+        <a href={item.link} target="_blank" rel="noopener noreferrer">
+          <h5>{item.name.toUpperCase()}</h5>
+        </a>
+      {:else}
+        <a href={item.link}>
+          <h5>{item.name.toUpperCase()}</h5>
+        </a> -->
+      {/if}
+    </li>
+  {/each}
+</ul>
 
 <style>
   .dropdown-menu-button {
