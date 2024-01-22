@@ -28,6 +28,8 @@
 
   --wd-slider-item: 18.6875rem;
 
+  --wd-logo: 17.88rem;
+  
   --hg-separator-line: 0.5625rem;
   --hg-separator-line-responsive: 0.3125rem;
   --hg-header: 6.3125rem;
@@ -81,8 +83,7 @@
   --brdr-left-top-radius: 2.9375rem;
 
   --bottom-timeline: 2.1rem;
-  
-  
+
   /*Calculated with Chrome extension Visbug with paddings etc. From top of season number in timeline to bottom edge of screen*/
   --sz-timeline: 5.06rem;
   --bottom-options: calc(var(--sz-timeline) + 2rem);
@@ -149,10 +150,10 @@ h3 {
   font-weight: var(--fnt-wg-medium);
 }
 
-  td {
-    height: 2.22rem;
-    border: 2.097px solid #d9d9d9;
-  }
+td {
+  height: 2.22rem;
+  border: 2.097px solid #d9d9d9;
+}
 /*Global classes*/
 .g-table {
   border-collapse: collapse;
@@ -177,5 +178,8 @@ h3 {
 @media (max-width: 648px) {
   .g-top-footer-articles {
     height: auto;
+  }
+  :root {
+    --wd-logo: 13.94rem;
   }
 }

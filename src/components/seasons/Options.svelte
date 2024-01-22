@@ -67,7 +67,7 @@
       transform 0.1s ease;
   }
 
-  @media (max-height: 901px) {
+  @media (max-height: 900px) {
     .options-container {
       margin-bottom: -2.7rem;
     }

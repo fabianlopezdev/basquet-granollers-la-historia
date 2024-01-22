@@ -7,7 +7,7 @@
   import PlayerCard from "./players/PlayerCard.svelte";
   import ResultsTable from "./results/ResultsTable.svelte";
   import ClassificationTable from "./results/ClassificationTable.svelte";
-  
+
   export let SEASONS_INFO;
 
   function handleEscape(e) {
@@ -16,7 +16,6 @@
       display.set("relats");
     }
   }
-
 </script>
 
 <svelte:window on:keydown={handleEscape} />
@@ -93,7 +92,6 @@
     gap: 2rem;
     justify-content: center;
     width: 100%;
- 
   }
 
   .stats-container {

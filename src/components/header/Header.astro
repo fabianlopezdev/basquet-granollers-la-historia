@@ -1,63 +1,61 @@
 ---
-import { SEASONS_INFO } from '@data/globalConstants';
-import CbgHistoryLogo from '../../assets/CbgHistoryLogo.astro';
-import HeaderResponsive from './HeaderResponsive.svelte';
+import { SEASONS_INFO } from "@data/globalConstants";
+import CbgHistoryLogo from "../../assets/CbgHistoryLogo.astro";
+import HeaderResponsive from "./HeaderResponsive.svelte";
 // import DropDownMenu from '@components/header/DropDownMenu.astro';
-import DropDownMenu from './DropDownMenu.svelte';
+import DropDownMenu from "./DropDownMenu.svelte";
 
 const headerSponsors = [
   {
     url: `https://cbgranollers.cat/`,
-    src: '/cbg-logo.svg',
-    alt: 'Logo del Club Bàsquet Granolelrs',
+    src: "/cbg-logo.svg",
+    alt: "Logo del Club Bàsquet Granolelrs",
   },
   {
     url: `https://finquesvallbona.com/`,
-    src: '/finques-vallbona-logo.svg',
-    alt: 'Logo de Finques Ballbona',
+    src: "/finques-vallbona-logo.svg",
+    alt: "Logo de Finques Ballbona",
   },
   {
     url: `https://www.granollers.cat/`,
-    src: '/ajuntament-granollers-logo.svg',
+    src: "/ajuntament-granollers-logo.svg",
     alt: "Logo de l'ajuntament de Granollers",
   },
 ];
 
 const navigation = [
   {
-    name: 'relats',
-    dropdown: SEASONS_INFO,
-  },{
-    name: 'jugadors',
-    dropdown: SEASONS_INFO,
-  },{
-    name: 'social',
+    name: "relats",
     dropdown: SEASONS_INFO,
   },
-  { name: 'especials', link: '/la-historia/especials' },
+  {
+    name: "jugadors",
+    dropdown: SEASONS_INFO,
+  },
+  {
+    name: "social",
+    dropdown: SEASONS_INFO,
+  },
+  // { name: 'especials', link: '/la-historia/especials' },
 ];
 ---
 
 <header>
   <section>
-    <div class='desktop'>
-      <div class="logo">
-        <CbgHistoryLogo />
-      </div>
+    <div class="logo">
+      <CbgHistoryLogo />
+    </div>
+    <div class="desktop">
 
-      <nav >
-        <ul class='nav'>
+      <nav>
+        <ul class="nav">
           {
             navigation.map((item) => (
               <li>
                 {item.dropdown ? (
-                  <DropDownMenu {item} client:only/>
-                ) : item.link.includes('http') ? (
-                  <a
-                    href={item.link}
-                    target='_blank'
-                    rel='noopener noreferrer'
-                  >
+                  <DropDownMenu {item} client:only />
+                ) : item.link.includes("http") ? (
+                  <a href={item.link} target="_blank" rel="noopener noreferrer">
                     {item.name!.toUpperCase()}
                   </a>
                 ) : (
@@ -68,19 +66,12 @@ const navigation = [
           }
         </ul>
       </nav>
-      <ul class='sponsors-container'>
+      <ul class="sponsors-container">
         {
           headerSponsors.map((sponsor) => (
             <li>
-              <a
-                href={sponsor.url}
-                target='_blank'
-                rel='noopener noreferrer'
-              >
-                <img
-                  src={sponsor.src}
-                  alt={sponsor.alt}
-                />
+              <a href={sponsor.url} target="_blank" rel="noopener noreferrer">
+                <img src={sponsor.src} alt={sponsor.alt} />
               </a>
             </li>
           ))
@@ -88,8 +79,12 @@ const navigation = [
       </ul>
     </div>
 
-    <div class='responsive'>
-      <HeaderResponsive client:load />
+    <div class="responsive">
+      <HeaderResponsive
+        client:load
+        {navigation}
+        {headerSponsors}
+      />
     </div>
   </section>
 </header>
@@ -97,8 +92,8 @@ const navigation = [
 <style>
   header {
     position: relative;
-    display: flex;
-    flex-direction: column;
+    /* display: flex;
+    flex-direction: column; */
     top: 0;
     z-index: 10;
     height: var(--hg-header);
@@ -107,7 +102,7 @@ const navigation = [
   }
 
   header:after {
-    content: '';
+    content: "";
     position: absolute;
     bottom: calc(
       -1 * var(--hg-separator-line)
@@ -153,7 +148,7 @@ const navigation = [
     justify-content: flex-end;
     gap: 2.16rem;
   }
-  @media (max-width: 1258px) {
+  @media (max-width: 1096px) {
     header:after {
       bottom: calc(-1 * var(--hg-separator-line-responsive));
       height: var(--hg-separator-line-responsive);
@@ -169,14 +164,15 @@ const navigation = [
     }
   }
   @media (max-width: 1065px) {
-    .responsive {
-      padding-inline: var(--pd-x-medium);
+    .logo {
+      left: var(--pd-x-medium);
     }
   }
 
   @media (max-width: 648px) {
-    .responsive {
-      padding-inline: var(--pd-x-small);
+    .logo {
+      left: var(--pd-x-small);
+      width: 13rem;
     }
   }
 </style>
