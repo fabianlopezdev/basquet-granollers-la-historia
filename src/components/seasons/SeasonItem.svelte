@@ -98,20 +98,23 @@
   aside {
     position: relative;
     top: 0;
-    left: 0.5rem;
-    top: -6.2rem;
+    /* left: 0.5rem; */
+    top: calc( clamp(1.8rem, 0.12911392405063293rem + 7.4261603375527425vw, 6.2rem) *-1);
+    /* top: -6.2rem; */
     color: var(--clr-accent-2);
-    font-size: 2.225rem;
+    
+    font-size: 1.35125rem;
+font-size: clamp(1.35125rem, 1.0194462025316455rem + 1.4746835443037973vw, 2.225rem);
     font-weight: var(--fnt-wg-medium);
   }
   .big-number {
     position: relative;
     text-align: center;
     /* padding-bottom: 8rem; */
-    font-size: 14rem;
+    font-size: 6.6rem;
     font-size: clamp(
-      14rem,
-      1.3846153846153832rem + 26.282051282051285vw,
+      6.6rem,
+      -0.10253164556961991rem + 29.789029535864977vw,
       24.25rem
     );
     font-weight: var(--fnt-wg-medium);
