@@ -1,5 +1,5 @@
 ---
-import { SEASONS_INFO } from "@data/globalConstants";
+import { SEASONS_INFO, NAVIGATION } from "@data/globalConstants";
 import CbgHistoryLogo from "../../assets/CbgHistoryLogo.astro";
 import HeaderResponsive from "./HeaderResponsive.svelte";
 // import DropDownMenu from '@components/header/DropDownMenu.astro';
@@ -23,21 +23,6 @@ const headerSponsors = [
   },
 ];
 
-const navigation = [
-  {
-    name: "relats",
-    dropdown: SEASONS_INFO,
-  },
-  {
-    name: "jugadors",
-    dropdown: SEASONS_INFO,
-  },
-  {
-    name: "social",
-    dropdown: SEASONS_INFO,
-  },
-  // { name: 'especials', link: '/la-historia/especials' },
-];
 ---
 
 <header>
@@ -50,7 +35,7 @@ const navigation = [
       <nav>
         <ul class="nav">
           {
-            navigation.map((item) => (
+            NAVIGATION.map((item) => (
               <li>
                 {item.dropdown ? (
                   <DropDownMenu {item} client:only />
@@ -82,7 +67,7 @@ const navigation = [
     <div class="responsive">
       <HeaderResponsive
         client:only
-        {navigation}
+        {NAVIGATION}
         {headerSponsors}
       />
     </div>

@@ -2,8 +2,10 @@
   //Import stores
   import { truncateString } from "@utils/helperFunctions";
   import { collapsibleArrowSeasonMobileMenu } from "@assets/icons";
-
+  import {NAVIGATION} from '@data/globalConstants'
   import { currentIndex } from "src/svelte/stores";
+  import SeasonsList from "../header/SeasonsList.svelte";
+  import SponsorsResponsive from "@components/header/SponsorsResponsive.svelte";
   export let season;
   export let windowScrollY;
   export let seasonIndex;
@@ -26,17 +28,24 @@
 >
   <div class="season-menu">
     <h4 class="menu-title">Tria una temporada</h4>
-    <button class="menu-season-selected" on:click={() => (isMenuOpen = !isMenuOpen)}
+    <button
+      class="menu-season-selected"
+      on:click={() => (isMenuOpen = !isMenuOpen)}
       >74/75 <div class="rotate" class:rotated={isMenuOpen}>
         {@html collapsibleArrowSeasonMobileMenu}
       </div></button
     >
+    
   </div>
-  <!-- <div class="season-title">
-    <aside>Temporada</aside>
-    <h2 class="big-number">{season.name}</h2>
-  </div> -->
-  <div class="items-container">
+  <div class:showMenu={isMenuOpen} class='select-season-popup'>
+    <SeasonsList/>
+    <SponsorsResponsive/>
+  </div>
+<!-- <div class="season-title">
+  <aside>Temporada</aside>
+  <h2 class="big-number">{season.name}</h2>
+</div> -->
+<!-- <div class="items-container">
     {#if season.relatProps !== undefined}
       <div
         class="translateY-wrapper relat"
@@ -65,7 +74,7 @@
             style="transform: {translateY}; --rowStart: {i === 0
               ? season.img1.rowStart
               : season.img2.rowStart}; --rowEnd: {i === 0
-              ? season.img1.rowEnd
+                ? season.img1.rowEnd
               : season.img2.rowEnd}; --colStart: {i === 0
               ? season.img1.colStart
               : season.img2.colStart}; --colEnd: {i === 0
@@ -76,10 +85,10 @@
               <img src={image.src} alt={image.alt} />
             </div>
           </div>
-        {/if}
+          {/if}
       {/each}
     {/if}
-  </div>
+  </div> -->
 </div>
 
 <style>
@@ -87,28 +96,31 @@
     cursor: pointer;
   }
   .season-container {
-    position: relative;
+    --hg-menu: 4rem;
+    /* position: relative; */
     width: 100vw;
     height: inherit;
   }
   .season-menu {
-    width: 100%;
+    height: var(--hg-menu);
+    width: inherit;
     display: flex;
     justify-content: space-between;
     padding-block: 1.44rem;
     padding-inline: var(--pd-x-small);
     font-size: 0.875rem;
     position: relative;
+    z-index: 100;
   }
-
+  
   .season-menu::after {
-  content: '';
-  position: absolute;
-  left: var(--pd-x-small); 
-  right: var(--pd-x-small); 
-  bottom: 0; 
-  border-bottom: 2px solid var(--clr-primary); 
-}
+    content: "";
+    position: absolute;
+    left: var(--pd-x-small);
+    right: var(--pd-x-small);
+    bottom: 0;
+    border-bottom: 2px solid var(--clr-primary);
+  }
   .menu-title {
     font-weight: var(--fnt-wg-regular);
   }
@@ -127,7 +139,29 @@
     transform-origin: 50% 55%;
     transition: 0.45s transform ease-in-out;
   }
+  .select-season-popup {
+    position: absolute;
+    top: calc(var(--hg-menu) - 2px);
   
+    width: 100vw;
+    /* height: 100%; */
+    background-color: var(--clr-primary-opacity);
+    /* z-index: 10; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    padding-block: 1.5rem;
+    padding-inline: 1.5rem;
+    transform: translateY(calc(-100% - var(--hg-menu)));
+    transition: transform 0.5s ease-out;
+    color: white;
+  }
+
+  .select-season-popup.showMenu {
+    transform: translateY(0);
+  }
   .rotated {
     transform: rotate(-180deg);
     /* transform-origin: 50% 55%; */
@@ -150,6 +184,8 @@
     transform: translate(-50%, -50%);
     mix-blend-mode: multiply;
   }
+
+  
 
   aside {
     position: relative;

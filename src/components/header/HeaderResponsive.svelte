@@ -1,7 +1,9 @@
 <script>
   import { hamburgerMenuIcon } from "@assets/icons";
   import DropDownAccordion from "./DropDownAccordion.svelte";
-  export let navigation;
+  import SponsorsResponsive from "./SponsorsResponsive.svelte";
+
+  export let NAVIGATION;
 
   let isDropDownMenuOpen = false;
 
@@ -22,7 +24,6 @@
       alt: "Logo de l'ajuntament de Granollers",
     },
   ];
-  console.log("navigation", navigation);
 
   $: {
     if (isDropDownMenuOpen) {
@@ -41,7 +42,7 @@
 </button>
 
 <ul class:visible={isDropDownMenuOpen} class="dropdown-menu-content">
-  {#each navigation as item}
+  {#each NAVIGATION as item}
     <li>
       {#if item.dropdown}
         <DropDownAccordion {item} />
@@ -57,18 +58,7 @@
     </li>
   {/each}
 
-  <ul class="sponsors-menu-container">
-    <p class='sponsors-title'>Sponsors</p>
-    <div class="sponsors-container">
-      {#each headerSponsorsWhite as sponsor}
-        <li>
-          <a href={sponsor.url} target="_blank" rel="noopener noreferrer">
-            <img src={sponsor.src} alt={sponsor.alt} />
-          </a>
-        </li>
-      {/each}
-    </div>
-  </ul>
+  <SponsorsResponsive />
 </ul>
 
 <style>
@@ -103,43 +93,6 @@
 
   .dropdown-menu-content.visible {
     transform: translateX(0);
-  }
-
-  .sponsors-menu-container {
-    margin-top: auto;
-  }
-
-  .sponsors-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-   .sponsors-title {
-    width: 100%;
-    text-align: center;
-    padding-bottom: 1.06rem;
-    position: relative;
-  }
-
-  .sponsors-title::before {
-    content: "";
-    height: 1px;
-    width: calc(50% - 3rem);
-    background-color: #d8d8d8;
-    position: absolute;
-    top: calc(50% - 0.4rem);
-    left: 0;
-  }
-
-  .sponsors-title::after {
-    content: "";
-    height: 1px;
-    width: calc(50% - 3rem);
-    background-color: #d8d8d8;
-    position: absolute;
-    top:calc(50% - 0.4rem);
-    right: 0;
   }
 
   @media (max-width: 648px) {

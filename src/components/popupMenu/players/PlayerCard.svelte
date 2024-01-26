@@ -58,7 +58,7 @@
 
     opacity: 0;
     /*It is the secondary color with opacity*/
-    background-color: rgba(7, 61, 134, 0.7);
+    background-color: var(--clr-secondary-opacity);
 
     transition: opacity 0.5s ease-in-out; /* Transition both transform and opacity */
     border-top-left-radius: var(--brdr-left-top-radius);

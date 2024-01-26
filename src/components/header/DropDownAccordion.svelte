@@ -1,4 +1,5 @@
 <script>
+  import SeasonsList from "./SeasonsList.svelte";
   export let item;
 </script>
 
@@ -7,13 +8,7 @@
     {item.name.toUpperCase()}
   </summary>
   <p>TEMPORADES</p>
-  <ul class="links-container">
-    {#each item.dropdown as dropDownItem}
-      <li>
-          <a href={'#seasons-timeline'}>{dropDownItem.name}</a>
-      </li>
-    {/each}
-  </ul>
+<SeasonsList/>
 </details>
 
 <style>

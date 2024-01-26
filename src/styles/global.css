@@ -9,10 +9,12 @@
 :root {
   /*Colors*/
   --clr-primary: #002e6d;
+  --clr-primary-opacity: rgba(0, 46, 109, 0.9);
   --clr-contrast: #fff;
   --clr-accent: #fa6e19;
   --clr-accent-2: #fb7326;
   --clr-secondary: #073d86;
+  --clr-secondary-opacity: rgba(7, 61, 134, 0.7);
   --clr-footer-top: #142847;
 
   /*Element sizes*/
