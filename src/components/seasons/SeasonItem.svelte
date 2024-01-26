@@ -1,6 +1,7 @@
 <script>
   //Import stores
   import { truncateString } from "@utils/helperFunctions";
+  import { collapsibleArrowSeasonMobileMenu } from "@assets/icons";
 
   import { currentIndex } from "src/svelte/stores";
   export let season;
@@ -9,6 +10,7 @@
   export let windowHeight;
 
   let translateY;
+  let isMenuOpen = false;
 
   $: {
     const progressY = windowScrollY / windowHeight;
@@ -22,10 +24,18 @@
   class="season-container"
   style="--translateX: {translateX}%; --translateY: {translateY};}"
 >
-  <div class="season-title">
+  <div class="season-menu">
+    <h4 class="menu-title">Tria una temporada</h4>
+    <button class="menu-season-selected" on:click={() => (isMenuOpen = !isMenuOpen)}
+      >74/75 <div class="rotate" class:rotated={isMenuOpen}>
+        {@html collapsibleArrowSeasonMobileMenu}
+      </div></button
+    >
+  </div>
+  <!-- <div class="season-title">
     <aside>Temporada</aside>
     <h2 class="big-number">{season.name}</h2>
-  </div>
+  </div> -->
   <div class="items-container">
     {#if season.relatProps !== undefined}
       <div
@@ -73,11 +83,47 @@
 </div>
 
 <style>
+  button {
+    cursor: pointer;
+  }
   .season-container {
     position: relative;
     width: 100%;
     height: inherit;
   }
+  .season-menu {
+    width: 100vw;
+    display: flex;
+    justify-content: space-between;
+    padding-block: 1.44rem;
+    padding-inline: var(--pd-x-small);
+    font-size: 0.875rem;
+  }
+
+  .menu-title {
+    font-weight: var(--fnt-wg-regular);
+  }
+
+  .menu-season-selected {
+    font-weight: var(--fnt-wg-medium);
+    display: flex;
+    gap: 0.38rem;
+  }
+
+  .rotate {
+    padding-top: 0.2rem;
+    display: inline-block;
+    vertical-align: middle;
+    transform: rotate(0);
+    transform-origin: 50% 55%;
+    transition: 0.45s transform ease-in-out;
+  }
+  
+  .rotated {
+    transform: rotate(-180deg);
+    /* transform-origin: 50% 55%; */
+  }
+
   .items-container {
     height: 100%;
     display: grid;
@@ -95,16 +141,23 @@
     transform: translate(-50%, -50%);
     mix-blend-mode: multiply;
   }
+
   aside {
     position: relative;
     top: 0;
     /* left: 0.5rem; */
-    top: calc( clamp(1.8rem, 0.12911392405063293rem + 7.4261603375527425vw, 6.2rem) *-1);
+    top: calc(
+      clamp(1.8rem, 0.12911392405063293rem + 7.4261603375527425vw, 6.2rem) * -1
+    );
     /* top: -6.2rem; */
     color: var(--clr-accent-2);
-    
+
     font-size: 1.35125rem;
-font-size: clamp(1.35125rem, 1.0194462025316455rem + 1.4746835443037973vw, 2.225rem);
+    font-size: clamp(
+      1.35125rem,
+      1.0194462025316455rem + 1.4746835443037973vw,
+      2.225rem
+    );
     font-weight: var(--fnt-wg-medium);
   }
   .big-number {
@@ -187,5 +240,12 @@ font-size: clamp(1.35125rem, 1.0194462025316455rem + 1.4746835443037973vw, 2.225
   .img-1 {
     grid-column: var(--colStart) / var(--colEnd);
     grid-row: var(--rowStart) / var(--rowEnd);
+  }
+  @media (max-width: 648px) {
+    .season-title {
+      position: relative;
+      top: 0;
+      left: 55%;
+    }
   }
 </style>
