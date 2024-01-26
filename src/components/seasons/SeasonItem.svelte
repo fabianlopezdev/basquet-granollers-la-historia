@@ -88,18 +88,27 @@
   }
   .season-container {
     position: relative;
-    width: 100%;
+    width: 100vw;
     height: inherit;
   }
   .season-menu {
-    width: 100vw;
+    width: 100%;
     display: flex;
     justify-content: space-between;
     padding-block: 1.44rem;
     padding-inline: var(--pd-x-small);
     font-size: 0.875rem;
+    position: relative;
   }
 
+  .season-menu::after {
+  content: '';
+  position: absolute;
+  left: var(--pd-x-small); 
+  right: var(--pd-x-small); 
+  bottom: 0; 
+  border-bottom: 2px solid var(--clr-primary); 
+}
   .menu-title {
     font-weight: var(--fnt-wg-regular);
   }
