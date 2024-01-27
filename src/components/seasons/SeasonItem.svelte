@@ -35,14 +35,13 @@
         {@html collapsibleArrowSeasonMobileMenu}
       </div></button
     >
-    
   </div>
   <div class:showMenu={isMenuOpen} class='select-season-popup'>
-    <SeasonsList/>
+  <SeasonsList/>
     <SponsorsResponsive/>
   </div>
-<!-- <div class="season-title">
-  <aside>Temporada</aside>
+  <!-- <div class="season-title">
+    <aside>Temporada</aside>
   <h2 class="big-number">{season.name}</h2>
 </div> -->
 <!-- <div class="items-container">
@@ -100,6 +99,7 @@
     /* position: relative; */
     width: 100vw;
     height: inherit;
+    /* z-index: 5; */
   }
   .season-menu {
     height: var(--hg-menu);
@@ -110,7 +110,8 @@
     padding-inline: var(--pd-x-small);
     font-size: 0.875rem;
     position: relative;
-    z-index: 100;
+    background-color: var(--clr-contrast);
+    z-index: 1;
   }
   
   .season-menu::after {
@@ -140,8 +141,9 @@
     transition: 0.45s transform ease-in-out;
   }
   .select-season-popup {
+    --offset-season-menu: calc(var(--hg-menu) - 2px);
     position: absolute;
-    top: calc(var(--hg-menu) - 2px);
+    top: var(--offset-season-menu);
   
     width: 100vw;
     /* height: 100%; */
@@ -154,9 +156,11 @@
     gap: 1rem;
     padding-block: 1.5rem;
     padding-inline: 1.5rem;
-    transform: translateY(calc(-100% - var(--hg-menu)));
+    transform: translateY(calc(-100% - var(--offset-season-menu)));
     transition: transform 0.5s ease-out;
     color: white;
+  
+    /* z-index: -1; */
   }
 
   .select-season-popup.showMenu {
