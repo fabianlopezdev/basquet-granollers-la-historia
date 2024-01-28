@@ -37,8 +37,11 @@
     >
   </div>
   <div class:showMenu={isMenuOpen} class='select-season-popup'>
+    <p>TEMPORADES</p>
   <SeasonsList/>
+  <div style='padding-top: 3rem; width: 100%;'>
     <SponsorsResponsive/>
+  </div>
   </div>
   <!-- <div class="season-title">
     <aside>Temporada</aside>
@@ -91,6 +94,12 @@
 </div>
 
 <style>
+  P {
+    color: var(--clr-accent);
+    font-size: 1rem;
+    font-weight: var(--fnt-wg-regular);
+    padding-top: 3rem;
+  }
   button {
     cursor: pointer;
   }
@@ -137,7 +146,7 @@
     display: inline-block;
     vertical-align: middle;
     transform: rotate(0);
-    transform-origin: 50% 55%;
+    transform-origin: 50% 65%;
     transition: 0.45s transform ease-in-out;
   }
   .select-season-popup {

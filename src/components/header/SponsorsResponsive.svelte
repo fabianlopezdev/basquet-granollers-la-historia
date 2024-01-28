@@ -34,6 +34,7 @@
 <style>
   .sponsors-menu-container {
     margin-top: auto;
+    width: 100%;
   }
 
   .sponsors-container {
