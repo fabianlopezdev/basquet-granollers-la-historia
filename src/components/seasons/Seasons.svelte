@@ -8,6 +8,9 @@
   import { SEASONS_INFO, SEASONS_LAYOUT } from "@data/globalConstants";
   import { currentIndex } from "src/svelte/stores";
   import { display } from "src/svelte/stores";
+  import { collapsibleArrowSeasonMobileMenu } from "@assets/icons";
+  import SeasonsList from "../header/SeasonsList.svelte";
+  import SponsorsResponsive from "@components/header/SponsorsResponsive.svelte";
 
   const TOTAL_SEASONS = SEASONS_INFO.length;
 
@@ -15,6 +18,8 @@
   let windowHeight;
   let windowScrollY;
   let animationClass;
+
+  let isMenuOpen = false;
 
   const SEASONS = SEASONS_INFO.map((season, index) => ({
     ...season,
@@ -25,9 +30,9 @@
 </script>
 
 <svelte:window
-bind:innerWidth={windowWidth}
-bind:innerHeight={windowHeight}
-bind:scrollY={windowScrollY}
+  bind:innerWidth={windowWidth}
+  bind:innerHeight={windowHeight}
+  bind:scrollY={windowScrollY}
 />
 
 <section id="seasons">
@@ -35,6 +40,23 @@ bind:scrollY={windowScrollY}
     <PopupMenu SEASONS_INFO={SEASONS_INFO[$currentIndex]} />
   {/if}
   <div class="season-wrapper">
+    <div class="season-menu">
+      <h4 class="menu-title">Tria una temporada</h4>
+      <button
+        class="menu-season-selected"
+        on:click={() => (isMenuOpen = !isMenuOpen)}
+        >74/75 <div class="rotate" class:rotated={isMenuOpen}>
+          {@html collapsibleArrowSeasonMobileMenu}
+        </div></button
+      >
+    </div>
+    <div class:showMenu={isMenuOpen} class="select-season-popup">
+      <p>TEMPORADES</p>
+      <SeasonsList />
+      <div style="padding-top: 3rem; width: 100%;">
+        <SponsorsResponsive />
+      </div>
+    </div>
     <div
       class="seasons-container"
       style="--totalSeasons: {TOTAL_SEASONS}; transform: {transform}"
@@ -56,6 +78,7 @@ bind:scrollY={windowScrollY}
 
 <style>
   #seasons {
+     --hg-menu: 4rem;
     background-color: var(--clr-contrast);
     scroll-snap-align: start;
     position: relative;
@@ -73,6 +96,56 @@ bind:scrollY={windowScrollY}
     max-width: var(--wd-regular);
   }
 
+  .season-menu {
+   
+    height: var(--hg-menu);
+    /* width: 100vw; */
+    color: var(--clr-primary);
+    display: flex;
+    justify-content: space-between;
+    padding-block: 1.44rem;
+    padding-inline: var(--pd-x-small);
+    font-size: 0.875rem;
+    position: relative;
+    background-color: var(--clr-contrast);
+    z-index: 1;
+  }
+  /*Line Separator*/
+  .season-menu::after {
+    content: "";
+    position: absolute;
+    left: var(--pd-x-small);
+    right: var(--pd-x-small);
+    bottom: 0;
+    border-bottom: 2px solid var(--clr-primary);
+  }
+
+  .select-season-popup {
+    --offset-season-menu: calc(var(--hg-menu) - 2px);
+    position: absolute;
+    top: var(--offset-season-menu);
+    /* top: 0; */
+    left: 0;
+    right: 0;
+    /* width: 100vw; */
+    /* height: 100%; */
+    background-color: var(--clr-primary-opacity);
+    /* z-index: 10; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    padding-block: 1.5rem;
+    padding-inline: 1.5rem;
+    transform: translateY(calc(-100% - var(--offset-season-menu)));
+    transition: transform 0.5s ease-out;
+    color: var(--clr-contrast);
+  }
+
+  .select-season-popup.showMenu {
+    transform: translateY(0);
+  }
   .seasons-container {
     width: calc(100% * var(--totalSeasons));
     height: calc(100dvh - var(--pd-y-options-btns) - 2.12rem);
@@ -80,5 +153,39 @@ bind:scrollY={windowScrollY}
     color: var(--clr-primary);
     /* overflow: hidden; */
     transition: transform 1.5s ease-out;
+  }
+
+  P {
+    color: var(--clr-accent);
+    font-size: 1rem;
+    font-weight: var(--fnt-wg-regular);
+    padding-top: 3rem;
+  }
+  button {
+    cursor: pointer;
+  }
+
+  .menu-title {
+    font-weight: var(--fnt-wg-regular);
+  }
+
+  .menu-season-selected {
+    font-weight: var(--fnt-wg-medium);
+    display: flex;
+    gap: 0.38rem;
+  }
+
+  .rotate {
+    padding-top: 0.2rem;
+    display: inline-block;
+    vertical-align: middle;
+    transform: rotate(0);
+    transform-origin: 50% 65%;
+    transition: 0.45s transform ease-in-out;
+  }
+  
+  .rotated {
+    transform: rotate(-180deg);
+    /* transform-origin: 50% 55%; */
   }
 </style>

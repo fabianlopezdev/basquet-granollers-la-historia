@@ -1,18 +1,16 @@
 <script>
   //Import stores
   import { truncateString } from "@utils/helperFunctions";
-  import { collapsibleArrowSeasonMobileMenu } from "@assets/icons";
-  import {NAVIGATION} from '@data/globalConstants'
+  import { NAVIGATION } from "@data/globalConstants";
   import { currentIndex } from "src/svelte/stores";
-  import SeasonsList from "../header/SeasonsList.svelte";
-  import SponsorsResponsive from "@components/header/SponsorsResponsive.svelte";
+ 
   export let season;
   export let windowScrollY;
   export let seasonIndex;
   export let windowHeight;
 
   let translateY;
-  let isMenuOpen = false;
+  
 
   $: {
     const progressY = windowScrollY / windowHeight;
@@ -26,28 +24,12 @@
   class="season-container"
   style="--translateX: {translateX}%; --translateY: {translateY};}"
 >
-  <div class="season-menu">
-    <h4 class="menu-title">Tria una temporada</h4>
-    <button
-      class="menu-season-selected"
-      on:click={() => (isMenuOpen = !isMenuOpen)}
-      >74/75 <div class="rotate" class:rotated={isMenuOpen}>
-        {@html collapsibleArrowSeasonMobileMenu}
-      </div></button
-    >
-  </div>
-  <div class:showMenu={isMenuOpen} class='select-season-popup'>
-    <p>TEMPORADES</p>
-  <SeasonsList/>
-  <div style='padding-top: 3rem; width: 100%;'>
-    <SponsorsResponsive/>
-  </div>
-  </div>
+  
   <!-- <div class="season-title">
     <aside>Temporada</aside>
-  <h2 class="big-number">{season.name}</h2>
-</div> -->
-<!-- <div class="items-container">
+    <h2 class="big-number">{season.years}</h2>
+  </div> -->
+  <!-- <div class="items-container">
     {#if season.relatProps !== undefined}
       <div
         class="translateY-wrapper relat"
@@ -94,92 +76,23 @@
 </div>
 
 <style>
-  P {
-    color: var(--clr-accent);
-    font-size: 1rem;
-    font-weight: var(--fnt-wg-regular);
-    padding-top: 3rem;
-  }
-  button {
-    cursor: pointer;
-  }
+ 
   .season-container {
-    --hg-menu: 4rem;
+    
     /* position: relative; */
     width: 100vw;
     height: inherit;
     /* z-index: 5; */
   }
-  .season-menu {
-    height: var(--hg-menu);
-    width: inherit;
-    display: flex;
-    justify-content: space-between;
-    padding-block: 1.44rem;
-    padding-inline: var(--pd-x-small);
-    font-size: 0.875rem;
-    position: relative;
-    background-color: var(--clr-contrast);
-    z-index: 1;
-  }
-  
-  .season-menu::after {
-    content: "";
+
+
+  .season-title {
     position: absolute;
-    left: var(--pd-x-small);
-    right: var(--pd-x-small);
-    bottom: 0;
-    border-bottom: 2px solid var(--clr-primary);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    mix-blend-mode: multiply;
   }
-  .menu-title {
-    font-weight: var(--fnt-wg-regular);
-  }
-
-  .menu-season-selected {
-    font-weight: var(--fnt-wg-medium);
-    display: flex;
-    gap: 0.38rem;
-  }
-
-  .rotate {
-    padding-top: 0.2rem;
-    display: inline-block;
-    vertical-align: middle;
-    transform: rotate(0);
-    transform-origin: 50% 65%;
-    transition: 0.45s transform ease-in-out;
-  }
-  .select-season-popup {
-    --offset-season-menu: calc(var(--hg-menu) - 2px);
-    position: absolute;
-    top: var(--offset-season-menu);
-  
-    width: 100vw;
-    /* height: 100%; */
-    background-color: var(--clr-primary-opacity);
-    /* z-index: 10; */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
-    padding-block: 1.5rem;
-    padding-inline: 1.5rem;
-    transform: translateY(calc(-100% - var(--offset-season-menu)));
-    transition: transform 0.5s ease-out;
-    color: white;
-  
-    /* z-index: -1; */
-  }
-
-  .select-season-popup.showMenu {
-    transform: translateY(0);
-  }
-  .rotated {
-    transform: rotate(-180deg);
-    /* transform-origin: 50% 55%; */
-  }
-
   .items-container {
     height: 100%;
     display: grid;
@@ -190,15 +103,6 @@
     grid-column: var(--colStart) / var(--colEnd);
     grid-row: var(--rowStart) / var(--rowEnd);
   }
-  .season-title {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    mix-blend-mode: multiply;
-  }
-
-  
 
   aside {
     position: relative;
