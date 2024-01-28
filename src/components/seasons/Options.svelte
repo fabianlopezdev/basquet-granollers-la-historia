@@ -25,9 +25,9 @@
   .options-container {
     display: flex;
     justify-content: center;
-    padding-bottom: 2rem;
+    /* padding-bottom: 2rem; */
     gap: 1.25rem;
-    margin-top: auto;
+    /* margin-top: auto; */
     z-index: 1;
   }
   button {
@@ -71,5 +71,20 @@
     .options-container {
       margin-bottom: -2.7rem;
     }
+  }
+
+  @media (max-width: 648px) {
+    .options-container {
+      padding-inline: var(--pd-x-small);
+      gap: 0.8rem;
+    }
+    /* .options-container {
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-bottom: -2.7rem;
+    }
+    button {
+      width: 100%;
+    } */
   }
 </style>

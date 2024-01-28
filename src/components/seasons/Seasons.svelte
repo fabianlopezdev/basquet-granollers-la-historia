@@ -39,8 +39,8 @@
   {#if $display !== "relats"}
     <PopupMenu SEASONS_INFO={SEASONS_INFO[$currentIndex]} />
   {/if}
-  <div class="season-wrapper">
-    <div class="season-menu">
+  <div class="season-wrapper ">
+    <div class="season-menu mobile">
       <h4 class="menu-title">Tria una temporada</h4>
       <button
         class="menu-season-selected"
@@ -50,7 +50,7 @@
         </div></button
       >
     </div>
-    <div class:showMenu={isMenuOpen} class="select-season-popup">
+    <div class:showMenu={isMenuOpen} class="select-season-popup ">
       <p>TEMPORADES</p>
       <SeasonsList />
       <div style="padding-top: 3rem; width: 100%;">
@@ -79,10 +79,15 @@
 <style>
   #seasons {
      --hg-menu: 4rem;
+     --offset-season-menu: calc(var(--hg-menu) - 2px);
     background-color: var(--clr-contrast);
     scroll-snap-align: start;
     position: relative;
     height: 100dvh;
+  }
+
+  .mobile {
+    display: none;
   }
 
   .season-wrapper {
@@ -101,14 +106,14 @@
     height: var(--hg-menu);
     /* width: 100vw; */
     color: var(--clr-primary);
-    display: flex;
+
     justify-content: space-between;
     padding-block: 1.44rem;
     padding-inline: var(--pd-x-small);
     font-size: 0.875rem;
     position: relative;
     background-color: var(--clr-contrast);
-    z-index: 1;
+    z-index: 3;
   }
   /*Line Separator*/
   .season-menu::after {
@@ -121,7 +126,7 @@
   }
 
   .select-season-popup {
-    --offset-season-menu: calc(var(--hg-menu) - 2px);
+    
     position: absolute;
     top: var(--offset-season-menu);
     /* top: 0; */
@@ -132,6 +137,7 @@
     background-color: var(--clr-primary-opacity);
     /* z-index: 10; */
     display: flex;
+    visibility: hidden;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -141,18 +147,23 @@
     transform: translateY(calc(-100% - var(--offset-season-menu)));
     transition: transform 0.5s ease-out;
     color: var(--clr-contrast);
+    z-index: 2;
   }
 
   .select-season-popup.showMenu {
+    /* max-height: fit-content;
+    display:flex; */
+    visibility: visible;
     transform: translateY(0);
   }
   .seasons-container {
     width: calc(100% * var(--totalSeasons));
-    height: calc(100dvh - var(--pd-y-options-btns) - 2.12rem);
+    height: calc(100dvh - var(--pd-y-options-btns));
     display: flex;
     color: var(--clr-primary);
     /* overflow: hidden; */
     transition: transform 1.5s ease-out;
+     z-index: 1;
   }
 
   P {
@@ -187,5 +198,14 @@
   .rotated {
     transform: rotate(-180deg);
     /* transform-origin: 50% 55%; */
+  }
+
+  @media (max-width: 648px) {
+    .seasons-container {
+      height: calc(100dvh - var(--pd-y-options-btns) - 2.5rem);
+    }
+    .mobile {
+      display: flex;
+    }
   }
 </style>

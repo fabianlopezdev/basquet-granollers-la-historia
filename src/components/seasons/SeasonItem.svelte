@@ -3,14 +3,13 @@
   import { truncateString } from "@utils/helperFunctions";
   import { NAVIGATION } from "@data/globalConstants";
   import { currentIndex } from "src/svelte/stores";
- 
+
   export let season;
   export let windowScrollY;
   export let seasonIndex;
   export let windowHeight;
 
   let translateY;
-  
 
   $: {
     const progressY = windowScrollY / windowHeight;
@@ -24,11 +23,10 @@
   class="season-container"
   style="--translateX: {translateX}%; --translateY: {translateY};}"
 >
-  
-  <!-- <div class="season-title">
+  <div class="season-title">
     <aside>Temporada</aside>
     <h2 class="big-number">{season.years}</h2>
-  </div> -->
+  </div>
   <!-- <div class="items-container">
     {#if season.relatProps !== undefined}
       <div
@@ -76,15 +74,11 @@
 </div>
 
 <style>
- 
   .season-container {
-    
-    /* position: relative; */
-    width: 100vw;
+    position: relative;
+    width: 100%;
     height: inherit;
-    /* z-index: 5; */
   }
-
 
   .season-title {
     position: absolute;
@@ -92,16 +86,6 @@
     left: 50%;
     transform: translate(-50%, -50%);
     mix-blend-mode: multiply;
-  }
-  .items-container {
-    height: 100%;
-    display: grid;
-    grid-template-columns: repeat(12, 8.32%);
-    grid-template-rows: repeat(10, 10%);
-  }
-  .relat {
-    grid-column: var(--colStart) / var(--colEnd);
-    grid-row: var(--rowStart) / var(--rowEnd);
   }
 
   aside {
@@ -122,20 +106,31 @@
     );
     font-weight: var(--fnt-wg-medium);
   }
+
   .big-number {
     position: relative;
     text-align: center;
-    /* padding-bottom: 8rem; */
+    font-size: 6.6rem;
     font-size: 6.6rem;
     font-size: clamp(
       6.6rem,
-      -0.10253164556961991rem + 29.789029535864977vw,
+      -3.464525810324128rem + 33.9015606242497vw,
       24.25rem
     );
     font-weight: var(--fnt-wg-medium);
-
-    /* opacity: 0.95; */
   }
+
+  .items-container {
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(12, 8.32%);
+    grid-template-rows: repeat(10, 10%);
+  }
+  .relat {
+    grid-column: var(--colStart) / var(--colEnd);
+    grid-row: var(--rowStart) / var(--rowEnd);
+  }
+
   .translateY-wrapper {
     transform: var(--translateY);
     transition: transform 0.5s ease-out;
@@ -206,8 +201,11 @@
   @media (max-width: 648px) {
     .season-title {
       position: relative;
-      top: 0;
-      left: 55%;
+      top: 3rem;
+      left: 0;
+      transform: translate(0%, 0%);
+      transform: translate(0%, 0%);
+      padding-inline: var(--pd-x-small);
     }
   }
 </style>
