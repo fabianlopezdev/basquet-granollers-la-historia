@@ -45,7 +45,7 @@
       <button
         class="menu-season-selected"
         on:click={() => (isMenuOpen = !isMenuOpen)}
-        >74/75 <div class="rotate" class:rotated={isMenuOpen}>
+        >{SEASONS_INFO[$currentIndex].years}<div class="rotate" class:rotated={isMenuOpen}>
           {@html collapsibleArrowSeasonMobileMenu}
         </div></button
       >
