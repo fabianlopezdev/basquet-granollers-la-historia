@@ -95,11 +95,10 @@
     height: inherit;
     flex-direction: column;
     background-position: center;
-    overflow: hidden;
     margin: auto;
     background-image: url("/cancha.png");
-    min-width: 100vw;
     max-width: var(--wd-regular);
+    overflow: hidden;
   }
 
   .season-menu {

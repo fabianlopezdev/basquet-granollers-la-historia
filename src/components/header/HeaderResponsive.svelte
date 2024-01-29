@@ -45,7 +45,9 @@
   {#each NAVIGATION as item}
     <li>
       {#if item.dropdown}
+      <button on:click={() => (isDropDownMenuOpen= !isDropDownMenuOpen)}>
         <DropDownAccordion {item} />
+      </button>
         <!-- {:else if item.link.includes("http")}
         <a href={item.link} target="_blank" rel="noopener noreferrer">
           <h5>{item.name.toUpperCase()}</h5>

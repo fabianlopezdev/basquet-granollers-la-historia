@@ -39,8 +39,8 @@
     <ul class="dropdown-content">
       {#each item.dropdown as dropDownItem, i}
         <li>
-          <a on:click={() => setStores(i)} href="#seasons-timeline">
-            {dropDownItem.name}
+          <a on:click={() => setStores(i)} href="#seasons">
+            {dropDownItem.years}
           </a>
         </li>
       {/each}
