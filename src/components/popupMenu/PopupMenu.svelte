@@ -124,5 +124,9 @@ width: clamp(1.5625rem, 0.6358793517406963rem + 3.12124849939976vw, 3.1875rem);
       margin-left: 0;
       padding-inline: var(--pd-x-small);
     }
+    .menu-container {
+      padding-inline: var(--pd-x-small);
+      font-size: 0.625rem;
+    }
   }
 </style>

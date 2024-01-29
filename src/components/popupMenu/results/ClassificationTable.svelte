@@ -40,18 +40,18 @@
     font-weight: var(--fnt-wg-medium);
   }
   .position {
-    width: 2.37rem;
+    max-width: 2.37rem;
   }
   .team {
-    width: 13.4rem;
+    max-width: 13.4rem;
     padding-left: 1.44rem;
   }
 
   .short-stat {
-    width: 2.37rem;
+    max-width: 2.37rem;
   }
   .long-stat {
-    width: 3.65rem;
+    max-width: 3.65rem;
   }
   .short-stat,
   .long-stat {
