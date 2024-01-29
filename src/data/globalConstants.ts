@@ -572,24 +572,47 @@ const RELATS_PROPS = {
 };
 
 const SEASONS_LAYOUT = [
+  // {
+  //   img1: {
+  //     colStart: 3,
+  //     colEnd: 5,
+  //     rowStart: 8,
+  //     rowEnd: 11,
+  //   },
+  //   img2: {
+  //     colStart: 4,
+  //     colEnd: 9,
+  //     rowStart: 2,
+  //     rowEnd: 4,
+  //   },
+  //   relatProps: {
+  //     colStart: 8,
+  //     colEnd: 15,
+  //     rowStart: 7,
+  //     rowEnd: 11,
+  //     color: RELATS_PROPS.colors.blue,
+  //     hoverColor: RELATS_PROPS.colors.orange,
+  //     width: RELATS_PROPS.width.short,
+  //   },
+  // },
   {
     img1: {
-      colStart: 3,
-      colEnd: 5,
-      rowStart: 8,
-      rowEnd: 11,
+      colStart: 1,
+      colEnd: 12,
+      rowStart: 17,
+      rowEnd: 20,
     },
     img2: {
-      colStart: 4,
-      colEnd: 9,
+      colStart: 3,
+      colEnd: 23,
       rowStart: 2,
       rowEnd: 4,
     },
     relatProps: {
-      colStart: 8,
-      colEnd: 15,
+      colStart: 10,
+      colEnd: 24,
       rowStart: 7,
-      rowEnd: 11,
+      rowEnd: 9,
       color: RELATS_PROPS.colors.blue,
       hoverColor: RELATS_PROPS.colors.orange,
       width: RELATS_PROPS.width.short,
@@ -597,21 +620,21 @@ const SEASONS_LAYOUT = [
   },
   {
     img1: {
-      colStart: 1,
-      colEnd: 3,
-      rowStart: 7,
-      rowEnd: 9,
+      colStart: 15,
+      colEnd: 26,
+      rowStart: 14,
+      rowEnd: 24,
     },
     img2: {
-      colStart: 9,
-      colEnd: 13,
+      colStart: 2,
+      colEnd: 24,
       rowStart: 3,
       rowEnd: 5,
     },
     relatProps: {
-      colStart: 4,
+      colStart: 0,
       colEnd: 11,
-      rowStart: 8,
+      rowStart: 10,
       rowEnd: 12,
       color: RELATS_PROPS.colors.orange,
       hoverColor: RELATS_PROPS.colors.blue,

@@ -27,7 +27,7 @@
     <aside>Temporada</aside>
     <h2 class="big-number">{season.years}</h2>
   </div>
-  <!-- <div class="items-container">
+  <div class="items-container">
     {#if season.relatProps !== undefined}
       <div
         class="translateY-wrapper relat"
@@ -70,7 +70,7 @@
           {/if}
       {/each}
     {/if}
-  </div> -->
+  </div>
 </div>
 
 <style>
@@ -78,6 +78,7 @@
     position: relative;
     width: 100%;
     height: inherit;
+    /* overflow-x: hidden; */
   }
 
   .season-title {
@@ -147,7 +148,6 @@
     position: relative;
     display: flex;
     flex-direction: column;
-
     width: var(--width);
     gap: 1rem;
     color: var(--clr-contrast);
@@ -199,13 +199,39 @@
     grid-row: var(--rowStart) / var(--rowEnd);
   }
   @media (max-width: 648px) {
+    /* .season-container {
+      display: flex;
+      flex-direction: column;
+    } */
     .season-title {
+      width: 100vw;
       position: relative;
       top: 3rem;
       left: 0;
       transform: translate(0%, 0%);
       transform: translate(0%, 0%);
       padding-inline: var(--pd-x-small);
+      height: 7rem;
     }
+    /* .items-container {
+      flex: 1;
+    } */
+    .items-container {
+     padding-bottom: 5rem;
+      grid-template-columns: repeat(24, 4.19%);
+      grid-template-rows: repeat(24, 4.19%);
+    }
+
+    .relat-container {
+      width: 14rem;
+      padding: 1.5rem;
+      /* text-wrap: pretty; */
+    }
+    
+    .relat {
+      z-index: 1;
+
+    }
+
   }
 </style>
