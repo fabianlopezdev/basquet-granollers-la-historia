@@ -101,4 +101,8 @@
     gap: 2rem;
     width: 100%;
   }
+
+  @media (max-width: 648px) {
+    
+  }
 </style>

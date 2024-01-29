@@ -38,16 +38,16 @@
   let animationDuration;
   let animationInView = false;
   let previousIndex = $currentIndex;
-  let incomingAnimationClass = '';
-  let outgoingAnimationClass = '';
+  let incomingAnimationClass = "";
+  let outgoingAnimationClass = "";
 
   function updateAnimationClasses(newIndex) {
     if (newIndex > previousIndex) {
-      incomingAnimationClass = 'slide-in-right';
-      outgoingAnimationClass = 'slide-out-left';
+      incomingAnimationClass = "slide-in-right";
+      outgoingAnimationClass = "slide-out-left";
     } else {
-      incomingAnimationClass = 'slide-in-left';
-      outgoingAnimationClass = 'slide-out-right';
+      incomingAnimationClass = "slide-in-left";
+      outgoingAnimationClass = "slide-out-right";
     }
 
     // Apply the outgoing animation immediately
@@ -60,7 +60,7 @@
 
     // Reset the animation class after the incoming animation
     setTimeout(() => {
-      animationClass = '';
+      animationClass = "";
     }, 800); // Total duration for both animations
   }
 
@@ -141,36 +141,36 @@
     userInteractionCount++;
     direction = 1;
     if ($currentIndex > 0) {
-    let newIndex = $currentIndex - 1;
-    updateAnimationClasses(newIndex);
-    $currentIndex = newIndex;
-    previousIndex = $currentIndex;
+      let newIndex = $currentIndex - 1;
+      updateAnimationClasses(newIndex);
+      $currentIndex = newIndex;
+      previousIndex = $currentIndex;
 
-    // Additional logic if needed, like updating currentPage
-    if ($currentIndex < currentPage * maxSeasonsPerPage) {
-      currentPage--;
+      // Additional logic if needed, like updating currentPage
+      if ($currentIndex < currentPage * maxSeasonsPerPage) {
+        currentPage--;
+      }
     }
   }
-}
 
   function nextSeason() {
     $isOutsideSelection = false;
     isDirectSelection = false;
     userInteractionCount++;
     direction = -1;
-   if ($currentIndex < SEASONS_INFO.length - 1) {
-    let newIndex = $currentIndex + 1;
-    updateAnimationClasses(newIndex);
-    $currentIndex = newIndex;
-    previousIndex = $currentIndex;
+    if ($currentIndex < SEASONS_INFO.length - 1) {
+      let newIndex = $currentIndex + 1;
+      updateAnimationClasses(newIndex);
+      $currentIndex = newIndex;
+      previousIndex = $currentIndex;
 
-    // Additional logic if needed, like updating currentPage
-    if ($currentIndex >= (currentPage + 1) * maxSeasonsPerPage) {
-      currentPage++;
+      // Additional logic if needed, like updating currentPage
+      if ($currentIndex >= (currentPage + 1) * maxSeasonsPerPage) {
+        currentPage++;
+      }
     }
   }
-}
- function selectSeason(index) {
+  function selectSeason(index) {
     let newIndex = currentPage * maxSeasonsPerPage + index;
     updateAnimationClasses(newIndex);
     $currentIndex = newIndex;
@@ -288,6 +288,7 @@
   .line {
     position: relative;
     --arrow-width: 3.3125rem;
+    --arrow-bottom: -1.9rem;
     /* position: absolute; */
     margin-top: auto;
     margin-bottom: 2rem;
@@ -301,7 +302,7 @@
   .show {
     display: block;
   }
-  
+
   @keyframes move-horizontal {
     from {
       transform: translateX(var(--distance)) rotate(0deg) scale(2);
@@ -312,7 +313,7 @@
       border-color: var(--clr-contrast);
     }
   }
-  
+
   img {
     display: none;
     background-color: var(--clr-contrast);
@@ -344,7 +345,7 @@
   .left-arrow {
     position: absolute;
     width: var(--arrow-width);
-    bottom: -1.9rem;
+    bottom: var(--arrow-bottom);
     left: -1px;
     z-index: 1;
   }
@@ -352,7 +353,8 @@
   .right-arrow {
     position: absolute;
     width: var(--arrow-width);
-    bottom: -1.9rem;
+    bottom: var(--arrow-bottom);
+
     right: 2px;
     z-index: 1;
   }
@@ -406,5 +408,11 @@
     opacity: 1;
     font-size: 1.25rem;
     font-weight: var(--fnt-wg-medium);
+  }
+
+  @media (max-height: 812px) {
+    .line {
+      margin-bottom: 1.7rem;
+    }
   }
 </style>

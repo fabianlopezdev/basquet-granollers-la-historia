@@ -234,4 +234,8 @@
     }
 
   }
+
+  @media (max-height: 812px) {
+    
+  }
 </style>

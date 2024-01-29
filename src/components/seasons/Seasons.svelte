@@ -209,4 +209,15 @@
       display: flex;
     }
   }
+
+  @media (max-height: 812px) {
+    .season-menu {
+      padding-block: 1rem;
+      height: max-content;
+    }
+
+    .select-season-popup {
+      top: calc(var(--offset-season-menu) - 0.88rem);
+    }
+  }
 </style>
