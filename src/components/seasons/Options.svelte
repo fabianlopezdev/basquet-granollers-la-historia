@@ -67,16 +67,13 @@
       transform 0.1s ease;
   }
 
-  @media (max-height: 900px) {
-    .options-container {
-      margin-bottom: -2.7rem;
-    }
-  }
+ 
 
   @media (max-width: 648px) {
     .options-container {
       padding-inline: var(--pd-x-small);
       gap: 0.8rem;
+      margin-top: 1rem;
     }
     /* .options-container {
       flex-direction: column;
@@ -87,4 +84,11 @@
       width: 100%;
     } */
   }
-</style>
+
+  @media (max-height: 811px) {
+    .options-container {
+      margin-top: 1.3rem;
+    }
+  }
+  
+  </style>

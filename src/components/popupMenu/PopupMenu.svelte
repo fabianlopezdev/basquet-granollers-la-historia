@@ -31,7 +31,7 @@
       >
       Temporada {SEASONS_INFO.name}
     </h2>
-    <button on:click={() => display.set("relats")}>{@html closeMenuIcon}</button
+    <button on:click={() => display.set("relats")}><svg xmlns="http://www.w3.org/2000/svg" width="51" height="51" viewBox="0 0 51 51" fill="none"> <path d="M13.5781 36.7332L36.7331 13.5782" stroke="white" stroke-width="3" stroke-linecap="round"/> <path d="M36.7319 36.7332L13.5769 13.5782" stroke="white" stroke-width="3" stroke-linecap="round"/> <circle cx="25.5" cy="25.5002" r="24.5" stroke="white" stroke-width="2"/> </svg></button
     >
   </header>
   <div class="menu-container">
@@ -55,6 +55,20 @@
 </section>
 
 <style>
+  h2 {
+    font-size: 0.875rem;
+    font-size: clamp(
+      0.875rem,
+      0.09093637454982006rem + 2.641056422569027vw,
+      2.25rem
+    );
+    font-weight: var(--fnt-wg-regular);
+  }
+
+  svg {
+    width: 1.5625rem;
+width: clamp(1.5625rem, 0.6358793517406963rem + 3.12124849939976vw, 3.1875rem);
+  }
   .more-info-menu {
     --hg-header-menu: 8.25rem;
     --mg-left-top-header: 1rem;
@@ -103,6 +117,12 @@
   }
 
   @media (max-width: 648px) {
-    
+    .more-info-menu {
+      --hg-header-menu: 4.25rem;
+    }
+    .menu-header {
+      margin-left: 0;
+      padding-inline: var(--pd-x-small);
+    }
   }
 </style>

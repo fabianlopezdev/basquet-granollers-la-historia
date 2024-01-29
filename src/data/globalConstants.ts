@@ -626,8 +626,8 @@ const SEASONS_LAYOUT = [
       rowEnd: 24,
     },
     img2: {
-      colStart: 2,
-      colEnd: 24,
+      colStart: 5,
+      colEnd: 21,
       rowStart: 3,
       rowEnd: 5,
     },

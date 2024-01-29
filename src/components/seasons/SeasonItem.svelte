@@ -223,7 +223,7 @@
     }
 
     .relat-container {
-      width: 14rem;
+      max-width: 14rem;
       padding: 1.5rem;
       /* text-wrap: pretty; */
     }
@@ -235,7 +235,14 @@
 
   }
 
-  @media (max-height: 812px) {
-    
+  @media (max-height: 811px) {
+    .season-title {
+     top: 2.5rem;
+     height: 6rem;
+    }
+
+    .relat-container {
+      font-size: 0.7rem;
+    }
   }
 </style>

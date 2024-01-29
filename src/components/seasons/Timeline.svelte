@@ -410,7 +410,7 @@
     font-weight: var(--fnt-wg-medium);
   }
 
-  @media (max-height: 812px) {
+  @media (max-height: 811px) {
     .line {
       margin-bottom: 1.7rem;
     }
