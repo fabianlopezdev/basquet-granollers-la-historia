@@ -99,4 +99,14 @@
     font-weight: var(--fnt-wg-regular);
   }
 
+  @media (max-width: 648px) {
+    li {
+      width: 100%;
+    }
+    .player {
+      width: inherit;
+    }
+
+  }
+
 </style>
