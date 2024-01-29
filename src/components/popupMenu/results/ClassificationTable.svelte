@@ -17,9 +17,12 @@
       <td class="long-stat">PUNTS</td>
     </tr>
     {#each SEASON_STANDINGS as standing, i}
-      <tr style={standing.team.toLowerCase().includes('granollers') && 'background-color: var(--clr-primary); color: var(--clr-contrast)'}>
+      <tr
+        style={standing.team.toLowerCase().includes("granollers") &&
+          "background-color: var(--clr-primary); color: var(--clr-contrast)"}
+      >
         <td class="short-stat">{i + 1}</td>
-        <td class="team" >{standing.team.toUpperCase()}</td>
+        <td class="team">{standing.team.toUpperCase()}</td>
         <td class="short-stat">{standing.pj}</td>
         <td class="short-stat">{standing.pg}</td>
         <td class="short-stat">{standing.pe}</td>
@@ -40,21 +43,50 @@
     font-weight: var(--fnt-wg-medium);
   }
   .position {
-    max-width: 2.37rem;
+    width: 2.37rem;
   }
   .team {
-    max-width: 13.4rem;
+    width: 6rem;
+    min-width: clamp(
+      6rem,
+      3.189873417721519rem + 12.489451476793247vw,
+      13.4rem
+    );
     padding-left: 1.44rem;
   }
 
   .short-stat {
-    max-width: 2.37rem;
+    width: 1.2rem;
+    min-width: clamp(
+      1.2rem,
+      0.7556962025316455rem + 1.9746835443037976vw,
+      2.37rem
+    );
   }
   .long-stat {
-    max-width: 3.65rem;
+    width: 2.9rem;
+    min-width: clamp(
+      2.9rem,
+      2.6151898734177212rem + 1.2658227848101264vw,
+      3.65rem
+    );
   }
   .short-stat,
   .long-stat {
     text-align: center;
+  }
+
+  @media (max-width: 648px) {
+    /* .date {
+      width: 3rem;
+    } */
+    .team {
+      padding-left: 0rem;
+      text-align: center;
+    }
+
+    /* .score {
+      width: 1.25rem;
+    } */
   }
 </style>
