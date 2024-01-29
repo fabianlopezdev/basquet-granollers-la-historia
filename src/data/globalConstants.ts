@@ -557,6 +557,10 @@ const NAVIGATION = [
     dropdown: SEASONS_INFO,
   },
   {
+    name: "resultats",
+    dropdown: SEASONS_INFO,
+  },
+  {
     name: "social",
     dropdown: SEASONS_INFO,
   },

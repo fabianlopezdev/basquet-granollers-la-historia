@@ -1,6 +1,7 @@
 <script>
   import SeasonsList from "./SeasonsList.svelte";
   export let item;
+  export let isDropDownMenuOpen = false;
 </script>
 
 <details>
@@ -8,7 +9,7 @@
     {item.name.toUpperCase()}
   </summary>
   <p>TEMPORADES</p>
-<SeasonsList/>
+<SeasonsList {item} bind:isDropDownMenuOpen/>
 </details>
 
 <style>

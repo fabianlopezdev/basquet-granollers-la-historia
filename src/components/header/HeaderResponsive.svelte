@@ -25,6 +25,7 @@
     },
   ];
 
+  console.log('NAVIGATION', NAVIGATION)
   $: {
     if (isDropDownMenuOpen) {
       document.body.style.overflow = "hidden";
@@ -32,6 +33,8 @@
       document.body.style.overflow = "";
     }
   }
+
+  $: console.log('isDropDownMenuOpen', isDropDownMenuOpen)
 </script>
 
 <button
@@ -45,9 +48,7 @@
   {#each NAVIGATION as item}
     <li>
       {#if item.dropdown}
-      <button on:click={() => (isDropDownMenuOpen= !isDropDownMenuOpen)}>
-        <DropDownAccordion {item} />
-      </button>
+        <DropDownAccordion {item} bind:isDropDownMenuOpen/>
         <!-- {:else if item.link.includes("http")}
         <a href={item.link} target="_blank" rel="noopener noreferrer">
           <h5>{item.name.toUpperCase()}</h5>
