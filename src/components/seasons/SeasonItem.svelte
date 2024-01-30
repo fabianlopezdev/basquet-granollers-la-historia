@@ -10,15 +10,105 @@
   export let windowHeight;
 
   let translateY;
+  $: innerWidth = 0;
 
+  if (season.images) {
+    console.log("season", season.img1);
+  }
+
+  let img1RowStart;
+  let img1RowEnd;
+  let img1ColStart;
+  let img1ColEnd;
+  let img2RowStart;
+  let img2RowEnd;
+  let img2ColStart;
+  let img2ColEnd;
+  let relatRowStart;
+  let relatRowEnd;
+  let relatColStart;
+  let relatColEnd;
+
+  $: console.log("innerWidth", innerWidth);
   $: {
     const progressY = windowScrollY / windowHeight;
     translateY = `translateY(${100 - 100 * progressY * progressY}%)`;
   }
 
+  $: {
+    if (innerWidth > 0 && innerWidth < 648) {
+      if (season.img1) {
+        img1RowStart =
+          season.img1.rowStartMobile !== undefined
+            ? season.img1.rowStartMobile
+            : season.img1.rowStart;
+        img1RowEnd =
+          season.img1.rowEndMobile !== undefined
+            ? season.img1.rowEndMobile
+            : season.img1.rowEnd;
+        img1ColStart =
+          season.img1.colStartMobile !== undefined
+            ? season.img1.colStartMobile
+            : season.img1.colStart;
+        img1ColEnd =
+          season.img1.colEndMobile !== undefined
+            ? season.img1.colEndMobile
+            : season.img1.colEnd;
+        img2RowStart =
+          season.img2.rowStartMobile !== undefined
+            ? season.img2.rowStartMobile
+            : season.img2.rowStart;
+        img2RowEnd =
+          season.img2.rowEndMobile !== undefined
+            ? season.img2.rowEndMobile
+            : season.img2.rowEnd;
+        img2ColStart =
+          season.img2.colStartMobile !== undefined
+            ? season.img2.colStartMobile
+            : season.img2.colStart;
+        img2ColEnd =
+          season.img2.colEndMobile !== undefined
+            ? season.img2.colEndMobile
+            : season.img2.colEnd;
+        relatRowStart =
+          season.relatProps.rowStartMobile !== undefined
+            ? season.relatProps.rowStartMobile
+            : season.relatProps.rowStart;
+        relatRowEnd =
+          season.relatProps.rowEndMobile !== undefined
+            ? season.relatProps.rowEndMobile
+            : season.relatProps.rowEnd;
+        relatColStart =
+          season.relatProps.colStartMobile !== undefined
+            ? season.relatProps.colStartMobile
+            : season.relatProps.colStart;
+        relatColEnd =
+          season.relatProps.colEndMobile !== undefined
+            ? season.relatProps.colEndMobile
+            : season.relatProps.colEnd;
+        console.log("hereeeeeeeeeeeeeeeee");
+      }
+    } else {
+      if (season.img1) {
+        img1RowStart = season.img1.rowStart;
+        img1RowEnd = season.img1.rowEnd;
+        img1ColStart = season.img1.colStart;
+        img1ColEnd = season.img1.colEnd;
+        img2RowStart = season.img2.rowStart;
+        img2RowEnd = season.img2.rowEnd;
+        img2ColStart = season.img2.colStart;
+        img2ColEnd = season.img2.colEnd;
+        relatRowStart = season.relatProps.rowStart;
+        relatRowEnd = season.relatProps.rowEnd;
+        relatColStart = season.relatProps.colStart;
+        relatColEnd = season.relatProps.colEnd;
+      }
+    }
+  }
   $: translateX = (seasonIndex - $currentIndex) * 100;
 </script>
 
+<svelte:window bind:innerWidth />
 <div
   class="season-container"
   style="--translateX: {translateX}%; --translateY: {translateY};}"
@@ -31,9 +121,7 @@
     {#if season.relatProps !== undefined}
       <div
         class="translateY-wrapper relat"
-        style="--rowStart: {season.relatProps.rowStart}; --rowEnd: {season
-          .relatProps.rowEnd}; --colStart: {season.relatProps
-          .colStart}; --colEnd: {season.relatProps.colEnd};"
+        style="--rowStart: {relatRowStart}; --rowEnd: {relatRowEnd}; --colStart: {relatColStart}; --colEnd: {relatColEnd};"
       >
         <article
           class="relat-container"
@@ -54,20 +142,18 @@
           <div
             class="translateY-wrapper blender img-{i}"
             style="transform: {translateY}; --rowStart: {i === 0
-              ? season.img1.rowStart
-              : season.img2.rowStart}; --rowEnd: {i === 0
-                ? season.img1.rowEnd
-              : season.img2.rowEnd}; --colStart: {i === 0
-              ? season.img1.colStart
-              : season.img2.colStart}; --colEnd: {i === 0
-              ? season.img1.colEnd
-              : season.img2.colEnd}"
+              ? img1RowStart
+              : img2RowStart}; --rowEnd: {i === 0
+              ? img1RowEnd
+              : img2RowEnd}; --colStart: {i === 0
+              ? img1ColStart
+              : img2ColStart}; --colEnd: {i === 0 ? img1ColEnd : img2ColEnd}"
           >
             <div class="img-container">
               <img src={image.src} alt={image.alt} />
             </div>
           </div>
-          {/if}
+        {/if}
       {/each}
     {/if}
   </div>
@@ -217,7 +303,7 @@
       flex: 1;
     } */
     .items-container {
-     padding-bottom: 5rem;
+      padding-bottom: 5rem;
       grid-template-columns: repeat(24, 4.19%);
       grid-template-rows: repeat(24, 4.19%);
     }
@@ -227,18 +313,16 @@
       padding: 1.5rem;
       /* text-wrap: pretty; */
     }
-    
+
     .relat {
       z-index: 1;
-
     }
-
   }
 
   @media (max-height: 811px) {
     .season-title {
-     top: 2.5rem;
-     height: 6rem;
+      top: 2.5rem;
+      height: 6rem;
     }
 
     .relat-container {
