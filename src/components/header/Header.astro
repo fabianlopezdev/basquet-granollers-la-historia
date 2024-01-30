@@ -37,15 +37,7 @@ const headerSponsors = [
           {
             NAVIGATION.map((item) => (
               <li>
-                {item.dropdown ? (
-                  <DropDownMenu {item} client:only />
-                ) : item.link.includes("http") ? (
-                  <a href={item.link} target="_blank" rel="noopener noreferrer">
-                    {item.name!.toUpperCase()}
-                  </a>
-                ) : (
-                  <a href={item.link}>{item.name!.toUpperCase()}</a>
-                )}
+                <DropDownMenu {item} client:only />
               </li>
             ))
           }
