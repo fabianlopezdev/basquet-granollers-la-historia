@@ -84,8 +84,8 @@
     background-color: var(--clr-contrast);
     scroll-snap-align: start;
     position: relative;
-    height: 100svh;
-    overflow-y: hidden;
+    height: 100lvh;
+    /* overflow-y: hidden; */
   }
 
   .mobile {
