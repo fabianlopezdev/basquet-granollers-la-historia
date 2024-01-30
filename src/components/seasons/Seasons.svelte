@@ -39,18 +39,19 @@
   {#if $display !== "relats"}
     <PopupMenu SEASONS_INFO={SEASONS_INFO[$currentIndex]} />
   {/if}
-  <div class="season-wrapper ">
+  <div class="season-wrapper">
     <div class="season-menu mobile">
       <h4 class="menu-title">Tria una temporada</h4>
       <button
         class="menu-season-selected"
         on:click={() => (isMenuOpen = !isMenuOpen)}
-        >{SEASONS_INFO[$currentIndex].years}<div class="rotate" class:rotated={isMenuOpen}>
+        >{SEASONS_INFO[$currentIndex].years}
+        <div class="rotate" class:rotated={isMenuOpen}>
           {@html collapsibleArrowSeasonMobileMenu}
         </div></button
       >
     </div>
-    <div class:showMenu={isMenuOpen} class="select-season-popup ">
+    <div class:showMenu={isMenuOpen} class="select-season-popup">
       <p>TEMPORADES</p>
       <SeasonsList />
       <div style="padding-top: 3rem; width: 100%;">
@@ -78,12 +79,12 @@
 
 <style>
   #seasons {
-     --hg-menu: 4rem;
-     --offset-season-menu: calc(var(--hg-menu) - 2px);
+    --hg-menu: 4rem;
+    --offset-season-menu: calc(var(--hg-menu) - 2px);
     background-color: var(--clr-contrast);
     scroll-snap-align: start;
     position: relative;
-    height: 100dvh;
+    height: 100svh;
   }
 
   .mobile {
@@ -102,7 +103,6 @@
   }
 
   .season-menu {
-   
     height: var(--hg-menu);
     /* width: 100vw; */
     color: var(--clr-primary);
@@ -126,7 +126,6 @@
   }
 
   .select-season-popup {
-    
     position: absolute;
     top: var(--offset-season-menu);
     /* top: 0; */
@@ -158,12 +157,12 @@
   }
   .seasons-container {
     width: calc(100% * var(--totalSeasons));
-    height: calc(100dvh - var(--pd-y-options-btns));
+    height: calc(100svh - var(--pd-y-options-btns));
     display: flex;
     color: var(--clr-primary);
     /* overflow: hidden; */
     transition: transform 1.5s ease-out;
-     z-index: 1;
+    z-index: 1;
   }
 
   P {
@@ -194,7 +193,7 @@
     transform-origin: 50% 65%;
     transition: 0.45s transform ease-in-out;
   }
-  
+
   .rotated {
     transform: rotate(-180deg);
     /* transform-origin: 50% 55%; */
@@ -202,14 +201,14 @@
 
   @media (max-width: 648px) {
     .seasons-container {
-      height: calc(100dvh - var(--pd-y-options-btns) - 2.5rem);
+      height: calc(100svh - var(--pd-y-options-btns) - 2.5rem);
     }
     .mobile {
       display: flex;
     }
   }
 
-  @media (max-height: 812px) and (max-width: 648px){
+  @media (max-height: 812px) and (max-width: 648px) {
     .season-menu {
       padding-block: 1rem;
       height: max-content;
