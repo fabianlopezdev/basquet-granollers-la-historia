@@ -85,6 +85,7 @@
     scroll-snap-align: start;
     position: relative;
     height: 100svh;
+    overflow-y: hidden;
   }
 
   .mobile {
