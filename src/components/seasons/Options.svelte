@@ -23,6 +23,7 @@
 
 <style>
   .options-container {
+    position: relative;
     display: flex;
     justify-content: center;
     /* padding-bottom: 2rem; */
@@ -73,7 +74,7 @@
     .options-container {
       padding-inline: var(--pd-x-small);
       gap: 0.8rem;
-      margin-top: 1rem;
+      margin-top: auto;
     }
     /* .options-container {
       flex-direction: column;
