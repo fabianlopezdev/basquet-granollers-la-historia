@@ -1,4 +1,4 @@
-import type { PostFields } from "../types/types";
+// import type { PostFields } from "../types/types";
 
 /*Pages to exclude when generating dynamic routes*/
 
@@ -12,16 +12,16 @@ const IMAGE_FIELDS = [
 ];
 
 /*API constants fields*/
-const POST_FIELDS: PostFields[] = [
-  "title",
-  "content",
-  "link",
-  "slug",
-  "categories",
-  "date",
-  "image",
-  "id",
-];
+// const POST_FIELDS: PostFields[] = [
+//   "title",
+//   "content",
+//   "link",
+//   "slug",
+//   "categories",
+//   "date",
+//   "image",
+//   "id",
+// ];
 
 const CONFIG_PAGES = {
   header: "capcalera",
@@ -672,7 +672,7 @@ const SEASONS_LAYOUT = [
 ];
 
 export {
-  POST_FIELDS,
+  // POST_FIELDS,
   CONFIG_PAGES,
   TEAM_PAGES,
   IMAGE_FIELDS,
