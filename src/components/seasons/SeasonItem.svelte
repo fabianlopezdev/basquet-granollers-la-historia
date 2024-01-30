@@ -319,7 +319,7 @@
     }
   }
 
-  @media (max-height: 811px) {
+  @media (max-height: 811px) and (max-width: 648px){
     .season-title {
       top: 2.5rem;
       height: 6rem;
@@ -328,5 +328,11 @@
     .relat-container {
       font-size: 0.7rem;
     }
+  }
+
+   @media (max-height: 811px) and (min-width: 648px){
+   .relat {
+    grid-row: calc(var(--rowStart) - 1) / var(--rowEnd);
+  }
   }
 </style>

@@ -298,6 +298,7 @@
       var(--clr-accent) 35.36%,
       var(--clr-primary) 68.89%
     );
+    z-index: 1;
   }
   .show {
     display: block;

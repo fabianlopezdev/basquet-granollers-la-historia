@@ -209,7 +209,7 @@
     }
   }
 
-  @media (max-height: 812px) {
+  @media (max-height: 812px) and (max-width: 648px){
     .season-menu {
       padding-block: 1rem;
       height: max-content;
