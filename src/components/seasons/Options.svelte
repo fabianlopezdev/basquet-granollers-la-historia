@@ -74,7 +74,7 @@
     .options-container {
       padding-inline: var(--pd-x-small);
       gap: 0.8rem;
-      margin-top: auto;
+      margin-top: 1rem;
     }
     /* .options-container {
       flex-direction: column;

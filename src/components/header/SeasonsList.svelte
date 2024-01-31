@@ -3,7 +3,8 @@
   import { currentIndex, display, isOutsideSelection } from "../../svelte/stores";
 
   export let item;
-  export let isDropDownMenuOpen = false;
+  export let isDropDownMenuOpen;
+  export let isMenuOpen;
   // console.log('item', item)
   function setStores(i) {
     currentIndex.set(i);
@@ -13,13 +14,17 @@
     // console.log('item.name', item.name)
   }
 
+  function handlePopupsMenu() {
+    if (isDropDownMenuOpen === true) isDropDownMenuOpen = false;
+    if (isMenuOpen === true) isMenuOpen = false;
+  }
   // $: console.log('isDropDownMenuOpen', isDropDownMenuOpen);
 </script>
 
 <ul class="links-container">
   {#each SEASONS_INFO as season, i}
     <li>
-      <a on:click={() => { setStores(i); isDropDownMenuOpen = false }} href={'#seasons'}>{season.years}</a>
+      <a on:click={() => { setStores(i); handlePopupsMenu()}} href={'#seasons'}>{season.years}</a>
     </li>
   {/each}
 </ul>

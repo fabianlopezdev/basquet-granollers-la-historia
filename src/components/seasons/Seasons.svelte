@@ -53,7 +53,7 @@
     </div>
     <div class:showMenu={isMenuOpen} class="select-season-popup">
       <p>TEMPORADES</p>
-      <SeasonsList />
+      <SeasonsList bind:isMenuOpen/>
       <div style="padding-top: 3rem; width: 100%;">
         <SponsorsResponsive />
       </div>
