@@ -30,6 +30,7 @@
     gap: 1.25rem;
     /* margin-top: auto; */
     z-index: 1;
+    /* mix-blend-mode: multiply; */
   }
   button {
     text-decoration: none;
@@ -39,14 +40,16 @@
     height: var(--hg-btn);
     width: 11.5rem;
     border: 1px solid var(--clr-accent);
-    background-color: var(--clr-contrast);
+    background-color: var(--clr-contrast-opacity);
     color: var(--clr-accent);
     border-radius: 1.75rem;
     font-weight: var(--fnt-wg-regular);
+    /* opacity: 0.7; */
     transition:
       background-color 0.3s ease,
       color 0.3s ease,
       border-color 0.3s ease;
+      
   }
 
   button:active {

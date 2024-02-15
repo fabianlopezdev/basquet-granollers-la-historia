@@ -229,6 +229,7 @@
 
   .blender:hover {
     mix-blend-mode: normal;
+    z-index: 1;
   }
   .relat-container {
     position: relative;
@@ -263,6 +264,7 @@
   img:hover {
     filter: grayscale(0%);
     transform: scale(1.5);
+
   }
 
   .img-container {
