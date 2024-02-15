@@ -7,6 +7,7 @@
   import PlayerCard from "./players/PlayerCard.svelte";
   import ResultsTable from "./results/ResultsTable.svelte";
   import ClassificationTable from "./results/ClassificationTable.svelte";
+  import Social from "./Social.svelte";
 
   export let SEASONS_INFO;
 
@@ -50,7 +51,10 @@
           <ClassificationTable {SEASON_STANDINGS} />
         </div>
       </div>
-    {/if}
+    {:else if $display === "social"}
+    <Social/>
+      {/if}
+    
   </div>
 </section>
 
