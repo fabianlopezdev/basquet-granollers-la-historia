@@ -24,6 +24,25 @@ const headerSponsors = [
 ];
 
 ---
+<script>
+  let prevScrollPos = window.scrollY; // Use window.scrollY instead
+
+  window.addEventListener('scroll', () => {
+    const currentScrollPos = window.scrollY; // Update to window.scrollY
+    const header = document.querySelector('header');
+
+    if (prevScrollPos > currentScrollPos) {
+      // Scrolling up
+      header.style.top = '0';  
+    } else {
+      // Scrolling down
+      header.style.top = `-${header.offsetHeight}px`;
+    }
+
+    prevScrollPos = currentScrollPos;
+  });
+</script>
+
 
 <header>
   <section>
@@ -68,7 +87,8 @@ const headerSponsors = [
 
 <style>
   header {
-    position: relative;
+    position: fixed;
+    width: 100%;
     /* display: flex;
     flex-direction: column; */
     top: 0;
@@ -76,6 +96,7 @@ const headerSponsors = [
     height: var(--hg-header);
     background-color: var(--clr-contrast);
     background-color: rgba(243, 243, 243, 0.9);
+    transition: top 0.3s ease-in-out;
   }
 
   header:after {

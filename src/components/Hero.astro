@@ -26,7 +26,7 @@ import ScrollLine from "@assets/ScrollLine.svelte";
     display: none;
   }
   section {
-    height: 100svh;
+    height: calc(100vh + var(--hg-header));
     scroll-snap-align: start;
     margin-top: calc(var(--hg-header) * -1);
     overflow: hidden;
