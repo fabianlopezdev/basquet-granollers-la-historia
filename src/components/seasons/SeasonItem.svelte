@@ -1,8 +1,8 @@
 <script>
   //Import stores
-  import { truncateString } from "@utils/helperFunctions";
-  import { NAVIGATION } from "@data/globalConstants";
+  import { truncateString, toggleDialog } from "@utils/helperFunctions";
   import { currentIndex } from "src/svelte/stores";
+  import DialogRelat from "./DialogRelat.svelte";
 
   export let season;
   export let windowScrollY;
@@ -12,9 +12,7 @@
   let translateY;
   $: innerWidth = 0;
 
-  if (season.images) {
-    console.log("season", season.img1);
-  }
+  let dialogId = `dialog-${seasonIndex}`
 
   let img1RowStart;
   let img1RowEnd;
@@ -29,29 +27,32 @@
   let relatColStart;
   let relatColEnd;
 
-  $: console.log("innerWidth", innerWidth);
+  let relatColor = "rgba(8, 67, 149, 0.90)"; 
   $: {
     const progressY = windowScrollY / windowHeight;
     translateY = `translateY(${100 - 100 * progressY * progressY}%)`;
   }
-
+  $: {if (season.relatProps !== undefined) {
+    // console.log("season", season.relatProps);
+    relatColor = season.relatProps.color;
+  }}
   $: {
     if (innerWidth > 0 && innerWidth < 648) {
       if (season.img1) {
         img1RowStart =
-          season.img1.rowStartMobile !== undefined
-            ? season.img1.rowStartMobile
-            : season.img1.rowStart;
+        season.img1.rowStartMobile !== undefined
+        ? season.img1.rowStartMobile
+        : season.img1.rowStart;
         img1RowEnd =
-          season.img1.rowEndMobile !== undefined
+        season.img1.rowEndMobile !== undefined
             ? season.img1.rowEndMobile
             : season.img1.rowEnd;
         img1ColStart =
           season.img1.colStartMobile !== undefined
             ? season.img1.colStartMobile
             : season.img1.colStart;
-        img1ColEnd =
-          season.img1.colEndMobile !== undefined
+            img1ColEnd =
+            season.img1.colEndMobile !== undefined
             ? season.img1.colEndMobile
             : season.img1.colEnd;
         img2RowStart =
@@ -62,32 +63,31 @@
           season.img2.rowEndMobile !== undefined
             ? season.img2.rowEndMobile
             : season.img2.rowEnd;
-        img2ColStart =
-          season.img2.colStartMobile !== undefined
+            img2ColStart =
+            season.img2.colStartMobile !== undefined
             ? season.img2.colStartMobile
             : season.img2.colStart;
-        img2ColEnd =
-          season.img2.colEndMobile !== undefined
+            img2ColEnd =
+            season.img2.colEndMobile !== undefined
             ? season.img2.colEndMobile
             : season.img2.colEnd;
-        relatRowStart =
-          season.relatProps.rowStartMobile !== undefined
+            relatRowStart =
+            season.relatProps.rowStartMobile !== undefined
             ? season.relatProps.rowStartMobile
             : season.relatProps.rowStart;
-        relatRowEnd =
-          season.relatProps.rowEndMobile !== undefined
+            relatRowEnd =
+            season.relatProps.rowEndMobile !== undefined
             ? season.relatProps.rowEndMobile
             : season.relatProps.rowEnd;
-        relatColStart =
-          season.relatProps.colStartMobile !== undefined
+            relatColStart =
+            season.relatProps.colStartMobile !== undefined
             ? season.relatProps.colStartMobile
             : season.relatProps.colStart;
-        relatColEnd =
-          season.relatProps.colEndMobile !== undefined
+            relatColEnd =
+            season.relatProps.colEndMobile !== undefined
             ? season.relatProps.colEndMobile
             : season.relatProps.colEnd;
-        console.log("hereeeeeeeeeeeeeeeee");
-      }
+          }
     } else {
       if (season.img1) {
         img1RowStart = season.img1.rowStart;
@@ -106,9 +106,19 @@
     }
   }
   $: translateX = (seasonIndex - $currentIndex) * 100;
+
+  let relatProps = {};
+  $: if (season.relatProps) {
+    relatProps = season.relatProps;
+  }
+ 
 </script>
 
 <svelte:window bind:innerWidth />
+
+{#key relatProps}
+<DialogRelat {relatProps} {dialogId}/>
+{/key}
 <div
   class="season-container"
   style="--translateX: {translateX}%; --translateY: {translateY};}"
@@ -125,13 +135,13 @@
       >
         <article
           class="relat-container"
-          style="--clr-background: {season.relatProps.color};  --width: {season
+          style="--clr-background: {relatColor};  --width: {season
             .relatProps.width}rem;"
         >
           <header>El Relat</header>
           <p>{truncateString(season.relat)}</p>
-          <a href="/" style="--hoverColor: {season.relatProps.hoverColor}"
-            >Llegir més</a
+          <button on:click={() => toggleDialog(dialogId)} style="--hoverColor: {season.relatProps.hoverColor}"
+            >Llegir més</button
           >
         </article>
       </div>
@@ -249,10 +259,10 @@
     font-weight: var(--fnt-wg-medium);
   }
 
-  a {
+  button {
     text-decoration: underline;
   }
-  a:hover {
+  button:hover {
     color: var(--hoverColor);
   }
   img {

@@ -5,4 +5,5 @@ import {OPTIONS} from "@data/globalConstants";
 export const display = writable(OPTIONS[0]);
 export const currentIndex = writable(0);
 export const isOutsideSelection = writable(false);
+export const relatColor = writable("rgba(8, 67, 149, 0.90)");
 

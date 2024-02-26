@@ -94,3 +94,13 @@ export function truncateString(str: string) {
 export function upperCaseFirstLetter(string: string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
+
+export function toggleDialog(dialogId: string) {
+  const dialog = document.getElementById(dialogId) as HTMLDialogElement
+  if (dialog === null) return;
+  if (dialog.open) {
+    dialog.close();
+  } else {
+    dialog.showModal();
+  }
+}
