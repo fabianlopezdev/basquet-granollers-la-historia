@@ -6,6 +6,9 @@
   import { currentIndex, display, isOutsideSelection } from "../../svelte/stores";
 
   export let item;
+
+  console.log("item", item);
+
   let isDropdownExpanded = false;
   let isRotated = false;
 
@@ -40,7 +43,7 @@
       {#each item.dropdown as dropDownItem, i}
         <li>
           <a on:click={() => setStores(i)} href="#seasons">
-            {dropDownItem.years}
+            {dropDownItem}
           </a>
         </li>
       {/each}

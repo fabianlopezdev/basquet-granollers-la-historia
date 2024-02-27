@@ -1,5 +1,6 @@
 <script>
  import { toggleDialog } from "@utils/helperFunctions";
+ import { closeMenuIcon } from "@assets/icons";
 export let relatProps;
 export let dialogId;
 export let season;
@@ -21,7 +22,7 @@ function darkenColor(color, amount) {
 <!-- {#if relatColor !== undefined}  -->
 <dialog id={dialogId} style="--clr-bg-relat: {relatProps.color}; --clr-bg-scrollbar: {darkerColor}">
   <button class="modal-button" on:click={() => toggleDialog(dialogId)}>
-    <img src="closeModalButton.png" alt="" />
+    {@html closeMenuIcon}
   </button>
   <div class="dialog-container">
     <h3>El relat de la temporada {season.years}</h3>
@@ -57,8 +58,8 @@ function darkenColor(color, amount) {
 
   .modal-button {
     position: absolute;
-    top: -1.7rem;
-    right: -2rem;
+    top: 1rem;
+    right: 0.7rem;
   }
 
   .dialog-container {
@@ -76,7 +77,7 @@ function darkenColor(color, amount) {
   }
 
    ::-webkit-scrollbar {
-    width: 12px;
+    width: 8px;
   }
   
   ::-webkit-scrollbar-track {

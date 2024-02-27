@@ -547,22 +547,31 @@ const SEASONS_INFO = [
   // },
 ];
 
+const YEARS = SEASONS_INFO.map((season) => season.years);
 const NAVIGATION = [
   {
     name: "relats",
-    dropdown: SEASONS_INFO,
+    dropdown: YEARS,
   },
   {
     name: "jugadors",
-    dropdown: SEASONS_INFO,
+    dropdown: YEARS,
   },
   {
     name: "resultats",
-    dropdown: SEASONS_INFO,
+    dropdown: YEARS,
   },
   {
     name: "social",
-    dropdown: SEASONS_INFO,
+    dropdown: YEARS,
+  },
+  {
+    name: "especials",
+    link: "",
+  },
+  {
+    name: "Videos",
+    link: "",
   },
   // { name: 'especials', link: '/la-historia/especials' },
 ];
@@ -684,4 +693,5 @@ export {
   SCORES,
   SEASON_STANDINGS,
   NAVIGATION,
+  YEARS,
 };

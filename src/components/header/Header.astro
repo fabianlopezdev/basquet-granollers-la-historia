@@ -1,15 +1,22 @@
 ---
 import { SEASONS_INFO, NAVIGATION } from "@data/globalConstants";
 import CbgHistoryLogo from "../../assets/CbgHistoryLogo.astro";
+import CbgLogo from "../../assets/CbgLogo.astro";
 import HeaderResponsive from "./HeaderResponsive.svelte";
 // import DropDownMenu from '@components/header/DropDownMenu.astro';
 import DropDownMenu from "./DropDownMenu.svelte";
 
+
 const headerSponsors = [
-  {
-    url: `https://cbgranollers.cat/`,
-    src: "/cbg-logo.svg",
-    alt: "Logo del Club Bàsquet Granolelrs",
+  // {
+  //   url: `https://cbgranollers.cat/`,
+  //   src: "/cbg-logo.svg",
+  //   alt: "Logo del Club Bàsquet Granolelrs",
+  // },
+   {
+    url: `https://votv.cat/`,
+    src: "/votv-logo.svg",
+    alt: "Logo de Vallès Oriental Televisió",
   },
   {
     url: `https://finquesvallbona.com/`,
@@ -47,7 +54,9 @@ const headerSponsors = [
 <header>
   <section>
     <div class="logo">
-      <CbgHistoryLogo />
+      <CbgHistoryLogo wd="221"/>
+      <span class="logo-separator-line"></span>
+      <CbgLogo wd="34.88"/>
     </div>
     <div class="desktop">
 
@@ -56,13 +65,14 @@ const headerSponsors = [
           {
             NAVIGATION.map((item) => (
               <li>
-                <DropDownMenu {item} client:only />
+                {console.log(item)}
+                {item.dropdown ? <DropDownMenu {item} client:only /> : <a href={item.link}>{item.name.toUpperCase()}</a>}
               </li>
             ))
           }
         </ul>
       </nav>
-      <ul class="sponsors-container">
+      <!-- <ul class="sponsors-container">
         {
           headerSponsors.map((sponsor) => (
             <li>
@@ -72,7 +82,7 @@ const headerSponsors = [
             </li>
           ))
         }
-      </ul>
+      </ul> -->
     </div>
 
     <div class="responsive">
@@ -121,7 +131,19 @@ const headerSponsors = [
     top: 3rem;
     transform: translateY(-50%);
     left: var(--pd-x);
+    display: flex;
+    align-items: center;
+    gap: 1.44rem;
   }
+
+  .logo-separator-line {
+  align-self: stretch; /* Adjust the height as needed */
+  width: 1px; /* This makes the line thin; adjust as needed */
+  background-color: var(--clr-primary); /* This is the color of the line; change as needed */
+  display: inline-block; /* Necessary for alignment */
+  margin-block: 0.5rem;
+  /* Adjust spacing around the separator as needed */
+}
   .nav {
     padding-left: 23.94rem;
     min-height: var(--hg-header);

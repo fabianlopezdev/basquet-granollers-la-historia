@@ -9,7 +9,7 @@ export const collapsibleArrowSeasonMobileMenu = `<svg xmlns="http://www.w3.org/2
 </svg>`;
 
 export const closeMenuIcon =
-  '<svg xmlns="http://www.w3.org/2000/svg" width="51" height="51" viewBox="0 0 51 51" fill="none"> <path d="M13.5781 36.7332L36.7331 13.5782" stroke="white" stroke-width="3" stroke-linecap="round"/> <path d="M36.7319 36.7332L13.5769 13.5782" stroke="white" stroke-width="3" stroke-linecap="round"/> <circle cx="25.5" cy="25.5002" r="24.5" stroke="white" stroke-width="2"/> </svg>';
+  '<svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 51 51" fill="none"> <path d="M13.5781 36.7332L36.7331 13.5782" stroke="white" stroke-width="3" stroke-linecap="round"/> <path d="M36.7319 36.7332L13.5769 13.5782" stroke="white" stroke-width="3" stroke-linecap="round"/> <circle cx="25.5" cy="25.5002" r="24.5" stroke="white" stroke-width="2"/> </svg>';
 
 export const hamburgerMenuIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="23" height="16" viewBox="0 0 23 16" fill="none">
   <path d="M1 1H22" stroke="#002E6D" stroke-width="2" stroke-linecap="round"/>
