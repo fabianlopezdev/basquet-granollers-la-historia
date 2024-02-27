@@ -117,7 +117,7 @@
 <svelte:window bind:innerWidth />
 
 {#key relatProps}
-<DialogRelat {relatProps} {dialogId}/>
+<DialogRelat {relatProps} {dialogId} {season}/>
 {/key}
 <div
   class="season-container"
