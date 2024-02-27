@@ -2,6 +2,9 @@
 import { SEASONS_INFO, NAVIGATION } from "@data/globalConstants";
 import CbgHistoryLogo from "../../assets/CbgHistoryLogo.astro";
 import CbgLogo from "../../assets/CbgLogo.astro";
+import VotvLogo from "../../assets/VotvLogo.astro";
+import FinquesVallbonaLogo from "../../assets/FinquesVallbonaLogo.astro";
+import AjuntamentGranollersLogo from "../../assets/AjuntamentGranollersLogo.astro";
 import HeaderResponsive from "./HeaderResponsive.svelte";
 // import DropDownMenu from '@components/header/DropDownMenu.astro';
 import DropDownMenu from "./DropDownMenu.svelte";
@@ -14,15 +17,16 @@ const headerSponsors = [
   //   alt: "Logo del Club Bàsquet Granolelrs",
   // },
    {
-    url: `https://votv.cat/`,
-    src: "/votv-logo.svg",
-    alt: "Logo de Vallès Oriental Televisió",
-  },
-  {
     url: `https://finquesvallbona.com/`,
     src: "/finques-vallbona-logo.svg",
     alt: "Logo de Finques Ballbona",
   },
+   {
+    url: `https://votv.cat/`,
+    src: "/votv-logo.svg",
+    alt: "Logo de Vallès Oriental Televisió",
+  },
+ 
   {
     url: `https://www.granollers.cat/`,
     src: "/ajuntament-granollers-logo.svg",
@@ -54,9 +58,10 @@ const headerSponsors = [
 <header>
   <section>
     <div class="logo">
-      <CbgHistoryLogo wd="221"/>
+      <CbgHistoryLogo wd="221" title="Logo de La Història del Bàsquet a Granollers"/>
       <span class="logo-separator-line"></span>
-      <CbgLogo wd="34.88"/>
+      <a href="https://cbgranollers.cat/" target="_blank"><CbgLogo wd="34.88" title="Logo del Club Bàsquet Granollers"/></a>
+      
     </div>
     <div class="desktop">
 
@@ -72,17 +77,17 @@ const headerSponsors = [
           }
         </ul>
       </nav>
-      <!-- <ul class="sponsors-container">
-        {
-          headerSponsors.map((sponsor) => (
-            <li>
-              <a href={sponsor.url} target="_blank" rel="noopener noreferrer">
-                <img src={sponsor.src} alt={sponsor.alt} />
-              </a>
-            </li>
-          ))
-        }
-      </ul> -->
+      <ul class="sponsors-container">
+        <li>
+          <a href="https://finquesvallbona.com/" target="_blank"><FinquesVallbonaLogo wd="120.35" title="Logo de Finques Vallbona"/></a>
+        </li>
+        <li>
+          <a href="https://votv.cat/" target="_blank"><VotvLogo wd="79.79" title="Logo de Vallès Oriental Televisió"/></a>
+        </li>
+        <li>
+          <a href="https://www.granollers.cat/" target="_blank"><AjuntamentGranollersLogo wd="40.76" title="Logo de l'Ajuntament de Granollers"/></a>
+        </li>
+      </ul>
     </div>
 
     <div class="responsive">
@@ -151,7 +156,7 @@ const headerSponsors = [
     align-items: center;
     color: var(--clr-primary);
     font-weight: var(--fnt-wg-medium);
-    gap: 2rem;
+    gap: 1.5rem;
   }
 
   a {
@@ -166,7 +171,7 @@ const headerSponsors = [
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    gap: 2.16rem;
+    gap: 1.5rem;
   }
   @media (max-width: 1096px) {
     header:after {
