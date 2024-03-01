@@ -25,7 +25,6 @@
     },
   ];
 
-  console.log('NAVIGATION', NAVIGATION)
   $: {
     if (isDropDownMenuOpen) {
       document.body.style.overflow = "hidden";
@@ -34,7 +33,6 @@
     }
   }
 
-  $: console.log('isDropDownMenuOpen', isDropDownMenuOpen)
 </script>
 
 <button

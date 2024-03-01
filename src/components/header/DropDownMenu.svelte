@@ -7,7 +7,6 @@
 
   export let item;
 
-  console.log("item", item);
 
   let isDropdownExpanded = false;
   let isRotated = false;

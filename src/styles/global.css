@@ -36,7 +36,7 @@
   
   --hg-separator-line: 0.5625rem;
   --hg-separator-line-responsive: 0.3125rem;
-  --hg-header: 6.3125rem;
+  --hg-header: clamp(5rem, 0.429rem + 10.448vh, 6.313rem);
 
   --hg-footer-top-section: 17.6875rem;
   --hg-footer-bottom-section: 5.6875rem;

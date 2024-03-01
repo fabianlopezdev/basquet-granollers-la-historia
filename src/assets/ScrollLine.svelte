@@ -6,8 +6,21 @@
     }
   }
 
+let innerHeight;
+let lineHeight = 134;
+let reduceFactor;
+  $: {
+    if (innerHeight < 901) {
+      reduceFactor = innerHeight / 901;
 
+      lineHeight= 134 * reduceFactor;
+      console.log('lineHeight', lineHeight)
+    }
+  }
 </script>
+
+<svelte:window bind:innerHeight />
+  <p>Comença aquí, fent scroll</p>
 
 <div class="svg-container">
   <button id="pillButton" style="height: 30px;" on:click={handleButtonClick}>
@@ -41,7 +54,7 @@
   <!-- Separate SVG for the vertical line -->
   <svg
     width="18"
-    height="134"
+    height={lineHeight}
     viewBox="0 0 18 134"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
@@ -51,7 +64,13 @@
 </div>
 
 <style>
-  .svg-container {
+  p {
+
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    font-size: 1rem;
+    padding-bottom: 1rem;
+  }
+    .svg-container {
     display: flex;
     flex-direction: column;
   }

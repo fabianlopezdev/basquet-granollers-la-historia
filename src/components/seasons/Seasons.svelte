@@ -84,7 +84,7 @@
     background-color: var(--clr-contrast);
     scroll-snap-align: start;
     position: relative;
-    height: 100lvh;
+    height: 100vh;
     /* overflow-y: hidden; */
   }
 

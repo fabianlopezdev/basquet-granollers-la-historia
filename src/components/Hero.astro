@@ -15,11 +15,12 @@ import ScrollLine from "@assets/ScrollLine.svelte";
   <div class="responsive">
      <h2 class="hero-title">VIATJA <br>A TRAVÉS DE <br> LA NOSTRA HISTÒRIA</h2>
   </div>
-  <p>Comença aquí, fent scroll</p>
   <div class='scroll-line'>
     <ScrollLine client:only/>
   </div>
 </section>
+
+
 
 <style>
   .responsive {
@@ -52,20 +53,16 @@ import ScrollLine from "@assets/ScrollLine.svelte";
     object-fit: cover;
     object-position: bottom;
   }
-  p {
-    position: absolute;
-    bottom: 11.25rem;
-    left: 50%;
-    transform: translateX(-50%);
-    text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    font-size: 1rem;
-  }
+
   .scroll-line {
     position: absolute;
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
     animation: scroll 1s infinite;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   @media (max-width: 648px) {

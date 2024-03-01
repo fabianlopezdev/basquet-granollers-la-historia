@@ -74,7 +74,7 @@
 width: clamp(1.5625rem, 0.6358793517406963rem + 3.12124849939976vw, 3.1875rem);
   }
   .more-info-menu {
-    --hg-header-menu: 8.25rem;
+    --hg-header-menu: calc(var(--hg-header) + 1rem);
     --mg-left-top-header: 1rem;
     position: absolute;
     min-height: 100%;
@@ -87,8 +87,9 @@ width: clamp(1.5625rem, 0.6358793517406963rem + 3.12124849939976vw, 3.1875rem);
   }
 
   .menu-container {
-    padding-block: calc(var(--mg-left-top-header) * 2);
+    padding-block: 1rem;
     max-width: var(--wd-regular);
+    padding-inline: var(--pd-x);
     margin: auto;
     min-height: calc(100% - var(--hg-header-menu) - var(--mg-left-top-header));
   }
@@ -98,10 +99,10 @@ width: clamp(1.5625rem, 0.6358793517406963rem + 3.12124849939976vw, 3.1875rem);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-inline: 7.12rem;
+    padding-inline: var(--pd-x);
     height: var(--hg-header-menu);
-    margin-top: var(--mg-left-top-header);
-    margin-left: var(--mg-left-top-header);
+    /* margin-top: var(--mg-left-top-header); */
+    /* margin-left: var(--mg-left-top-header); */
   }
 
   .players-container {
@@ -120,12 +121,18 @@ width: clamp(1.5625rem, 0.6358793517406963rem + 3.12124849939976vw, 3.1875rem);
     width: 100%;
   }
 
+   @media (max-width: 1065px) {
+    .menu-container, .menu-header{
+      padding-inline: var(--pd-x-medium);
+    }
+  }
+
+ 
   @media (max-width: 648px) {
     .more-info-menu {
       --hg-header-menu: 4.25rem;
     }
     .menu-header {
-      margin-left: 0;
       padding-inline: var(--pd-x-small);
     }
     .menu-container {

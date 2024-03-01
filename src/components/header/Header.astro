@@ -57,9 +57,9 @@ const headerSponsors = [
 
 <header>
   <section>
-    <div class="logo">
+    <div class="logos">
       <CbgHistoryLogo wd="221" title="Logo de La Història del Bàsquet a Granollers"/>
-      <span class="logo-separator-line"></span>
+      <span class="logos-separator-line"></span>
       <a href="https://cbgranollers.cat/" target="_blank"><CbgLogo wd="34.88" title="Logo del Club Bàsquet Granollers"/></a>
       
     </div>
@@ -70,7 +70,6 @@ const headerSponsors = [
           {
             NAVIGATION.map((item) => (
               <li>
-                {console.log(item)}
                 {item.dropdown ? <DropDownMenu {item} client:only /> : <a href={item.link}>{item.name.toUpperCase()}</a>}
               </li>
             ))
@@ -131,9 +130,9 @@ const headerSponsors = [
   .responsive {
     display: none;
   }
-  .logo {
+  .logos {
     position: absolute;
-    top: 3rem;
+    top: 50%;
     transform: translateY(-50%);
     left: var(--pd-x);
     display: flex;
@@ -141,12 +140,12 @@ const headerSponsors = [
     gap: 1.44rem;
   }
 
-  .logo-separator-line {
+  .logos-separator-line {
   align-self: stretch; /* Adjust the height as needed */
   width: 1px; /* This makes the line thin; adjust as needed */
   background-color: var(--clr-primary); /* This is the color of the line; change as needed */
   display: inline-block; /* Necessary for alignment */
-  margin-block: 0.5rem;
+  margin-block: 0.8rem;
   /* Adjust spacing around the separator as needed */
 }
   .nav {
@@ -189,13 +188,13 @@ const headerSponsors = [
     }
   }
   @media (max-width: 1065px) {
-    .logo {
+    .logos {
       left: var(--pd-x-medium);
     }
   }
 
   @media (max-width: 648px) {
-    .logo {
+    .logos {
       left: var(--pd-x-small);
       width: 13rem;
     }

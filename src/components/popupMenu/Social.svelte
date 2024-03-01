@@ -22,7 +22,7 @@
 
 <style>
   .social-container {
-    padding-inline: var(--pd-x);
+    /* padding-inline: var(--pd-x); */
     color: var(--clr-primary);
     max-width: var(--wd-regular);
   }

@@ -7,9 +7,20 @@
     if (buttonText === $display) display.set("relats");
     else display.set(buttonText);
   }
+
+  let windowHeight;
+  let paddingTop = 0;
+  $: {
+    if (windowHeight < 901) {
+      paddingTop = "1rem";     
+    }
+  }
+
 </script>
 
-<div class="options-container">
+<svelte:window bind:innerHeight={windowHeight} />
+
+<div class="options-container"style="--paddingTop: {paddingTop};">
   <button class:active={$display === "jugadors"} on:click={selectDisplay}>
     JUGADORS
   </button>
@@ -28,6 +39,7 @@
     justify-content: center;
     /* padding-bottom: 2rem; */
     gap: 1.25rem;
+    padding-top: var(--paddingTop);
     /* margin-top: auto; */
     z-index: 1;
     /* mix-blend-mode: multiply; */
