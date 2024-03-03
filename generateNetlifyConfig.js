@@ -8,6 +8,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const statsDirectory = path.join(__dirname, "netlify/functions/stats"); // Adjust the path as necessary
+const relatsDirectory = path.join(__dirname, "netlify/functions/relats"); // Adjust the path as necessary
 const netlifyTomlTemplate = `
 [build]
   publish = "build"
@@ -19,31 +20,47 @@ const netlifyTomlTemplate = `
   ]
 `;
 
-fs.readdir(statsDirectory, (err, files) => {
-  if (err) {
-    console.error("Could not list the directory.", err);
-    process.exit(1);
-  }
-
-  const fileEntries = files
-    .filter((file) => !file.endsWith(".js"))
-    .map((file) => `"${path.join(statsDirectory, file)}"`)
-    .join(",\n    ");
-
-  const netlifyTomlContent = netlifyTomlTemplate.replace(
-    "%FILES%",
-    fileEntries,
-  );
-
-  fs.writeFile(
-    path.join(__dirname, "netlify.toml"),
-    netlifyTomlContent,
-    (err) => {
+// Function to read directory and filter files based on condition
+function readAndFilterDirectory(directory, filterCondition) {
+  return new Promise((resolve, reject) => {
+    fs.readdir(directory, (err, files) => {
       if (err) {
-        console.error("Error writing netlify.toml", err);
+        reject("Could not list the directory. " + err);
       } else {
-        console.log("netlify.toml generated successfully.");
+        const filteredFiles = files
+          .filter(filterCondition)
+          .map((file) => `"${path.join(directory, file)}"`);
+        resolve(filteredFiles);
       }
-    },
-  );
-});
+    });
+  });
+}
+
+// Read both directories and filter files accordingly
+Promise.all([
+  readAndFilterDirectory(statsDirectory, (file) => !file.endsWith(".js")),
+  readAndFilterDirectory(relatsDirectory, (file) => file.endsWith(".docx")),
+])
+  .then((results) => {
+    const allFileEntries = results.flat().join(",\n    ");
+    const netlifyTomlContent = netlifyTomlTemplate.replace(
+      "%FILES%",
+      allFileEntries,
+    );
+
+    // Write the netlify.toml file
+    fs.writeFile(
+      path.join(__dirname, "netlify.toml"),
+      netlifyTomlContent,
+      (err) => {
+        if (err) {
+          console.error("Error writing netlify.toml", err);
+        } else {
+          console.log("netlify.toml generated successfully.");
+        }
+      },
+    );
+  })
+  .catch((error) => {
+    console.error(error);
+  });
