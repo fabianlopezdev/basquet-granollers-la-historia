@@ -57,7 +57,7 @@
         </div>
         {/if}
         <div>
-          <ClassificationTable {SEASON_STANDINGS} />
+          <ClassificationTable classificacio={season.stats.classificacio} competition={season.stats.divisio[0].lliga}/>
         </div>
       </div>
     {:else if $display === "social"}

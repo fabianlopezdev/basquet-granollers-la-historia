@@ -2,7 +2,6 @@
   export let resultats;
   export let competition;
 
-  console.log('resultats', competition);
 
   function formatExcelDate(serial) {
     const excelEpoch = new Date(1899, 11, 30); // Excel's base date is December 30, 1899

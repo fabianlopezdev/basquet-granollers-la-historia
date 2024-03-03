@@ -1,8 +1,11 @@
 <script>
-  export let SEASON_STANDINGS;
+  export let classificacio;
+  export let competition;
+
+  console.log('classificacio', classificacio);
 </script>
 
-<h3>Classificació</h3>
+<h3>Classificació {competition}</h3>
 <table class="g-table">
   <tbody class="g-body-table">
     <tr class="table-header">
@@ -16,20 +19,20 @@
       <td class="long-stat">PC</td>
       <td class="long-stat">PUNTS</td>
     </tr>
-    {#each SEASON_STANDINGS as standing, i}
+    {#each classificacio as posicio, i}
       <tr
-        style={standing.team.toLowerCase().includes("granollers") &&
+        style={posicio.equip.toLowerCase().includes("granollers") &&
           "background-color: var(--clr-primary); color: var(--clr-contrast)"}
       >
         <td class="short-stat">{i + 1}</td>
-        <td class="team">{standing.team.toUpperCase()}</td>
-        <td class="short-stat">{standing.pj}</td>
-        <td class="short-stat">{standing.pg}</td>
-        <td class="short-stat">{standing.pe}</td>
-        <td class="short-stat">{standing.pp}</td>
-        <td class="long-stat">{standing.pf}</td>
-        <td class="long-stat">{standing.pc}</td>
-        <td class="long-stat">{standing.points}</td>
+        <td class="team">{posicio.equip.toUpperCase()}</td>
+        <td class="short-stat">{posicio.p_j}</td>
+        <td class="short-stat">{posicio.p_g}</td>
+        <td class="short-stat">{posicio.p_e}</td>
+        <td class="short-stat">{posicio.p_p}</td>
+        <td class="long-stat">{posicio.punts_favor}</td>
+        <td class="long-stat">{posicio.punts_contra}</td>
+        <td class="long-stat">{posicio.punts_lliga}</td>
       </tr>
     {/each}
   </tbody>
