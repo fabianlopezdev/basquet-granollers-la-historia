@@ -16,10 +16,9 @@
     isRotated = !isRotated;
   }
 
-  function setStores(i) {
+  function setCurrentIndex(i) {
     $isOutsideSelection = true;
     currentIndex.set(i);
-    display.set(item.name);
   }
 </script>
 
@@ -37,11 +36,10 @@
   </button>
   <div class="bridge"></div>
   <nav class="nav" class:show={isDropdownExpanded}>
-    <h4>TEMPORADES</h4>
     <ul class="dropdown-content">
       {#each item.dropdown as dropDownItem, i}
         <li>
-          <a on:click={() => setStores(i)} href="#seasons">
+          <a on:click={() => setCurrentIndex(i)} href="#seasons">
             {dropDownItem}
           </a>
         </li>
@@ -83,7 +81,7 @@
     top: 2.5rem;
     padding-inline: 1.31rem;
     padding-block: 0.81rem;
-    width: 19rem;
+    max-width: 19rem;
     z-index: 1;
   }
   h4 {

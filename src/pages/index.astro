@@ -1,18 +1,58 @@
 ---
 //Import layouts
-import BaseLayout from '../layouts/BaseLayout.astro';
+import BaseLayout from "../layouts/BaseLayout.astro";
 
 //Import components
-import Hero from '@components/Hero.astro';
-import Seasons from '@components/seasons/Seasons.svelte';
+import Hero from "@components/Hero.astro";
+import Seasons from "@components/seasons/Seasons.svelte";
 
+const url = "http://localhost:8888/.netlify/functions/";
+
+async function getData(url: string, endpoint: string, query?: string) {
+  try {
+    const completeUrl = `${url}${endpoint}${query ? `?${query}` : ""}`;
+    console.log("completeUrl", completeUrl);
+    const response = await fetch(completeUrl);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+const seasonsCount = await getData(url, "seasonsCount");
+
+console.log("seasonsCount", seasonsCount);
+
+function getSeasonsYears(seasonsCount: {
+  totalSeasons: number;
+  firstSeason: string;
+}) {
+  const { totalSeasons, firstSeason } = seasonsCount;
+
+  let firstSeasonYear = extractYear(firstSeason);
+
+  const seasonsLenghtArr = new Array(totalSeasons);
+
+ for (let i = 0; i < totalSeasons; i++) {
+    seasonsLenghtArr[i] = `${firstSeasonYear}/${firstSeasonYear + 1}`;
+    firstSeasonYear++;
+  }
+
+  return seasonsLenghtArr;
+}
+
+function extractYear(season: string) {
+  const firstSeasonYear = season.split("-")[0];
+  const lastTwoDigits = firstSeasonYear.slice(2);
+  console.log(lastTwoDigits);
+  return +lastTwoDigits;
+}
+
+const seasonsYears = getSeasonsYears(seasonsCount);
 ---
 
-
-
-
-<BaseLayout>
-    <Hero />
-    <Seasons client:only/>
+<BaseLayout {seasonsYears}>
+  <Hero />
+  <Seasons client:only />
 </BaseLayout>
-

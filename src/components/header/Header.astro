@@ -9,7 +9,9 @@ import HeaderResponsive from "./HeaderResponsive.svelte";
 // import DropDownMenu from '@components/header/DropDownMenu.astro';
 import DropDownMenu from "./DropDownMenu.svelte";
 
+const {seasonsYears} = Astro.props;
 
+console.log('seasonsYears', seasonsYears);
 const headerSponsors = [
   // {
   //   url: `https://cbgranollers.cat/`,
@@ -34,6 +36,22 @@ const headerSponsors = [
   },
 ];
 
+  const headerNavigation = [
+  {
+    name: "temporades",
+    dropdown: seasonsYears,
+  },
+  {
+    name: "especials",
+    link: "",
+  },
+  {
+    name: "Videos",
+    link: "",
+  },
+  // { name: 'especials', link: '/la-historia/especials' },
+];
+
 ---
 <script>
   let prevScrollPos = window.scrollY; // Use window.scrollY instead
@@ -52,6 +70,8 @@ const headerSponsors = [
 
     prevScrollPos = currentScrollPos;
   });
+
+
 </script>
 
 
@@ -68,7 +88,7 @@ const headerSponsors = [
       <nav>
         <ul class="nav">
           {
-            NAVIGATION.map((item) => (
+            headerNavigation.map((item) => (
               <li>
                 {item.dropdown ? <DropDownMenu {item} client:only /> : <a href={item.link}>{item.name.toUpperCase()}</a>}
               </li>
