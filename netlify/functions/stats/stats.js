@@ -18,7 +18,7 @@ export const handler = async (event, context) => {
     const workbook = XLSX.readFile(filePath);
     const sheetNames = workbook.SheetNames;
 
-    let resultats, classificacio, jugadors, entrenadors;
+    let resultats, classificacio, jugadors, entrenadors, divisio;
 
     sheetNames.forEach((sheetName) => {
       const normalizedSheetName = removeAccents(sheetName).toLowerCase();
@@ -39,6 +39,10 @@ export const handler = async (event, context) => {
         const sheet = workbook.Sheets[sheetName];
         entrenadors = XLSX.utils.sheet_to_json(sheet);
       }
+      if (normalizedSheetName.includes("divisio")) {
+        const sheet = workbook.Sheets[sheetName];
+        divisio = XLSX.utils.sheet_to_json(sheet);
+      }
     });
 
     // Select data based on endpoint
@@ -55,6 +59,9 @@ export const handler = async (event, context) => {
         break;
       case "entrenadors":
         data = entrenadors;
+        break;
+      case "divisio":
+        data = divisio;
         break;
       default:
         return { statusCode: 404, body: "No s'ha trobat cap contingut" };

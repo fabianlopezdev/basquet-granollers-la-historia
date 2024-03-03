@@ -47,17 +47,17 @@ function getSeasonsYears(totalSeasons: number, firstSeason: string) {
 function extractYear(season: string) {
   const firstSeasonYear = season.split("-")[0];
   const lastTwoDigits = firstSeasonYear.slice(2);
-  console.log(lastTwoDigits);
   return +lastTwoDigits;
 }
 
 const seasonsYears = getSeasonsYears(totalSeasons, firstSeason);
 
 interface SeasonStats {
-  resultats: any[]; // Replace 'any' with a more specific type if possible
-  classificacio: any[];
-  jugadors: any[];
-  entrenadors: any[];
+  resultats: object[]; // Replace 'any' with a more specific type if possible
+  classificacio: object[];
+  jugadors: object[];
+  entrenadors: object[];
+  divisio: string;
 }
 
 class Season {
@@ -71,6 +71,7 @@ class Season {
       classificacio: [],
       jugadors: [],
       entrenadors: [],
+      divisio: "",
     };
   }
 
@@ -86,12 +87,13 @@ async function getSeasonsData(totalSeasons: number, firstSeason: string) {
     const season = new Season(`${firstSeasonYear}/${firstSeasonYear + 1}`);
 
     // Assuming getData returns an object with the necessary data
-    const [resultats, classificacio, jugadors, entrenadors] = await Promise.all(
+    const [resultats, classificacio, jugadors, entrenadors, divisio] = await Promise.all(
       [
         getData(url, "stats", seasonYears, "resultats"),
         getData(url, "stats", seasonYears, "classificacio"),
         getData(url, "stats", seasonYears, "jugadors"),
         getData(url, "stats", seasonYears, "entrenador"),
+        getData(url, "stats", seasonYears, "divisio"),
       ],
     );
 
@@ -100,6 +102,7 @@ async function getSeasonsData(totalSeasons: number, firstSeason: string) {
     season.stats.classificacio = classificacio;
     season.stats.jugadors = jugadors;
     season.stats.entrenadors = entrenadors;
+    season.stats.divisio = divisio;
 
     seasonsDataArr[i] = season;
     
@@ -117,7 +120,7 @@ const seasonsData = await getSeasonsData(totalSeasons, firstSeason);
   }));
 ---
 
-<BaseLayout {seasonsYears}>
+<!-- <BaseLayout {seasonsYears}>
   <Hero />
   <Seasons client:only {seasons} totalSeasons={seasonsCount.totalSeasons}/>
-</BaseLayout>
+</BaseLayout> -->
