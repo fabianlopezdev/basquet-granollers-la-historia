@@ -18,28 +18,32 @@ export const handler = async (event, context) => {
     const workbook = XLSX.readFile(filePath);
     const sheetNames = workbook.SheetNames;
 
-    let resultats, classificacio, jugadors, entrenadors, divisio;
+    let resultats, resultatsCopaDelRey, classificacio, jugadors, entrenadors, divisio;
 
     sheetNames.forEach((sheetName) => {
       const normalizedSheetName = removeAccents(sheetName).toLowerCase();
 
-      if (normalizedSheetName.includes("resultats")) {
+      if (normalizedSheetName === "resultats") {
         const sheet = workbook.Sheets[sheetName];
         resultats = XLSX.utils.sheet_to_json(sheet);
       }
-      if (normalizedSheetName.includes("classificacio")) {
+      if (normalizedSheetName === "resultats_copa_del_rey") {
+        const sheet = workbook.Sheets[sheetName];
+        resultatsCopaDelRey = XLSX.utils.sheet_to_json(sheet);
+      }
+      if (normalizedSheetName === "classificacio") {
         const sheet = workbook.Sheets[sheetName];
         classificacio = XLSX.utils.sheet_to_json(sheet);
       }
-      if (normalizedSheetName.includes("jugadors")) {
+      if (normalizedSheetName === "jugadors") {
         const sheet = workbook.Sheets[sheetName];
         jugadors = XLSX.utils.sheet_to_json(sheet);
       }
-      if (normalizedSheetName.includes("entrenadors")) {
+      if (normalizedSheetName === "entrenadors") {
         const sheet = workbook.Sheets[sheetName];
         entrenadors = XLSX.utils.sheet_to_json(sheet);
       }
-      if (normalizedSheetName.includes("divisio")) {
+      if (normalizedSheetName === "divisio") {
         const sheet = workbook.Sheets[sheetName];
         divisio = XLSX.utils.sheet_to_json(sheet);
       }
@@ -62,6 +66,9 @@ export const handler = async (event, context) => {
         break;
       case "divisio":
         data = divisio;
+        break;
+      case "resultats_copa_del_rey":
+        data = resultatsCopaDelRey;
         break;
       default:
         return { statusCode: 404, body: "No s'ha trobat cap contingut" };

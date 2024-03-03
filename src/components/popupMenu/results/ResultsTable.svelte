@@ -1,26 +1,44 @@
 <script>
-  export let SCORES;
+  export let resultats;
+
+  console.log('resultats', resultats);
+
+  function formatExcelDate(serial) {
+    const excelEpoch = new Date(1899, 11, 30); // Excel's base date is December 30, 1899
+    const excelEpochAsUnixTimestamp = excelEpoch.getTime();
+    const missingLeapYearDay = 24 * 60 * 60 * 1000;
+    const delta = excelEpochAsUnixTimestamp - missingLeapYearDay;
+    const parsed = new Date(delta + (serial * 86400000)); // 86400000 is the number of milliseconds in one day
+    
+    const parsedDate = [
+      parsed.getDate(),
+        parsed.getMonth() + 1, // getMonth() is zero-based
+        parsed.getFullYear(),
+    ].join('/');
+    
+    return `${parsedDate}`; // or just return parsedDate for the date part
+}
 </script>
 
 <h3>Resultats</h3>
 <table class="g-table">
   <tbody class="g-body-table">
-    {#each SCORES as score}
+    {#each resultats as resultat}
       <tr>
-        <td class="date">{score.date}</td>
+        <td class="date">{formatExcelDate(resultat.data)}</td>
         <td
           class="team"
-          style={score.home &&
+          style={resultat.equip_local &&
             "background-color:var(--clr-primary); color: var(--clr-contrast)"}
-          >{score.home ? "C.B. GRANOLLERS" : score.rival.toUpperCase()}</td
+          >{resultat.equip_local ? "C.B. GRANOLLERS" : resultat.equip_visitant.toUpperCase()}</td
         >
-        <td class="score score-one">{score.result1}</td>
-        <td class="score score-two">{score.result2}</td>
+        <td class="score score-one">{resultat.puntuacio_1}</td>
+        <td class="score score-two">{resultat.puntuacio_2}</td>
         <td
           class="team"
-          style={!score.home &&
+          style={!resultat.equip_local &&
             "background-color:var(--clr-primary); color: var(--clr-contrast)"}
-          >{!score.home ? "C.B. GRANOLLERS" : score.rival.toUpperCase()}</td
+          >{!resultat.equip_local ? "C.B. GRANOLLERS" : resultat.equip_visitant.toUpperCase()}</td
         >
       </tr>
     {/each}

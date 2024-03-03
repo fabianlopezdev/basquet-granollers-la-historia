@@ -49,7 +49,7 @@
     {:else if $display === "resultats"}
       <div class="stats-container">
         <div>
-          <ResultsTable {SCORES} />
+          <ResultsTable resultats={season.stats.resultats} />
         </div>
         <div>
           <ClassificationTable {SEASON_STANDINGS} />
