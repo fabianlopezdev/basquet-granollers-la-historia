@@ -11,6 +11,8 @@
 
   export let SEASONS_INFO;
 
+
+  console.timeLog('SEASONS_INFO', SEASONS_INFO);
   function handleEscape(e) {
     if (e.key === "Escape") {
       if ($display === "relats") return;

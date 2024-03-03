@@ -5,6 +5,8 @@
   import DialogRelat from "./DialogRelat.svelte";
 
   export let season;
+
+  console.log('season', season);
   export let windowScrollY;
   export let seasonIndex;
   export let windowHeight;
@@ -33,7 +35,7 @@
     translateY = `translateY(${100 - 100 * progressY * progressY}%)`;
   }
   $: {if (season.relatProps !== undefined) {
-    // console.log("season", season.relatProps);
+    console.log("swiiiiiii", season.relatProps);
     relatColor = season.relatProps.color;
   }}
   $: {
@@ -117,7 +119,7 @@
 <svelte:window bind:innerWidth />
 
 {#key relatProps}
-<DialogRelat {relatProps} {dialogId} {season}/>
+<!-- <DialogRelat {relatProps} {dialogId} {season}/> -->
 {/key}
 <div
   class="season-container"
@@ -139,14 +141,14 @@
             .relatProps.width}rem;"
         >
           <header>El Relat</header>
-          <p>{truncateString(season.relat)}</p>
+          <!-- <p>{truncateString(season.relat)}</p> -->
           <button on:click={() => toggleDialog(dialogId)} style="--hoverColor: {season.relatProps.hoverColor}"
             >Llegir més</button
           >
         </article>
       </div>
     {/if}
-    {#if season.images}
+    <!-- {#if season.images}
       {#each season.images as image, i}
         {#if i < 2}
           <div
@@ -165,7 +167,7 @@
           </div>
         {/if}
       {/each}
-    {/if}
+    {/if} -->
   </div>
 </div>
 

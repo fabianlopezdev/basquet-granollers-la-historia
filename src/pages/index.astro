@@ -6,11 +6,18 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Hero from "@components/Hero.astro";
 import Seasons from "@components/seasons/Seasons.svelte";
 
+  import { SEASONS_INFO, SEASONS_LAYOUT } from "@data/globalConstants";
+
 const url = "http://localhost:8888/.netlify/functions/";
 
-async function getData(url: string, endpoint: string, season?: string ,query?: string) {
+async function getData(
+  url: string,
+  endpoint: string,
+  season?: string,
+  query?: string,
+) {
   try {
-    const completeUrl = `${url}${endpoint}/${season ? season : '' }/${query ? query : ""}`;
+    const completeUrl = `${url}${endpoint}/${season ? season : ""}/${query ? query : ""}`;
     console.log("completeUrl", completeUrl);
     const response = await fetch(completeUrl);
     const data = await response.json();
@@ -29,7 +36,7 @@ function getSeasonsYears(totalSeasons: number, firstSeason: string) {
 
   const seasonsLenghtArr = new Array(totalSeasons);
 
- for (let i = 0; i < totalSeasons; i++) {
+  for (let i = 0; i < totalSeasons; i++) {
     seasonsLenghtArr[i] = `${firstSeasonYear}/${firstSeasonYear + 1}`;
     firstSeasonYear++;
   }
@@ -46,24 +53,71 @@ function extractYear(season: string) {
 
 const seasonsYears = getSeasonsYears(totalSeasons, firstSeason);
 
-async function getSeasonsData(totalSeasons: number, firstSeason: string) {
-    let firstSeasonYear = extractYear(firstSeason);
-    
-    const seasonsLenghtArr = new Array(totalSeasons);
-    
-    for (let i = 0; i < totalSeasons; i++) {
-        seasonsLenghtArr[i] = await getData(url, "stats", `19${firstSeasonYear}-${firstSeasonYear + 1}`, 'resultats');
-        console.log("seasonsLenghtArr[i]", seasonsLenghtArr[i]);
-        firstSeasonYear++;
-    }
-    
-    return seasonsLenghtArr;
+interface SeasonStats {
+  resultats: any[]; // Replace 'any' with a more specific type if possible
+  classificacio: any[];
+  jugadors: any[];
+  entrenadors: any[];
 }
 
-console.log('getSeasonsData', await getSeasonsData(totalSeasons, firstSeason));
+class Season {
+  years: string;
+  stats: SeasonStats;
+
+  constructor(years: string) {
+    this.years = years;
+    this.stats = {
+      resultats: [],
+      classificacio: [],
+      jugadors: [],
+      entrenadors: [],
+    };
+  }
+
+  // You can add methods to update or manipulate the season data here
+}
+
+async function getSeasonsData(totalSeasons: number, firstSeason: string) {
+  let firstSeasonYear = extractYear(firstSeason);
+  const seasonsDataArr = new Array(totalSeasons);
+
+  for (let i = 0; i < totalSeasons; i++) {
+    const seasonYears = `19${firstSeasonYear}-${firstSeasonYear + 1}`;
+    const season = new Season(`${firstSeasonYear}/${firstSeasonYear + 1}`);
+
+    // Assuming getData returns an object with the necessary data
+    const [resultats, classificacio, jugadors, entrenadors] = await Promise.all(
+      [
+        getData(url, "stats", seasonYears, "resultats"),
+        getData(url, "stats", seasonYears, "classificacio"),
+        getData(url, "stats", seasonYears, "jugadors"),
+        getData(url, "stats", seasonYears, "entrenador"),
+      ],
+    );
+
+    // Assuming the data object structure matches what you need; adjust as necessary
+    season.stats.resultats = resultats;
+    season.stats.classificacio = classificacio;
+    season.stats.jugadors = jugadors;
+    season.stats.entrenadors = entrenadors;
+
+    seasonsDataArr[i] = season;
+    
+    firstSeasonYear++;
+  }
+
+  return seasonsDataArr;
+}
+
+const seasonsData = await getSeasonsData(totalSeasons, firstSeason);
+
+ const seasons = seasonsData.map((season, index) => ({
+    ...season,
+    ...SEASONS_LAYOUT[index],
+  }));
 ---
 
 <BaseLayout {seasonsYears}>
   <Hero />
-  <Seasons client:only />
+  <Seasons client:only {seasons} totalSeasons={seasonsCount.totalSeasons}/>
 </BaseLayout>

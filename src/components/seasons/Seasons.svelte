@@ -12,7 +12,12 @@
   import SeasonsList from "../header/SeasonsList.svelte";
   import SponsorsResponsive from "@components/header/SponsorsResponsive.svelte";
 
-  const TOTAL_SEASONS = SEASONS_INFO.length;
+export let seasons;
+export let totalSeasons;
+
+console.log('seasons', seasons)
+console.log('totalSeasons', totalSeasons)
+
 
   let windowWidth;
   let windowHeight;
@@ -21,11 +26,11 @@
 
   let isMenuOpen = false;
 
-  const SEASONS = SEASONS_INFO.map((season, index) => ({
-    ...season,
-    ...SEASONS_LAYOUT[index],
-  }));
-  let seasonWidth = 100 / TOTAL_SEASONS;
+  // const SEASONS = SEASONS_INFO.map((season, index) => ({
+  //   ...season,
+  //   ...SEASONS_LAYOUT[index],
+  // }));
+  let seasonWidth = 100 / totalSeasons;
   $: transform = `translateX(${-seasonWidth * $currentIndex}%)`;
 </script>
 
@@ -37,7 +42,7 @@
 
 <section id="seasons">
   {#if $display !== "relats"}
-    <PopupMenu SEASONS_INFO={SEASONS_INFO[$currentIndex]} />
+    <PopupMenu SEASONS_INFO={seasons[$currentIndex]} />
   {/if}
   <div class="season-wrapper">
     <div class="season-menu mobile">
@@ -45,7 +50,7 @@
       <button
         class="menu-season-selected"
         on:click={() => (isMenuOpen = !isMenuOpen)}
-        >{SEASONS_INFO[$currentIndex].years}
+        >{seasons[$currentIndex].years}
         <div class="rotate" class:rotated={isMenuOpen}>
           {@html collapsibleArrowSeasonMobileMenu}
         </div></button
@@ -60,9 +65,9 @@
     </div>
     <div
       class="seasons-container"
-      style="--totalSeasons: {TOTAL_SEASONS}; transform: {transform}"
+      style="--totalSeasons: {totalSeasons}; transform: {transform}"
     >
-      {#each SEASONS as season, seasonIndex}
+      {#each seasons as season, seasonIndex}
         <SeasonItem {season} {windowHeight} {windowScrollY} {seasonIndex} />
       {/each}
     </div>
