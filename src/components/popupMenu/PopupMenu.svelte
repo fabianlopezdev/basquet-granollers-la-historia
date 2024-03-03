@@ -9,10 +9,12 @@
   import ClassificationTable from "./results/ClassificationTable.svelte";
   import Social from "./Social.svelte";
 
-  export let SEASONS_INFO;
+  export let season;
+
+  console.log('seasoniiii', season);
 
 
-  console.timeLog('SEASONS_INFO', SEASONS_INFO);
+  // console.timeLog('season', seson);
   function handleEscape(e) {
     if (e.key === "Escape") {
       if ($display === "relats") return;
@@ -32,7 +34,7 @@
       <span style="color: var(--clr-accent)"
         >{upperCaseFirstLetter($display)}</span
       >
-      Temporada {SEASONS_INFO.years}
+      Temporada {season.years}
     </h2>
     <button on:click={() => display.set("relats")}><svg xmlns="http://www.w3.org/2000/svg" width="51" height="51" viewBox="0 0 51 51" fill="none"> <path d="M13.5781 36.7332L36.7331 13.5782" stroke="white" stroke-width="3" stroke-linecap="round"/> <path d="M36.7319 36.7332L13.5769 13.5782" stroke="white" stroke-width="3" stroke-linecap="round"/> <circle cx="25.5" cy="25.5002" r="24.5" stroke="white" stroke-width="2"/> </svg></button
     >
@@ -40,7 +42,7 @@
   <div class="menu-container">
     {#if $display === "jugadors"}
       <ul class="players-container">
-        {#each PLAYERS as player}
+        {#each season.stats.jugadors as player}
           <PlayerCard {player} />
         {/each}
       </ul>

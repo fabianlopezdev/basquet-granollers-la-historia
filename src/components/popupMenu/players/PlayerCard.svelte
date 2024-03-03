@@ -1,6 +1,40 @@
 <script>
    export let player;
+
+   function capitalizeWords(str) {
+  // Convert the entire string to lowercase first
+  const lowerStr = str.toLowerCase();
+
+  // Split the string into words based on spaces
+  const words = lowerStr.split(' ');
+
+  // Capitalize the first letter of each word
+  for (let i = 0; i < words.length; i++) {
+    words[i] = words[i][0].toUpperCase() + words[i].slice(1);
+  }
+
+  // Join the words back into a string with spaces
+  return words.join(' ');
+}
+
+function formatExcelDate(serial) {
+    const excelEpoch = new Date(1899, 11, 30); // Excel's base date is December 30, 1899
+    const excelEpochAsUnixTimestamp = excelEpoch.getTime();
+    const missingLeapYearDay = 24 * 60 * 60 * 1000;
+    const delta = excelEpochAsUnixTimestamp - missingLeapYearDay;
+    const parsed = new Date(delta + (serial * 86400000)); // 86400000 is the number of milliseconds in one day
+    
+    const parsedDate = [
+      parsed.getDate(),
+        parsed.getMonth() + 1, // getMonth() is zero-based
+        parsed.getFullYear(),
+    ].join('/');
+    
+    return `${parsedDate}`; // or just return parsedDate for the date part
+}
 </script>
+
+{#if player.jugador !== 'TOTAL'}
 
 <li>
   <article class="player">
@@ -8,32 +42,43 @@
       <img src={player.image || "/player-avatar.png"} alt="" />
     </div>
     <div class="info-container">
-      <p class="name">{player.name}</p>
+      <p class="name">{capitalizeWords(player.jugador)}</p>
     </div>
     <div class="player-details">
-      <p>Data de naixement <br /><span>{player.birth}</span></p>
-      <p>Nacionalitat <span>{player.nacionality}</span></p>
-      <p>Posició <span>{player.position}</span></p>
-      <p>Alçada <span>{player.height}</span></p>
+      {#if player.data_naix !== undefined}
+      <p>Data de naixement <br /><span>{formatExcelDate(player.data_naix)}</span></p>
+      {/if}
+      {#if player.lloc_naix !== undefined}
+
+      <p>Lloc de naixement <span>{player.lloc_naix}</span></p>
+      {/if}
+
+      {#if player.posicio !== undefined}
+
+      <p>Posició <span>{player.posicio}</span></p>
+      {/if}
+
+      {#if player.alçada !== undefined}
+
+      <p>Alçada <span>{player.alçada}</span></p>
+      {/if}
+
+      {#if player.p_j !== undefined && player.punts !== undefined}
+
       <p>
         Estadístiques <br /><span
-          >{player.stats.matches} partits <br />{player.stats.points} punts /
-          {player.stats.rebounds} rebots</span
-        >
+          >{player.p_j} partits <br />{player.punts} punts 
       </p>
-      <p>
-        Temporades <br /><span
-          >{player.seasons} temporades CBG
-          <br />{`(${player.start}-${player.end})`}</span
-        >
-      </p>
+      {/if}
+
     </div>
   </article>
 </li>
+{/if}
 
 <style>
 .player {
-    height: 27.31rem;
+  height: 27.31rem;
     width: 17.875rem;
     display: flex;
     flex-direction: column;

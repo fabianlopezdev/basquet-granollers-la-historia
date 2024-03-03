@@ -9,6 +9,8 @@ const __dirname = dirname(__filename);
 
 const statsDirectory = path.join(__dirname, "netlify/functions/stats"); // Adjust the path as necessary
 const relatsDirectory = path.join(__dirname, "netlify/functions/relats"); // Adjust the path as necessary
+const socialDirectory = path.join(__dirname, "netlify/functions/social"); // Adjust the path as necessary
+
 const netlifyTomlTemplate = `
 [build]
   publish = "build"
@@ -38,8 +40,9 @@ function readAndFilterDirectory(directory, filterCondition) {
 
 // Read both directories and filter files accordingly
 Promise.all([
-  readAndFilterDirectory(statsDirectory, (file) => !file.endsWith(".js")),
+  readAndFilterDirectory(statsDirectory, (file) => file.endsWith(".ods")),
   readAndFilterDirectory(relatsDirectory, (file) => file.endsWith(".docx")),
+  readAndFilterDirectory(socialDirectory, (file) => file.endsWith(".docx")),
 ])
   .then((results) => {
     const allFileEntries = results.flat().join(",\n    ");

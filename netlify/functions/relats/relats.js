@@ -12,7 +12,6 @@ export const handler = async (event, context) => {
     try {
       const result = await mammoth.extractRawText({ path: filePath });
       var text = result.value; // The raw text
-      var messages = result.messages; // Messages encountered during extraction
     } catch (error) {
       console.error(error);
       return {
@@ -22,7 +21,10 @@ export const handler = async (event, context) => {
     }
     return {
       statusCode: 200,
-      body: JSON.stringify({ text: text, messages: messages }),
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+      },
+      body: JSON.stringify(text),
     };
   } catch (error) {
     return {

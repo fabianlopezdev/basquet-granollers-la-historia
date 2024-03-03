@@ -35,7 +35,6 @@
     translateY = `translateY(${100 - 100 * progressY * progressY}%)`;
   }
   $: {if (season.relatProps !== undefined) {
-    console.log("swiiiiiii", season.relatProps);
     relatColor = season.relatProps.color;
   }}
   $: {
@@ -119,7 +118,7 @@
 <svelte:window bind:innerWidth />
 
 {#key relatProps}
-<!-- <DialogRelat {relatProps} {dialogId} {season}/> -->
+<DialogRelat {relatProps} {dialogId} {season}/>
 {/key}
 <div
   class="season-container"

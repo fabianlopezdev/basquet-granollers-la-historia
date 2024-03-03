@@ -42,7 +42,7 @@ console.log('totalSeasons', totalSeasons)
 
 <section id="seasons">
   {#if $display !== "relats"}
-    <PopupMenu SEASONS_INFO={seasons[$currentIndex]} />
+    <PopupMenu season={seasons[$currentIndex]} />
   {/if}
   <div class="season-wrapper">
     <div class="season-menu mobile">
