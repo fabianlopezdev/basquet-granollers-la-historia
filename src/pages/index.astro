@@ -1,4 +1,4 @@
-<!-- ---
+---
 //Import layouts
 import BaseLayout from "../layouts/BaseLayout.astro";
 
@@ -53,7 +53,8 @@ function extractYear(season: string) {
 const seasonsYears = getSeasonsYears(totalSeasons, firstSeason);
 
 interface SeasonStats {
-  resultats: object[]; // Replace 'any' with a more specific type if possible
+  resultats: object[];
+  resultatsCopaDelRey: object[]; // Replace 'any' with a more specific type if possible
   classificacio: object[];
   jugadors: object[];
   entrenadors: object[];
@@ -70,6 +71,7 @@ class Season {
     this.years = years;
     this.stats = {
       resultats: [],
+      resultatsCopaDelRey: [],
       classificacio: [],
       jugadors: [],
       entrenadors: [],
@@ -93,6 +95,7 @@ async function getSeasonsData(totalSeasons: number, firstSeason: string) {
     // Assuming getData returns an object with the necessary data
     const [
       resultats,
+      resultatsCopaDelRey,
       classificacio,
       jugadors,
       entrenadors,
@@ -101,6 +104,7 @@ async function getSeasonsData(totalSeasons: number, firstSeason: string) {
       social,
     ] = await Promise.all([
       getData(url, "stats", seasonYears, "resultats"),
+      getData(url, "stats", seasonYears, "resultats_copa_del_rey"),
       getData(url, "stats", seasonYears, "classificacio"),
       getData(url, "stats", seasonYears, "jugadors"),
       getData(url, "stats", seasonYears, "entrenador"),
@@ -111,6 +115,7 @@ async function getSeasonsData(totalSeasons: number, firstSeason: string) {
 
     // Assuming the data object structure matches what you need; adjust as necessary
     season.stats.resultats = resultats;
+    season.stats.resultatsCopaDelRey = resultatsCopaDelRey;
     season.stats.classificacio = classificacio;
     season.stats.jugadors = jugadors;
     season.stats.entrenadors = entrenadors;
@@ -138,4 +143,4 @@ const seasons = seasonsData.map((season, index) => ({
 <BaseLayout {seasonsYears}>
   <Hero />
   <Seasons client:only {seasons} totalSeasons={seasonsCount.totalSeasons}/>
-</BaseLayout> -->
+</BaseLayout>

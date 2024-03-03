@@ -32,7 +32,7 @@
   <header class="menu-header">
     <h2>
       <span style="color: var(--clr-accent)"
-        >{upperCaseFirstLetter($display)}</span
+        >{$display === 'resultats' ? `${upperCaseFirstLetter($display)} i Classificació`: upperCaseFirstLetter($display)}</span
       >
       Temporada {season.years}
     </h2>
@@ -49,8 +49,13 @@
     {:else if $display === "resultats"}
       <div class="stats-container">
         <div>
-          <ResultsTable resultats={season.stats.resultats} />
+          <ResultsTable resultats={season.stats.resultats} competition={season.stats.divisio[0].lliga} />
         </div>
+        {#if season.stats.resultatsCopaDelRey !== undefined}
+        <div>
+          <ResultsTable resultats={season.stats.resultatsCopaDelRey} competition={'Copa del Rey'} />
+        </div>
+        {/if}
         <div>
           <ClassificationTable {SEASON_STANDINGS} />
         </div>

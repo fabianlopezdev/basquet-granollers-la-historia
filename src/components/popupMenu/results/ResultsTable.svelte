@@ -1,7 +1,8 @@
 <script>
   export let resultats;
+  export let competition;
 
-  console.log('resultats', resultats);
+  console.log('resultats', competition);
 
   function formatExcelDate(serial) {
     const excelEpoch = new Date(1899, 11, 30); // Excel's base date is December 30, 1899
@@ -20,7 +21,7 @@
 }
 </script>
 
-<h3>Resultats</h3>
+<h3>Resultats {competition}</h3>
 <table class="g-table">
   <tbody class="g-body-table">
     {#each resultats as resultat}
@@ -28,22 +29,23 @@
         <td class="date">{formatExcelDate(resultat.data)}</td>
         <td
           class="team"
-          style={resultat.equip_local &&
+          style={resultat.equip_local.includes('GRANOLLERS') &&
             "background-color:var(--clr-primary); color: var(--clr-contrast)"}
-          >{resultat.equip_local ? "C.B. GRANOLLERS" : resultat.equip_visitant.toUpperCase()}</td
+          >{resultat.equip_local.toUpperCase()}</td
         >
         <td class="score score-one">{resultat.puntuacio_1}</td>
         <td class="score score-two">{resultat.puntuacio_2}</td>
         <td
           class="team"
-          style={!resultat.equip_local &&
+          style={resultat.equip_visitant.includes('GRANOLLERS') &&
             "background-color:var(--clr-primary); color: var(--clr-contrast)"}
-          >{!resultat.equip_local ? "C.B. GRANOLLERS" : resultat.equip_visitant.toUpperCase()}</td
+          >{resultat.equip_visitant.toUpperCase()}</td
         >
       </tr>
     {/each}
   </tbody>
 </table>
+
 
 <style>
   .date {
