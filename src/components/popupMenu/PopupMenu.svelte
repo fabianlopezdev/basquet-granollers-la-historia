@@ -61,7 +61,7 @@
         </div>
       </div>
     {:else if $display === "social"}
-    <Social/>
+    <Social social={season.social}/>
       {/if}
     
   </div>

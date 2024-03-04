@@ -10,8 +10,10 @@ export const handler = async (event, context) => {
 
     const filePath = path.join(__dirname, `${season}_social.docx`);
     try {
-      const result = await mammoth.extractRawText({ path: filePath });
-      var text = result.value; // The raw text
+          const resultHTML = await mammoth.convertToHtml({ path: filePath });
+          const resultText = await mammoth.extractRawText({ path: filePath });
+          var html = resultHTML.value;
+          var text = resultText.value;
     } catch (error) {
       console.error(error);
       return {
@@ -24,7 +26,7 @@ export const handler = async (event, context) => {
       headers: {
         "Content-Type": "application/json; charset=utf-8",
       },
-      body: JSON.stringify(text),
+      body: JSON.stringify({text, html}),
     };
   } catch (error) {
     return {

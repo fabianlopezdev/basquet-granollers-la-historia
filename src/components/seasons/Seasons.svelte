@@ -15,7 +15,7 @@
 export let seasons;
 export let totalSeasons;
 
-console.log('seasons', seasons)
+console.log('seasons in seasonscomp', seasons.length)
 console.log('totalSeasons', totalSeasons)
 
 

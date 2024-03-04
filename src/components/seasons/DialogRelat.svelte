@@ -26,7 +26,7 @@ function darkenColor(color, amount) {
   </button>
   <div class="dialog-container">
     <h3>El relat de la temporada {season.years}</h3>
-   <p>{season.relat}</p>
+   <p>{@html season.relat.html}</p>
   </div>
 </dialog>
 <!-- {/if} -->

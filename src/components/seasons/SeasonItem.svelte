@@ -140,7 +140,7 @@
             .relatProps.width}rem;"
         >
           <header>El Relat</header>
-          <!-- <p>{truncateString(season.relat)}</p> -->
+          <p>{truncateString(`${season.relat.text}`)}</p>
           <button on:click={() => toggleDialog(dialogId)} style="--hoverColor: {season.relatProps.hoverColor}"
             >Llegir més</button
           >

@@ -1,20 +1,20 @@
 <script>
-  const title = "hello daps"
-  const content= "lorem ipsum lorem ipsumlorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsumlorem ipsum lorem ipsum lorem ipsum lorem ipsumlorem ipsum lorem ipsumlorem ipsum lorem ipsum lorem ipsum lorem ipsumlorem ipsum lorem ipsumlorem ipsum lorem ipsum lorem ipsum lorem ipsumlorem ipsum lorem ipsumlorem ipsum lorem ipsum lorem ipsum lorem ipsumlorem ipsum lorem ipsumlorem ipsum lorem ipsum lorem ipsum lorem ipsumlorem ipsum lorem ipsumlorem ipsum lorem ipsum lorem ipsum lorem ipsumlorem ipsum lorem ipsumlorem ipsum lorem ipsum lorem ipsum lorem ipsumlorem ipsum lorem ipsumlorem ipsum lorem ipsum lorem ipsum lorem ipsum"
+  export let social;
+
 </script>
 
 <div class='social-container'>
   <article>
     <header class='article-header'>
       <div class='article-header-text'>
-        <h1>{@html title}</h1>
+        <h1>{`Te'n recordes?`}</h1>
       </div>
     </header>
     <!-- {#if image !== undefined && image.url}
       <img src={image.url} alt={image.alt && image.alt} />
     {/if} -->
     <div class='article-content'>
-       {@html content}
+       {@html social.html}
     </div>
   </article>
   

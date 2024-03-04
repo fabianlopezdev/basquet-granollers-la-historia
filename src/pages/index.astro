@@ -135,9 +135,10 @@ const seasonsData = await getSeasonsData(totalSeasons, firstSeason);
 
 console.log("seasonsData", seasonsData);
 const seasons = seasonsData.map((season, index) => ({
-  ...season,
-  ...SEASONS_LAYOUT[index],
+    ...season,
+    ...SEASONS_LAYOUT[index],
 }));
+console.log("seasonsdatalength, ", seasons.length);
 ---
 
 <BaseLayout {seasonsYears}>
