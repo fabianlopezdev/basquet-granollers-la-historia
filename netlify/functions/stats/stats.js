@@ -8,7 +8,7 @@ function removeAccents(str) {
 }
 
 // Use fileURLToPath and path.dirname to dynamically get the directory name
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const statsDir = path.dirname(fileURLToPath(import.meta.url));
 
 export const handler = async (event, context) => {
   try {
@@ -18,7 +18,7 @@ export const handler = async (event, context) => {
     const endpoint = pathParts.pop(); // Last part of the path
 
     // Dynamically construct the file path based on the season
-    const filePath = path.join(__dirname, `${season}_stats.ods`);
+    const filePath = path.join(statsDir, `${season}_stats.ods`);
 
     const workbook = XLSX.readFile(filePath);
     const sheetNames = workbook.SheetNames;
