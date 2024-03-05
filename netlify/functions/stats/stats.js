@@ -1,9 +1,16 @@
-const XLSX = require("xlsx");
-const path = require("path");
+// Import the xlsx and path modules
+import XLSX from "xlsx";
+import path from "path";
 
 function removeAccents(str) {
   return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 }
+
+// Adjusting for ESM, note that __dirname is not directly available in ESM.
+// You might need to construct paths differently, depending on your environment.
+// For Node.js ESM, you can use import.meta.url to derive the directory name.
+
+const __dirname = new URL(".", import.meta.url).pathname;
 
 export const handler = async (event, context) => {
   try {
@@ -18,7 +25,12 @@ export const handler = async (event, context) => {
     const workbook = XLSX.readFile(filePath);
     const sheetNames = workbook.SheetNames;
 
-    let resultats, resultatsCopaDelRey, classificacio, jugadors, entrenadors, divisio;
+    let resultats,
+      resultatsCopaDelRey,
+      classificacio,
+      jugadors,
+      entrenadors,
+      divisio;
 
     sheetNames.forEach((sheetName) => {
       const normalizedSheetName = removeAccents(sheetName).toLowerCase();
