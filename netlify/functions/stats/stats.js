@@ -20,7 +20,7 @@ export const handler = async (event, context) => {
     const endpoint = pathParts.pop(); // Last part of the path
 
     // Dynamically construct the file path based on the season
-    const filePath = path.join(__dirname, `${season}_stats.ods`);
+    const filePath = path.join(`./${season}_stats.ods`);
 
     const workbook = XLSX.readFile(filePath);
     const sheetNames = workbook.SheetNames;

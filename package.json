@@ -17,6 +17,7 @@
     "astro": "^4.4.9",
     "astro-seo": "^0.8.2",
     "mammoth": "^1.7.0",
+    "netlify-cli": "^17.17.2",
     "svelte": "^4.2.12",
     "typescript": "^5.3.3",
     "xlsx": "^0.18.5"
