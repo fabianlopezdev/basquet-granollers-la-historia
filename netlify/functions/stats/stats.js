@@ -1,16 +1,14 @@
-// Import the xlsx and path modules
+// Import the necessary modules
 import XLSX from "xlsx";
 import path from "path";
+import { fileURLToPath } from "url";
 
 function removeAccents(str) {
   return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 }
 
-// Adjusting for ESM, note that __dirname is not directly available in ESM.
-// You might need to construct paths differently, depending on your environment.
-// For Node.js ESM, you can use import.meta.url to derive the directory name.
-
-// const __dirname = new URL(".", import.meta.url).pathname;
+// Use fileURLToPath and path.dirname to dynamically get the directory name
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export const handler = async (event, context) => {
   try {
@@ -20,7 +18,7 @@ export const handler = async (event, context) => {
     const endpoint = pathParts.pop(); // Last part of the path
 
     // Dynamically construct the file path based on the season
-    const filePath = path.join(`./${season}_stats.ods`);
+    const filePath = path.join(__dirname, `${season}_stats.ods`);
 
     const workbook = XLSX.readFile(filePath);
     const sheetNames = workbook.SheetNames;
