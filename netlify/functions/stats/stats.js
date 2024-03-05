@@ -10,7 +10,7 @@ function removeAccents(str) {
 // You might need to construct paths differently, depending on your environment.
 // For Node.js ESM, you can use import.meta.url to derive the directory name.
 
-const __dirname = new URL(".", import.meta.url).pathname;
+// const __dirname = new URL(".", import.meta.url).pathname;
 
 export const handler = async (event, context) => {
   try {
