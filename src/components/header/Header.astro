@@ -9,9 +9,9 @@ import HeaderResponsive from "./HeaderResponsive.svelte";
 // import DropDownMenu from '@components/header/DropDownMenu.astro';
 import DropDownMenu from "./DropDownMenu.svelte";
 
-const {seasonsYears} = Astro.props;
+const {listOfSeasons} = Astro.props;
 
-console.log('seasonsYears', seasonsYears);
+console.log('listOfSeasons', listOfSeasons);
 const headerSponsors = [
   // {
   //   url: `https://cbgranollers.cat/`,
@@ -39,7 +39,7 @@ const headerSponsors = [
   const headerNavigation = [
   {
     name: "temporades",
-    dropdown: seasonsYears,
+    dropdown: listOfSeasons,
   },
   {
     name: "especials",
