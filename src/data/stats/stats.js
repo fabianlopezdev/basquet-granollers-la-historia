@@ -1,7 +1,8 @@
 // Import the necessary modules
 import XLSX from "xlsx";
 import path from "path";
-import { fileURLToPath } from "url"; 
+import { fileURLToPath } from "url";
+
 
 function removeAccents(str) {
   return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
@@ -10,10 +11,8 @@ function removeAccents(str) {
 export const getSeasonStats = (season) => {
   const __filename = fileURLToPath(import.meta.url);
   const __dirname = path.dirname(__filename);
-  const filePath = path.join(__dirname, `${season}_stats.ods`);
+  const filePath = path.join(__dirname, `${season}_stats.xlsx`);
   const workbook = XLSX.readFile(filePath);
-
-
 
   const sheetNames = workbook.SheetNames;
 
@@ -87,7 +86,36 @@ export const getSeasonStats = (season) => {
     ...(classificacioAscens !== undefined && { classificacioAscens }),
   };
 
-  return stats ;
+  // console.log(stats.jugadors[0].image)
+  return stats;
 };
 
+function getPlayerImage(name, season) {
+  console.log(name);
+  const __filename = fileURLToPath(import.meta.url);
+  const __dirname = path.dirname(__filename);
+  const imageName = `${season} ${capitalizeWords(name)}`;
+  const filePath = path.join(
+    __dirname,
+    `../../images/jugadors/${imageName}.webp`,
+  );
+  return filePath;
+}
 
+function capitalizeWords(str) {
+  // Convert the entire string to lowercase first
+  const lowerStr = str.toLowerCase();
+
+  // Split the string into words based on spaces
+  const words = lowerStr.split(" ");
+
+  // Capitalize the first letter of each word
+  for (let i = 0; i < words.length; i++) {
+    if (words[i] !== "") {
+      words[i] = words[i][0].toUpperCase() + words[i].slice(1);
+    }
+  }
+
+  // Join the words back into a string with spaces
+  return words.join(" ");
+}

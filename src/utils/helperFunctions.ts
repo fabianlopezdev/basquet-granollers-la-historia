@@ -88,7 +88,11 @@ export function truncateString(str: string) {
     truncated = truncated.slice(0, lastSpaceIndex);
   }
   //Trim in case the content starts with empty spaces
-  return truncated.trim() + "...";
+
+  const truncatedTrimeed = truncated.trim();
+
+  const minustFirstTwoWords = truncatedTrimeed.split(" ").slice(1).join(" ");
+  return minustFirstTwoWords + "...";
 }
 
 export function upperCaseFirstLetter(string: string) {

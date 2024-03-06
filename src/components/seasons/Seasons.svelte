@@ -14,6 +14,7 @@
 
 export let seasons;
 export let totalSeasons;
+export let listOfSeasons;
 
 console.log('seasons', seasons)
 
@@ -72,6 +73,7 @@ console.log('seasons', seasons)
     <Options />
     <Timeline
       {SEASONS_INFO}
+      {listOfSeasons}
       {windowHeight}
       {windowScrollY}
       {windowWidth}

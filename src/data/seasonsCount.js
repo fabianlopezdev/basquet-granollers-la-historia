@@ -1,6 +1,5 @@
 // Import the necessary modules
 import fs from "fs";
-import { get } from "http";
 import path from "path";
 
 // Define the directory you want to inspect

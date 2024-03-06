@@ -6,10 +6,12 @@
   import { currentIndex, isOutsideSelection } from "src/svelte/stores";
 
   //Get props
-  export let SEASONS_INFO = [];
+ 
   export let windowHeight;
   export let windowScrollY;
   export let windowWidth;
+
+  export let listOfSeasons = [];
 
   const BASE_DURATION = 0.5;
   const MAX_DURATION = 2.5;
@@ -80,7 +82,7 @@
       ((SEASON_WIDTH + MIN_GAP) * 16),
   );
 
-  $: displayedSeasons = SEASONS_INFO.slice(
+  $: displayedSeasons = listOfSeasons.slice(
     currentPage * maxSeasonsPerPage,
     currentPage * maxSeasonsPerPage + maxSeasonsPerPage,
   );
@@ -92,7 +94,7 @@
 
   $: {
     if ($currentIndex !== previousSeason) {
-      activeSeason = SEASONS_INFO[$currentIndex];
+      activeSeason = listOfSeasons[$currentIndex];
       direction = previousSeason - $currentIndex;
       rotationDirection = 360 * -direction + "deg";
       distance = Math.abs(direction);
@@ -158,7 +160,7 @@
     isDirectSelection = false;
     userInteractionCount++;
     direction = -1;
-    if ($currentIndex < SEASONS_INFO.length - 1) {
+    if ($currentIndex < listOfSeasons.length - 1) {
       let newIndex = $currentIndex + 1;
       updateAnimationClasses(newIndex);
       $currentIndex = newIndex;
@@ -252,20 +254,20 @@
 
   <button
     class="right-arrow"
-    disabled={$currentIndex >= SEASONS_INFO.length - 1}
+    disabled={$currentIndex >= listOfSeasons.length - 1}
     on:click={nextSeason}
   >
     <TimelineArrow
       rotate={180}
-      opacity={$currentIndex >= SEASONS_INFO.length - 1 && "0.3"}
-      hover={$currentIndex < SEASONS_INFO.length - 1 && "0.3"}
+      opacity={$currentIndex >= listOfSeasons.length - 1 && "0.3"}
+      hover={$currentIndex < listOfSeasons.length - 1 && "0.3"}
     />
   </button>
   <div class="selection-container" bind:clientWidth={timelineWidth}>
     {#each displayedSeasons as season, i (season)}
       <div role="listitem" class="season-container">
         <p class="fade-transition" class:active={season === activeSeason}>
-          {season.years}
+          {listOfSeasons[i]}
         </p>
         <button
           class="dot color-transition"

@@ -1,5 +1,7 @@
 <script>
-   export let player;
+   export let jugador;
+
+   console.log('jugador', jugador);
 
    function capitalizeWords(str) {
   // Convert the entire string to lowercase first
@@ -10,7 +12,10 @@
 
   // Capitalize the first letter of each word
   for (let i = 0; i < words.length; i++) {
-    words[i] = words[i][0].toUpperCase() + words[i].slice(1);
+    if (words[i][0]) {
+
+      words[i] = words[i][0].toUpperCase() + words[i].slice(1);
+    }
   }
 
   // Join the words back into a string with spaces
@@ -34,40 +39,40 @@ function formatExcelDate(serial) {
 }
 </script>
 
-{#if player.jugador !== 'TOTAL'}
+{#if jugador.jugador !== 'TOTAL'}
 
 <li>
   <article class="player">
     <div class="image-container">
-      <img src={player.image || "/player-avatar.png"} alt="" />
+      <img src={jugador.image ? `/src/data/images/jugadors/${jugador.image}`: "/player-avatar.png"} alt="" />
     </div>
     <div class="info-container">
-      <p class="name">{capitalizeWords(player.jugador)}</p>
+      <p class="name">{capitalizeWords(jugador.jugador)}</p>
     </div>
     <div class="player-details">
-      {#if player.data_naix !== undefined}
-      <p>Data de naixement <br /><span>{formatExcelDate(player.data_naix)}</span></p>
+      {#if jugador.data_naix !== undefined}
+      <p>Data de naixement <br /><span>{formatExcelDate(jugador.data_naix)}</span></p>
       {/if}
-      {#if player.lloc_naix !== undefined}
+      {#if jugador.lloc_naix !== undefined}
 
-      <p>Lloc de naixement <span>{player.lloc_naix}</span></p>
-      {/if}
-
-      {#if player.posicio !== undefined}
-
-      <p>Posició <span>{player.posicio}</span></p>
+      <p>Lloc de naixement <span>{jugador.lloc_naix}</span></p>
       {/if}
 
-      {#if player.alçada !== undefined}
+      {#if jugador.posicio !== undefined}
 
-      <p>Alçada <span>{player.alçada}</span></p>
+      <p>Posició <span>{jugador.posicio}</span></p>
       {/if}
 
-      {#if player.p_j !== undefined && player.punts !== undefined}
+      {#if jugador.alçada !== undefined}
+
+      <p>Alçada <span>{jugador.alçada}</span></p>
+      {/if}
+
+      {#if jugador.p_j !== undefined && jugador.punts !== undefined}
 
       <p>
         Estadístiques <br /><span
-          >{player.p_j} partits <br />{player.punts} punts 
+          >{jugador.p_j} partits <br />{jugador.punts} punts 
       </p>
       {/if}
 

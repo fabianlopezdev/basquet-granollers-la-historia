@@ -2,11 +2,11 @@
  import { toggleDialog } from "@utils/helperFunctions";
  import { closeMenuIcon } from "@assets/icons";
 
- export let seasonYears
+ export let years
 export let dialogId;
 export let relat;
 
-console.log('relat', relat);
+
 
 function darkenColor(color, amount) {
     // This is a simple placeholder function. You'll need to replace it with actual logic
@@ -28,7 +28,7 @@ function darkenColor(color, amount) {
     {@html closeMenuIcon}
   </button>
   <div class="dialog-container">
-    <h3>El relat de la temporada {seasonYears}</h3>
+    <h3>El relat de la temporada {years}</h3>
    <p>{@html relat.content.html}</p>
   </div>
 </dialog>

@@ -11,7 +11,11 @@
 
   export let season;
 
-  console.log('seasoniiii', season);
+  const { stats, social} = season;
+
+  const {jugadors, resultats, classificacio} = stats;
+
+  console.log('seasoniiii', jugadors);
 
 
   // console.timeLog('season', seson);
@@ -42,14 +46,14 @@
   <div class="menu-container">
     {#if $display === "jugadors"}
       <ul class="players-container">
-        {#each season.stats.jugadors as player}
-          <PlayerCard {player} />
+        {#each jugadors as jugador}
+          <PlayerCard {jugador} />
         {/each}
       </ul>
     {:else if $display === "resultats"}
       <div class="stats-container">
         <div>
-          <ResultsTable resultats={season.stats.resultats} competition={season.stats.divisio[0].lliga} />
+          <ResultsTable {resultats} competition={season.stats.divisio[0].lliga} />
         </div>
         {#if season.stats.resultatsCopaDelRey !== undefined}
         <div>
@@ -57,11 +61,11 @@
         </div>
         {/if}
         <div>
-          <ClassificationTable classificacio={season.stats.classificacio} competition={season.stats.divisio[0].lliga}/>
+          <ClassificationTable {classificacio} competition={season.stats.divisio[0].lliga}/>
         </div>
       </div>
     {:else if $display === "social"}
-    <Social social={season.social}/>
+    <Social {social}/>
       {/if}
     
   </div>
