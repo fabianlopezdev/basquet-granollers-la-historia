@@ -71,7 +71,7 @@ const seasons = await getSeasonsData(firstSeason, seasonsCount);
 // });
 
 seasons.forEach((season) => {
-  season.stats.jugadors.forEach((jugador) => {
+  (season.stats.jugadors! as any[]).forEach((jugador: any) => {
     // Find the image that includes the jugador's name and assign it to the jugador.image property.
     jugador.jugador = capitalizeWords(jugador.jugador);
 
