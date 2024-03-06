@@ -7,6 +7,7 @@ import Hero from "@components/Hero.astro";
 import Seasons from "@components/seasons/Seasons.svelte";
 
 import { getSeasonStats } from "@data/stats/stats";
+import {getSeasonRelat} from "@data/relats/relats";
 import { getSeasonsCount } from "@data/seasonsCount";
 import { SEASONS_INFO, SEASONS_LAYOUT } from "@data/globalConstants";
 
@@ -54,32 +55,32 @@ import { SEASONS_INFO, SEASONS_LAYOUT } from "@data/globalConstants";
 
 // const seasonsYears = getSeasonsYears(totalSeasons, firstSeason);
 
-interface SeasonStats {
-  resultats: object[];
-  resultatsCopaDelRey: object[]; // Replace 'any' with a more specific type if possible
-  classificacio: object[];
-  jugadors: object[];
-  entrenadors: object[];
-  divisio: string;
-  classificacioAscens: object[];
-  ascens: object[];
-  promocioTriangular: object[];
-  promocio: object[];
-}
+// interface SeasonStats {
+//   resultats: object[];
+//   resultatsCopaDelRey: object[]; // Replace 'any' with a more specific type if possible
+//   classificacio: object[];
+//   jugadors: object[];
+//   entrenadors: object[];
+//   divisio: string;
+//   classificacioAscens: object[];
+//   ascens: object[];
+//   promocioTriangular: object[];
+//   promocio: object[];
+// }
 
-class Season {
-  years: string;
-  relat: string;
-  social: string;
-  stats: SeasonStats;
+// class Season {
+//   years: string;
+//   relat: {html: string, text: string};
+//   social: string;
+//   stats: SeasonStats;
 
-  constructor(years: string) {
-    this.years = formatSeasonsYears(years);
-    this.stats = getSeasonStats(years) as unknown as SeasonStats;
-    this.relat = "";
-    this.social = "";
-  }
-}
+//   constructor(years: string) {
+//     this.years = formatSeasonsYears(years);
+//     this.stats = getSeasonStats(years) as unknown as SeasonStats;
+//     this.relat = await getSeasonRelat(years);
+//     this.social = "";
+//   }
+// }
 
 function formatSeasonsYears(years: string) {
   const firstYear = years.split('-')[0].slice(-2);
@@ -89,11 +90,18 @@ function formatSeasonsYears(years: string) {
 
 const { seasonsCount, firstSeason, listOfSeasons } = getSeasonsCount();
 
-function getSeasonsData(firstSeason: number, seasonsCount: number) {
-  const seasonsData: Season[] = [];
+async function getSeasonsData(firstSeason: number, seasonsCount: number) {
+  const seasonsData = [];
   let currentSeason = firstSeason;
   for (let i = 0; i < seasonsCount; i++) {
-    const season = new Season(`19${currentSeason}-${currentSeason + 1}`);
+    const season = {
+      years: `${currentSeason}/${currentSeason + 1}`,
+      stats: getSeasonStats(`19${currentSeason}-${currentSeason + 1}`),
+      relat: {content: await getSeasonRelat(`19${currentSeason}-${currentSeason + 1}`),
+    props: SEASONS_LAYOUT[i].relatProps},
+      social: "",
+    }
+    // const season = new Season(`19${currentSeason}-${currentSeason + 1}`);
     seasonsData.push(season);
     currentSeason++;
   }
@@ -101,9 +109,9 @@ function getSeasonsData(firstSeason: number, seasonsCount: number) {
   return seasonsData;
 }
 
-const seasons = getSeasonsData(firstSeason, seasonsCount);
+const seasons = await getSeasonsData(firstSeason, seasonsCount);
 
-// console.log('seasons', seasons[0])
+console.log('seasons', seasons[0])
 // console.log("seasonsdatalength, ", seasons.length);
 
 ---

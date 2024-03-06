@@ -1,9 +1,12 @@
 <script>
  import { toggleDialog } from "@utils/helperFunctions";
  import { closeMenuIcon } from "@assets/icons";
-export let relatProps;
+
+ export let seasonYears
 export let dialogId;
-export let season;
+export let relat;
+
+console.log('relat', relat);
 
 function darkenColor(color, amount) {
     // This is a simple placeholder function. You'll need to replace it with actual logic
@@ -16,17 +19,17 @@ function darkenColor(color, amount) {
     return `rgb(${r}, ${g}, ${b})`;
   }
 
-  $: darkerColor = darkenColor(relatProps.color, 50);
+  $: darkerColor = darkenColor(relat.props.color, 50);
 </script>
 
 <!-- {#if relatColor !== undefined}  -->
-<dialog id={dialogId} style="--clr-bg-relat: {relatProps.color}; --clr-bg-scrollbar: {darkerColor}">
+<dialog id={dialogId} style="--clr-bg-relat: {relat.props.color}; --clr-bg-scrollbar: {darkerColor}">
   <button class="modal-button" on:click={() => toggleDialog(dialogId)}>
     {@html closeMenuIcon}
   </button>
   <div class="dialog-container">
-    <h3>El relat de la temporada {season.years}</h3>
-   <p>{@html season.relat.html}</p>
+    <h3>El relat de la temporada {seasonYears}</h3>
+   <p>{@html relat.content.html}</p>
   </div>
 </dialog>
 <!-- {/if} -->
