@@ -1,0 +1,12 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getSeasonsCount } from "@data/seasonsCount";
+
+
+const {listOfSeasons} = getSeasonsCount();
+---
+
+
+<BaseLayout {listOfSeasons}>
+  
+</BaseLayout>
