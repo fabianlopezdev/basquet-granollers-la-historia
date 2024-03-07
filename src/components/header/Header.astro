@@ -9,26 +9,20 @@ import HeaderResponsive from "./HeaderResponsive.svelte";
 // import DropDownMenu from '@components/header/DropDownMenu.astro';
 import DropDownMenu from "./DropDownMenu.svelte";
 
-const {listOfSeasons} = Astro.props;
+const { listOfSeasons } = Astro.props;
 
-console.log('listOfSeasons', listOfSeasons);
 const headerSponsors = [
-  // {
-  //   url: `https://cbgranollers.cat/`,
-  //   src: "/cbg-logo.svg",
-  //   alt: "Logo del Club Bàsquet Granolelrs",
-  // },
-   {
+  {
     url: `https://finquesvallbona.com/`,
     src: "/finques-vallbona-logo.svg",
     alt: "Logo de Finques Ballbona",
   },
-   {
+  {
     url: `https://votv.cat/`,
     src: "/votv-logo.svg",
     alt: "Logo de Vallès Oriental Televisió",
   },
- 
+
   {
     url: `https://www.granollers.cat/`,
     src: "/ajuntament-granollers-logo.svg",
@@ -36,7 +30,7 @@ const headerSponsors = [
   },
 ];
 
-  const headerNavigation = [
+const headerNavigation = [
   {
     name: "temporades",
     dropdown: listOfSeasons,
@@ -51,18 +45,18 @@ const headerSponsors = [
   },
   // { name: 'especials', link: '/la-historia/especials' },
 ];
-
 ---
+
 <script>
   let prevScrollPos = window.scrollY; // Use window.scrollY instead
 
-  window.addEventListener('scroll', () => {
+  window.addEventListener("scroll", () => {
     const currentScrollPos = window.scrollY; // Update to window.scrollY
-    const header = document.querySelector('header');
+    const header = document.querySelector("header");
 
     if (prevScrollPos > currentScrollPos) {
       // Scrolling up
-      header!.style.top = '0';  
+      header!.style.top = "0";
     } else {
       // Scrolling down
       header!.style.top = `-${header!.offsetHeight}px`;
@@ -70,53 +64,62 @@ const headerSponsors = [
 
     prevScrollPos = currentScrollPos;
   });
-
-
 </script>
 
-
 <header>
-  <section>
     <div class="logos">
-      <CbgHistoryLogo wd="221" title="Logo de La Història del Bàsquet a Granollers"/>
+      <CbgHistoryLogo
+        wd="221"
+        title="Logo de La Història del Bàsquet a Granollers"
+      />
       <span class="logos-separator-line"></span>
-      <a href="https://cbgranollers.cat/" target="_blank"><CbgLogo wd="34.88" title="Logo del Club Bàsquet Granollers"/></a>
-      
+      <a href="https://cbgranollers.cat/" target="_blank"
+        ><CbgLogo wd="34.88" title="Logo del Club Bàsquet Granollers" /></a
+      >
     </div>
-    <div class="desktop">
 
-      <nav>
-        <ul class="nav">
-          {
-            headerNavigation.map((item) => (
-              <li>
-                {item.dropdown ? <DropDownMenu {item} client:only /> : <a href={item.link}>{item.name.toUpperCase()}</a>}
-              </li>
-            ))
-          }
-        </ul>
-      </nav>
-      <ul class="sponsors-container">
-        <li>
-          <a href="https://finquesvallbona.com/" target="_blank"><FinquesVallbonaLogo wd="120.35" title="Logo de Finques Vallbona"/></a>
-        </li>
-        <li>
-          <a href="https://votv.cat/" target="_blank"><VotvLogo wd="79.79" title="Logo de Vallès Oriental Televisió"/></a>
-        </li>
-        <li>
-          <a href="https://www.granollers.cat/" target="_blank"><AjuntamentGranollersLogo wd="40.76" title="Logo de l'Ajuntament de Granollers"/></a>
-        </li>
+    <nav class="nav-container">
+      <ul class="nav desktop">
+        {
+          headerNavigation.map((item) => (
+            <li>
+              {item.dropdown ? (
+                <DropDownMenu {item} client:only />
+              ) : (
+                <a href={item.link}>{item.name.toUpperCase()}</a>
+              )}
+            </li>
+          ))
+        }
       </ul>
-    </div>
+    </nav>
+    <ul class="sponsors-container desktop">
+      <li>
+        <a href="https://finquesvallbona.com/" target="_blank"
+          ><FinquesVallbonaLogo
+            wd="120.35"
+            title="Logo de Finques Vallbona"
+          /></a
+        >
+      </li>
+      <li>
+        <a href="https://votv.cat/" target="_blank"
+          ><VotvLogo wd="79.79" title="Logo de Vallès Oriental Televisió" /></a
+        >
+      </li>
+      <li>
+        <a href="https://www.granollers.cat/" target="_blank"
+          ><AjuntamentGranollersLogo
+            wd="40.76"
+            title="Logo de l'Ajuntament de Granollers"
+          /></a
+        >
+      </li>
+    </ul>
 
     <div class="responsive">
-      <HeaderResponsive
-        client:only
-        {NAVIGATION}
-        {headerSponsors}
-      />
+      <HeaderResponsive client:only {NAVIGATION} {headerSponsors} />
     </div>
-  </section>
 </header>
 
 <style>
@@ -131,6 +134,9 @@ const headerSponsors = [
     background-color: var(--clr-contrast);
     background-color: rgba(243, 243, 243, 0.9);
     transition: top 0.3s ease-in-out;
+    display: flex;
+    justify-content: space-between;
+    padding-inline: var(--pd-x);
   }
 
   header:after {
@@ -147,29 +153,36 @@ const headerSponsors = [
       var(--clr-primary) 68.89%
     );
   }
+
+  section {
+    
+  }
   .responsive {
     display: none;
   }
   .logos {
-    position: absolute;
+    /* position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    left: var(--pd-x);
+    left: var(--pd-x); */
     display: flex;
     align-items: center;
     gap: 1.44rem;
   }
 
   .logos-separator-line {
-  align-self: stretch; /* Adjust the height as needed */
-  width: 1px; /* This makes the line thin; adjust as needed */
-  background-color: var(--clr-primary); /* This is the color of the line; change as needed */
-  display: inline-block; /* Necessary for alignment */
-  margin-block: 0.8rem;
-  /* Adjust spacing around the separator as needed */
-}
+    align-self: stretch; /* Adjust the height as needed */
+    width: 1px; /* This makes the line thin; adjust as needed */
+    background-color: var(
+      --clr-primary
+    ); /* This is the color of the line; change as needed */
+    display: inline-block; /* Necessary for alignment */
+    margin-block: 0.8rem;
+    /* Adjust spacing around the separator as needed */
+  }
+
   .nav {
-    padding-left: 23.94rem;
+    /* padding-left: 23.94rem; */
     min-height: var(--hg-header);
     display: flex;
     align-items: center;
@@ -183,13 +196,13 @@ const headerSponsors = [
   }
 
   .sponsors-container {
-    position: absolute;
+    /* position: absolute;
     top: 50%;
-    transform: translateY(-50%);
+    transform: translateY(-50%); */
     right: var(--pd-x);
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    /* justify-content: flex-end; */
     gap: 1.5rem;
   }
   @media (max-width: 1096px) {

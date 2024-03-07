@@ -10,8 +10,16 @@ function removeAccents(str) {
 export const getSeasonStats = (season) => {
   const __filename = fileURLToPath(import.meta.url);
   const __dirname = path.dirname(__filename);
-  const relatsFolderPath = path.join(__dirname, "../data/stats");
-  const filePath = path.join(relatsFolderPath, `${season}_stats.xlsx`);
+
+  //DEV PATH
+  const filePath = path.join(__dirname, `../../../public/data/stats/${season}_stats.xlsx`);
+
+  console.log('filePath', filePath);
+  //PRODUCTION PATH
+  //  const relatsFolderPath = path.join(__dirname, "../data/stats");
+  //  const filePath = path.join(relatsFolderPath, `${season}_stats.xlsx`);
+
+
   const workbook = XLSX.readFile(filePath);
 
   const sheetNames = workbook.SheetNames;

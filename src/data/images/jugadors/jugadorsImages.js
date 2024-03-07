@@ -7,11 +7,14 @@ import { dirname } from "path";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-// Specify the path to your folder
-const folderPath = path.join(__dirname, "../data/images/jugadors");
+//DEV PATH
+const folderPath = path.join(__dirname);
+
+//PRODUCTION PATH
+// const folderPath = path.join(__dirname, "../data/images/jugadors");
+
 
 export async function getJugadorsImagesListNames() {
-  console.log('folderPath', folderPath);
   try {
     const files = await fs.readdir(folderPath);
 

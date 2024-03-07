@@ -5,8 +5,16 @@ import { fileURLToPath } from "url";
 export async function getSeasonRelat(season) {
   const __filename = fileURLToPath(import.meta.url);
   const __dirname = path.dirname(__filename);
-  const relatsFolderPath = path.join(__dirname, "../data/relats");
-  const filePath = path.join(relatsFolderPath, `${season}_relat.docx`);
+
+   //DEV PATH
+  const filePath = path.join(
+    __dirname,
+    `../../../public/data/relats/${season}_relat.docx`,
+  );
+
+   //PRODUCTION PATH
+//   const relatsFolderPath = path.join(__dirname, "../data/relats");
+//   const filePath = path.join(relatsFolderPath, `${season}_relat.docx`);
 
   const resultHTML = await mammoth.convertToHtml({ path: filePath });
   const resultText = await mammoth.extractRawText({ path: filePath });
