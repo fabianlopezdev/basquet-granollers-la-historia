@@ -1,18 +1,19 @@
 <script>
+
+
   export let social;
+  export let year;
 
 </script>
 
 <div class='social-container'>
   <article>
     <header class='article-header'>
-      <div class='article-header-text'>
-        <h1>{`Te'n recordes?`}</h1>
-      </div>
-    </header>
-    <!-- {#if image !== undefined && image.url}
-      <img src={image.url} alt={image.alt && image.alt} />
-    {/if} -->
+        <h2>{`Te'n recordes 19${year}?`}</h2>
+        <!-- {#if image !== undefined && image.url}
+          <img src={image.url} alt={image.alt && image.alt} />
+          {/if} -->
+        </header>
     <div class='article-content'>
        {@html social.html}
     </div>
@@ -25,6 +26,10 @@
     /* padding-inline: var(--pd-x); */
     color: var(--clr-primary);
     max-width: var(--wd-regular);
+    padding-inline: calc(19.44rem - var(--pd-x));
+    padding-block: 2.5rem;
+    color: var(--clr-primary);
+    max-width: 1206px;
   }
   img {
     opacity: 0.5;
@@ -34,13 +39,9 @@
     font-size: 2.75rem;
     font-weight: var(--fnt-wg-medium);
   }
-  .article-header {
-    position: relative;
-     background: #181e29;
-    margin-inline: calc(var(--pd-x) * -1);
-  }
+ 
 
-  .article-header-text {
+  /* .article-header-text {
     color: var(--clr-contrast);
     position: relative;
     padding-inline: var(--pd-x-internal-page);
@@ -57,16 +58,14 @@
     gap: 2.62rem;
     max-width: 1206px;
     margin: auto;
-  }
+  } */
 
   .article-content {
-    padding-inline: calc(19.44rem - var(--pd-x));
-    padding-block: 2.5rem;
+    padding-top: 2rem;
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
     text-align: justify;
-    max-width: 1206px;
     margin: auto;
   }
 

@@ -75,7 +75,7 @@ console.log('divisio', yearsArr);
       </div>
     
       {:else if $display === "social"}
-      <Social {social}/>
+      <Social {social} year={years.split('/')[0].toString()}/>
       {/if}
       
   </div>
