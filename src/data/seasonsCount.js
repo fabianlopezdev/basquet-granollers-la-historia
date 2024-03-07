@@ -16,7 +16,6 @@ const folderPath = path.join(__dirname,`../../public/estadistiques`);
 // Read the directory contents
 const files = fs.readdirSync(folderPath);
 
-console.log(files);
 // Count the number of files
 const seasonsCount = files.length;
 

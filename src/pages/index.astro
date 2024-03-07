@@ -11,7 +11,7 @@ import { getSeasonRelat } from "@data/relats";
 import { getSeasonsCount } from "@data/seasonsCount";
 import { getSeasonSocial } from "@data/social";
 import { SEASONS_INFO, SEASONS_LAYOUT } from "@data/globalConstants";
-import { getJugadorsImagesListNames } from "@data/jugadorsImages.js";
+import { getJugadorsImagesListNames } from "@data/images.js";
 
 function capitalizeWords(str: string) {
   // Convert the entire string to lowercase first
@@ -38,13 +38,10 @@ function formatSeasonsYears(years: string) {
 
 const { seasonsCount, firstSeason, listOfSeasons } = getSeasonsCount();
 
-console.log("listOfSeasons", listOfSeasons);
-console.log("seasonsCount", seasonsCount);
-console.log("firstSeason", firstSeason);
 
 const listJugadorsImages = await getJugadorsImagesListNames();
 
-console.log("listJugadorsImages", listJugadorsImages);
+
 
 async function getSeasonsData(firstSeason: number, seasonsCount: number) {
   const seasonsData = [];
@@ -60,6 +57,10 @@ async function getSeasonsData(firstSeason: number, seasonsCount: number) {
         props: SEASONS_LAYOUT[i % 2].relatProps,
       },
       social: await getSeasonSocial(`19${currentSeason}-${currentSeason + 1}`),
+      images: {
+        img_1: {url: `/imatges/layout/19${currentSeason}-${currentSeason + 1}_foto1.webp`, alt: ` Imatge d'arxiu de la temporada 19${currentSeason}-${currentSeason + 1}`, layout: SEASONS_LAYOUT[i % 2].img1},
+        img_2: {url: `/imatges/layout/19${currentSeason}-${currentSeason + 1}_foto2.webp`, alt: ` Imatge d'arxiu de la temporada 19${currentSeason}-${currentSeason + 1}`, layout: SEASONS_LAYOUT[i % 2].img2},
+      }
     };
     // const season = new Season(`19${currentSeason}-${currentSeason + 1}`);
     seasonsData.push(season);
@@ -71,10 +72,6 @@ async function getSeasonsData(firstSeason: number, seasonsCount: number) {
 
 const seasons = await getSeasonsData(firstSeason, seasonsCount);
 
-
-// seasons.stats.jugadors.forEach((jugador) => {
-// jugador.image = listJugadorsImages.find((image) => image.includes(jugador.nom));
-// });
 
 seasons.forEach((season) => {
   (season.stats.jugadors! as any[]).forEach((jugador: any) => {
@@ -93,7 +90,7 @@ seasons.forEach((season) => {
   });
 });
 
-console.log(seasons[0]);
+
 ---
 
 <BaseLayout {listOfSeasons}>

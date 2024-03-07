@@ -24,7 +24,6 @@ export const getSeasonStats = (season) => {
 
   const sheetNames = workbook.SheetNames;
 
-  console.log(sheetNames);
   let resultats,
     resultatsCopaDelRey,
     classificacio,

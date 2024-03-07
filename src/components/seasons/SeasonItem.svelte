@@ -6,11 +6,10 @@
 
   export let season;
 
-  console.log('season', season);
+  const { years, stats, relat, social, images} = season;
 
-  const { years, stats, relat, social} = season;
-
-  console.log(relat);
+  console.log('images', images)
+ 
   export let windowScrollY;
   export let seasonIndex;
   export let windowHeight;
@@ -63,26 +62,30 @@
         </article>
       </div>
     {/if}
-    <!-- {#if season.images}
-      {#each season.images as image, i}
-        {#if i < 2}
+    {#if season.images}
+  
           <div
-            class="translateY-wrapper blender img-{i}"
-            style="transform: {translateY}; --rowStart: {i === 0
-              ? img1RowStart
-              : img2RowStart}; --rowEnd: {i === 0
-              ? img1RowEnd
-              : img2RowEnd}; --colStart: {i === 0
-              ? img1ColStart
-              : img2ColStart}; --colEnd: {i === 0 ? img1ColEnd : img2ColEnd}"
+            class="translateY-wrapper blender img-0"
+            style="transform: {translateY}; --rowStart: {images.img_1.layout.rowStart}; --rowEnd: {images.img_1.layout.rowEnd}; --colStart: {images.img_1.layout.colStart}; --colEnd: {images.img_1.layout.colEnd}"
           >
             <div class="img-container">
-              <img src={image.src} alt={image.alt} />
+              <img src={images.img_1.url} alt={images.img_1.alt} />
             </div>
           </div>
-        {/if}
-      {/each}
-    {/if} -->
+            <div
+            class="translateY-wrapper blender img-0"
+            style="transform: {translateY}; --rowStart: {images.img_2.layout.rowStart}; --rowEnd: {images.img_2.layout.rowEnd}; --colStart: {images.img_2.layout.colStart}; --colEnd: {images.img_2.layout.colEnd}"
+          >
+            <div class="img-container">
+              <img src={images.img_2.url} alt={images.img_2.alt} />
+            </div>
+          </div>
+
+         
+         
+      
+    
+    {/if}
   </div>
 </div>
 
