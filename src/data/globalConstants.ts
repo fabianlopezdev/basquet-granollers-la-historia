@@ -622,30 +622,30 @@ const SEASONS_LAYOUT = [
   },
   {
     img1: {
-      colStart: 1,
-      colEnd: 4,
-      rowStart: 7,
-      rowEnd: 10,
+      colStart: 20,
+      colEnd: 37,
+      rowStart: 10,
+      rowEnd: 50,
       colStartMobile: 17,
       colEndMobile: 25,
       rowStartMobile: 18,
       rowEndMobile: 24,
     },
     img2: {
-      colStart: 9,
-      colEnd: 13,
-      rowStart: 2,
-      rowEnd: 5,
+      colStart: 57,
+      colEnd: 74,
+      rowStart: 38,
+      rowEnd: 66,
       colStartMobile: 1,
       colEndMobile: 26,
       rowStartMobile: 3,
       rowEndMobile: 24,
     },
     relatProps: {
-      colStart: 4,
-      colEnd: 10,
-      rowStart: 8,
-      rowEnd: 10,
+      colStart: 11,
+      colEnd: 29,
+      rowStart: 44,
+      rowEnd: 59,
       colStartMobile: 1,
       colEndMobile: 5,
       rowStartMobile: 9,
@@ -655,29 +655,7 @@ const SEASONS_LAYOUT = [
       width: RELATS_PROPS.width.large,
     },
   },
-  {
-    img1: {
-      colStart: 4,
-      colEnd: 9,
-      rowStart: 2,
-      rowEnd: 8,
-    },
-    img2: {
-      colStart: 10,
-      colEnd: 14,
-      rowStart: 7,
-      rowEnd: 11,
-    },
-    relatProps: {
-      colStart: 2,
-      colEnd: 7,
-      rowStart: 7,
-      rowEnd: 11,
-      color: RELATS_PROPS.colors.blue,
-      hoverColor: RELATS_PROPS.colors.orange,
-      width: RELATS_PROPS.width.short,
-    },
-  },
+  
 ];
 
 export {
