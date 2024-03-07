@@ -13,10 +13,10 @@
 
   const { stats, social} = season;
 
-  const {jugadors, resultats, classificacio} = stats;
+  const {jugadors, resultats, classificacio, divisio} = stats;
 
-  console.log('seasoniiii', jugadors);
 
+console.log('divisio', divisio);
 
   // console.timeLog('season', seson);
   function handleEscape(e) {
@@ -53,7 +53,7 @@
     {:else if $display === "resultats"}
       <div class="stats-container">
         <div>
-          <ResultsTable {resultats} competition={season.stats.divisio[0].lliga} />
+          <ResultsTable {resultats} competition={divisio[0].lliga ? divisio[0].lliga : divisio[0]['Divisió'] ? divisio[0]['Divisió'] :''} />
         </div>
         {#if season.stats.resultatsCopaDelRey !== undefined}
         <div>
@@ -61,7 +61,7 @@
         </div>
         {/if}
         <div>
-          <ClassificationTable {classificacio} competition={season.stats.divisio[0].lliga}/>
+          <ClassificationTable {classificacio} competition={divisio[0].lliga ? divisio[0].lliga : divisio[0]['Divisió'] ? divisio[0]['Divisió'] :''}/>
         </div>
       </div>
     {:else if $display === "social"}
