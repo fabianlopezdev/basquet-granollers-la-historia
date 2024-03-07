@@ -67,6 +67,8 @@ const headerNavigation = [
 </script>
 
 <header>
+  <section>
+
     <div class="logos">
       <CbgHistoryLogo
         wd="221"
@@ -120,20 +122,23 @@ const headerNavigation = [
     <div class="responsive">
       <HeaderResponsive client:only {NAVIGATION} {headerSponsors} />
     </div>
-</header>
+  </section>
+  </header>
 
 <style>
   header {
     position: fixed;
-    width: 100%;
-    /* display: flex;
-    flex-direction: column; */
     top: 0;
-    z-index: 10;
+    width: 100%;
     height: var(--hg-header);
     background-color: var(--clr-contrast);
     background-color: rgba(243, 243, 243, 0.9);
+  
+    z-index: 10;
     transition: top 0.3s ease-in-out;
+  }
+  
+  section {
     display: flex;
     justify-content: space-between;
     padding-inline: var(--pd-x);
@@ -147,6 +152,7 @@ const headerNavigation = [
     ); /* move it outside the header */
     height: var(--hg-separator-line);
     width: 100%;
+    
     background: linear-gradient(
       90deg,
       var(--clr-accent) 35.36%,

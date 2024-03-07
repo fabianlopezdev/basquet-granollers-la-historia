@@ -14,7 +14,7 @@ export const getSeasonStats = (season) => {
   //DEV PATH
   const filePath = path.join(__dirname, `../../../public/data/stats/${season}_stats.xlsx`);
 
-  console.log('filePath', filePath);
+
   //PRODUCTION PATH
   //  const relatsFolderPath = path.join(__dirname, "../data/stats");
   //  const filePath = path.join(relatsFolderPath, `${season}_stats.xlsx`);
