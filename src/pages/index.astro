@@ -7,34 +7,32 @@ import Hero from "@components/Hero.astro";
 import Seasons from "@components/seasons/Seasons.svelte";
 
 import { getSeasonStats } from "@data/stats/stats";
-import {getSeasonRelat} from "@data/relats/relats";
+import { getSeasonRelat } from "@data/relats/relats";
 import { getSeasonsCount } from "@data/seasonsCount";
 import { getSeasonSocial } from "@data/social/social";
 import { SEASONS_INFO, SEASONS_LAYOUT } from "@data/globalConstants";
 import { getJugadorsImagesListNames } from "@data/images/jugadors/jugadorsImages.js";
 
-
-     function capitalizeWords(str: string) {
+function capitalizeWords(str: string) {
   // Convert the entire string to lowercase first
   const lowerStr = str.toLowerCase();
 
   // Split the string into words based on spaces
-  const words = lowerStr.split(' ');
+  const words = lowerStr.split(" ");
 
   // Capitalize the first letter of each word
   for (let i = 0; i < words.length; i++) {
     if (words[i][0]) {
-
       words[i] = words[i][0].toUpperCase() + words[i].slice(1);
     }
   }
 
   // Join the words back into a string with spaces
-  return words.join(' ');
+  return words.join(" ");
 }
 function formatSeasonsYears(years: string) {
-  const firstYear = years.split('-')[0].slice(-2);
-  const secondYear = years.split('-')[1];
+  const firstYear = years.split("-")[0].slice(-2);
+  const secondYear = years.split("-")[1];
   return `${firstYear}/${secondYear}`;
 }
 
@@ -42,8 +40,7 @@ const { seasonsCount, firstSeason, listOfSeasons } = getSeasonsCount();
 
 const listJugadorsImages = await getJugadorsImagesListNames();
 
-console.log('listJugadorsImages', listJugadorsImages);
-
+console.log("listJugadorsImages", listJugadorsImages);
 
 async function getSeasonsData(firstSeason: number, seasonsCount: number) {
   const seasonsData = [];
@@ -52,15 +49,19 @@ async function getSeasonsData(firstSeason: number, seasonsCount: number) {
     const season = {
       years: `${currentSeason}/${currentSeason + 1}`,
       stats: getSeasonStats(`19${currentSeason}-${currentSeason + 1}`),
-      relat: {content: await getSeasonRelat(`19${currentSeason}-${currentSeason + 1}`),
-    props: SEASONS_LAYOUT[i].relatProps},
+      relat: {
+        content: await getSeasonRelat(
+          `19${currentSeason}-${currentSeason + 1}`,
+        ),
+        props: SEASONS_LAYOUT[i].relatProps,
+      },
       social: await getSeasonSocial(`19${currentSeason}-${currentSeason + 1}`),
-    }
+    };
     // const season = new Season(`19${currentSeason}-${currentSeason + 1}`);
     seasonsData.push(season);
     currentSeason++;
   }
-  
+
   return seasonsData;
 }
 
@@ -75,24 +76,21 @@ seasons.forEach((season) => {
     // Find the image that includes the jugador's name and assign it to the jugador.image property.
     jugador.jugador = capitalizeWords(jugador.jugador);
 
-    const words = jugador.jugador.split(' ');
+    const words = jugador.jugador.split(" ");
     // Select the second word if it exists, otherwise use the first word
     const nameToCheck = words.length > 1 ? words[1] : words[0];
 
-    const jugadorImage = listJugadorsImages.find((image) => image.includes(nameToCheck));
+    const jugadorImage = listJugadorsImages.find((image) =>
+      image.includes(nameToCheck),
+    );
 
     jugador.image = jugadorImage; // Correctly assign the found image to the jugador.image property.
   });
 });
 
-console.log('seasons', seasons[0].stats.jugadors);
-// console.log("seasonsdatalength, ", seasons.length);
-
-console.log('jugadors', seasons[0].stats.jugadors);
 ---
-
 
 <BaseLayout {listOfSeasons}>
   <Hero />
-  <Seasons client:only {seasons} totalSeasons={seasonsCount} {listOfSeasons}/>
+  <Seasons client:only {seasons} totalSeasons={seasonsCount} {listOfSeasons} />
 </BaseLayout>
