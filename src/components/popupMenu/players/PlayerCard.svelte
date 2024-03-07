@@ -139,10 +139,13 @@ function formatExcelDate(serial) {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    text-align: center;
     gap: 1rem;
     font-size: 1.3125rem;
     background-color: var(--clr-secondary);
     color: var(--clr-contrast);
+    padding-inline: 2rem;	
+    line-height: 1.3;
   }
   span {
     font-size: 1rem;
