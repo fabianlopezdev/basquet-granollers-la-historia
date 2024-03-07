@@ -5,11 +5,10 @@
   import SeasonItem from "./SeasonItem.svelte";
   import PopupMenu from "../popupMenu/PopupMenu.svelte";
   //Import data
-  import { SEASONS_INFO, SEASONS_LAYOUT } from "@data/globalConstants";
   import { currentIndex } from "src/svelte/stores";
   import { display } from "src/svelte/stores";
   import { collapsibleArrowSeasonMobileMenu } from "@assets/icons";
-  import SeasonsList from "../header/SeasonsList.svelte";
+  // import SeasonsList from "../header/SeasonsList.svelte";
   import SponsorsResponsive from "@components/header/SponsorsResponsive.svelte";
 
 export let seasons;
@@ -25,10 +24,6 @@ console.log('seasons', seasons)
 
   let isMenuOpen = false;
 
-  // const SEASONS = SEASONS_INFO.map((season, index) => ({
-  //   ...season,
-  //   ...SEASONS_LAYOUT[index],
-  // }));
   let seasonWidth = 100 / totalSeasons;
   $: transform = `translateX(${-seasonWidth * $currentIndex}%)`;
 </script>
@@ -44,7 +39,7 @@ console.log('seasons', seasons)
     <PopupMenu season={seasons[$currentIndex]} />
   {/if}
   <div class="season-wrapper">
-    <div class="season-menu mobile">
+    <!-- <div class="season-menu mobile">
       <h4 class="menu-title">Tria una temporada</h4>
       <button
         class="menu-season-selected"
@@ -61,7 +56,7 @@ console.log('seasons', seasons)
       <div style="padding-top: 3rem; width: 100%;">
         <SponsorsResponsive />
       </div>
-    </div>
+    </div> -->
     <div
       class="seasons-container"
       style="--totalSeasons: {totalSeasons}; transform: {transform}"
@@ -72,7 +67,6 @@ console.log('seasons', seasons)
     </div>
     <Options />
     <Timeline
-      {SEASONS_INFO}
       {listOfSeasons}
       {windowHeight}
       {windowScrollY}

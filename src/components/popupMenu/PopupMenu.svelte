@@ -3,7 +3,6 @@
   import { display } from "src/svelte/stores";
   import { slide } from "svelte/transition";
   import { upperCaseFirstLetter } from "@utils/helperFunctions";
-  import { PLAYERS, SCORES, SEASON_STANDINGS } from "@data/globalConstants";
   import PlayerCard from "./players/PlayerCard.svelte";
   import ResultsTable from "./results/ResultsTable.svelte";
   import ClassificationTable from "./results/ClassificationTable.svelte";

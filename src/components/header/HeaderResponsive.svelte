@@ -1,4 +1,4 @@
-<script>
+<!-- <script>
   import { hamburgerMenuIcon } from "@assets/icons";
   import DropDownAccordion from "./DropDownAccordion.svelte";
   import SponsorsResponsive from "./SponsorsResponsive.svelte";
@@ -33,9 +33,9 @@
     }
   }
 
-</script>
+</script> -->
 
-<button
+<!-- <button
   class="dropdown-menu-button"
   on:click={() => (isDropDownMenuOpen = !isDropDownMenuOpen)}
 >
@@ -46,7 +46,7 @@
   {#each NAVIGATION as item}
     <li>
       {#if item.dropdown}
-        <DropDownAccordion {item} bind:isDropDownMenuOpen/>
+        <DropDownAccordion {item} bind:isDropDownMenuOpen/> -->
         <!-- {:else if item.link.includes("http")}
         <a href={item.link} target="_blank" rel="noopener noreferrer">
           <h5>{item.name.toUpperCase()}</h5>
@@ -55,7 +55,7 @@
         <a href={item.link}>
           <h5>{item.name.toUpperCase()}</h5>
         </a> -->
-      {/if}
+      <!-- {/if}
     </li>
   {/each}
 
@@ -105,4 +105,4 @@
       padding-inline: var(--pd-x-small);
     }
   }
-</style>
+</style> -->
