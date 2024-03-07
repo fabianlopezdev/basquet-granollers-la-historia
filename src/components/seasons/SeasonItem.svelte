@@ -140,8 +140,8 @@
   .items-container {
     height: 100%;
     display: grid;
-    grid-template-columns: repeat(12, 8.32%);
-    grid-template-rows: repeat(10, 10%);
+    grid-template-columns: repeat(72, 1.38%);
+    grid-template-rows: repeat(60, 1.66%);
   }
   .relat {
     grid-column: var(--colStart) / var(--colEnd);
