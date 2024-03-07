@@ -7,7 +7,7 @@
   import PlayerCard from "./players/PlayerCard.svelte";
   import ResultsTable from "./results/ResultsTable.svelte";
   import ClassificationTable from "./results/ClassificationTable.svelte";
-  import Social from "./Social.svelte";
+
   import ArticleLayuout from "@components/ArticleLayuout.svelte";
 
   export let season;
@@ -18,7 +18,7 @@
 
   const yearsArr = years.split('/');
 
-console.log('divisio', yearsArr);
+
 
   // console.timeLog('season', seson);
   function handleEscape(e) {

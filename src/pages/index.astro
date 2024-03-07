@@ -6,12 +6,12 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Hero from "@components/Hero.astro";
 import Seasons from "@components/seasons/Seasons.svelte";
 
-import { getSeasonStats } from "@data/stats/stats";
-import { getSeasonRelat } from "@data/relats/relats";
+import { getSeasonStats } from "@data/stats";
+import { getSeasonRelat } from "@data/relats";
 import { getSeasonsCount } from "@data/seasonsCount";
-import { getSeasonSocial } from "@data/social/social";
+import { getSeasonSocial } from "@data/social";
 import { SEASONS_INFO, SEASONS_LAYOUT } from "@data/globalConstants";
-import { getJugadorsImagesListNames } from "@data/images/jugadors/jugadorsImages.js";
+import { getJugadorsImagesListNames } from "@data/jugadorsImages.js";
 
 function capitalizeWords(str: string) {
   // Convert the entire string to lowercase first
@@ -38,6 +38,10 @@ function formatSeasonsYears(years: string) {
 
 const { seasonsCount, firstSeason, listOfSeasons } = getSeasonsCount();
 
+console.log("listOfSeasons", listOfSeasons);
+console.log("seasonsCount", seasonsCount);
+console.log("firstSeason", firstSeason);
+
 const listJugadorsImages = await getJugadorsImagesListNames();
 
 console.log("listJugadorsImages", listJugadorsImages);
@@ -53,7 +57,7 @@ async function getSeasonsData(firstSeason: number, seasonsCount: number) {
         content: await getSeasonRelat(
           `19${currentSeason}-${currentSeason + 1}`,
         ),
-        props: SEASONS_LAYOUT[i].relatProps,
+        props: SEASONS_LAYOUT[i % 2].relatProps,
       },
       social: await getSeasonSocial(`19${currentSeason}-${currentSeason + 1}`),
     };
@@ -66,6 +70,7 @@ async function getSeasonsData(firstSeason: number, seasonsCount: number) {
 }
 
 const seasons = await getSeasonsData(firstSeason, seasonsCount);
+
 
 // seasons.stats.jugadors.forEach((jugador) => {
 // jugador.image = listJugadorsImages.find((image) => image.includes(jugador.nom));
@@ -88,9 +93,11 @@ seasons.forEach((season) => {
   });
 });
 
+console.log(seasons[0]);
 ---
 
 <BaseLayout {listOfSeasons}>
   <Hero />
   <Seasons client:only {seasons} totalSeasons={seasonsCount} {listOfSeasons} />
 </BaseLayout>
+@data/jugadorsImages@data/stats
