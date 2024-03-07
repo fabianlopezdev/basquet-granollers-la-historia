@@ -8,6 +8,7 @@
   import ResultsTable from "./results/ResultsTable.svelte";
   import ClassificationTable from "./results/ClassificationTable.svelte";
   import Social from "./Social.svelte";
+  import ArticleLayuout from "@components/ArticleLayuout.svelte";
 
   export let season;
 
@@ -75,7 +76,8 @@ console.log('divisio', yearsArr);
       </div>
     
       {:else if $display === "social"}
-      <Social {social} year={years.split('/')[0].toString()}/>
+      <ArticleLayuout text={social} title={`Te'n recordes 19${years.split('/')[0].toString()}?`}/>
+      <!-- <Social {social} year={years.split('/')[0].toString()}/> -->
       {/if}
       
   </div>

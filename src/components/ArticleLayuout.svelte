@@ -1,21 +1,18 @@
 <script>
-
-
-  export let social;
-  export let year;
-
+  export let text;
+  export let title;
 </script>
 
 <div class='social-container'>
   <article>
     <header class='article-header'>
-        <h2>{`Te'n recordes 19${year}?`}</h2>
+        <h2>{title}</h2>
         <!-- {#if image !== undefined && image.url}
           <img src={image.url} alt={image.alt && image.alt} />
           {/if} -->
         </header>
     <div class='article-content'>
-       {@html social.html}
+       {@html text.html}
     </div>
   </article>
   
