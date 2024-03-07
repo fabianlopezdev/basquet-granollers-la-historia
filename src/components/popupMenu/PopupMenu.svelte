@@ -11,7 +11,7 @@
 
   export let season;
 
-  const { stats, socia, years} = season;
+  const { stats, social, years} = season;
 
   const {jugadors, resultats, classificacio, divisio} = stats;
 

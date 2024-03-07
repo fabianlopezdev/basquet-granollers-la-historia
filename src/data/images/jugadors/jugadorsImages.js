@@ -5,10 +5,10 @@ import { dirname } from "path";
 
 // When using ES modules, __dirname is not defined, so we define it manually
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+const __dirname = path.dirname(__filename);
 
 //DEV PATH
-const folderPath = path.join(__dirname);
+const folderPath = path.join(__dirname,`../../../../public/data/images/jugadors`);
 
 //PRODUCTION PATH
 // const folderPath = path.join(__dirname, "../data/images/jugadors");
@@ -18,7 +18,6 @@ export async function getJugadorsImagesListNames() {
   try {
     const files = await fs.readdir(folderPath);
 
-    console.log('files', files);
     const imageFiles = files.filter((file) => /\.(webp)$/i.test(file));
     console.log(imageFiles);
     return imageFiles;
