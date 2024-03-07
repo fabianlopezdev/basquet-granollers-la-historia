@@ -11,12 +11,13 @@
 
   export let season;
 
-  const { stats, social} = season;
+  const { stats, socia, years} = season;
 
   const {jugadors, resultats, classificacio, divisio} = stats;
 
+  const yearsArr = years.split('/');
 
-console.log('divisio', divisio);
+console.log('divisio', yearsArr);
 
   // console.timeLog('season', seson);
   function handleEscape(e) {
@@ -51,9 +52,16 @@ console.log('divisio', divisio);
         {/each}
       </ul>
     {:else if $display === "resultats"}
-      <div class="stats-container">
-        <div>
-          <ResultsTable {resultats} competition={divisio[0].lliga ? divisio[0].lliga : divisio[0]['Divisió'] ? divisio[0]['Divisió'] :''} />
+    <div  class='descarrega-button'>
+
+      <a href={`https://historiabasquetgranollers.cat/data/stats/19${yearsArr[0]}-${yearsArr[1]}_stats.xlsx`} target='_blank'>
+        DESCARREGAR
+      </a>
+    </div>
+  <div class='table-wrapper'>
+
+    <div>
+      <ResultsTable {resultats} competition={divisio[0].lliga ? divisio[0].lliga : divisio[0]['Divisió'] ? divisio[0]['Divisió'] :''} />
         </div>
         {#if season.stats.resultatsCopaDelRey !== undefined}
         <div>
@@ -63,11 +71,13 @@ console.log('divisio', divisio);
         <div>
           <ClassificationTable {classificacio} competition={divisio[0].lliga ? divisio[0].lliga : divisio[0]['Divisió'] ? divisio[0]['Divisió'] :''}/>
         </div>
+        
       </div>
-    {:else if $display === "social"}
-    <Social {social}/>
-      {/if}
     
+      {:else if $display === "social"}
+      <Social {social}/>
+      {/if}
+      
   </div>
 </section>
 
@@ -81,7 +91,7 @@ console.log('divisio', divisio);
     );
     font-weight: var(--fnt-wg-regular);
   }
-
+  
   svg {
     width: 1.5625rem;
 width: clamp(1.5625rem, 0.6358793517406963rem + 3.12124849939976vw, 3.1875rem);
@@ -118,6 +128,9 @@ width: clamp(1.5625rem, 0.6358793517406963rem + 3.12124849939976vw, 3.1875rem);
     /* margin-left: var(--mg-left-top-header); */
   }
 
+  .descarrega-button {
+    padding-block: 2rem;
+  }
   .players-container {
     display: flex;
     flex-wrap: wrap;
@@ -126,12 +139,43 @@ width: clamp(1.5625rem, 0.6358793517406963rem + 3.12124849939976vw, 3.1875rem);
     width: 100%;
   }
 
-  .stats-container {
+  .table-wrapper {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
     gap: 2rem;
     width: 100%;
+  }
+  
+  a {
+     margin: auto;
+    text-decoration: none;
+    padding-bottom: 0.1rem;
+    display: grid;
+    place-items: center;
+    height: var(--hg-btn);
+    width: 11.5rem;
+    border: 1px solid var(--clr-accent);
+    background-color: var(--clr-contrast-opacity);
+    color: var(--clr-accent);
+    border-radius: 1.75rem;
+    font-weight: var(--fnt-wg-regular);
+    /* opacity: 0.7; */
+    transition:
+      background-color 0.3s ease,
+      color 0.3s ease,
+      border-color 0.3s ease;
+      
+  }
+
+  a:active {
+    transform: scale(0.95);
+  }
+
+  a:hover {
+    cursor: pointer;
+    background-color: var(--clr-accent);
+    color: var(--clr-contrast);
   }
 
    @media (max-width: 1065px) {
