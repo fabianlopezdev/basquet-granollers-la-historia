@@ -73,26 +73,47 @@ export function seasonToEndpointMapper(season: string) {
 }
 
 
-export function truncateString(str: string) {
-  if (str.length <= 198) {
-    return str;
+export function truncateString(str) {
+  // Function to normalize the input for easier matching
+  const normalizeString = (s) =>
+    s
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase();
+
+  // Truncate if the string is longer than 198 characters
+  let truncated = str.length <= 198 ? str : str.slice(0, 198);
+  let normalizedTruncated = normalizeString(truncated);
+
+  // Patterns to remove (considering variations in accents and capitalization)
+  const patternsToRemove = [
+    normalizeString("Eugeni Rius Daví"),
+    normalizeString("Eugeni"),
+    normalizeString("Rius"),
+    normalizeString("Daví"),
+  ];
+
+  // Attempt to remove each pattern from the start of the string
+  let removedPattern = false;
+  for (const pattern of patternsToRemove) {
+    if (normalizedTruncated.startsWith(pattern)) {
+      // Calculate actual length of the pattern to remove it from the original string
+      const actualLength = str.slice(0, pattern.length).length;
+      truncated = truncated.slice(actualLength).trim();
+      removedPattern = true;
+      break; // Stop after removing the first matching pattern
+    }
   }
 
-  let truncated = str.slice(0, 198);
-
-  // Find the index of the last space character in the truncated string
-  let lastSpaceIndex = truncated.lastIndexOf(" ");
-
-  // If a space character is found, truncate the string to end at this last space
-  if (lastSpaceIndex !== -1) {
-    truncated = truncated.slice(0, lastSpaceIndex);
+  // If no specific pattern was removed, ensure any starting word is not abruptly cut off
+  if (!removedPattern) {
+    let lastSpaceIndex = truncated.lastIndexOf(" ");
+    if (lastSpaceIndex !== -1) {
+      truncated = truncated.slice(0, lastSpaceIndex).trim();
+    }
   }
-  //Trim in case the content starts with empty spaces
 
-  const truncatedTrimeed = truncated.trim();
-
-  const minustFirstTwoWords = truncatedTrimeed.split(" ").slice(1).join(" ");
-  return minustFirstTwoWords + "...";
+  return truncated + "...";
 }
 
 export function upperCaseFirstLetter(string: string) {
