@@ -13,6 +13,8 @@
 
   export let listOfSeasons = [];
 
+  console.log('listOfSeasons', listOfSeasons)
+
   const BASE_DURATION = 0.5;
   const MAX_DURATION = 2.5;
   const SEASON_WIDTH = 4.5; // Width of each season container in rem
@@ -267,7 +269,7 @@
     {#each displayedSeasons as season, i (season)}
       <div role="listitem" class="season-container">
         <p class="fade-transition" class:active={season === activeSeason}>
-          {listOfSeasons[i]}
+          {season}
         </p>
         <button
           class="dot color-transition"
