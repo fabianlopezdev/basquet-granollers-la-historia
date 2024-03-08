@@ -44,7 +44,7 @@ function formatExcelDate(serial) {
 <li>
   <article class="player">
     <div class="image-container">
-      <img src={jugador.image ? `/data/images/jugadors/${jugador.image}`: "/player-avatar.png"} alt="" />
+      <img src={jugador.image ? `/imatges/jugadors/${jugador.image}`: "/player-avatar.png"} alt="" />
     </div>
     <div class="info-container">
       <p class="name">{capitalizeWords(jugador.jugador)}</p>

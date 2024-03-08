@@ -12,12 +12,12 @@ export const getSeasonStats = (season) => {
   const __dirname = path.dirname(__filename);
 
   //DEV PATH
-  const filePath = path.join(__dirname, `../../public/estadistiques/${season}_stats.xlsx`);
+  // const filePath = path.join(__dirname, `../../public/estadistiques/${season}_stats.xlsx`);
 
 
   //PRODUCTION PATH
-  //  const relatsFolderPath = path.join(__dirname, "../estadistiques");
-  //  const filePath = path.join(relatsFolderPath, `${season}_stats.xlsx`);
+   const relatsFolderPath = path.join(__dirname, "../estadistiques");
+   const filePath = path.join(relatsFolderPath, `${season}_stats.xlsx`);
 
 
   const workbook = XLSX.readFile(filePath);
@@ -97,32 +97,3 @@ export const getSeasonStats = (season) => {
   return stats;
 };
 
-function getPlayerImage(name, season) {
-  console.log(name);
-  const __filename = fileURLToPath(import.meta.url);
-  const __dirname = path.dirname(__filename);
-  const imageName = `${season} ${capitalizeWords(name)}`;
-  const filePath = path.join(
-    __dirname,
-    `../../images/jugadors/${imageName}.webp`,
-  );
-  return filePath;
-}
-
-function capitalizeWords(str) {
-  // Convert the entire string to lowercase first
-  const lowerStr = str.toLowerCase();
-
-  // Split the string into words based on spaces
-  const words = lowerStr.split(" ");
-
-  // Capitalize the first letter of each word
-  for (let i = 0; i < words.length; i++) {
-    if (words[i] !== "") {
-      words[i] = words[i][0].toUpperCase() + words[i].slice(1);
-    }
-  }
-
-  // Join the words back into a string with spaces
-  return words.join(" ");
-}

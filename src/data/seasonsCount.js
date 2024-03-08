@@ -1,17 +1,17 @@
 // Import the necessary modules
 import fs from "fs";
 import path from "path";import { fileURLToPath } from "url";
-import { dirname } from "path";
+// import { dirname } from "path";
 
 // When using ES modules, __dirname is not defined, so we define it manually
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 //DEV PATH
-const folderPath = path.join(__dirname,`../../public/estadistiques`);
+// const folderPath = path.join(__dirname,`../../public/estadistiques`);
 
 //PRODUCTION PATH
-// const folderPath = path.join(__dirname, "../estadistiques");
+const folderPath = path.join(__dirname, "../estadistiques");
 
 // Read the directory contents
 const files = fs.readdirSync(folderPath);

@@ -73,9 +73,9 @@ export function seasonToEndpointMapper(season: string) {
 }
 
 
-export function truncateString(str) {
+export function truncateString(str: string) {
   // Function to normalize the input for easier matching
-  const normalizeString = (s) =>
+  const normalizeString = (s: string) =>
     s
       .normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "")

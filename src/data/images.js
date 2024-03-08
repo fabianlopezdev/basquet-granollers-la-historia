@@ -1,17 +1,17 @@
 import fs from "fs/promises";
 import path from "path";
 import { fileURLToPath } from "url";
-import { dirname } from "path";
+// import { dirname } from "path";
 
 // When using ES modules, __dirname is not defined, so we define it manually
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 //DEV PATH
-const folderPath = path.join(__dirname,`../../public/imatges/jugadors`);
+// const folderPath = path.join(__dirname,`../../public/imatges/jugadors`);
 
 //PRODUCTION PATH
-// const folderPath = path.join(__dirname, "../imatges/jugadors");
+const folderPath = path.join(__dirname, "../imatges/jugadors");
 
 
 export async function getJugadorsImagesListNames() {
