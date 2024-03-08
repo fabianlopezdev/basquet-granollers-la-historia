@@ -586,6 +586,7 @@ const RELATS_PROPS = {
 
 const SEASONS_LAYOUT = [
   {
+    firstLayout: true,
     img2: {
       colStart: 13,
       colEnd: 24,
@@ -629,6 +630,7 @@ const SEASONS_LAYOUT = [
     },
   },
   {
+    secondLayout: true,
     img1: {
       colStart: 20,
       colEnd: 37,

@@ -66,9 +66,9 @@
   
           <div
             class="translateY-wrapper blender img-0"
-            style="transform: {translateY}; --rowStart: {images.img_1.layout.rowStart}; --rowEnd: {images.img_1.layout.rowEnd}; --colStart: {images.img_1.layout.colStart}; --colEnd: {images.img_1.layout.colEnd}; --rowStartShortHg: {images.img_1.layout.rowStartShortHg}; --rowEndShortHg: {images.img_1.layout.rowEndShortHg}; --colStartShortHg: {images.img_1.layout.colStartShortHg}; --colEndShortHg: {images.img_1.layout.colEndShortHg}"
+            style="transform: {translateY}; --rowStart: {images.img_1.layout.rowStart}; --rowEnd: {images.img_1.layout.rowEnd}; --colStart: {images.img_1.layout.colStart}; --colEnd: {images.img_1.layout.colEnd}; --rowStartShortHg: {images.img_1.layout.rowStartShortHg}; --rowEndShortHg: {images.img_1.layout.rowEndShortHg}; --colStartShortHg: {images.img_1.layout.colStartShortHg}; --colEndShortHg: {images.img_1.layout.colEndShortHg};"  
           >
-            <div class="img-container">
+            <div class="img-container" >
               <img src={images.img_1.url} alt={images.img_1.alt} />
             </div>
           </div>
@@ -76,7 +76,7 @@
             class="translateY-wrapper blender img-1"
             style="transform: {translateY}; --rowStart: {images.img_2.layout.rowStart}; --rowEnd: {images.img_2.layout.rowEnd}; --colStart: {images.img_2.layout.colStart}; --colEnd: {images.img_2.layout.colEnd}; --rowStartShortHg: {images.img_2.layout.rowStart}; --rowEndShortHg: {images.img_2.layout.rowEndShortHg}; --colStartShortHg: {images.img_2.layout.colStartShortHg}; --colEndShortHg: {images.img_2.layout.colEndShortHg}"
           >
-            <div class="img-container">
+            <div class="img-container" class:container-1={images.secondLayout}>
               <img src={images.img_2.url} alt={images.img_2.alt} />
             </div>
           </div>
@@ -215,6 +215,11 @@
   .img-1 {
     grid-column: var(--colStart) / var(--colEnd);
     grid-row: var(--rowStart) / var(--rowEnd);
+  }
+
+  .container-1:hover {
+    transform: translateX(-30%);
+    transition: transform 0.5s ease-in; 
   }
   @media (max-width: 648px) {
     /* .season-container {

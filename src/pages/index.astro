@@ -58,6 +58,8 @@ async function getSeasonsData(firstSeason: number, seasonsCount: number) {
       },
       social: await getSeasonSocial(`19${currentSeason}-${currentSeason + 1}`),
       images: {
+        firstLayout: SEASONS_LAYOUT[i % 2].firstLayout,
+        secondLayout: SEASONS_LAYOUT[i % 2].secondLayout,
         img_1: {url: `/imatges/layout/19${currentSeason}-${currentSeason + 1}_foto1.webp`, alt: ` Imatge d'arxiu de la temporada 19${currentSeason}-${currentSeason + 1}`, layout: SEASONS_LAYOUT[i % 2].img1},
         img_2: {url: `/imatges/layout/19${currentSeason}-${currentSeason + 1}_foto2.webp`, alt: ` Imatge d'arxiu de la temporada 19${currentSeason}-${currentSeason + 1}`, layout: SEASONS_LAYOUT[i % 2].img2},
       }
