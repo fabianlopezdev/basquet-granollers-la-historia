@@ -9,8 +9,6 @@ function removeAccents(str) {
   return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 }
 
-
-
 export const getSeasonStats = (season) => {
   const __filename = fileURLToPath(import.meta.url);
   const __dirname = path.dirname(__filename);
@@ -28,43 +26,6 @@ export const getSeasonStats = (season) => {
   const workbook = XLSX.readFile(filePath);
 
   const sheetNames = workbook.SheetNames;
-
-  // let resultats,
-  //   classificacio,
-  //   jugadors,
-  //   entrenadors,
-  //   divisio,
-  //   classificacioAscens,
-  //   ascens,
-  //   promocio,
-  //   promocioTriangular,
-  //   resultatsFaseRegularGrupPar,
-  //   resultatsFaseRegularA1,
-  //   resultatsFaseRegularPlayoff,
-  //   classificacioGrupPar,
-  //   classificacioA1,
-  //   classificacioFinalTemporada,
-  //   resultatsFaseRegularGrupSena,
-  //   resultatsFaseRegularA2,
-  //   classificacioGrupSenar,
-  //   resultatsPrimeraFaseA1,
-  //   resultatsSegonaFaseGrup1,
-  //   resultatsPlayoffsQuarts,
-  //   classificacioPrimeraFaseA1,
-  //   classificacioSegonaFaseGrup1,
-  //   resultatsPrimeraFaseA2,
-  //   resultatsSegonaFaseGrup2,
-  //   classificacioA2,
-  //   resultatsLligaRegularGrupPare,
-  //   resultatsPlayoffsPermanencia,
-  //   resultatsPlayoffsclassificacio,
-  //   classificacioLligaRegularGrup,
-  //   classificacioLligaRegular,
-  //   resultatsFaseRegular,
-  //   resultatsPlayoffsVuitens,
-  //   classificacioPlayout,
-  //   resultatsLligaRegular,
-  //   classificacioTemporadaRegular;
 
   let classificacio,
     classificacioA1,
@@ -297,7 +258,7 @@ export const getSeasonStats = (season) => {
     ...(classificacioTemporadaRegular !== undefined && {
       classificacioTemporadaRegular,
     }),
-    ...(divisio !== undefined && {divisio }),
+    ...(divisio !== undefined && { divisio }),
     ...(entrenadors !== undefined && { entrenadors }),
     ...(jugadors !== undefined && { jugadors }),
     ...(resultats !== undefined && { resultats }),
@@ -341,6 +302,12 @@ export const getSeasonStats = (season) => {
       resultatsSegonaFaseGrup2,
     }),
   };
+
+  stats.jugadors.sort((a, b) => {
+    const secondWordA = (a.jugador || "").split(" ")[1] || "";
+    const secondWordB = (b.jugador || "").split(" ")[1] || "";
+    return secondWordA.localeCompare(secondWordB);
+  });
 
   return stats;
 };
