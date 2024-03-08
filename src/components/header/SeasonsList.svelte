@@ -1,4 +1,4 @@
-<script>
+<!-- <script>
   import { SEASONS_INFO } from '@data/globalConstants';
   import { currentIndex, display, isOutsideSelection } from "../../svelte/stores";
 
@@ -39,4 +39,4 @@
     width: 18rem;
     color: white;
   }
-</style>
+</style> -->
