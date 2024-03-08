@@ -91,6 +91,10 @@ export function truncateString(str: string) {
     normalizeString("Eugeni"),
     normalizeString("Rius"),
     normalizeString("Daví"),
+    normalizeString("Jordi Sanuy Bassa"),
+    normalizeString("Jordi"),
+    normalizeString("Sanuy"),
+    normalizeString("Bassa"),
   ];
 
   // Attempt to remove each pattern from the start of the string
