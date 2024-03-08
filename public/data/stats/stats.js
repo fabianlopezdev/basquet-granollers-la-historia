@@ -3,6 +3,8 @@ import XLSX from "xlsx";
 import path from "path";
 import { fileURLToPath } from "url";
 
+import { capitalizeWords } from "../";	
+
 function removeAccents(str) {
   return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 }
@@ -101,20 +103,4 @@ function getPlayerImage(name, season) {
   return filePath;
 }
 
-function capitalizeWords(str) {
-  // Convert the entire string to lowercase first
-  const lowerStr = str.toLowerCase();
 
-  // Split the string into words based on spaces
-  const words = lowerStr.split(" ");
-
-  // Capitalize the first letter of each word
-  for (let i = 0; i < words.length; i++) {
-    if (words[i] !== "") {
-      words[i] = words[i][0].toUpperCase() + words[i].slice(1);
-    }
-  }
-
-  // Join the words back into a string with spaces
-  return words.join(" ");
-}

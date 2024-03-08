@@ -129,3 +129,77 @@ export function toggleDialog(dialogId: string) {
     dialog.showModal();
   }
 }
+export function getKeyDescription(key: string, divisio: string) {
+  switch (key) {
+    case "classificacio":
+    case "resultats":
+      return capitalizeWords(divisio) ;
+    case "classificacioA1":
+      return "A1";
+    case "resultatsFaseRegularA1":
+      return "Fase Regular A1";
+    case "resultatsPrimeraFaseA1":
+      return "Primera Fase A1";
+    case "resultatsPlayoffsQuarts":
+      return "Playoffs Quarts";
+    case "classificacioA2":
+      return "A2";
+    case "resultatsFaseRegularA2":
+      return "Fase Regular A2";
+    case "resultatsPrimeraFaseA2":
+      return "Primera Fase A2";
+    case "classificacioAscens":
+    case "resultatsAscens":
+      return "Ascens";
+    case "classificacioFinalTemporada":
+      return "Final Temporada";
+    case "classificacioGrupPar":
+    case "resultatsFaseRegularGrupPar":
+    case "resultatsLligaRegularGrupPare":
+      return "Grup Par";
+    case "classificacioGrupSenar":
+    case "resultatsFaseRegularGrupSena":
+      return "Grup Senar";
+    case "classificacioLligaRegular":
+    case "resultatsLligaRegular":
+      return "Lliga Regular";
+    case "resultatsFaseRegular":
+      return "Fase Regular";
+    case "classificacioTemporadaRegular":
+    case "resultatsTemporadaRegular":
+      return "Temporada Regular";
+    case "classificacioLligaRegularGrup":
+    case "resultatsFaseRegularGrup":
+      return "Lliga Regular Grup";
+    case "classificacioPlayout":
+    case "resultatsPlayout":
+      return "Playout";
+    case "resultatsPlayoffsPermanencia":
+      return "Playoffs Permanencia";
+    case "classificacioPrimeraFaseA1":
+      return "Primera Fase A1";
+    case "classificacioSegonaFaseGrup1":
+    case "resultatsSegonaFaseGrup1":
+      return "Segona Fase Grup 1";
+    default:
+      return "Unknown";
+  }
+}
+
+export function capitalizeWords(str: string) {
+  // Convert the entire string to lowercase first
+  const lowerStr = str.toLowerCase();
+
+  // Split the string into words based on spaces
+  const words = lowerStr.split(" ");
+
+  // Capitalize the first letter of each word
+  for (let i = 0; i < words.length; i++) {
+    if (words[i] !== "") {
+      words[i] = words[i][0].toUpperCase() + words[i].slice(1);
+    }
+  }
+
+  // Join the words back into a string with spaces
+  return words.join(" ");
+}

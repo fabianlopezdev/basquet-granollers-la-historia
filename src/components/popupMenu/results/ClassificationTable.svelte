@@ -1,11 +1,13 @@
 <script>
+  import {getKeyDescription } from "../../../utils/helperFunctions"
   export let classificacio;
   export let competition;
+  export let key;
 
   console.log('classificacio', classificacio);
 </script>
 
-<h3>Classificació {competition}</h3>
+<h3>Classificació {getKeyDescription(key, competition)}</h3>
 <table class="g-table">
   <tbody class="g-body-table">
     <tr class="table-header">

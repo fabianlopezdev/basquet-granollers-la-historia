@@ -6,20 +6,17 @@
   import PlayerCard from "./players/PlayerCard.svelte";
   import ResultsTable from "./results/ResultsTable.svelte";
   import ClassificationTable from "./results/ClassificationTable.svelte";
-
   import ArticleLayuout from "@components/ArticleLayuout.svelte";
 
   export let season;
-
-  const { stats, social, years} = season;
-
-  const {jugadors, resultats, classificacio, divisio} = stats;
-
+  
+  const { stats, social, years } = season;
+  const { divisio,jugadors, entrenadors } = stats;
+  const normalizedDivisioKey = Object.keys(divisio[0]);
+  const lliga = normalizedDivisioKey ? divisio[0][normalizedDivisioKey] : '';
   const yearsArr = years.split('/');
 
 
-
-  // console.timeLog('season', seson);
   function handleEscape(e) {
     if (e.key === "Escape") {
       if ($display === "relats") return;
@@ -29,20 +26,22 @@
 </script>
 
 <svelte:window on:keydown={handleEscape} />
-<section
-  class="more-info-menu"
-  style={$display === "resultats" && "background-color: #F3F3F3"}
-  in:slide={{ duration: 300, axis: "x" }}
->
+
+<section class="more-info-menu" style={$display === "resultats" && "background-color: #F3F3F3"} in:slide={{ duration: 300, axis: "x" }}>
   <header class="menu-header">
     <h2>
-      <span style="color: var(--clr-accent)"
-        >{$display === 'resultats' ? `${upperCaseFirstLetter($display)} i Classificació`: upperCaseFirstLetter($display)}</span
-      >
+      <span style="color: var(--clr-accent)">
+        {$display === 'resultats' ? `${upperCaseFirstLetter($display)} i Classificació`: upperCaseFirstLetter($display)}
+      </span>
       Temporada {season.years}
     </h2>
-    <button on:click={() => display.set("relats")}><svg xmlns="http://www.w3.org/2000/svg" width="51" height="51" viewBox="0 0 51 51" fill="none"> <path d="M13.5781 36.7332L36.7331 13.5782" stroke="white" stroke-width="3" stroke-linecap="round"/> <path d="M36.7319 36.7332L13.5769 13.5782" stroke="white" stroke-width="3" stroke-linecap="round"/> <circle cx="25.5" cy="25.5002" r="24.5" stroke="white" stroke-width="2"/> </svg></button
-    >
+    <button on:click={() => display.set("relats")}>
+      <svg xmlns="http://www.w3.org/2000/svg" width="51" height="51" viewBox="0 0 51 51" fill="none">
+        <path d="M13.5781 36.7332L36.7331 13.5782" stroke="white" stroke-width="3" stroke-linecap="round"/>
+        <path d="M36.7319 36.7332L13.5769 13.5782" stroke="white" stroke-width="3" stroke-linecap="round"/>
+        <circle cx="25.5" cy="25.5002" r="24.5" stroke="white" stroke-width="2"/>
+      </svg>
+    </button>
   </header>
   <div class="menu-container">
     {#if $display === "jugadors"}
@@ -52,33 +51,27 @@
         {/each}
       </ul>
     {:else if $display === "resultats"}
-    <div  class='descarrega-button'>
-
-      <a href={`https://historiabasquetgranollers.cat/data/stats/19${yearsArr[0]}-${yearsArr[1]}_stats.xlsx`} target='_blank'>
-        DESCARREGAR
-      </a>
-    </div>
-  <div class='table-wrapper'>
-
-    <div>
-      <ResultsTable {resultats} competition={divisio[0].lliga ? divisio[0].lliga : divisio[0]['Divisió'] ? divisio[0]['Divisió'] :''} />
-        </div>
-        {#if season.stats.resultatsCopaDelRey !== undefined}
-        <div>
-          <ResultsTable resultats={season.stats.resultatsCopaDelRey} competition={'Copa del Rey'} />
-        </div>
-        {/if}
-        <div>
-          <ClassificationTable {classificacio} competition={divisio[0].lliga ? divisio[0].lliga : divisio[0]['Divisió'] ? divisio[0]['Divisió'] :''}/>
-        </div>
-        
+      <div class='descarrega-button'>
+        <a href={`https://historiabasquetgranollers.cat/data/stats/19${yearsArr[0]}-${yearsArr[1]}_stats.xlsx`} target='_blank'>
+          DESCARREGAR
+        </a>
       </div>
-    
-      {:else if $display === "social"}
+      <div class='table-wrapper'>
+        {#each Object.keys(stats) as key}
+          {#if key.startsWith('classificacio') && stats[key] !== undefined}
+            <div>
+              <ClassificationTable classificacio={stats[key]} competition={lliga} {key}/>
+            </div>
+          {:else if key.startsWith('resultats') && stats[key] !== undefined}
+            <div>
+              <ResultsTable resultats={stats[key]} competition={lliga} {key} />
+            </div>
+          {/if}
+        {/each}
+      </div>
+    {:else if $display === "social"}
       <ArticleLayuout text={social} title={`Te'n recordes 19${years.split('/')[0].toString()}?`}/>
-      <!-- <Social {social} year={years.split('/')[0].toString()}/> -->
-      {/if}
-      
+    {/if}
   </div>
 </section>
 

@@ -3,9 +3,13 @@ import XLSX from "xlsx";
 import path from "path";
 import { fileURLToPath } from "url";
 
+import { capitalizeWords } from "../utils/helperFunctions";
+
 function removeAccents(str) {
   return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 }
+
+
 
 export const getSeasonStats = (season) => {
   const __filename = fileURLToPath(import.meta.url);
@@ -293,7 +297,7 @@ export const getSeasonStats = (season) => {
     ...(classificacioTemporadaRegular !== undefined && {
       classificacioTemporadaRegular,
     }),
-    ...(divisio !== undefined && { divisio }),
+    ...(divisio !== undefined && {divisio }),
     ...(entrenadors !== undefined && { entrenadors }),
     ...(jugadors !== undefined && { jugadors }),
     ...(resultats !== undefined && { resultats }),

@@ -1,7 +1,11 @@
 <script>
+  import {getKeyDescription } from "../../../utils/helperFunctions"
+
   export let resultats;
   export let competition;
+  export let key;
 
+  console.log('competition', competition);
 
   function formatExcelDate(serial) {
     const excelEpoch = new Date(1899, 11, 30); // Excel's base date is December 30, 1899
@@ -20,7 +24,7 @@
 }
 </script>
 
-<h3>Resultats {competition}</h3>
+<h3>Resultats {getKeyDescription(key, competition)}</h3>
 <table class="g-table">
   <tbody class="g-body-table">
     {#each resultats as resultat}
