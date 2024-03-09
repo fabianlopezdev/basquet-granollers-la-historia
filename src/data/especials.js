@@ -13,7 +13,7 @@ const __dirname = path.dirname(__filename);
 // const folderPath = path.join(__dirname, `../../public/especials`);
 
 //PRODUCTION PATH
-const folderPath = path.join(__dirname, "../estadistiques");
+const folderPath = path.join(__dirname, "../especials");
 
 // Read the directory contents
 const files = fs.readdirSync(folderPath);
