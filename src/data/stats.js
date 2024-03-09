@@ -4,10 +4,8 @@ import path from "path";
 import { fileURLToPath } from "url";
 
 import { capitalizeWords } from "../utils/helperFunctions";
+import { removeAccents } from "../utils/helperFunctions";
 
-function removeAccents(str) {
-  return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-}
 
 export const getSeasonStats = (season) => {
   const __filename = fileURLToPath(import.meta.url);

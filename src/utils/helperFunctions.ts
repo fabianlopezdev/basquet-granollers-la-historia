@@ -207,3 +207,6 @@ export function capitalizeWords(str: string) {
   // Join the words back into a string with spaces
   return words.join(" ");
 }
+export function removeAccents(str: string) {
+  return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}

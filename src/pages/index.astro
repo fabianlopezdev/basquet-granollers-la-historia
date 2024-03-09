@@ -12,7 +12,7 @@ import { getSeasonsCount } from "@data/seasonsCount";
 import { getSeasonSocial } from "@data/social";
 import { SEASONS_LAYOUT } from "@data/globalConstants";
 import { getJugadorsImagesListNames } from "@data/images.js";
-
+import {removeAccents} from "../utils/helperFunctions";
 function capitalizeWords(str: string) {
   // Convert the entire string to lowercase first
   const lowerStr = str.toLowerCase();
@@ -45,6 +45,7 @@ async function getSeasonsData(firstSeason: number, seasonsCount: number) {
   for (let i = 0; i < seasonsCount; i++) {
     const season = {
       years: `${currentSeason}/${currentSeason + 1}`,
+      yearsLong: `19${currentSeason}-${currentSeason + 1}`,
       stats: getSeasonStats(`19${currentSeason}-${currentSeason + 1}`),
       relat: {
         content: await getSeasonRelat(
@@ -77,11 +78,12 @@ seasons.forEach((season) => {
     jugador.jugador = capitalizeWords(jugador.jugador);
 
     const words = jugador.jugador.split(" ");
+
     // Select the second word if it exists, otherwise use the first word
-    const nameToCheck = words.length > 1 ? words[1] : words[0];
+    const nameToCheck = words.length ? `${season.yearsLong} ${words[0]} ${words[1] !=='M.ª' ? words[1] : 'M.' }` : "";
 
     const jugadorImage = listJugadorsImages.find((image) =>
-      image.includes(nameToCheck),
+      image.includes(removeAccents(nameToCheck)),
     );
 
     jugador.image = jugadorImage; // Correctly assign the found image to the jugador.image property.
@@ -95,4 +97,4 @@ seasons.forEach((season) => {
   <Hero />
   <Seasons client:only {seasons} totalSeasons={seasonsCount} {listOfSeasons} />
 </BaseLayout>
-@data/jugadorsImages@data/stats
+

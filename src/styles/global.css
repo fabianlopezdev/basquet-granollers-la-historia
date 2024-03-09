@@ -33,7 +33,7 @@
 
   --wd-logo: 16rem;
   --hg-logo: 3.19rem;
-  
+
   --hg-separator-line: 0.5625rem;
   --hg-separator-line-responsive: 0.3125rem;
   --hg-header: clamp(5rem, 0.429rem + 10.448vh, 6.313rem);
@@ -105,6 +105,7 @@ body {
   line-height: var(--line-hg-regular);
   color: var(--clr-contrast);
 }
+
 
 img {
   max-width: 100%;

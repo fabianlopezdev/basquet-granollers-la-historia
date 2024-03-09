@@ -1,0 +1,93 @@
+---
+
+const { title, author} = Astro.props;
+---
+
+ <article class="especials-box">
+            <div class="image-container">
+              <img
+                src=''
+                alt=""
+                loading="eager"
+              />
+            </div>
+            <div class="info-container">
+              <h3 class="article-name">{title}</h3>
+              <p class="position">
+                {author}
+              </p>
+            </div>
+          </article>
+
+
+<style>
+  .especials-box {
+    width: 37.0625rem;
+    height: 28.0625rem;
+    color: var(--clr-contrast);
+  }
+  .article-name {
+    color: var(--clr-contrast);
+    font-size: 1.25rem;
+    font-weight: 500;
+  }
+
+  .position {
+    font-size: 0.78rem;
+  }
+ 
+  .player {
+    height: 27.31rem;
+    width: 17.875rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* justify-content: center; */
+  }
+
+  .image-container {
+    height: 85%;
+    width: 100%;
+    background-color: #d9d9d9;
+    overflow: hidden;
+  }
+
+  .image-container img {
+    width: 100%;
+    object-fit: cover;
+    margin: auto;
+  }
+
+  .info-container {
+    width: 100%;
+    height: 15%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    background-color: var(--clr-primary);
+    color: var(--clr-contrast);
+  }
+
+  @media (max-width: 1025px) {
+    .equips-page {
+      padding-inline: var(--pd-x-medium);
+      padding-block: var(--pd-y-medium);
+    }
+    .especials-box {
+      width: 21.625rem;
+      height: 33.03225rem;
+    }
+  }
+
+  @media (max-width: 648px) {
+ 
+
+    .especials-box {
+      width: 20.4375rem;
+      height: 31.21838rem;
+    }
+  }
+
+</style>
