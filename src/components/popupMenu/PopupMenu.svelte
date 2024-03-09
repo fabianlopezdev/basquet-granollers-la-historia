@@ -52,7 +52,7 @@
       </ul>
     {:else if $display === "resultats"}
       <div class='descarrega-button'>
-        <a href={`https://historiabasquetgranollers.cat/data/stats/19${yearsArr[0]}-${yearsArr[1]}_stats.xlsx`} target='_blank'>
+        <a href={`https://historiabasquetgranollers.cat/estadistiques/19${yearsArr[0]}-${yearsArr[1]}_stats.xlsx`} target='_blank'>
           DESCARREGAR
         </a>
       </div>
