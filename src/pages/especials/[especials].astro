@@ -2,13 +2,13 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import ArticleLayuout from "../../components/ArticleLayuout.svelte";
 import { getEspecials } from "../../data/especials";
-import { slugify } from "../../utils/helperFunctions";
+
 
 export async function getStaticPaths() {
   const especials = await getEspecials();
   return especials.map((especial) => {
     return {
-      params: { especials: slugify(especial.title) },
+      params: { especials: especial.slug },
       props: {
         title: especial.title,
         htmlValues: especial.htmlValues,

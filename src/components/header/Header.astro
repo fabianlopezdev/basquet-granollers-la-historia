@@ -9,6 +9,7 @@ import HeaderResponsive from "./HeaderResponsive.svelte";
 // import DropDownMenu from '@components/header/DropDownMenu.astro';
 import DropDownMenu from "./DropDownMenu.svelte";
 
+
 const { listOfSeasons } = Astro.props;
 
 const headerSponsors = [
@@ -70,10 +71,12 @@ const headerNavigation = [
   <section>
 
     <div class="logos">
-      <CbgHistoryLogo
+      <a href="/">
+        <CbgHistoryLogo
         wd="221"
         title="Logo de La Història del Bàsquet a Granollers"
-      />
+        />
+      </a>
       <span class="logos-separator-line"></span>
       <a href="https://cbgranollers.cat/" target="_blank"
         ><CbgLogo wd="34.88" title="Logo del Club Bàsquet Granollers" /></a

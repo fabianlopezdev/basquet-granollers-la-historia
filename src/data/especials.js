@@ -3,6 +3,7 @@ import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 import mammoth from "mammoth";
+import {slugify} from "../utils/helperFunctions"
 
 // When using ES modules, __dirname is not defined, so we define it manually
 const __filename = fileURLToPath(import.meta.url);
@@ -37,6 +38,7 @@ const especials = await Promise.all(
       title: title,
       author: "Jordi Sanuy Bassa",
       htmlValues: htmlValues.value,
+      slug: slugify(title),
     };
   }),
 );

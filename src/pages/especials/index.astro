@@ -3,7 +3,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import { getSeasonsCount } from "@data/seasonsCount";
 import EspecialsItem from "@components/EspecialsItem.astro";
 import { getEspecials } from "@data/especials";
-import { slugify } from "@utils/helperFunctions";
+
 
 const especials = await getEspecials();
 const { listOfSeasons } = getSeasonsCount();
@@ -19,7 +19,7 @@ const { listOfSeasons } = getSeasonsCount();
     </div>
     <div class="especials-container">
       {especials.map((especial)=> {
-        return <EspecialsItem title={especial.title} author={especial.author} href={`especials/${slugify(especial.title)}`} />
+        return <EspecialsItem title={especial.title} author={especial.author} href={`${especial.slug}`} />
       })}
     </div>
   </section>

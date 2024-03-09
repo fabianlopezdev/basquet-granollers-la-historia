@@ -4,10 +4,14 @@
   export let author;
 </script>
 
-<div class='social-container'>
+<div class='social-container' class:article-page={author !== undefined}>
   <article>
     <header class='article-header'>
-        <h2>{title}</h2>
+      {#if author !== undefined}
+      <h1 class='title'>{title}</h1>
+      {:else}
+      <h2 class='title'>{title}</h2>
+      {/if}
         <!-- {#if image !== undefined && image.url}
           <img src={image.url} alt={image.alt && image.alt} />
           {/if} -->
@@ -27,6 +31,10 @@
 </div>
 
 <style>
+  .article-page {
+    margin-top: calc(var(--hg-header) + var(--hg-separator-line));
+    margin-inline: auto;
+  }
   .social-container {
     /* padding-inline: var(--pd-x); */
     color: var(--clr-primary);
@@ -40,31 +48,12 @@
     opacity: 0.5;
   transition: opacity 0.3s;
   }
-  h1 { 
+  .title { 
     font-size: 2.75rem;
     font-weight: var(--fnt-wg-medium);
+    line-height: 1.1;
   }
  
-
-  /* .article-header-text {
-    color: var(--clr-contrast);
-    position: relative;
-    padding-inline: var(--pd-x-internal-page);
-    padding-block: 2rem;
-    min-height: 19.0625rem;
-    z-index: 2;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    text-align: center;
-    justify-content: center;
-    text-wrap: balance;
-    gap: 2.62rem;
-    max-width: 1206px;
-    margin: auto;
-  } */
-
   .article-content {
     padding-top: 2rem;
     display: flex;
