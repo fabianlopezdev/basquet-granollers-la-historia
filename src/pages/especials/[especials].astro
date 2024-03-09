@@ -1,0 +1,30 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ArticleLayuout from "../../components/ArticleLayuout.svelte";
+import { getEspecials } from "../../data/especials";
+import { slugify } from "../../utils/helperFunctions";
+
+export async function getStaticPaths() {
+  const especials = await getEspecials();
+  return especials.map((especial) => {
+    return {
+      params: { especials: slugify(especial.title) },
+      props: {
+        title: especial.title,
+        htmlValues: especial.htmlValues,
+        author: especial.author,
+      },
+    };
+  });
+}
+
+const especial = Astro.props;
+---
+
+<BaseLayout>
+  <ArticleLayuout
+    text={especial.htmlValues}
+    title={especial.title}
+    author={especial.author}
+  />
+</BaseLayout>

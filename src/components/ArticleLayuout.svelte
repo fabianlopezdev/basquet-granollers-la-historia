@@ -1,6 +1,7 @@
 <script>
   export let text;
   export let title;
+  export let author;
 </script>
 
 <div class='social-container'>
@@ -12,7 +13,14 @@
           {/if} -->
         </header>
     <div class='article-content'>
+      {#if author !== undefined}
+      <p><i>{author}</i></p>
+      {/if}
+       {#if text.html}
        {@html text.html}
+       {:else}
+        {@html text}
+        {/if}
     </div>
   </article>
   

@@ -210,3 +210,14 @@ export function capitalizeWords(str: string) {
 export function removeAccents(str: string) {
   return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 }
+
+export function slugify(text: string) {
+  return text
+    .toString()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9 ]/g, "")
+    .replace(/\s+/g, "-");
+}
