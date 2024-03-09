@@ -54,7 +54,7 @@
     {:else if $display === "resultats"}
       <div class='descarrega-button'>
         <a href={`https://historiabasquetgranollers.cat/estadistiques/19${yearsArr[0]}-${yearsArr[1]}_stats.xlsx`} target='_blank'>
-          DESCARREGAR
+          MÉS INFORMACIÓ
         </a>
       </div>
       <div class='table-wrapper'>
@@ -79,11 +79,7 @@
 <style>
   h2 {
     font-size: 0.875rem;
-    font-size: clamp(
-      0.875rem,
-      0.09093637454982006rem + 2.641056422569027vw,
-      2.25rem
-    );
+    font-size: clamp(0.875rem, 0.5rem + 1.6vw, 1.9rem);
     font-weight: var(--fnt-wg-regular);
   }
   
@@ -96,7 +92,7 @@ width: clamp(1.5625rem, 0.6358793517406963rem + 3.12124849939976vw, 3.1875rem);
     --mg-left-top-header: 1rem;
     position: absolute;
     min-height: 100%;
-    width: 100%;
+  width: 100vw;
     margin: 0;
     background-color: var(--clr-contrast);
     z-index: 10;
@@ -129,9 +125,10 @@ width: clamp(1.5625rem, 0.6358793517406963rem + 3.12124849939976vw, 3.1875rem);
   .players-container {
     display: flex;
     flex-wrap: wrap;
-    gap: 2rem;
+    gap: 1rem;
     justify-content: center;
     width: 100%;
+    padding-block: 2rem;
   }
 
   .table-wrapper {

@@ -2,6 +2,8 @@
   export let text;
   export let title;
   export let author;
+  export let image;
+  console.log(image)
 </script>
 
 <div class='social-container' class:article-page={author !== undefined}>
@@ -13,18 +15,21 @@
         {:else}
         <h2 class='title'>{title}</h2>
         {/if}
-        {#if text.image} 
-          <img src={text.image} alt='' />
+        {#if text.image || image !== undefined} 
+          <img src={text.image || image} alt='' />
           {/if}
       </header>
       {#if author !== undefined}
       <p><i>{author}</i></p>
       {/if}
-       {#if text.html}
-       {@html text.html}
-       {:else}
+      <div class='text'>
+
+        {#if text.html}
+        {@html text.html}
+        {:else}
         {@html text}
         {/if}
+      </div>
     </div>
   </article>
   
@@ -61,8 +66,12 @@
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-    text-align: justify;
     margin: auto;
+  }
+  
+  .text {
+    
+    text-align: justify;
   }
 
   .article-content img {

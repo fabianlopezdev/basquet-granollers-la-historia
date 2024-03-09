@@ -6,7 +6,7 @@ import { getEspecials } from "@data/especials";
 
 
 const especials = await getEspecials();
-const { listOfSeasons } = getSeasonsCount();
+
 
 
 ---
@@ -14,33 +14,38 @@ const { listOfSeasons } = getSeasonsCount();
 <BaseLayout >
   <section>
     <div class="headings-container">
-      <h1>Especials</h1>
-      <h2>Articles especials</h2>
+      <h1>Articles especials</h1>
     </div>
     <div class="especials-container">
       {especials.map((especial)=> {
-        return <EspecialsItem title={especial.title} author={especial.author} href={`${especial.slug}`} />
+        return <EspecialsItem title={especial.title} author={especial.author} href={`${especial.slug}`} image={especial.image} />
       })}
     </div>
   </section>
 </BaseLayout>
 
 <style>
-  .especials-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    justify-content: center;
-  }
   section {
-    /* height: calc(100vh - var(--hg-header)); */
-    margin-top: calc(var(--hg-header) + var(--hg-separator-line));
+    --marginTop: calc(var(--hg-header) + var(--hg-separator-line));
+    --hg-headings-container: 6.37rem;
+      margin-top: var(--marginTop);
 
     /* padding-inline: var(--pd-x); */
     /* padding-block: 2.5rem; */
     max-width: 1308px;
     margin-inline: auto;
   }
+  .especials-container {
+    /* min-height: calc(100vh - var(--marginTop) - var(--hg-headings-container)); */
+  display: flex;
+  flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+    align-items: center;
+    padding-block: 2rem;
+   
+  }
+
 
   .headings-container {
     display: flex;
@@ -53,11 +58,9 @@ const { listOfSeasons } = getSeasonsCount();
     color: var(--clr-primary);
     font-size: var(--fnt-sz-h1);
     font-weight: var(--fnt-wg-medium);
-  }
-
-  h2 {
     color: var(--clr-accent);
   }
+
 
   @media (max-width: 1411px) {
     .headings-container {

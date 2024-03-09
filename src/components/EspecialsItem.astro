@@ -1,6 +1,6 @@
 ---
 
-const { title, author, href} = Astro.props;
+const { title, author, href, image} = Astro.props;
 ---
 
 <a href={href}>
@@ -8,7 +8,7 @@ const { title, author, href} = Astro.props;
   <article class="especials-box">
     <div class="image-container">
       <img
-      src=''
+      src={image}
       alt=""
                 loading="eager"
               />
@@ -27,7 +27,7 @@ const { title, author, href} = Astro.props;
  
   .especials-box {
     width: 29rem;
-    height: 17rem;
+    height: 18rem;
     color: var(--clr-contrast);
   }
   .article-name {
@@ -59,7 +59,9 @@ const { title, author, href} = Astro.props;
 
   .image-container img {
     width: 100%;
+    height: 100%;
     object-fit: cover;
+    object-position: top;
     margin: auto;
   }
 

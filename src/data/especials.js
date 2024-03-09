@@ -20,14 +20,15 @@ const files = fs.readdirSync(folderPath);
 
 export async function getEspecials() {
 const especials = await Promise.all(
-  files.map(async (file) => {
-    let strQMark = file.replace('Pregunta', '?')
+  files.map(async (file, i) => {
+    let strQMark = file.replace("Pregunta", "?");
     let strNoAuthor = strQMark.replace("Jordi_Sanuy_Bassa", "");
 
     // Replace ".docx" with an empty string
     let strNoExtension = strNoAuthor.replace(".docx", "");
-
-    let title = strNoExtension.split("_").join(" ");
+    // Remove leading number (1-99) and underscore
+    let modifiedFilename = strNoExtension.replace(/^\d{1,2}_(.*)/, "$1");
+    let title = modifiedFilename.split("_").join(" ");
 
     const htmlValues = await mammoth.convertToHtml({
       path: `${folderPath}/${file}`,
@@ -38,6 +39,7 @@ const especials = await Promise.all(
       author: "Jordi Sanuy Bassa",
       htmlValues: htmlValues.value,
       slug: slugify(title),
+      image: `/imatges/especials/Article_${i+1}.webp`,
     };
   }),
 );

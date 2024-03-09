@@ -13,6 +13,7 @@ export async function getStaticPaths() {
         title: especial.title,
         htmlValues: especial.htmlValues,
         author: especial.author,
+        image: especial.image,
       },
     };
   });
@@ -26,5 +27,6 @@ const especial = Astro.props;
     text={especial.htmlValues}
     title={especial.title}
     author={especial.author}
+    image={especial.image}
   />
 </BaseLayout>

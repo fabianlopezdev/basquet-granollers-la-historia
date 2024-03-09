@@ -43,8 +43,9 @@ const headerNavigation = [
     link: "/especials",
   },
   {
-    name: "Videos",
-    link: "",
+    name: "Canal YouTube",
+    link: "https://www.youtube.com/@HistoriadelBasquetaGranollers",
+    target: "_blank",
   },
   // { name: 'especials', link: '/la-historia/especials' },
 ];
@@ -93,7 +94,7 @@ const headerNavigation = [
               {item.dropdown ? (
                 <DropDownMenu {item} client:only />
               ) : (
-                <a href={item.link}>{item.name.toUpperCase()}</a>
+                <a href={item.link} target={item.target || ""}>{item.name.toUpperCase()}</a>
               )}
             </li>
           ))

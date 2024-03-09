@@ -48,6 +48,7 @@ function darkenColor(color, amount) {
     border: none;
     width: 80%;
     text-align: justify;
+    font-size: 1rem;
     
   }
 

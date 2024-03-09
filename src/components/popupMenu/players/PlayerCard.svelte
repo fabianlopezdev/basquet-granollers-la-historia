@@ -1,7 +1,7 @@
 <script>
    export let jugador;
 
-   console.log('jugador', jugador);
+ 
 
    function capitalizeWords(str) {
   // Convert the entire string to lowercase first

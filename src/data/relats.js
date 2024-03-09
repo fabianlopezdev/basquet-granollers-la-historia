@@ -6,13 +6,13 @@ export async function getSeasonRelat(season) {
   const __filename = fileURLToPath(import.meta.url);
   const __dirname = path.dirname(__filename);
 
-   //DEV PATH
+  //DEV PATH
   // const filePath = path.join(
   //   __dirname,
   //   `../../public/relats/${season}_relat.docx`,
   // );
 
-   //PRODUCTION PATH
+  //PRODUCTION PATH
   const relatsFolderPath = path.join(__dirname, "../relats");
   const filePath = path.join(relatsFolderPath, `${season}_relat.docx`);
 

@@ -26,7 +26,6 @@
   <button
     aria-haspopup="true"
     aria-expanded={isDropdownExpanded}
-    on:click={handleClick}
     class:rotated={isRotated}
   >
     {item.name.toUpperCase()}
