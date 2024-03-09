@@ -11,7 +11,7 @@ const { listOfSeasons } = getSeasonsCount();
 
 ---
 
-<BaseLayout {listOfSeasons}>
+<BaseLayout >
   <section>
     <div class="headings-container">
       <h1>Especials</h1>
@@ -59,6 +59,11 @@ const { listOfSeasons } = getSeasonsCount();
     color: var(--clr-accent);
   }
 
+  @media (max-width: 1411px) {
+    .headings-container {
+      padding-inline: var(--pd-x);
+    }
+  }
   @media (max-width: 1025px) {
     h1 {
       font-size: 1.625rem;
@@ -72,6 +77,8 @@ const { listOfSeasons } = getSeasonsCount();
     .headings-container {
       gap: 0.75rem;
       padding-bottom: var(--pd-y-medium);
+      padding-inline: var(--pd-x);
+
     }
   }
 
@@ -79,6 +86,8 @@ const { listOfSeasons } = getSeasonsCount();
     .headings-container {
       gap: 0.75rem;
       padding-bottom: var(--pd-y-small);
+      padding-inline: var(--pd-x);
+
     }
   }
 </style>

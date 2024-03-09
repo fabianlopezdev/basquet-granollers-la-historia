@@ -39,7 +39,7 @@
     <ul class="dropdown-content">
       {#each item.dropdown as dropDownItem, i}
         <li>
-          <a on:click={() => setCurrentIndex(i)} href="#seasons">
+          <a on:click={() => setCurrentIndex(i)} href="/#seasons">
             {dropDownItem}
           </a>
         </li>

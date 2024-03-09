@@ -15,7 +15,7 @@
         <!-- {#if image !== undefined && image.url}
           <img src={image.url} alt={image.alt && image.alt} />
           {/if} -->
-        </header>
+    </header>
     <div class='article-content'>
       {#if author !== undefined}
       <p><i>{author}</i></p>
@@ -71,6 +71,12 @@
     display: block !important;
   }
 
+  @media (max-width: 1411px) {
+    .article-header {
+      padding-inline: var(--pd-x);
+    }
+  }
+
    @media (max-width: 1181px) {
     .social-container {
       padding-inline: var(--pd-x-medium);
@@ -78,7 +84,7 @@
     /* .article-header {
       margin-inline: calc(var(--pd-x-medium) * -1);
     } */
-    .article-header-text {
+    .article-header {
       padding-inline: var(--pd-x-medium);
     }
 

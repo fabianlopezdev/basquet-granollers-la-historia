@@ -94,7 +94,7 @@ seasons.forEach((season) => {
 
 ---
 
-<BaseLayout {listOfSeasons}>
+<BaseLayout >
   <Hero />
   <Seasons client:only {seasons} totalSeasons={seasonsCount} {listOfSeasons} />
 </BaseLayout>

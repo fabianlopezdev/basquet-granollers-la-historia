@@ -8,9 +8,11 @@ import AjuntamentGranollersLogo from "../../assets/AjuntamentGranollersLogo.astr
 import HeaderResponsive from "./HeaderResponsive.svelte";
 // import DropDownMenu from '@components/header/DropDownMenu.astro';
 import DropDownMenu from "./DropDownMenu.svelte";
+import { getSeasonsCount } from "@data/seasonsCount";
 
 
-const { listOfSeasons } = Astro.props;
+const { listOfSeasons } = getSeasonsCount();
+
 
 const headerSponsors = [
   {
