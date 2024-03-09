@@ -94,10 +94,10 @@
   --sz-timeline-plus-options: calc(var(--bottom-options) + var(--hg-btn));
 }
 
-html {
+/* html {
   scroll-behavior: smooth;
   scroll-snap-type: y proximity;
-}
+} */
 body {
   background-color: var(--clr-contrast);
   font-family: "obviously", sans-serif;

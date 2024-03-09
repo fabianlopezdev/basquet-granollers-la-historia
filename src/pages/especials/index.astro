@@ -2,8 +2,21 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { getSeasonsCount } from "@data/seasonsCount";
 import EspecialsItem from "@components/EspecialsItem.astro";
+import { getEspecials } from "@data/especials";
 
+const especials = await getEspecials();
 const { listOfSeasons } = getSeasonsCount();
+
+function slugify(text: string) {
+  return text
+    .toString()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9 ]/g, "")
+    .replace(/\s+/g, "-");
+}
 ---
 
 <BaseLayout {listOfSeasons}>
@@ -13,34 +26,34 @@ const { listOfSeasons } = getSeasonsCount();
       <h2>Articles especials</h2>
     </div>
     <div class="especials-container">
-      <EspecialsItem title={"Ja tenim pavelló"} author={"Jordi Sanuy Bassa"} />
-      <EspecialsItem title={"Venda de la plaça ACB al Girona"} author={"Jordi Sanuy Bassa"} />
-      <EspecialsItem title={"Els camps compren la plaça a Unipublic"} author={"Jordi Sanuy Bassa"} />
-      <EspecialsItem title={"Liquidació del C.B.Granollers"} author={"Jordi Sanuy Bassa"} />
+      {especials.map((especial)=> {
+        return <EspecialsItem title={especial.title} author={especial.author} href={`especials/${slugify(especial.title)}`} />
+      })}
     </div>
   </section>
 </BaseLayout>
 
 <style>
   .especials-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(37.0625rem, 1fr));
-    gap: 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
   }
   section {
-    height: calc(100vh - var(--hg-header));
-    margin-top: calc(var(--hg-header));
-    overflow: hidden;
+    /* height: calc(100vh - var(--hg-header)); */
+    margin-top: calc(var(--hg-header) + var(--hg-separator-line));
+
     /* padding-inline: var(--pd-x); */
-    padding-block: 2.5rem;
+    /* padding-block: 2.5rem; */
     max-width: 1308px;
-    margin: auto;
+    margin-inline: auto;
   }
 
   .headings-container {
     display: flex;
     flex-direction: column;
-    padding-block: var(--pd-y-big);
+    padding-block: var(--pd-y-medium);
     gap: 3rem;
   }
 
