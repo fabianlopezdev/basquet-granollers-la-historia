@@ -71,7 +71,7 @@
         {/each}
       </div>
     {:else if $display === "social"}
-      <ArticleLayuout text={social} title={`Te'n recordes 19${years.split('/')[0].toString()}?`}/>
+      <ArticleLayuout text={social} title={`Te'n recordes del 19${years.split('/')[0].toString()}?`}/>
     {/if}
   </div>
 </section>
