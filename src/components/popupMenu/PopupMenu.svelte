@@ -16,6 +16,7 @@
   const lliga = normalizedDivisioKey ? divisio[0][normalizedDivisioKey] : '';
   const yearsArr = years.split('/');
 
+  console.log('social', social);
 
   function handleEscape(e) {
     if (e.key === "Escape") {

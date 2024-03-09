@@ -13,9 +13,9 @@
         {:else}
         <h2 class='title'>{title}</h2>
         {/if}
-          <!-- {#if image !== undefined && image.url}
-            <img src={image.url} alt={image.alt && image.alt} />
-            {/if} -->
+        {#if text.image} 
+          <img src={text.image} alt='' />
+          {/if}
       </header>
       {#if author !== undefined}
       <p><i>{author}</i></p>

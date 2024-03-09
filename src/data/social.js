@@ -20,5 +20,6 @@ export async function getSeasonSocial(season) {
   const resultText = await mammoth.extractRawText({ path: filePath });
   const html = resultHTML.value;
   const text = resultText.value;
-  return { html, text };
+  const image = `/imatges/social/${season}_social_foto.webp`;
+  return { html, text, image };
 }

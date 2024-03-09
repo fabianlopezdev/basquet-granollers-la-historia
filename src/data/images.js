@@ -24,3 +24,4 @@ export async function getJugadorsImagesListNames() {
     return []; // Return an empty array or null to indicate the error
   }
 }
+
