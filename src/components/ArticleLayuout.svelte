@@ -6,17 +6,17 @@
 
 <div class='social-container' class:article-page={author !== undefined}>
   <article>
-    <header class='article-header'>
-      {#if author !== undefined}
-      <h1 class='title'>{title}</h1>
-      {:else}
-      <h2 class='title'>{title}</h2>
-      {/if}
-        <!-- {#if image !== undefined && image.url}
-          <img src={image.url} alt={image.alt && image.alt} />
-          {/if} -->
-    </header>
     <div class='article-content'>
+      <header class='article-header'>
+        {#if author !== undefined}
+        <h1 class='title'>{title}</h1>
+        {:else}
+        <h2 class='title'>{title}</h2>
+        {/if}
+          <!-- {#if image !== undefined && image.url}
+            <img src={image.url} alt={image.alt && image.alt} />
+            {/if} -->
+      </header>
       {#if author !== undefined}
       <p><i>{author}</i></p>
       {/if}
@@ -52,6 +52,8 @@
     font-size: 2.75rem;
     font-weight: var(--fnt-wg-medium);
     line-height: 1.1;
+    margin: auto;
+    padding-bottom: 3rem;
   }
  
   .article-content {
@@ -71,11 +73,7 @@
     display: block !important;
   }
 
-  @media (max-width: 1411px) {
-    .article-header {
-      padding-inline: var(--pd-x);
-    }
-  }
+  
 
    @media (max-width: 1181px) {
     .social-container {
@@ -84,9 +82,7 @@
     /* .article-header {
       margin-inline: calc(var(--pd-x-medium) * -1);
     } */
-    .article-header {
-      padding-inline: var(--pd-x-medium);
-    }
+   
 
     .article-content {
       padding-inline: calc(6.88rem - var(--pd-x-medium));
@@ -106,10 +102,7 @@
       margin-inline: calc(var(--pd-x-small) * -1);
     } */
 
-    .article-header-text {
-      padding-inline: var(--pd-x-small);
-      gap: 1.38rem;
-    }
+ 
     .article-content {
       padding-inline: calc(var(--pd-x-small) * -1);
     }
