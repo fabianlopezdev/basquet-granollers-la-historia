@@ -44,10 +44,10 @@
     color: var(--clr-primary);
     max-width: 1206px;
   }
-  img {
+  /* img {
     opacity: 0.5;
   transition: opacity 0.3s;
-  }
+  } */
   .title { 
     font-size: 2.75rem;
     font-weight: var(--fnt-wg-medium);
