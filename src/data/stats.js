@@ -12,14 +12,14 @@ export const getSeasonStats = (season) => {
   const __dirname = path.dirname(__filename);
 
   //DEV PATH
-  // const filePath = path.join(
-  //   __dirname,
-  //   `../../public/estadistiques/${season}_stats.xlsx`,
-  // );
+  const filePath = path.join(
+    __dirname,
+    `../../public/estadistiques/${season}_stats.xlsx`,
+  );
 
   //PRODUCTION PATH
-   const relatsFolderPath = path.join(__dirname, "../estadistiques");
-   const filePath = path.join(relatsFolderPath, `${season}_stats.xlsx`);
+  //  const relatsFolderPath = path.join(__dirname, "../estadistiques");
+  //  const filePath = path.join(relatsFolderPath, `${season}_stats.xlsx`);
 
   const workbook = XLSX.readFile(filePath);
 

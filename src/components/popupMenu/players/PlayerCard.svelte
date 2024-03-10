@@ -23,20 +23,32 @@
 }
 
 function formatExcelDate(serial) {
+    if (serial > 1900 && serial < 9999) {
+        return serial.toString();
+    }
+
     const excelEpoch = new Date(1899, 11, 30); // Excel's base date is December 30, 1899
-    const excelEpochAsUnixTimestamp = excelEpoch.getTime();
-    const missingLeapYearDay = 24 * 60 * 60 * 1000;
-    const delta = excelEpochAsUnixTimestamp - missingLeapYearDay;
-    const parsed = new Date(delta + (serial * 86400000)); // 86400000 is the number of milliseconds in one day
-    
-    const parsedDate = [
-      parsed.getDate(),
-        parsed.getMonth() + 1, // getMonth() is zero-based
-        parsed.getFullYear(),
-    ].join('/');
-    
-    return `${parsedDate}`; // or just return parsedDate for the date part
+
+    if (serial >= 60) {
+        serial += 1; // Adjusting for Excel's leap year bug
+    }
+
+    // Subtracting one from the serial number to adjust for the +1 day error
+    serial -= 1;
+
+    const parsed = new Date(excelEpoch.getTime() + (serial * 86400000));
+
+    // Generate the date string using UTC methods to prevent timezone issues
+    const day = ('0' + parsed.getDate()).slice(-2);
+    const month = ('0' + (parsed.getMonth() + 1)).slice(-2);
+    const year = parsed.getFullYear();
+
+    return [day, month, year].join('/');
 }
+
+
+
+
 </script>
 
 {#if jugador.jugador !== 'TOTAL'}
