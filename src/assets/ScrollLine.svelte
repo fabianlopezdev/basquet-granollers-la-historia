@@ -3,6 +3,12 @@
     const target = document.getElementById('seasons'); // Replace with your actual target element's ID
     if (target) {
       target.scrollIntoView();
+
+        window.blur(); 
+      setTimeout(() => {
+          window.scrollTo(0, 1);
+      }, 100); 
+    
     }
   }
 
