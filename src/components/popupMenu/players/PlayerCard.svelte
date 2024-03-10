@@ -47,7 +47,7 @@ function formatExcelDate(serial) {
 }
 
 
-
+const date = formatExcelDate(jugador.data_naix);
 
 </script>
 
@@ -63,7 +63,7 @@ function formatExcelDate(serial) {
     </div>
     <div class="player-details">
       {#if jugador.data_naix !== undefined}
-      <p>Data de naixement <br /><span>{formatExcelDate(jugador.data_naix)}</span></p>
+      <p>{date.length === 4 ? 'Any de naixement' : 'Data de naixement'} <br /><span>{jugador.jugador.includes("David Lee") ? '26/11/1969' : date}</span></p>
       {/if}
       {#if jugador.lloc_naix !== undefined}
 

@@ -81,11 +81,17 @@ seasons.forEach((season) => {
     const words = jugador.jugador.split(" ");
 
     // Select the second word if it exists, otherwise use the first word
-    const nameToCheck = words.length ? `${season.yearsLong} ${words[0]} ${words[1] !=='M.ª' ? words[1] : 'M.' }` : "";
+ const nameToCheck = words.length ? (words[1] ? `${season.yearsLong} ${words[0]} ${(words[1] !== 'M.ª' ? words[1] : 'M.').replace(/ñ/g, 'n')}` : `${season.yearsLong} ${words[0]}`) : "";
+
+
 
     const jugadorImage = listJugadorsImages.find((image) =>
       image.includes(removeAccents(nameToCheck)),
     );
+
+    if (jugador.jugador.includes("Eduardo")) {
+      console.log(jugador.jugador, nameToCheck, jugadorImage);
+    }
 
     jugador.image = jugadorImage; // Correctly assign the found image to the jugador.image property.
   });
