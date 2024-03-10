@@ -1,9 +1,9 @@
 <script>
   function handleButtonClick() {
+    window.scrollTo(0,1)''
     const target = document.getElementById('seasons'); // Replace with your actual target element's ID
     if (target) {
      document.body.focus();
-      target.scrollIntoView();
     }
   }
 
