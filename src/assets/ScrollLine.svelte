@@ -1,32 +1,22 @@
 <script>
   function handleButtonClick() {
-    const target = document.getElementById('seasons'); // Target element to scroll to
-    if (!target) return;
-
-    const targetPosition = target.getBoundingClientRect().top; // Position of target relative to viewport
-    const startPosition = window.pageYOffset; // Current scroll position
-    const distance = targetPosition - 0; // Adjust 0 as needed if you want to offset the final scroll position
-    const duration = 800; // Duration of the scroll animation in milliseconds
-    let start = null;
-
-    function step(timestamp) {
-      if (!start) start = timestamp;
-      const progress = timestamp - start;
-      // Calculate current scroll position using easing function
-      const position = easeInOutCubic(progress, startPosition, distance, duration);
-      window.scrollTo(0, position);
-      if (progress < duration) window.requestAnimationFrame(step);
+    const target = document.getElementById('seasons'); // Replace with your actual target element's ID
+    if (target) {
+      enterFullscreen();
+      target.scrollIntoView();
     }
-
-    window.requestAnimationFrame(step);
   }
 
-  // Easing function for a smooth animation effect
-  function easeInOutCubic(t, b, c, d) {
-    t /= d / 2;
-    if (t < 1) return c / 2 * t * t * t + b;
-    t -= 2;
-    return c / 2 * (t * t * t + 2) + b;
+  function enterFullscreen() {
+    let doc = window.document;
+    let docEl = doc.documentElement;
+
+    let requestFullScreen = docEl.requestFullscreen || docEl.mozRequestFullScreen || docEl.webkitRequestFullScreen || docEl.msRequestFullscreen;
+    let cancelFullScreen = doc.exitFullscreen || doc.mozCancelFullScreen || doc.webkitExitFullscreen || doc.msExitFullscreen;
+
+    if (!doc.fullscreenElement && !doc.mozFullScreenElement && !doc.webkitFullscreenElement && !doc.msFullscreenElement) {
+      requestFullScreen.call(docEl);
+    }
   }
 
 let innerHeight;
