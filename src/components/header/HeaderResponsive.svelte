@@ -1,9 +1,9 @@
-<!-- <script>
+<script>
   import { hamburgerMenuIcon } from "@assets/icons";
   import DropDownAccordion from "./DropDownAccordion.svelte";
   import SponsorsResponsive from "./SponsorsResponsive.svelte";
 
-  export let NAVIGATION;
+  export let headerNavigation;
 
   let isDropDownMenuOpen = false;
 
@@ -33,9 +33,9 @@
     }
   }
 
-</script> -->
+</script> 
 
-<!-- <button
+<button
   class="dropdown-menu-button"
   on:click={() => (isDropDownMenuOpen = !isDropDownMenuOpen)}
 >
@@ -43,19 +43,19 @@
 </button>
 
 <ul class:visible={isDropDownMenuOpen} class="dropdown-menu-content">
-  {#each NAVIGATION as item}
+  {#each headerNavigation as item}
     <li>
       {#if item.dropdown}
-        <DropDownAccordion {item} bind:isDropDownMenuOpen/> -->
-        <!-- {:else if item.link.includes("http")}
+        <DropDownAccordion {item} bind:isDropDownMenuOpen/> 
+        {:else if item.link.includes("http")}
         <a href={item.link} target="_blank" rel="noopener noreferrer">
           <h5>{item.name.toUpperCase()}</h5>
         </a>
       {:else}
         <a href={item.link}>
           <h5>{item.name.toUpperCase()}</h5>
-        </a> -->
-      <!-- {/if}
+        </a> 
+      {/if}
     </li>
   {/each}
 
@@ -105,4 +105,4 @@
       padding-inline: var(--pd-x-small);
     }
   }
-</style> -->
+</style>

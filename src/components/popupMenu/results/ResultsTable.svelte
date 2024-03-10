@@ -54,6 +54,7 @@
     min-width: clamp(3rem, 2.0506329113924053rem + 4.219409282700422vw, 5.5rem);
     background-color: var(--clr-contrast);
     text-align: center;
+    overflow: hidden;
   }
   .team {
     width: 7.1rem;

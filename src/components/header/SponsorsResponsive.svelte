@@ -1,18 +1,20 @@
 <script>
   const headerSponsorsWhite = [
-    {
-      url: `https://cbgranollers.cat/`,
-      src: "/cbg-logo-blanc.svg",
-      alt: "Logo del Club Bàsquet Granolelrs",
-    },
-    {
+    
+  {
       url: `https://finquesvallbona.com/`,
-      src: "/finques-vallbona-logo-blanc.svg",
+      src: "/imatges/sponsors//finques-vallbona-logo-blanc.svg",
       alt: "Logo de Finques Ballbona",
     },
+  {
+      url: `https://votv.cat/`,
+      src: "/imatges/sponsors/votv-logo-blanc.svg",
+      alt: "Logo de Vallès Oriental Televisió",
+    },
+    
     {
       url: `https://www.granollers.cat/`,
-      src: "/ajuntament-granollers-logo-blanc.svg",
+      src: "/imatges/sponsors/ajuntament-granollers-logo-blanc.svg",
       alt: "Logo de l'ajuntament de Granollers",
     },
   ];

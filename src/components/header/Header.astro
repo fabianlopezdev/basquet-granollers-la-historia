@@ -14,24 +14,7 @@ import { getSeasonsCount } from "@data/seasonsCount";
 const { listOfSeasons } = getSeasonsCount();
 
 
-const headerSponsors = [
-  {
-    url: `https://finquesvallbona.com/`,
-    src: "/finques-vallbona-logo.svg",
-    alt: "Logo de Finques Ballbona",
-  },
-  {
-    url: `https://votv.cat/`,
-    src: "/votv-logo.svg",
-    alt: "Logo de Vallès Oriental Televisió",
-  },
 
-  {
-    url: `https://www.granollers.cat/`,
-    src: "/ajuntament-granollers-logo.svg",
-    alt: "Logo de l'ajuntament de Granollers",
-  },
-];
 
 const headerNavigation = [
   {
@@ -125,9 +108,9 @@ const headerNavigation = [
       </li>
     </ul>
 
-    <!-- <div class="responsive">
-      <HeaderResponsive client:only {NAVIGATION} {headerSponsors} />
-    </div> -->
+    <div class="responsive">
+      <HeaderResponsive client:only {headerNavigation} />
+    </div>
   </section>
   </header>
 
