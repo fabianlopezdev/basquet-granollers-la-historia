@@ -5,18 +5,34 @@ import ScrollLine from "@assets/ScrollLine.svelte";
 
 ---
 
+<script>
+ function getMonitorWidth() {
+  // screen.width for total monitor width
+  const totalMonitorWidth = screen.width;
+
+  // window.innerWidth for browser viewport width
+  const viewportWidth = window.innerWidth;
+
+  // console.log("Total Monitor Width:", totalMonitorWidth); 
+  console.log("Amplada Monitor:", viewportWidth); 
+}
+
+getMonitorWidth(); 
+</script>
+
 <section>
   <img
     class='background-hero'
-    src='/history-hero.webp'
+    src='/history-hero.avif'
     alt='Imatge de fons del Club Bàsquet Granollers jugant contra el Real Madrid de bàsquet amb el pavelló ple.'
   />
   <div class="desktop">
     <h2 class="hero-title">VIATJA A TRAVÉS<br> DE LA NOSTRA HISTÒRIA</h2>
+    <p class="foto-copyright">Fotografies cedides per l'Arxiu Municipal de Granollers<br>(Fons Esteve Gironella / Fons Esteve Ferrer / Fons Revista del Vallès)<br>Arxiu Comarcal del Vallès Oriental (Fons Revista Esport Comarcal) <br> i Fons Miquel Àngel Forniés</p>
   </div>
   <div class="responsive">
      <h2 class="hero-title">VIATJA <br>A TRAVÉS DE <br> LA NOSTRA HISTÒRIA</h2>
-  </div>
+    </div>
   <div class='scroll-line'>
     <ScrollLine client:only/>
   </div>
@@ -25,6 +41,15 @@ import ScrollLine from "@assets/ScrollLine.svelte";
 
 
 <style>
+  .foto-copyright {
+    position: absolute;
+    bottom: 1rem;
+    left: 2rem;
+    font-size: 0.75rem;
+    background-color: rgba(0, 0, 0, 0.3);
+    text-outline: 2px solid black;
+    
+  }
   .responsive {
     display: none;
   }
@@ -64,6 +89,12 @@ import ScrollLine from "@assets/ScrollLine.svelte";
     display: flex;
     flex-direction: column;
     align-items: center;
+  }
+
+   @media (max-width: 1016px) {
+    .foto-copyright {
+      display: none;
+    }
   }
 
   @media (max-width: 648px) {
