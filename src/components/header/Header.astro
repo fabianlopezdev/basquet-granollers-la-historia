@@ -10,11 +10,7 @@ import HeaderResponsive from "./HeaderResponsive.svelte";
 import DropDownMenu from "./DropDownMenu.svelte";
 import { getSeasonsCount } from "@data/seasonsCount";
 
-
 const { listOfSeasons } = getSeasonsCount();
-
-
-
 
 const headerNavigation = [
   {
@@ -55,18 +51,19 @@ const headerNavigation = [
 
 <header>
   <section>
-
     <div class="logos">
       <a href="/">
         <CbgHistoryLogo
-        wd="221"
-        title="Logo de La Història del Bàsquet a Granollers"
+          wd="221"
+          title="Logo de La Història del Bàsquet a Granollers"
         />
       </a>
-      <span class="logos-separator-line"></span>
-      <a href="https://cbgranollers.cat/" target="_blank"
+      <div class="cbg-logo">
+        <span class="logos-separator-line"></span>
+        <a href="https://cbgranollers.cat/"  target="_blank"
         ><CbgLogo wd="34.88" title="Logo del Club Bàsquet Granollers" /></a
-      >
+        >
+      </div>
     </div>
 
     <nav class="nav-container">
@@ -77,7 +74,9 @@ const headerNavigation = [
               {item.dropdown ? (
                 <DropDownMenu {item} client:only />
               ) : (
-                <a href={item.link} target={item.target || ""}>{item.name.toUpperCase()}</a>
+                <a href={item.link} target={item.target || ""}>
+                  {item.name.toUpperCase()}
+                </a>
               )}
             </li>
           ))
@@ -112,7 +111,7 @@ const headerNavigation = [
       <HeaderResponsive client:only {headerNavigation} />
     </div>
   </section>
-  </header>
+</header>
 
 <style>
   header {
@@ -122,11 +121,11 @@ const headerNavigation = [
     height: var(--hg-header);
     background-color: var(--clr-contrast);
     background-color: rgba(243, 243, 243, 0.9);
-  
+
     z-index: 10;
     transition: top 0.3s ease-in-out;
   }
-  
+
   header:after {
     content: "";
     position: absolute;
@@ -135,14 +134,14 @@ const headerNavigation = [
     ); /* move it outside the header */
     height: var(--hg-separator-line);
     width: 100%;
-    
+
     background: linear-gradient(
       90deg,
       var(--clr-accent) 35.36%,
       var(--clr-primary) 68.89%
     );
   }
-  
+
   section {
     display: flex;
     justify-content: space-between;
@@ -150,9 +149,7 @@ const headerNavigation = [
     align-items: center;
   }
 
-
   section {
-    
   }
   .responsive {
     display: none;
@@ -205,6 +202,13 @@ const headerNavigation = [
   }
 
   @media (max-width: 1096px) {
+    .cbg-logo {
+      display: none;
+    }
+    section {
+      padding-inline: var(--pd-x-medium);
+    }
+
     header:after {
       bottom: calc(-1 * var(--hg-separator-line-responsive));
       height: var(--hg-separator-line-responsive);
@@ -226,6 +230,9 @@ const headerNavigation = [
   }
 
   @media (max-width: 648px) {
+    section {
+      padding-inline: var(--pd-x-small);
+    }
     .logos {
       left: var(--pd-x-small);
       width: 13rem;

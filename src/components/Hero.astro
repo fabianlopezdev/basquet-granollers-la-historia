@@ -31,14 +31,16 @@ getMonitorWidth();
   <div class="desktop">
     <h2 class="hero-title">VIATJA A TRAVÉS<br> DE LA NOSTRA HISTÒRIA</h2>
     <p class="foto-copyright text">Fotografies cedides per l'Arxiu Municipal de Granollers<br>(Fons Esteve Gironella / Fons Esteve Ferrer / Fons Revista del Vallès)<br>Arxiu Comarcal del Vallès Oriental (Fons Revista Esport Comarcal) <br> i Fons Miquel Àngel Forniés</p>
-    <p class='foto-author text'>Foto: M.A. Forniés</p>
+    <!-- <p class='foto-author text'>Foto: M.A. Forniés</p> -->
   </div>
   <div class="responsive">
      <h2 class="hero-title">VIATJA <br>A TRAVÉS DE <br> LA NOSTRA HISTÒRIA</h2>
+     
     </div>
-  <div class='scroll-line'>
-    <ScrollLine client:only/>
-  </div>
+    <div class='scroll-line'>
+      <ScrollLine client:only/>
+    </div>
+    <p class='foto-author text'>Foto: M.A. Forniés</p>
 </section>
 
 
@@ -62,7 +64,10 @@ getMonitorWidth();
     bottom: 1rem;
     right: 2rem;
     font-size: 0.75rem;
+    width: fit-content;
   }
+
+
   .responsive {
     display: none;
   }
@@ -127,6 +132,11 @@ getMonitorWidth();
       font-size: 0.875rem;
       width: 100%;
       text-align: center;
+    }
+
+    .foto-author {
+      bottom: 0.5rem;
+      right: 0.5rem;
     }
   }
 </style>

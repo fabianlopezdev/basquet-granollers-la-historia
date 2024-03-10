@@ -37,14 +37,13 @@
      width: 100vw;
     display: flex;
     justify-content: center;
-    padding-right: var(--pd-x-medium);
+    padding-right: var(--pd-x);
   }
   .links-container {
     display: flex;
     flex-wrap: wrap;
     /* justify-content: space-between; */
     gap: 1rem;
-    padding-left: 1rem;
     width: 18rem;
     color: white;
   }
