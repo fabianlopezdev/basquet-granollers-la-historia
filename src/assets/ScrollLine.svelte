@@ -2,22 +2,11 @@
   function handleButtonClick() {
     const target = document.getElementById('seasons'); // Replace with your actual target element's ID
     if (target) {
-      enterFullscreen();
+     document.body.focus();
       target.scrollIntoView();
     }
   }
 
-  function enterFullscreen() {
-    let doc = window.document;
-    let docEl = doc.documentElement;
-
-    let requestFullScreen = docEl.requestFullscreen || docEl.mozRequestFullScreen || docEl.webkitRequestFullScreen || docEl.msRequestFullscreen;
-    let cancelFullScreen = doc.exitFullscreen || doc.mozCancelFullScreen || doc.webkitExitFullscreen || doc.msExitFullscreen;
-
-    if (!doc.fullscreenElement && !doc.mozFullScreenElement && !doc.webkitFullscreenElement && !doc.msFullscreenElement) {
-      requestFullScreen.call(docEl);
-    }
-  }
 
 let innerHeight;
 let lineHeight = 134;
