@@ -57,11 +57,6 @@
         {/each}
       </ul>
     {:else if $display === "resultats"}
-      <div class='descarrega-button'>
-        <a href={`https://historiabasquetgranollers.cat/estadistiques/19${yearsArr[0]}-${yearsArr[1]}_stats.xlsx`} target='_blank'>
-          MÉS INFORMACIÓ
-        </a>
-      </div>
       <div class='table-wrapper'>
         {#each Object.keys(stats) as key}
           {#if key.startsWith('classificacio') && stats[key] !== undefined}
@@ -74,6 +69,11 @@
             </div>
           {/if}
         {/each}
+        <div class='descarrega-button'>
+        <a href={`https://historiabasquetgranollers.cat/estadistiques/19${yearsArr[0]}-${yearsArr[1]}_stats.xlsx`} target='_blank'>
+          MÉS INFORMACIÓ
+        </a>
+      </div>
       </div>
     {:else if $display === "social"}
       <ArticleLayuout text={social} title={`Te'n recordes del 19${years.split('/')[0].toString()}?`}/>
@@ -124,9 +124,7 @@ width: clamp(1.5625rem, 0.6358793517406963rem + 3.12124849939976vw, 3.1875rem);
     /* margin-left: var(--mg-left-top-header); */
   }
 
-  .descarrega-button {
-    padding-block: 2rem;
-  }
+ 
   .players-container {
     display: flex;
     flex-wrap: wrap;
@@ -138,11 +136,14 @@ width: clamp(1.5625rem, 0.6358793517406963rem + 3.12124849939976vw, 3.1875rem);
 
   .table-wrapper {
     display: flex;
-    justify-content: center;
     flex-wrap: wrap;
     gap: 1rem;
+    row-gap: 2rem;
     width: 100%;
+    padding-block: 2rem;
   }
+
+ 
   
   a {
      margin: auto;
