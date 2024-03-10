@@ -25,11 +25,18 @@
     },
   ];
 
+  function handleTouchMove(event) {
+    if (isDropDownMenuOpen) {
+      event.preventDefault();
+    }
+  }
   $: {
     if (isDropDownMenuOpen) {
+       window.addEventListener('touchmove', handleTouchMove, { passive: false });
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "";
+      window.removeEventListener('touchmove', handleTouchMove);
     }
   }
 

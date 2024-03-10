@@ -3,7 +3,7 @@
   export let item;
   export let isDropDownMenuOpen = false;
 
-  console.log(item);
+ 
 </script>
 
 <details>

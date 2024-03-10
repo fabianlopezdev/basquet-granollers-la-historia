@@ -31,10 +31,12 @@ const headerNavigation = [
 ---
 
 <script>
-  let prevScrollPos = window.scrollY; // Use window.scrollY instead
 
-  window.addEventListener("scroll", () => {
-    const currentScrollPos = window.scrollY; // Update to window.scrollY
+  if (window.innerWidth > 695) {
+    let prevScrollPos = window.scrollY; 
+    
+    window.addEventListener("scroll", () => {
+    const currentScrollPos = window.scrollY; 
     const header = document.querySelector("header");
 
     if (prevScrollPos > currentScrollPos) {
@@ -44,9 +46,10 @@ const headerNavigation = [
       // Scrolling down
       header!.style.top = `-${header!.offsetHeight}px`;
     }
-
+    
     prevScrollPos = currentScrollPos;
   });
+}
 </script>
 
 <header>
@@ -230,6 +233,9 @@ const headerNavigation = [
   }
 
   @media (max-width: 648px) {
+    header {
+      position: relative;
+    }
     section {
       padding-inline: var(--pd-x-small);
     }
