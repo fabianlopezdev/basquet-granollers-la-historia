@@ -13,7 +13,7 @@
 
   export let listOfSeasons = [];
 
-  console.log('listOfSeasons', listOfSeasons)
+
 
   const BASE_DURATION = 0.5;
   const MAX_DURATION = 2.5;
@@ -183,7 +183,6 @@
 
   function handleMouseEnter() {
     document.body.style.overflow = "hidden";
-    console.log("scrollbarWidth", scrollbarWidth);
     document.body.style.paddingRight = `${scrollbarWidth}px`;
   }
 
@@ -413,6 +412,12 @@
     opacity: 1;
     font-size: 1.25rem;
     font-weight: var(--fnt-wg-medium);
+  }
+
+  @media (max-width: 648px ) {
+    .line {
+      margin-bottom: 1.7rem;
+    }
   }
 
   @media (max-height: 811px) {
