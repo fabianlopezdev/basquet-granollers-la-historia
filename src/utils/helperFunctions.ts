@@ -10,9 +10,9 @@ const nameLinkRegex =
 
 export function extractTopFooterInfo(content: string) {
   const generalLinksStart = content.indexOf(
-    'Links Generals (Fins a tres elements)'
+    "Links Generals (Fins a tres elements)",
   );
-  const generalLinksEnd = content.indexOf('Links Fixes');
+  const generalLinksEnd = content.indexOf("Links Fixes");
   const generalLinksSection = content.slice(generalLinksStart, generalLinksEnd);
 
   const generalLinks = [];
@@ -32,8 +32,8 @@ export function extractTopFooterInfo(content: string) {
     generalLinks.push({ title: sectionTitle, content: contentItems });
   }
 
-  const fixedLinksStart = content.indexOf('Links Fixes');
-  const fixedLinksEnd = content.indexOf('PEU DE PÀGINA INFERIOR');
+  const fixedLinksStart = content.indexOf("Links Fixes");
+  const fixedLinksEnd = content.indexOf("PEU DE PÀGINA INFERIOR");
 
   const fixedLinksSection = content.slice(fixedLinksStart, fixedLinksEnd);
 
@@ -50,7 +50,7 @@ export function extractTopFooterInfo(content: string) {
 }
 
 export function extractBottomFooterInfo(content: string) {
-  const linksStart = content.indexOf('PEU DE PÀGINA INFERIOR');
+  const linksStart = content.indexOf("PEU DE PÀGINA INFERIOR");
   const linksEnd = content.length;
 
   const linksSection = content.slice(linksStart, linksEnd);
@@ -68,10 +68,9 @@ export function extractBottomFooterInfo(content: string) {
 }
 
 export function seasonToEndpointMapper(season: string) {
-   const seasonYears = season.split('/');
-   return `/temporada-${seasonYears[0]}-${seasonYears[1]}`;
+  const seasonYears = season.split("/");
+  return `/temporada-${seasonYears[0]}-${seasonYears[1]}`;
 }
-
 
 export function truncateString(str: string) {
   // Function to normalize the input for easier matching
@@ -125,7 +124,7 @@ export function upperCaseFirstLetter(string: string) {
 }
 
 export function toggleDialog(dialogId: string) {
-  const dialog = document.getElementById(dialogId) as HTMLDialogElement
+  const dialog = document.getElementById(dialogId) as HTMLDialogElement;
   if (dialog === null) return;
   if (dialog.open) {
     dialog.close();
@@ -137,7 +136,7 @@ export function getKeyDescription(key: string, divisio: string) {
   switch (key) {
     case "classificacio":
     case "resultats":
-      return capitalizeWords(divisio) ;
+      return capitalizeWords(divisio);
     case "classificacioA1":
       return "A1";
     case "resultatsFaseRegularA1":
@@ -185,6 +184,15 @@ export function getKeyDescription(key: string, divisio: string) {
     case "classificacioSegonaFaseGrup1":
     case "resultatsSegonaFaseGrup1":
       return "Segona Fase Grup 1";
+    case "resultatsPromocio":
+      return "Promoció";
+    case "resultatsPromocioTriangular":
+      return "Promoció Triangular";
+    case "resultatsFaseRegularPlayoff":
+      return "Fase Regular Playoff";
+      case "resultatsPlayoffsVuitens":
+      return "Playoffs Vuitens";
+
     default:
       return "Unknown";
   }

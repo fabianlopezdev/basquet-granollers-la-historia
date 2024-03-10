@@ -5,21 +5,27 @@
   export let competition;
   export let key;
 
-  function formatExcelDate(serial) {
+function formatExcelDate(serial) {
     const excelEpoch = new Date(1899, 11, 30); // Excel's base date is December 30, 1899
     const excelEpochAsUnixTimestamp = excelEpoch.getTime();
     const missingLeapYearDay = 24 * 60 * 60 * 1000;
     const delta = excelEpochAsUnixTimestamp - missingLeapYearDay;
     const parsed = new Date(delta + (serial * 86400000)); // 86400000 is the number of milliseconds in one day
-    
+
+    // Check if parsed is a valid date
+    if (isNaN(parsed.getTime())) {
+        return ""; // Return an empty string if parsed is not a valid date
+    }
+
     const parsedDate = [
-      parsed.getDate(),
+        parsed.getDate(),
         parsed.getMonth() + 1, // getMonth() is zero-based
         parsed.getFullYear(),
     ].join('/');
-    
-    return `${parsedDate}`; // or just return parsedDate for the date part
+
+    return parsedDate; // Returns the formatted date string if valid
 }
+
 </script>
 
 <h3>Resultats {getKeyDescription(key, competition)}</h3>

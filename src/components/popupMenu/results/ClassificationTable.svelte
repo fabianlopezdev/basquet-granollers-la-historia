@@ -13,13 +13,39 @@
     <tr class="table-header">
       <td class="short-stat"></td>
       <td class="team">Equip</td>
+      {#if classificacio[0].p_j !== undefined }
       <td class="short-stat">PJ</td>
+      {/if}
+
+      {#if classificacio[0].p_g !== undefined }
+      
       <td class="short-stat">PG</td>
+      {/if}
+
+      {#if classificacio[0].p_e !== undefined }
+
       <td class="short-stat">PE</td>
+      {/if}
+
+      {#if classificacio[0].p_p !== undefined }
+
       <td class="short-stat">PP</td>
-      <td class="long-stat">RF</td>
+      {/if}
+
+      {#if classificacio[0].punts_favor !== undefined }
+
+      <td class="long-stat">PF</td>
+      {/if}
+
+      {#if classificacio[0].punts_contra !== undefined }
+
       <td class="long-stat">PC</td>
+      {/if}
+
+      {#if classificacio[0].punts_lliga !== undefined }
+
       <td class="long-stat">PUNTS</td>
+      {/if}
     </tr>
     {#each classificacio as posicio, i}
       <tr
@@ -28,13 +54,35 @@
       >
         <td class="short-stat">{i + 1}</td>
         <td class="team">{posicio.equip.toUpperCase()}</td>
-        <td class="short-stat">{posicio.p_j}</td>
-        <td class="short-stat">{posicio.p_g}</td>
-        <td class="short-stat">{posicio.p_e}</td>
-        <td class="short-stat">{posicio.p_p}</td>
-        <td class="long-stat">{posicio.punts_favor}</td>
-        <td class="long-stat">{posicio.punts_contra}</td>
-        <td class="long-stat">{posicio.punts_lliga}</td>
+      {#if classificacio[0].p_j !== undefined }
+
+        <td class="short-stat">{posicio.p_j !== undefined ? posicio.p_j : ""}</td>
+        {/if}
+      {#if classificacio[0].p_g!== undefined }
+
+        <td class="short-stat">{posicio.p_g !== undefined ? posicio.p_g: ""}</td>
+        {/if}
+      {#if classificacio[0].p_e !== undefined }
+
+        <td class="short-stat">{posicio.p_e !== undefined ? posicio.p_e : ""}</td>
+        {/if}
+      {#if classificacio[0].p_p !== undefined }
+
+        <td class="short-stat">{posicio.p_p !== undefined ? posicio.p_p : ""}</td>
+        {/if}
+      {#if classificacio[0].punts_favor !== undefined }
+
+        <td class="long-stat">{posicio.punts_favor !== undefined ? posicio.punts_favor  : ""}</td>
+        {/if}
+      {#if classificacio[0].punts_contra !== undefined }
+
+        <td class="long-stat">{posicio.punts_contra !== undefined ? posicio.punts_contra : ""}</td>
+        {/if}
+      {#if classificacio[0].punts_lliga !== undefined }
+
+        <td class="long-stat">{posicio.punts_lliga !== undefined ? posicio.punts_lliga: ""}</td>
+      {/if}
+
       </tr>
     {/each}
   </tbody>

@@ -13,10 +13,15 @@
   const { stats, social, years } = season;
   const { divisio,jugadors, entrenadors } = stats;
   const normalizedDivisioKey = Object.keys(divisio[0]);
+
+  
   const lliga = normalizedDivisioKey ? divisio[0][normalizedDivisioKey] : '';
   const yearsArr = years.split('/');
 
-  console.log('social', social);
+ 
+  if (years === '74/75') {
+    console.log(stats);
+  }
 
   function handleEscape(e) {
     if (e.key === "Escape") {
