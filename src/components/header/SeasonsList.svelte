@@ -8,9 +8,6 @@
   // console.log('seasonsList', seasonsList)
   function setStores(i) {
     currentIndex.set(i);
-    if (seasonsList !== undefined) {
-      display.set(seasonsList.name);
-    }
     // console.log('seasonsList.name', seasonsList.name)
   }
 
