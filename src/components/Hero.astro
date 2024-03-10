@@ -1,53 +1,55 @@
 ---
 //Import components
 import ScrollLine from "@assets/ScrollLine.svelte";
-
-
 ---
 
 <script>
- function getMonitorWidth() {
-  // screen.width for total monitor width
-  const totalMonitorWidth = screen.width;
+  function getMonitorWidth() {
+    // screen.width for total monitor width
+    const totalMonitorWidth = screen.width;
 
-  // window.innerWidth for browser viewport width
-  const viewportWidth = window.innerWidth;
-  const viewportHeight = window.innerHeight;
+    // window.innerWidth for browser viewport width
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
 
-  // console.log("Total Monitor Width:", totalMonitorWidth); 
-  console.log("Amplada Monitor:", viewportWidth); 
-  console.log("Alçada Monitor:", viewportHeight); 
-}
+    // console.log("Total Monitor Width:", totalMonitorWidth);
+    console.log("Amplada Monitor:", viewportWidth);
+    console.log("Alçada Monitor:", viewportHeight);
+  }
 
-getMonitorWidth(); 
+  getMonitorWidth();
 </script>
 
 <section>
   <img
-    class='background-hero'
-    src='/history-hero.avif'
-    alt='Imatge de fons del Club Bàsquet Granollers jugant contra el Real Madrid de bàsquet amb el pavelló ple.'
+    class="background-hero"
+    src="/history-hero.avif"
+    alt="Imatge de fons del Club Bàsquet Granollers jugant contra el Real Madrid de bàsquet amb el pavelló ple."
   />
   <div class="desktop">
-    <h2 class="hero-title">VIATJA A TRAVÉS<br> DE LA NOSTRA HISTÒRIA</h2>
-    <p class="foto-copyright text">Fotografies cedides per l'Arxiu Municipal de Granollers<br>(Fons Esteve Gironella / Fons Esteve Ferrer / Fons Revista del Vallès)<br>Arxiu Comarcal del Vallès Oriental (Fons Revista Esport Comarcal) <br> i Fons Miquel Àngel Forniés</p>
+    <h2 class="hero-title">VIATJA A TRAVÉS<br /> DE LA NOSTRA HISTÒRIA</h2>
+    <p class="foto-copyright text">
+      Fotografies cedides per l'Arxiu Municipal de Granollers<br />(Fons Esteve
+      Gironella / Fons Esteve Ferrer / Fons Revista del Vallès)<br />Arxiu
+      Comarcal del Vallès Oriental (Fons Revista Esport Comarcal) <br /> i Fons Miquel
+      Àngel Forniés
+    </p>
     <!-- <p class='foto-author text'>Foto: M.A. Forniés</p> -->
   </div>
   <div class="responsive">
-     <h2 class="hero-title">VIATJA <br>A TRAVÉS DE <br> LA NOSTRA HISTÒRIA</h2>
-     
-    </div>
-    <div class='scroll-line'>
-      <ScrollLine client:only/>
-    </div>
-    <p class='foto-author text'>Foto: M.A. Forniés</p>
+    <h2 class="hero-title">
+      VIATJA <br />A TRAVÉS DE <br /> LA NOSTRA HISTÒRIA
+    </h2>
+  </div>
+  <div class="scroll-line">
+    <ScrollLine client:only />
+  </div>
+  <p class="foto-author text">Foto: M.A. Forniés</p>
 </section>
-
-
 
 <style>
   .text {
-       background-color: rgba(0, 0, 0, 0.3);
+    background-color: rgba(0, 0, 0, 0.3);
     text-outline: 2px solid black;
   }
 
@@ -56,7 +58,6 @@ getMonitorWidth();
     bottom: 1rem;
     left: 2rem;
     font-size: 0.75rem;
-    
   }
 
   .foto-author {
@@ -67,16 +68,15 @@ getMonitorWidth();
     width: fit-content;
   }
 
-
   .responsive {
     display: none;
   }
   section {
-    height: calc(100svh);
+    height: calc(100vh + var(--hg-header));
     margin-top: calc(var(--hg-header) * -1);
     overflow: hidden;
   }
-  
+
   .hero-title {
     position: absolute;
     width: 100%;
@@ -109,13 +109,16 @@ getMonitorWidth();
     align-items: center;
   }
 
-   @media (max-width: 1016px) {
+  @media (max-width: 1016px) {
     .foto-copyright {
       display: none;
     }
   }
 
   @media (max-width: 648px) {
+    section {
+      height: calc(100svh);
+    }
     .hero-title {
       line-height: 2.8125rem;
       font-size: 2.5rem;
