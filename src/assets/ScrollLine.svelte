@@ -1,14 +1,14 @@
 <script>
   function handleButtonClick() {
+    // Blur focus from any active elements (e.g., search bar)
+    document.activeElement.blur();
+
     const target = document.getElementById('seasons'); // Replace with your actual target element's ID
     if (target) {
       target.scrollIntoView();
 
-        window.blur(); 
-      setTimeout(() => {
-          window.scrollTo(0, 1);
-      }, 100); 
-    
+      // Optional: Attempt to hide the search bar (may not work in all browsers)
+      window.scrollTo(0, 1);
     }
   }
 
