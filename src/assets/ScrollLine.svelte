@@ -68,7 +68,10 @@ let reduceFactor;
 
     text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     font-size: 1rem;
-    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.3rem;
+     background-color: rgba(0, 0, 0, 0.1);
+    
   }
     .svg-container {
     display: flex;
