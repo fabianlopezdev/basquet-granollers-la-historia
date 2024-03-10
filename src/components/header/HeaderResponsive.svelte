@@ -43,6 +43,11 @@
 </button>
 
 <ul class:visible={isDropDownMenuOpen} class="dropdown-menu-content">
+  <li>
+    <a href="https://cbgranollers.cat/" target='_blank'>
+      <h5 class='cbg-link'>CLUB BÀSQUET GRANOLLERS</h5>
+    </a>
+  </li>
   {#each headerNavigation as item}
     <li>
       {#if item.dropdown}
@@ -63,6 +68,12 @@
 </ul>
 
 <style>
+  .cbg-link {
+    text-align: center;
+    text-decoration: underline;
+    font-style: italic;
+    padding-bottom: 1rem;
+  }
   .dropdown-menu-content {
     position: fixed;
     display: flex;
