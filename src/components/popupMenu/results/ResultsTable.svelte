@@ -5,8 +5,6 @@
   export let competition;
   export let key;
 
-  console.log('competition', competition);
-
   function formatExcelDate(serial) {
     const excelEpoch = new Date(1899, 11, 30); // Excel's base date is December 30, 1899
     const excelEpochAsUnixTimestamp = excelEpoch.getTime();
@@ -59,11 +57,7 @@
   }
   .team {
     width: 7.1rem;
-    min-width: clamp(
-      7.1rem,
-      4.70759493670886rem + 10.632911392405063vw,
-      13.4rem
-    );
+   min-width: clamp(7.1rem, 5.131rem + 8.403vw, 12rem);
     background-color: var(--clr-contrast);
     padding-left: 1.44rem;
   }

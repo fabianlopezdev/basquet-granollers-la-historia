@@ -14,88 +14,88 @@ import { SEASONS_LAYOUT } from "@data/globalConstants";
 import { getJugadorsImagesListNames } from "@data/images.js";
 import {removeAccents} from "../utils/helperFunctions";
 
-// function capitalizeWords(str: string) {
-//   // Convert the entire string to lowercase first
-//   const lowerStr = str.toLowerCase();
+function capitalizeWords(str: string) {
+  // Convert the entire string to lowercase first
+  const lowerStr = str.toLowerCase();
 
-//   // Split the string into words based on spaces
-//   const words = lowerStr.split(" ");
+  // Split the string into words based on spaces
+  const words = lowerStr.split(" ");
 
-//   // Capitalize the first letter of each word
-//   for (let i = 0; i < words.length; i++) {
-//     if (words[i][0]) {
-//       words[i] = words[i][0].toUpperCase() + words[i].slice(1);
-//     }
-//   }
+  // Capitalize the first letter of each word
+  for (let i = 0; i < words.length; i++) {
+    if (words[i][0]) {
+      words[i] = words[i][0].toUpperCase() + words[i].slice(1);
+    }
+  }
 
-//   // Join the words back into a string with spaces
-//   return words.join(" ");
-// }
-
-
-// const { seasonsCount, firstSeason, listOfSeasons } = getSeasonsCount();
+  // Join the words back into a string with spaces
+  return words.join(" ");
+}
 
 
-// const listJugadorsImages = await getJugadorsImagesListNames();
+const { seasonsCount, firstSeason, listOfSeasons } = getSeasonsCount();
+
+
+const listJugadorsImages = await getJugadorsImagesListNames();
 
 
 
-// async function getSeasonsData(firstSeason: number, seasonsCount: number) {
-//   const seasonsData = [];
-//   let currentSeason = firstSeason;
-//   for (let i = 0; i < seasonsCount; i++) {
-//     const season = {
-//       years: `${currentSeason}/${currentSeason + 1}`,
-//       yearsLong: `19${currentSeason}-${currentSeason + 1}`,
-//       stats: getSeasonStats(`19${currentSeason}-${currentSeason + 1}`),
-//       relat: {
-//         content: await getSeasonRelat(
-//           `19${currentSeason}-${currentSeason + 1}`,
-//         ),
-//         props: SEASONS_LAYOUT[i % 2].relatProps,
-//       },
-//       social: await getSeasonSocial(`19${currentSeason}-${currentSeason + 1}`),
-//       images: {
-//         firstLayout: SEASONS_LAYOUT[i % 2].firstLayout,
-//         secondLayout: SEASONS_LAYOUT[i % 2].secondLayout,
-//         img_1: {url: `/imatges/layout/19${currentSeason}-${currentSeason + 1}_foto1.webp`, alt: ` Imatge d'arxiu de la temporada 19${currentSeason}-${currentSeason + 1}`, layout: SEASONS_LAYOUT[i % 2].img1},
-//         img_2: {url: `/imatges/layout/19${currentSeason}-${currentSeason + 1}_foto2.webp`, alt: ` Imatge d'arxiu de la temporada 19${currentSeason}-${currentSeason + 1}`, layout: SEASONS_LAYOUT[i % 2].img2},
-//       }
-//     };
-//     // const season = new Season(`19${currentSeason}-${currentSeason + 1}`);
-//     seasonsData.push(season);
-//     currentSeason++;
-//   }
+async function getSeasonsData(firstSeason: number, seasonsCount: number) {
+  const seasonsData = [];
+  let currentSeason = firstSeason;
+  for (let i = 0; i < seasonsCount; i++) {
+    const season = {
+      years: `${currentSeason}/${currentSeason + 1}`,
+      yearsLong: `19${currentSeason}-${currentSeason + 1}`,
+      stats: getSeasonStats(`19${currentSeason}-${currentSeason + 1}`),
+      relat: {
+        content: await getSeasonRelat(
+          `19${currentSeason}-${currentSeason + 1}`,
+        ),
+        props: SEASONS_LAYOUT[i % 2].relatProps,
+      },
+      social: await getSeasonSocial(`19${currentSeason}-${currentSeason + 1}`),
+      images: {
+        firstLayout: SEASONS_LAYOUT[i % 2].firstLayout,
+        secondLayout: SEASONS_LAYOUT[i % 2].secondLayout,
+        img_1: {url: `/imatges/layout/19${currentSeason}-${currentSeason + 1}_foto1.webp`, alt: ` Imatge d'arxiu de la temporada 19${currentSeason}-${currentSeason + 1}`, layout: SEASONS_LAYOUT[i % 2].img1},
+        img_2: {url: `/imatges/layout/19${currentSeason}-${currentSeason + 1}_foto2.webp`, alt: ` Imatge d'arxiu de la temporada 19${currentSeason}-${currentSeason + 1}`, layout: SEASONS_LAYOUT[i % 2].img2},
+      }
+    };
+    // const season = new Season(`19${currentSeason}-${currentSeason + 1}`);
+    seasonsData.push(season);
+    currentSeason++;
+  }
 
-//   return seasonsData;
-// }
+  return seasonsData;
+}
 
-// const seasons = await getSeasonsData(firstSeason, seasonsCount);
+const seasons = await getSeasonsData(firstSeason, seasonsCount);
 
 
-// seasons.forEach((season) => {
-//   (season.stats.jugadors! as any[]).forEach((jugador: any) => {
-//     // Find the image that includes the jugador's name and assign it to the jugador.image property.
-//     jugador.jugador = capitalizeWords(jugador.jugador);
+seasons.forEach((season) => {
+  (season.stats.jugadors! as any[]).forEach((jugador: any) => {
+    // Find the image that includes the jugador's name and assign it to the jugador.image property.
+    jugador.jugador = capitalizeWords(jugador.jugador);
 
-//     const words = jugador.jugador.split(" ");
+    const words = jugador.jugador.split(" ");
 
-//     // Select the second word if it exists, otherwise use the first word
-//     const nameToCheck = words.length ? `${season.yearsLong} ${words[0]} ${words[1] !=='M.ª' ? words[1] : 'M.' }` : "";
+    // Select the second word if it exists, otherwise use the first word
+    const nameToCheck = words.length ? `${season.yearsLong} ${words[0]} ${words[1] !=='M.ª' ? words[1] : 'M.' }` : "";
 
-//     const jugadorImage = listJugadorsImages.find((image) =>
-//       image.includes(removeAccents(nameToCheck)),
-//     );
+    const jugadorImage = listJugadorsImages.find((image) =>
+      image.includes(removeAccents(nameToCheck)),
+    );
 
-//     jugador.image = jugadorImage; // Correctly assign the found image to the jugador.image property.
-//   });
-// });
+    jugador.image = jugadorImage; // Correctly assign the found image to the jugador.image property.
+  });
+});
 
 
 ---
 
 <BaseLayout >
   <Hero />
-  <!-- <Seasons client:only {seasons} totalSeasons={seasonsCount} {listOfSeasons} /> -->
+  <Seasons client:only {seasons} totalSeasons={seasonsCount} {listOfSeasons} />
 </BaseLayout>
 
