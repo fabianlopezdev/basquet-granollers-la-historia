@@ -1,17 +1,17 @@
-<!-- <script>
-  import { SEASONS_INFO } from '@data/globalConstants';
+<script>
+
   import { currentIndex, display, isOutsideSelection } from "../../svelte/stores";
 
-  export let item;
+  export let seasonsList;
   export let isDropDownMenuOpen;
   export let isMenuOpen;
-  // console.log('item', item)
+  // console.log('seasonsList', seasonsList)
   function setStores(i) {
     currentIndex.set(i);
-    if (item !== undefined) {
-      display.set(item.name);
+    if (seasonsList !== undefined) {
+      display.set(seasonsList.name);
     }
-    // console.log('item.name', item.name)
+    // console.log('seasonsList.name', seasonsList.name)
   }
 
   function handlePopupsMenu() {
@@ -21,15 +21,24 @@
   // $: console.log('isDropDownMenuOpen', isDropDownMenuOpen);
 </script>
 
-<ul class="links-container">
-  {#each SEASONS_INFO as season, i}
+<div class='wrapper'>
+
+  <ul class="links-container">
+    {#each seasonsList.dropdown as season, i}
     <li>
-      <a on:click={() => { setStores(i); handlePopupsMenu()}} href={'#seasons'}>{season.years}</a>
+      <a on:click={() => { setStores(i); handlePopupsMenu()}} href={'#seasons'}>{season}</a>
     </li>
-  {/each}
-</ul>
+    {/each}
+  </ul>
+</div>
 
 <style>
+  .wrapper {
+     width: 100vw;
+    display: flex;
+    justify-content: center;
+    padding-right: var(--pd-x-medium);
+  }
   .links-container {
     display: flex;
     flex-wrap: wrap;
@@ -39,4 +48,4 @@
     width: 18rem;
     color: white;
   }
-</style> -->
+</style>

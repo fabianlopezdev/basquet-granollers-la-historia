@@ -2,19 +2,23 @@
   import SeasonsList from "./SeasonsList.svelte";
   export let item;
   export let isDropDownMenuOpen = false;
+
+  console.log(item);
 </script>
 
 <details>
   <summary>
     {item.name.toUpperCase()}
   </summary>
-  <p>TEMPORADES</p>
-<SeasonsList {item} bind:isDropDownMenuOpen/>
+<SeasonsList seasonsList={item} bind:isDropDownMenuOpen/>
 </details>
 
 <style>
+
   summary {
-    font-size: 1.125rem;
+    font-size: var(--fnt-sz-h5);
+     font-weight: var(--fnt-wg-light);
+   
   }
   p {
     font-size: 0.9rem;

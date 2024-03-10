@@ -63,17 +63,6 @@
 </ul>
 
 <style>
-  .dropdown-menu-button {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    right: var(--pd-x-medium);
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    z-index: 100;
-  }
-
   .dropdown-menu-content {
     position: fixed;
     display: flex;
@@ -85,12 +74,28 @@
     bottom: 0;
     padding-inline: var(--pd-x-medium);
     padding-block: 2.06rem;
+    
     flex-direction: column;
     gap: 1.87rem;
     transform: translateX(100%);
     transition: transform 0.2s ease-in-out;
     overflow: auto;
   }
+  h5 {
+     font-size: var(--fnt-sz-h5);
+     font-weight: var(--fnt-wg-light);
+  }
+  .dropdown-menu-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: var(--pd-x-medium);
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 100;
+  }
+
 
   .dropdown-menu-content.visible {
     transform: translateX(0);
