@@ -1,6 +1,6 @@
 <script>
   function handleButtonClick() {
-    if (innerHeight > 648) {
+    if (innerWidth > 648) {
 
       const target = document.getElementById('seasons'); // Replace with your actual target element's ID
       if (target) {
@@ -12,6 +12,7 @@
 let innerHeight;
 let lineHeight = 134;
 let reduceFactor;
+let innerWidth;
   $: {
     if (innerHeight < 901) {
       reduceFactor = innerHeight / 901;
@@ -22,7 +23,7 @@ let reduceFactor;
   }
 </script>
 
-<svelte:window bind:innerHeight />
+<svelte:window bind:innerHeight bind:innerWidth/>
   <p>Comença aquí, fent scroll</p>
 
 <div class="svg-container">
