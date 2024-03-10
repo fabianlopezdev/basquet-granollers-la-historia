@@ -15,7 +15,6 @@ export let seasons;
 export let totalSeasons;
 export let listOfSeasons;
 
-console.log('seasons', seasons)
 
   let windowWidth;
   let windowHeight;
@@ -81,9 +80,8 @@ console.log('seasons', seasons)
     --hg-menu: 4rem;
     --offset-season-menu: calc(var(--hg-menu) - 2px);
     background-color: var(--clr-contrast);
-    scroll-snap-align: start;
     position: relative;
-    height: 100vh;
+    height: 100lvh;
     /* overflow-y: hidden; */
   }
 
@@ -200,6 +198,10 @@ console.log('seasons', seasons)
   }
 
   @media (max-width: 648px) {
+    #seasons {
+    scroll-snap-align: start;
+
+    }
     .seasons-container {
       height: calc(100svh - var(--pd-y-options-btns) - 2.5rem);
     }

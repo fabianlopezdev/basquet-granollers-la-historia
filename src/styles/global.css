@@ -182,6 +182,9 @@ td {
 }
 
 @media (max-width: 648px) {
+  html {
+    scroll-snap-type: y proximity;
+  }
   .g-top-footer-articles {
     height: auto;
   }
