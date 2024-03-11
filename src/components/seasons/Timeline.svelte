@@ -429,9 +429,9 @@
 
   @media (max-width: 648px ) {
     .line {
-      margin-bottom: 1.7rem;
-    --arrow-bottom: -1.45rem;
-    --arrow-width: 2.65rem;
+      margin-bottom: 2rem;
+    --arrow-bottom: -1.42rem;
+    --arrow-width: 2.68rem;
 
     }
 

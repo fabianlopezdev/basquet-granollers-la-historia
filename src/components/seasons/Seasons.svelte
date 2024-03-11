@@ -59,7 +59,7 @@ function moveNextSlide() {
 		touchendX = e.changedTouches[0].clientX;
 		handleSwipeGesture();
 	};
-const SWIPE_THRESHOLD = 50; // Adjust as needed for sensitivity
+const SWIPE_THRESHOLD = 15; // Adjust as needed for sensitivity
 
 const handleSwipeGesture = () => {
     const swipeDistance = touchendX - touchstartX;
