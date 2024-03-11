@@ -95,6 +95,7 @@ seasons.forEach((season) => {
     const words = (name as string).split(" ");
     const nameToCheck = words.length ? (words[1] ? `${season.yearsLong} ${words[0]} ${(words[1] !== 'M.ª' ? words[1] : 'M.').replace(/ñ/g, 'n')}` : `${season.yearsLong} ${words[0]}`) : "";
     const entrenadorImage = listJugadorsImages.find((image) => image.includes(removeAccents(nameToCheck)));
+    //@ts-ignore
     season.stats.entrenadors[i] = {position, name, image: entrenadorImage};
  
   })
