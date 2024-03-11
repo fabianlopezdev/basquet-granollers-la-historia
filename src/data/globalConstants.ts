@@ -106,8 +106,8 @@ const SEASONS_LAYOUT = [
     secondLayout: true,
     img1: {
       colStart: 20,
-      colEnd: 37,
-      rowStart: 10,
+      colEnd: 36,
+      rowStart: 4,
       rowEnd: 50,
       colStartShortHg: 24,
       colEndShortHg: 37,
@@ -119,9 +119,9 @@ const SEASONS_LAYOUT = [
       rowEndMobile: 24,
     },
     img2: {
-      colStart: 57,
-      colEnd: 74,
-      rowStart: 38,
+      colStart: 56,
+      colEnd: 75,
+      rowStart: 33,
       rowEnd: 66,
       colStartShortHg: 57,
       colEndShortHg: 74,
@@ -135,7 +135,7 @@ const SEASONS_LAYOUT = [
     relatProps: {
       colStart: 11,
       colEnd: 29,
-      rowStart: 44,
+      rowStart: 40,
       rowEnd: 59,
       colStartMobile: 1,
       colEndMobile: 5,

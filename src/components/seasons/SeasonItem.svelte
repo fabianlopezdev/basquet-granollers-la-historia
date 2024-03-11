@@ -222,6 +222,16 @@
     transform: translateX(-30%);
     transition: transform 0.5s ease-in; 
   }
+
+  .container-0-1:hover {
+    transform: translateY(17%);
+    transition: transform 0.5s ease-in; 
+  }
+   /* .container-0-2:hover {
+    transform: translateY(-30%);
+    transition: transform 0.5s ease-in; 
+  } */
+
   @media (max-width: 648px) {
     /* .season-container {
       display: flex;
