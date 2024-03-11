@@ -10,7 +10,7 @@
   <summary>
     {item.name.toUpperCase()}
   </summary>
-<SeasonsList seasonsList={item} bind:isDropDownMenuOpen/>
+<SeasonsList seasonsList={item.dropdown} bind:isDropDownMenuOpen/>
 </details>
 
 <style>

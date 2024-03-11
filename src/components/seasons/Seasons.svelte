@@ -8,8 +8,9 @@
   import { currentIndex } from "src/svelte/stores";
   import { display } from "src/svelte/stores";
   import { collapsibleArrowSeasonMobileMenu } from "@assets/icons";
-  // import SeasonsList from "../header/SeasonsList.svelte";
+  import SeasonsList from "../header/SeasonsList.svelte";
   import SponsorsResponsive from "@components/header/SponsorsResponsive.svelte";
+ 
 
 export let seasons;
 export let totalSeasons;
@@ -38,7 +39,7 @@ export let listOfSeasons;
     <PopupMenu season={seasons[$currentIndex]} />
   {/if}
   <div class="season-wrapper">
-    <!-- <div class="season-menu mobile">
+    <div class="season-menu mobile">
       <h4 class="menu-title">Tria una temporada</h4>
       <button
         class="menu-season-selected"
@@ -51,11 +52,11 @@ export let listOfSeasons;
     </div>
     <div class:showMenu={isMenuOpen} class="select-season-popup">
       <p>TEMPORADES</p>
-      <SeasonsList bind:isMenuOpen/>
+      <SeasonsList bind:isMenuOpen seasonsList={listOfSeasons}/>
       <div style="padding-top: 3rem; width: 100%;">
         <SponsorsResponsive />
       </div>
-    </div> -->
+    </div>
     <div
       class="seasons-container"
       style="--totalSeasons: {totalSeasons}; transform: {transform}"

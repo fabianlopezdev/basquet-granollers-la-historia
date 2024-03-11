@@ -83,15 +83,20 @@
       color 0.3s ease,
       border-color 0.3s ease,
       transform 0.1s ease;
-  }
-
+    }
+    
+    @media (max-height: 780px) {
+      .options-container {
+        margin-top: 1.8rem;
+      }
+    }
  
 
   @media (max-width: 648px) {
     .options-container {
       padding-inline: var(--pd-x-small);
       gap: 0.8rem;
-      margin-top: 1rem;
+      margin-top: 0rem;
     }
     /* .options-container {
       flex-direction: column;
@@ -103,10 +108,5 @@
     } */
   }
 
-  @media (max-height: 780px) {
-    .options-container {
-      margin-top: 1.8rem;
-    }
-  }
   
   </style>
