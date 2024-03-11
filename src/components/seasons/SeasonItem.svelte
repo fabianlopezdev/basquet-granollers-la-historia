@@ -227,6 +227,10 @@
     transform: translateY(17%);
     transition: transform 0.5s ease-in; 
   }
+     .container-1-1:hover {
+    transform: translateY(20%);
+    transition: transform 0.5s ease-in; 
+  }
    /* .container-0-2:hover {
     transform: translateY(-30%);
     transition: transform 0.5s ease-in; 

@@ -8,14 +8,14 @@ import { removeAccents } from "../utils/helperFunctions";
 
 
 export const getSeasonStats = (season) => {
-  const __filename = fileURLToPath(import.meta.url);
-  const __dirname = path.dirname(__filename);
+  // const __filename = fileURLToPath(import.meta.url);
+  // const __dirname = path.dirname(__filename);
 
   //DEV PATH
-  // const filePath = path.join(
-  //   __dirname,
-  //   `../../public/estadistiques/${season}_stats.xlsx`,
-  // );
+  const filePath = path.join(
+    __dirname,
+    `../../public/estadistiques/${season}_stats.xlsx`,
+  );
 
   //PRODUCTION PATH
    const relatsFolderPath = path.join(__dirname, "../estadistiques");
