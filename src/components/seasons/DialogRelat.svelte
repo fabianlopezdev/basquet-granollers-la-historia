@@ -6,7 +6,7 @@
 export let dialogId;
 export let relat;
 
-console.log(relat.content.html)
+
 
 
 function darkenColor(color, amount) {
@@ -30,11 +30,15 @@ function darkenColor(color, amount) {
   </button>
   <div class="dialog-container">
     <h3>El relat de la temporada {years}</h3>
-   <p>{@html relat.content.html}</p>
+   <p class='text'>{@html relat.content.html}</p>
   </div>
 </dialog>
 <!-- {/if} -->
 <style>
+  .text {
+    text-align: justify;
+
+  }
   dialog {
     overflow-y: scroll;
     top: 50%;
@@ -48,7 +52,6 @@ function darkenColor(color, amount) {
     border-radius: 0.4rem;
     border: none;
     width: 80%;
-    text-align: justify;
     font-size: 1rem;
     
   }
@@ -93,11 +96,12 @@ function darkenColor(color, amount) {
     background-color: var(--clr-bg-scrollbar);
     border-radius: 12px;
   }
-  @media (max-width: 400px) {
+  @media (max-width: 648px) {
     dialog {
       width: 21rem;
-      padding-inline: 1.69rem;
-      padding-block: 2.5rem;
+      padding-inline: 1.3rem;
+      padding-block: 2.2rem;
     }
   }
+
 </style>

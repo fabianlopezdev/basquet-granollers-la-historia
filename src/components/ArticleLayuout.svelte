@@ -3,7 +3,7 @@
   export let title;
   export let author;
   export let image;
-  console.log(text)
+
 
   function replaceAndAddBreaks(htmlString) {
   // First, replace empty paragraphs with <br>
@@ -119,7 +119,7 @@
       line-height: 2.75rem;
     }
     .social-container {
-      padding-inline: var(--pd-x-small);
+      padding-inline: calc(var(--pd-x-small) *-1);
     }
 
     /* .article-header {
