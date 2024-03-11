@@ -31,18 +31,24 @@ export let listOfSeasons;
   let seasonWidth = 100 / totalSeasons;
   $: transform = `translateX(${-seasonWidth * $currentIndex}%)`;
 
-  function movePrevSlide() {
-		direction = 'prev';
-		prevIndex = $currentIndex;
-		$currentIndex = $currentIndex === 0 ? totalSeasons - 1 : $currentIndex - 1;
-	}
+function movePrevSlide() {
+    // Prevent moving to the previous slide if the current index is 0
+    if ($currentIndex > 0) {
+        direction = 'prev';
+        prevIndex = $currentIndex;
+        $currentIndex = $currentIndex - 1;
+    }
+}
 
-	// Function to move to next slide
-	function moveNextSlide() {
-		direction = 'next';
-		prevIndex = $currentIndex;
-		$currentIndex = $currentIndex === totalSeasons - 1 ? 0 : $currentIndex + 1;
-	}
+// Function to move to next slide
+function moveNextSlide() {
+    // Prevent moving to the next slide if the current index is the last index
+    if ($currentIndex < totalSeasons - 1) {
+        direction = 'next';
+        prevIndex = $currentIndex;
+        $currentIndex = $currentIndex + 1;
+    }
+}
   // Function to handle touch start
 	const handleTouchStart = (e) => {
 		touchstartX = e.touches[0].clientX;

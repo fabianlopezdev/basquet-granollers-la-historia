@@ -96,7 +96,7 @@
     .options-container {
       padding-inline: var(--pd-x-small);
       gap: 0.8rem;
-      margin-top: 0rem;
+      margin-top: auto;
     }
     /* .options-container {
       flex-direction: column;
