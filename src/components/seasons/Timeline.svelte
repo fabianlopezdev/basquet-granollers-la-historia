@@ -89,6 +89,12 @@
       ((SEASON_WIDTH + MIN_GAP) * 16),
   );
 
+  $: {
+  // This statement reacts whenever $currentIndex changes
+  if ($currentIndex >= 0 && listOfSeasons.length > 0 && maxSeasonsPerPage > 0) {
+    currentPage = Math.floor($currentIndex / maxSeasonsPerPage);
+  }
+};
   $: displayedSeasons = listOfSeasons.slice(
     currentPage * maxSeasonsPerPage,
     currentPage * maxSeasonsPerPage + maxSeasonsPerPage,

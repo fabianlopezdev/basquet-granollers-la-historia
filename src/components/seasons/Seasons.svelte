@@ -10,7 +10,7 @@
   import { collapsibleArrowSeasonMobileMenu } from "@assets/icons";
   import SeasonsList from "../header/SeasonsList.svelte";
   import SponsorsResponsive from "@components/header/SponsorsResponsive.svelte";
- 
+
 
 export let seasons;
 export let totalSeasons;
@@ -21,11 +21,57 @@ export let listOfSeasons;
   let windowHeight;
   let windowScrollY;
   let animationClass;
+  let touchstartX = 0;
+  let touchendX = 0;
+  let direction = '';
+  let prevIndex = 0;
 
   let isMenuOpen = false;
 
   let seasonWidth = 100 / totalSeasons;
   $: transform = `translateX(${-seasonWidth * $currentIndex}%)`;
+
+  function movePrevSlide() {
+		direction = 'prev';
+		prevIndex = $currentIndex;
+		$currentIndex = $currentIndex === 0 ? totalSeasons - 1 : $currentIndex - 1;
+	}
+
+	// Function to move to next slide
+	function moveNextSlide() {
+		direction = 'next';
+		prevIndex = $currentIndex;
+		$currentIndex = $currentIndex === totalSeasons - 1 ? 0 : $currentIndex + 1;
+	}
+  // Function to handle touch start
+	const handleTouchStart = (e) => {
+		touchstartX = e.touches[0].clientX;
+	};
+
+	// Function to handle touch end
+	const handleTouchEnd = (e) => {
+		touchendX = e.changedTouches[0].clientX;
+		handleSwipeGesture();
+	};
+const SWIPE_THRESHOLD = 100; // Adjust as needed for sensitivity
+
+const handleSwipeGesture = () => {
+    const swipeDistance = touchendX - touchstartX;
+
+    // Check if the swipe distance exceeds the threshold
+    if (Math.abs(swipeDistance) > SWIPE_THRESHOLD) {
+        if (swipeDistance < 0) {
+            // Swipe was left (to see the next season)
+            moveNextSlide();
+        } else {
+            // Swipe was right (to see the previous season)
+            movePrevSlide();
+        }
+    }
+};
+
+
+
 </script>
 
 <svelte:window
@@ -59,10 +105,16 @@ export let listOfSeasons;
     </div>
     <div
       class="seasons-container"
+   
+    on:touchstart={handleTouchStart}
+     on:touchend={handleTouchEnd}
       style="--totalSeasons: {totalSeasons}; transform: {transform}"
     >
       {#each seasons as season, seasonIndex}
+  
+
         <SeasonItem {season} {windowHeight} {windowScrollY} {seasonIndex} />
+
       {/each}
     </div>
     <Options />
@@ -162,7 +214,11 @@ export let listOfSeasons;
     /* overflow: hidden; */
     transition: transform 1.5s ease-out;
     z-index: 1;
+    scroll-snap-type: x proximity; /* Enable scroll snapping */
+  -webkit-overflow-scrolling: touch;
   }
+
+
 
   P {
     color: var(--clr-accent);
