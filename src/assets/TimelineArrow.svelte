@@ -1,18 +1,19 @@
 <script>
   export let rotate = 0;
   export let opacity = 1;
-  export let hover = ""
+  export let hover = "";
   export let mobile;
 
-  $: size = mobile ? 28 : 56;
+  // Calculate SVG dimensions based on the 'mobile' prop
+  $: svgSize = mobile ? 46 : 56; // Reduce size by 15px if mobile is true
 </script>
 
 <svg
-  
   style:transform={`rotate(${rotate}deg)`}
-  width={mobile}
-  height={mobile}
-  viewBox="0 0 56 56"
+  {svgSize}
+  width={svgSize} 
+  height={svgSize} 
+  viewBox="0 0 56 56" 
   fill="none"
   xmlns="http://www.w3.org/2000/svg"
   class:hover={hover}

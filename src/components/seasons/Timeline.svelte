@@ -268,6 +268,7 @@
       rotate={180}
       opacity={$currentIndex >= listOfSeasons.length - 1 && "0.3"}
       hover={$currentIndex < listOfSeasons.length - 1 && "0.3"}
+      {mobile}
     />
   </button>
   <div class="selection-container" bind:clientWidth={timelineWidth}>
@@ -423,6 +424,9 @@
   @media (max-width: 648px ) {
     .line {
       margin-bottom: 1.7rem;
+    --arrow-bottom: -1.45rem;
+    --arrow-width: 2.65rem;
+
     }
 
     .selection-container {
@@ -432,7 +436,7 @@
 
   @media (max-height: 780px) {
     .line {
-      margin-bottom: 1.7rem;
+      margin-bottom: 2.5rem;
     }
   }
 </style>
