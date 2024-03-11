@@ -156,7 +156,7 @@ const handleSwipeGesture = () => {
     --offset-season-menu: calc(var(--hg-menu) - 2px);
     background-color: var(--clr-contrast);
     position: relative;
-    height: 100lvh;
+    height: 100dvh;
     /* overflow-y: hidden; */
   }
 
