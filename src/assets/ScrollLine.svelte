@@ -74,7 +74,7 @@ let innerWidth;
     font-size: 1rem;
     margin-bottom: 1rem;
     padding-bottom: 0.3rem;
-     background-color: rgba(0, 0, 0, 0.1);
+     /* background-color: rgba(0, 0, 0, 0.1); */
     text-align: center;
   }
     .svg-container {
