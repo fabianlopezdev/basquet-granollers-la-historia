@@ -10,10 +10,10 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 //DEV PATH
-const folderPath = path.join(__dirname, `../../public/especials`);
+// const folderPath = path.join(__dirname, `../../public/especials`);
 
 //PRODUCTION PATH
-// const folderPath = path.join(__dirname, "../especials");
+const folderPath = path.join(__dirname, "../especials");
 
 // Read the directory contents
 const files = fs.readdirSync(folderPath);
