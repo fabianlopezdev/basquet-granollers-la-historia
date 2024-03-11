@@ -6,6 +6,7 @@
 export let dialogId;
 export let relat;
 
+console.log(relat.content.html)
 
 
 function darkenColor(color, amount) {

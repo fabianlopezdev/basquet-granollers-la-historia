@@ -3,7 +3,19 @@
   export let title;
   export let author;
   export let image;
-  console.log(image)
+  console.log(text)
+
+  function replaceAndAddBreaks(htmlString) {
+  // First, replace empty paragraphs with <br>
+  let stringWithBreaks = htmlString.replace(/<p>\s*<\/p>/g, '<br>');
+  
+  // Then, add <br> at the end of each paragraph (excluding the last one if you don't want a break after the last paragraph)
+  // This regex targets all <p> tags that are followed by another tag or end of string and inserts <br> before the closing </p>
+  stringWithBreaks = stringWithBreaks.replace(/<p>(.*?)<\/p>(?=<p>|$)/g, '<p>$1</p><br>');
+
+  return stringWithBreaks;
+}
+
 </script>
 
 <div class='social-container' class:article-page={author !== undefined}>
@@ -25,9 +37,9 @@
       <div class='text'>
 
         {#if text.html}
-        {@html text.html}
+        {@html replaceAndAddBreaks(text.html)}
         {:else}
-        {@html text}
+        {@html replaceAndAddBreaks(text)}
         {/if}
       </div>
     </div>
