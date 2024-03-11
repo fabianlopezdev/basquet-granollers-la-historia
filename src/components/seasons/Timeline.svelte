@@ -294,7 +294,7 @@
     --arrow-bottom: -1.9rem;
     /* position: absolute; */
     margin-top: auto;
-    margin-bottom: 2rem;
+    margin-bottom: 3rem;
     height: 0.1875rem;
     background: linear-gradient(
       90deg,
@@ -420,7 +420,7 @@
     }
   }
 
-  @media (max-height: 811px) {
+  @media (max-height: 588px) {
     .line {
       margin-bottom: 1.7rem;
     }

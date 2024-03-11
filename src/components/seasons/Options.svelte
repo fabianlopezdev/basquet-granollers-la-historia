@@ -11,8 +11,10 @@
   let windowHeight;
   let paddingTop = 0;
   $: {
-    if (windowHeight < 901) {
+    if (windowHeight < 788) {
       paddingTop = "1rem";     
+    } else {
+      paddingTop = "-1rem";
     }
   }
 
@@ -39,7 +41,7 @@
     justify-content: center;
     /* padding-bottom: 2rem; */
     gap: 1.25rem;
-    padding-top: var(--paddingTop);
+    margin-top: var(--paddingTop);
     /* margin-top: auto; */
     z-index: 1;
     /* mix-blend-mode: multiply; */
@@ -101,7 +103,7 @@
     } */
   }
 
-  @media (max-height: 811px) {
+  @media (max-height: 560px) {
     .options-container {
       margin-top: 1.3rem;
     }

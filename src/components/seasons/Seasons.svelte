@@ -96,7 +96,7 @@ export let listOfSeasons;
     background-position: center;
     margin: auto;
     background-image: url("/cancha.png");
-    max-width: var(--wd-regular);
+    max-width: var(--wd-max);
     overflow: hidden;
   }
 

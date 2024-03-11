@@ -22,7 +22,7 @@
   /*Cannot use variables in media queries. Would be ideal for responsiveness. Still writting sizes here to have as reference
   Using px instead of rem to trigger based on screen size
   */
-  --wd-regular: 1308px;
+  --wd-max: 1308px;
   --wd-btn-regular: 11rem;
   --wd-btn-small: 9.8rem;
   --wd-three-columns: 24.1875rem;

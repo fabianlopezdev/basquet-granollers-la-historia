@@ -135,6 +135,7 @@
       24.25rem
     );
     font-weight: var(--fnt-wg-medium);
+    padding-bottom: 8rem;
   }
 
   .items-container {
@@ -256,7 +257,7 @@
     }
   }
 
-  @media (max-height: 811px) and (max-width: 648px){
+  @media (max-height: 560px) and (max-width: 648px){
     .season-title {
       top: 2.5rem;
       height: 6rem;
@@ -267,7 +268,7 @@
     }
   }
 
-   @media (max-height: 811px) and (min-width: 648px){
+   @media (max-height: 560px) and (min-width: 648px){
    .relat {
     grid-row: calc(var(--rowStart) - 1) / var(--rowEnd);
   }
