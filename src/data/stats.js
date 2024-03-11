@@ -257,7 +257,7 @@ export const getSeasonStats = (season) => {
       classificacioTemporadaRegular,
     }),
     ...(divisio !== undefined && { divisio }),
-    ...(entrenadors !== undefined && { entrenadors }),
+    ...(entrenadors !== undefined && {entrenadors} ),
     ...(jugadors !== undefined && { jugadors }),
     ...(resultats !== undefined && { resultats }),
     ...(resultatsAscens !== undefined && { resultatsAscens }),

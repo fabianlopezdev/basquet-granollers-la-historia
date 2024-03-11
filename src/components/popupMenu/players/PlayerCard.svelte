@@ -154,7 +154,7 @@ const date = formatExcelDate(jugador.data_naix);
     justify-content: center;
     text-align: center;
     gap: 1rem;
-    font-size: 1.3125rem;
+    font-size: 1.1rem;
     background-color: var(--clr-secondary);
     color: var(--clr-contrast);
     padding-inline: 2rem;	

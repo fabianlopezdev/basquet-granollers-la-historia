@@ -4,6 +4,7 @@
   import { slide } from "svelte/transition";
   import { upperCaseFirstLetter } from "@utils/helperFunctions";
   import PlayerCard from "./players/PlayerCard.svelte";
+  import CoachCard from "./players/CoachCard.svelte";
   import ResultsTable from "./results/ResultsTable.svelte";
   import ClassificationTable from "./results/ClassificationTable.svelte";
   import ArticleLayuout from "@components/ArticleLayuout.svelte";
@@ -19,9 +20,6 @@
   const yearsArr = years.split('/');
 
  
-  if (years === '74/75') {
-    console.log(stats);
-  }
 
   function handleEscape(e) {
     if (e.key === "Escape") {
@@ -29,6 +27,16 @@
       display.set("relats");
     }
   }
+
+  $: {
+    if ($display !== 'relats') {
+     
+    } else {
+ 
+    }
+
+  }
+
 </script>
 
 <svelte:window on:keydown={handleEscape} />
@@ -37,7 +45,9 @@
   <header class="menu-header">
     <h2>
       <span style="color: var(--clr-accent)">
-        {$display === 'resultats' ? `${upperCaseFirstLetter($display)} i Classificació`: upperCaseFirstLetter($display)}
+        {$display === 'resultats' ? `${upperCaseFirstLetter($display)} i Classificació` :
+             $display === 'jugadors' ? `${upperCaseFirstLetter($display)} i Entrenadors` :
+             upperCaseFirstLetter($display)}
       </span>
       Temporada {season.years}
     </h2>
@@ -51,11 +61,20 @@
   </header>
   <div class="menu-container">
     {#if $display === "jugadors"}
+    <h3>JUGADORS:</h3>
       <ul class="players-container">
         {#each jugadors as jugador}
           <PlayerCard {jugador} />
         {/each}
       </ul>
+      {#if entrenadors !== undefined > 0}
+        <h3>ENTRENADORS:</h3>
+        <ul class="players-container">
+          {#each entrenadors as entrenador}
+            <CoachCard {entrenador} />
+          {/each}
+        </ul>
+      {/if}
     {:else if $display === "resultats"}
       <div class='table-wrapper'>
         {#each Object.keys(stats) as key}
@@ -82,10 +101,17 @@
 </section>
 
 <style>
+
   h2 {
     font-size: 0.875rem;
     font-size: clamp(0.875rem, 0.5rem + 1.6vw, 1.9rem);
     font-weight: var(--fnt-wg-regular);
+  }
+
+  h3 {
+    font-size: 1.625rem;
+    padding-top: 2rem;
+
   }
   
   svg {
