@@ -75,7 +75,10 @@
   }
 
   .article-content img {
-    object-fit: contain;
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    object-position: center;
   }
 
   .article-content li {
