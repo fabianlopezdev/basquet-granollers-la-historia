@@ -315,6 +315,7 @@
       var(--clr-primary) 68.89%
     );
     z-index: 1;
+    overflow-x: hidden;
   }
   .show {
     display: block;
