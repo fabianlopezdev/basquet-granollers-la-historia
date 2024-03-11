@@ -12,7 +12,7 @@
   let paddingTop = 0;
   $: {
     if (windowHeight < 788) {
-      paddingTop = "1rem";     
+      paddingTop = "2rem";     
     } else {
       paddingTop = "-1rem";
     }

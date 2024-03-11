@@ -282,7 +282,7 @@
     }
   }
 
-   @media (max-height: 560px) and (min-width: 648px){
+   @media (max-height: 588px) and (min-width: 586px){
    .relat {
     grid-row: calc(var(--rowStart) - 1) / var(--rowEnd);
   }
