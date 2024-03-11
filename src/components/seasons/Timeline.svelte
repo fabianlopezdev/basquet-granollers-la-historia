@@ -18,7 +18,7 @@
   const BASE_DURATION = 0.5;
   const MAX_DURATION = 2.5;
   const SEASON_WIDTH = 4.5; // Width of each season container in rem
-  const TIMELINE_PADDING_X = 6;
+  let TIMELINE_PADDING_X = 6;
   const KEYACTIONS = {
     ArrowLeft: prevSeason,
     ArrowRight: nextSeason,
@@ -26,6 +26,11 @@
   };
   const MIN_GAP = 2;
   // Minimum gap between seasons in rem
+ let mobile = false;
+  $: if (windowWidth < 648) {
+    mobile = true;
+    TIMELINE_PADDING_X = 0;
+  }
 
   let currentPage = 0;
   let userInteractionCount = 0;
@@ -250,6 +255,7 @@
     <TimelineArrow
       opacity={$currentIndex <= 0 && "0.3"}
       hover={$currentIndex && "0.3"}
+      {mobile}
     />
   </button>
 
@@ -417,6 +423,10 @@
   @media (max-width: 648px ) {
     .line {
       margin-bottom: 1.7rem;
+    }
+
+    .selection-container {
+      padding-inline: 2.5rem;
     }
   }
 

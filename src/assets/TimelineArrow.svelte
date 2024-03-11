@@ -2,13 +2,16 @@
   export let rotate = 0;
   export let opacity = 1;
   export let hover = ""
+  export let mobile;
+
+  $: size = mobile ? 28 : 56;
 </script>
 
 <svg
   
   style:transform={`rotate(${rotate}deg)`}
-  width="56"
-  height="56"
+  width={mobile}
+  height={mobile}
   viewBox="0 0 56 56"
   fill="none"
   xmlns="http://www.w3.org/2000/svg"
