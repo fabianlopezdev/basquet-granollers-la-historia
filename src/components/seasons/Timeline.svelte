@@ -306,8 +306,8 @@
     --arrow-width: 3.3125rem;
     --arrow-bottom: -1.9rem;
     /* position: absolute; */
-    margin-top: auto;
-    margin-bottom: 3rem;
+    /* margin-top: auto; */
+    /* margin-bottom: 3rem; */
     height: 0.1875rem;
     background: linear-gradient(
       90deg,
@@ -429,7 +429,7 @@
 
   @media (max-width: 648px ) {
     .line {
-      margin-bottom: 2rem;
+      /* margin-bottom: 2rem; */
     --arrow-bottom: -1.42rem;
     --arrow-width: 2.68rem;
 
@@ -442,7 +442,7 @@
 
   @media (max-height: 780px) {
     .line {
-      margin-bottom: 2.5rem;
+      /* margin-bottom: 2.5rem; */
     }
   }
 </style>

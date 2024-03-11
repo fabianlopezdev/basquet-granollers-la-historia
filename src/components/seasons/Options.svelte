@@ -41,7 +41,7 @@
     justify-content: center;
     /* padding-bottom: 2rem; */
     gap: 1.25rem;
-    margin-top: var(--paddingTop);
+    /* margin-top: var(--paddingTop); */
     /* margin-top: auto; */
     z-index: 1;
     /* mix-blend-mode: multiply; */
@@ -85,18 +85,13 @@
       transform 0.1s ease;
     }
     
-    @media (max-height: 780px) {
-      .options-container {
-        margin-top: 1.8rem;
-      }
-    }
- 
+  
 
   @media (max-width: 648px) {
     .options-container {
       padding-inline: var(--pd-x-small);
       gap: 0.8rem;
-      margin-top: auto;
+      /* margin-top: auto; */
     }
     /* .options-container {
       flex-direction: column;

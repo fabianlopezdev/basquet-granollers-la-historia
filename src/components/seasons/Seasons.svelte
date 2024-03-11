@@ -123,18 +123,34 @@ const handleSwipeGesture = () => {
 
       {/each}
     </div>
-    <Options />
-    <Timeline
-      {listOfSeasons}
-      {windowHeight}
-      {windowScrollY}
-      {windowWidth}
-      bind:animationClass
-    />
+    <div class='timeline-options'>
+
+      <Options />
+      <Timeline
+        {listOfSeasons}
+        {windowHeight}
+        {windowScrollY}
+        {windowWidth}
+        bind:animationClass
+      />
+    </div>
   </div>
 </section>
 
 <style>
+
+  .timeline-options {
+    position: relative;
+    bottom: 0rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* padding-inline: var(--pd-x-small);
+    padding-block: 1.5rem; */
+ 
+    gap: 4.5rem;
+
+  }
   #seasons {
     --hg-menu: 4rem;
     --offset-season-menu: calc(var(--hg-menu) - 2px);
@@ -259,8 +275,27 @@ const handleSwipeGesture = () => {
     transform: rotate(-180deg);
     /* transform-origin: 50% 55%; */
   }
+   @media (max-height: 780px) {
+   .timeline-options {
+    gap: 3.5rem;
+    bottom: -1rem;
 
+      /* margin-bottom: 2.5rem; */
+    }
+  }
   @media (max-width: 648px) {
+    .timeline-options {
+      position: relative;
+      bottom: 0rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* padding-inline: var(--pd-x-small);
+    padding-block: 1.5rem; */
+
+    gap: 3.5rem;
+
+  }
     #seasons {
     scroll-snap-align: start;
 
@@ -272,6 +307,7 @@ const handleSwipeGesture = () => {
       display: flex;
     }
   }
+
 
   @media (max-height: 812px) and (max-width: 648px) {
     .season-menu {
