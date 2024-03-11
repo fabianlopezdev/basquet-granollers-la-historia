@@ -92,8 +92,16 @@
   --sz-timeline: 5.06rem;
   --bottom-options: calc(var(--sz-timeline) + 2rem);
   --sz-timeline-plus-options: calc(var(--bottom-options) + var(--hg-btn));
+
+  --scrollbar-width: 0px; /* Adjust based on initial measurements or leave at 0px */
 }
 
+
+
+.body-scrollbar-hidden {
+  overflow: hidden;
+  padding-right: var(--scrollbar-width);
+}
 html {
   scroll-behavior: smooth;
   /* scroll-snap-type: y proximity; */
