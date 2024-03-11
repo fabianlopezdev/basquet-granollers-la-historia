@@ -48,7 +48,7 @@
     {#if season.relat !== undefined}
       <div
         class="translateY-wrapper relat"
-        style="--rowStart: {relat.props.rowStart}; --rowEnd: {relat.props.rowEnd}; --colStart: {relat.props.colStart}; --colEnd: {relat.props.colEnd};"
+        style="--rowStart: {relat.props.rowStart}; --rowEnd: {relat.props.rowEnd}; --colStart: {relat.props.colStart}; --colEnd: {relat.props.colEnd}; --rowStartMobile: {relat.props.rowStartMobile}; --rowEndMobile: {relat.props.rowEndMobile}; --colStartMobile: {relat.props.colStartMobile}; --colEndMobile: {relat.props.colEndMobile};"
       >
         <article
           class="relat-container"
@@ -237,6 +237,10 @@
   } */
 
   @media (max-width: 648px) {
+    .relat {
+    grid-column: var(--colStartMobile) / var(--colEndMobile);
+    grid-row: var(--rowStartMobile) / var(--rowEndMobile);
+  }
     .img-0 {
    grid-column: var(--colStartMobile) / var(--colEndMobile);
     grid-row: var(--rowStartMobile) / var(--rowEndMobile);
@@ -273,7 +277,8 @@
 
     .relat-container {
       max-width: 14rem;
-      padding: 1.5rem;
+      padding: 1.1rem;
+      gap: 0.7rem;
       /* text-wrap: pretty; */
     }
 
