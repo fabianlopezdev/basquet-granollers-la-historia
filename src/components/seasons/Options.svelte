@@ -103,9 +103,9 @@
     } */
   }
 
-  @media (max-height: 560px) {
+  @media (max-height: 780px) {
     .options-container {
-      margin-top: 1.3rem;
+      margin-top: 1.8rem;
     }
   }
   

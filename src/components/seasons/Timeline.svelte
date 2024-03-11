@@ -420,7 +420,7 @@
     }
   }
 
-  @media (max-height: 588px) {
+  @media (max-height: 780px) {
     .line {
       margin-bottom: 1.7rem;
     }
