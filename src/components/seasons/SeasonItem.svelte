@@ -238,11 +238,27 @@
   } */
 
   @media (max-width: 648px) {
-
+    .blender:hover {
+    mix-blend-mode: multiply;
+    z-index: 0;
+  }
     img:hover {
       filter: grayscale(100%); /* Reset to original state, adjust if needed */
       transform: scale(1);
     }
+     .container-1-2:hover {
+    transform: translateX(0);
+    /* transition: transform 0.5s ease-in;  */
+  }
+
+  .container-0-1:hover {
+    transform: translateY(0);
+    /* transition: transform 0.5s ease-in;  */
+  }
+     .container-1-1:hover {
+    transform: translateY(0);
+    /* transition: transform 0.5s ease-in;  */
+  }
     .relat {
     grid-column: var(--colStartMobile) / var(--colEndMobile);
     grid-row: var(--rowStartMobile) / var(--rowEndMobile);
