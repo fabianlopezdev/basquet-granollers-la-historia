@@ -238,6 +238,11 @@
   } */
 
   @media (max-width: 648px) {
+
+    img:hover {
+      filter: grayscale(100%); /* Reset to original state, adjust if needed */
+      transform: scale(1);
+    }
     .relat {
     grid-column: var(--colStartMobile) / var(--colEndMobile);
     grid-row: var(--rowStartMobile) / var(--rowEndMobile);
@@ -270,6 +275,8 @@
     /* .items-container {
       flex: 1;
     } */
+
+    
     .items-container {
       padding-bottom: 5rem;
       grid-template-columns: repeat(24, 4.19%);

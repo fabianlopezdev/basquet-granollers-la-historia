@@ -53,7 +53,7 @@ export let listOfSeasons;
 		touchendX = e.changedTouches[0].clientX;
 		handleSwipeGesture();
 	};
-const SWIPE_THRESHOLD = 100; // Adjust as needed for sensitivity
+const SWIPE_THRESHOLD = 50; // Adjust as needed for sensitivity
 
 const handleSwipeGesture = () => {
     const swipeDistance = touchendX - touchstartX;
