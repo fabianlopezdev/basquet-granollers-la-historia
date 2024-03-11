@@ -70,7 +70,7 @@
   }
   
   .text {
-    
+    font-size: 1rem;
     text-align: justify;
   }
 
