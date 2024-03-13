@@ -3,8 +3,6 @@
   export let classificacio;
   export let competition;
   export let key;
-
-  console.log('classificacio', classificacio);
 </script>
 
 <h3>Classificació {getKeyDescription(key, competition)}</h3>

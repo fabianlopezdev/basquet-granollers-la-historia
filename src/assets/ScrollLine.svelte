@@ -18,7 +18,6 @@ let innerWidth;
       reduceFactor = innerHeight / 901;
 
       lineHeight= 134 * reduceFactor;
-      console.log('lineHeight', lineHeight)
     }
   }
 </script>

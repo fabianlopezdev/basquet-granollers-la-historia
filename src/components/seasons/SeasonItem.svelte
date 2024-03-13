@@ -6,9 +6,8 @@
 
   export let season;
 
-  const { years, stats, relat, social, images} = season;
+  const { years, relat, images} = season;
 
-  console.log('images', images)
  
   export let windowScrollY;
   export let seasonIndex;

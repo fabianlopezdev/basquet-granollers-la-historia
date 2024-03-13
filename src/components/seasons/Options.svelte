@@ -3,7 +3,6 @@
 
   function selectDisplay(e) {
     const buttonText = e.target.textContent.toLowerCase();
-    console.log('buttonteext', buttonText)
     if (buttonText === $display) display.set("relats");
     else display.set(buttonText);
   }

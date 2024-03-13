@@ -1,23 +1,21 @@
 <script>
 
-  import { currentIndex, display, isOutsideSelection } from "../../svelte/stores";
+  import { currentIndex } from "../../svelte/stores";
  
 
   export let seasonsList;
   export let isDropDownMenuOpen;
   export let isMenuOpen;
-  console.log('seasonsList', seasonsList)
+
  
   function setStores(i) {
     currentIndex.set(i);
-    // console.log('seasonsList.name', seasonsList.name)
   }
 
   function handlePopupsMenu() {
     if (isDropDownMenuOpen === true) isDropDownMenuOpen = false;
     if (isMenuOpen === true) isMenuOpen = false;
   }
-  // $: console.log('isDropDownMenuOpen', isDropDownMenuOpen);
 </script>
 
 
