@@ -93,7 +93,7 @@
     position: relative;
     width: 100%;
     height: inherit;
-    scroll-snap-align: start;
+
     /* overflow-x: hidden; */
   }
 

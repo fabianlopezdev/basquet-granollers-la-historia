@@ -236,8 +236,6 @@ const handleSwipeGesture = () => {
     /* overflow: hidden; */
     transition: transform 1.5s ease-out;
     z-index: 1;
-    scroll-snap-type: x proximity; /* Enable scroll snapping */
-  -webkit-overflow-scrolling: touch;
   }
 
 
@@ -296,10 +294,7 @@ const handleSwipeGesture = () => {
     gap: 3.5rem;
 
   }
-    #seasons {
-    scroll-snap-align: start;
 
-    }
     .seasons-container {
       height: calc(100svh - var(--pd-y-options-btns) - 2.5rem);
     }
