@@ -103,7 +103,7 @@
   padding-right: var(--scrollbar-width);
 }
 html {
-  overflow: hidden;
+  overflow-x: hidden;
   /* scroll-behavior: smooth; */
   /* scroll-snap-type: y proximity; */
 }
