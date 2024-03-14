@@ -193,14 +193,14 @@
   }
 
  function handleMouseEnter() {
-  document.body.style.paddingRight = `${scrollbarWidth}px`;
+  // document.body.style.paddingRight = `${scrollbarWidth}px`;
   console.log('scrollbarWidth', scrollbarWidth);
   document.body.style.boxSizing = 'border-box';
 }
 
 function handleMouseLeave() {
   document.body.style.paddingRight = '';
-  document.body.style.boxSizing = '';
+  // document.body.style.boxSizing = '';
 }
 
   function handleWheel(event) {
