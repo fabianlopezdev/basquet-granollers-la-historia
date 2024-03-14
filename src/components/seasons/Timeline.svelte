@@ -194,6 +194,7 @@
 
  function handleMouseEnter() {
   document.body.style.paddingRight = `${scrollbarWidth}px`;
+  console.log('scrollbarWidth', scrollbarWidth);
   document.body.style.boxSizing = 'border-box';
 }
 
