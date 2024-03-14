@@ -207,7 +207,7 @@
   function handleWheel(event) {
     isDirectSelection = false;
     userInteractionCount++;
-    event.deltaY > 0 ? nextSeason() : prevSeason();
+    event.deltaY > 0 && nextSeason();
   }
 
   function handleKeyDown(event) {
