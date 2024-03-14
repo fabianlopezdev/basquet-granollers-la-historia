@@ -192,23 +192,23 @@
     previousIndex = $currentIndex;
   }
 
-  function handleMouseEnter() {
-    // document.documentElement.classList.add('body-scrollbar-hidden');
-    document.body.style.paddingRight = `${scrollbarWidth}px`;
-    document.body.style.overflow = "hidden";
-  }
+  // function handleMouseEnter() {
+  //   // document.documentElement.classList.add('body-scrollbar-hidden');
+  //   document.body.style.paddingRight = `${scrollbarWidth}px`;
+  //   document.body.style.overflow = "hidden";
+  // }
 
-  function handleMouseLeave() {
-    // document.documentElement.classList.remove('body-scrollbar-hidden');
-    document.body.style.overflow = "";
-    document.body.style.paddingRight = "";
-  }
+  // function handleMouseLeave() {
+  //   // document.documentElement.classList.remove('body-scrollbar-hidden');
+  //   document.body.style.overflow = "";
+  //   document.body.style.paddingRight = "";
+  // }
 
-  function handleWheel(event) {
-    isDirectSelection = false;
-    userInteractionCount++;
-    event.deltaY > 0 ? nextSeason() : prevSeason();
-  }
+  // function handleWheel(event) {
+  //   isDirectSelection = false;
+  //   userInteractionCount++;
+  //   event.deltaY > 0 ? nextSeason() : prevSeason();
+  // }
 
   function handleKeyDown(event) {
     if (windowScrollY >= windowHeight) {
