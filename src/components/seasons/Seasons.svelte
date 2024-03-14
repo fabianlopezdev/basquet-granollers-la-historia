@@ -59,7 +59,7 @@ function moveNextSlide() {
 		touchendX = e.changedTouches[0].clientX;
 		handleSwipeGesture();
 	};
-const SWIPE_THRESHOLD = 15; // Adjust as needed for sensitivity
+const SWIPE_THRESHOLD = 0; // Adjust as needed for sensitivity
 
 const handleSwipeGesture = () => {
     const swipeDistance = touchendX - touchstartX;
@@ -156,7 +156,7 @@ const handleSwipeGesture = () => {
     --offset-season-menu: calc(var(--hg-menu) - 2px);
     background-color: var(--clr-contrast);
     position: relative;
-    height: 100dvh;
+    height: 100lvh;
     /* overflow-y: hidden; */
   }
 
