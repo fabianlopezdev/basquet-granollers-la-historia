@@ -113,6 +113,10 @@ body {
   font-size: var(--fnt-sz-regular);
   line-height: var(--line-hg-regular);
   color: var(--clr-contrast);
+  padding-right: 0;
+  box-sizing: content-box;
+  overflow-y: scroll; /* Add this line */
+
 }
 
 

@@ -192,17 +192,15 @@
     previousIndex = $currentIndex;
   }
 
-  function handleMouseEnter() {
-    // document.documentElement.classList.add('body-scrollbar-hidden');
-    document.body.style.overflow = "hidden";
-    document.body.style.paddingRight = `${scrollbarWidth}px`;
-  }
+ function handleMouseEnter() {
+  document.body.style.paddingRight = `${scrollbarWidth}px`;
+  document.body.style.boxSizing = 'border-box';
+}
 
-  function handleMouseLeave() {
-    // document.documentElement.classList.remove('body-scrollbar-hidden');
-    document.body.style.overflow = "";
-    document.body.style.paddingRight = "";
-  }
+function handleMouseLeave() {
+  document.body.style.paddingRight = '';
+  document.body.style.boxSizing = '';
+}
 
   function handleWheel(event) {
     isDirectSelection = false;
