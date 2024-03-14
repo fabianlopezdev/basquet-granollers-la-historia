@@ -192,16 +192,17 @@
     previousIndex = $currentIndex;
   }
 
- function handleMouseEnter() {
-  // document.body.style.paddingRight = `${scrollbarWidth}px`;
-  console.log('scrollbarWidth', scrollbarWidth);
-  document.body.style.boxSizing = 'border-box';
-}
+  function handleMouseEnter() {
+    // document.documentElement.classList.add('body-scrollbar-hidden');
+    document.body.style.paddingRight = `${scrollbarWidth}px`;
+    document.body.style.overflow = "hidden";
+  }
 
-function handleMouseLeave() {
-  document.body.style.paddingRight = '';
-  // document.body.style.boxSizing = '';
-}
+  function handleMouseLeave() {
+    // document.documentElement.classList.remove('body-scrollbar-hidden');
+    document.body.style.overflow = "";
+    document.body.style.paddingRight = "";
+  }
 
   function handleWheel(event) {
     isDirectSelection = false;
