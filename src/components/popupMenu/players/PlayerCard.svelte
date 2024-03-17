@@ -142,6 +142,7 @@ const date = formatExcelDate(jugador.data_naix);
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: top;
     margin: auto;
   }
 

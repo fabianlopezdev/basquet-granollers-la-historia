@@ -42,6 +42,9 @@
 <svelte:window on:keydown={handleEscape} />
 
 <section class="more-info-menu" style={$display === "resultats" && "background-color: #F3F3F3"} in:slide={{ duration: 300, axis: "x" }}>
+  <div class='max-width'>
+
+  </div>
   <header class="menu-header">
     <h2>
       <span style="color: var(--clr-accent)">
@@ -101,6 +104,20 @@
 </section>
 
 <style>
+  .more-info-menu {
+    --hg-header-menu: calc(var(--hg-header) + 1rem);
+    --mg-left-top-header: 1rem;
+    position: absolute;
+    min-height: 100%;
+  width: 100vw;
+    margin: 0;
+    background-color: var(--clr-contrast);
+    z-index: 10;
+    overflow-x: hidden;
+    /* overflow: hidden; */
+  }
+
+  
 
   h2 {
     font-size: 0.875rem;
@@ -118,22 +135,10 @@
     width: 1.5625rem;
 width: clamp(1.5625rem, 0.6358793517406963rem + 3.12124849939976vw, 3.1875rem);
   }
-  .more-info-menu {
-    --hg-header-menu: calc(var(--hg-header) + 1rem);
-    --mg-left-top-header: 1rem;
-    position: absolute;
-    min-height: 100%;
-  width: 100vw;
-    margin: 0;
-    background-color: var(--clr-contrast);
-    z-index: 10;
-    overflow-x: hidden;
-    /* overflow: hidden; */
-  }
 
   .menu-container {
     padding-block: 1rem;
-    max-width: var(--wd-regular);
+    max-width: var(--wd-max);
     padding-inline: var(--pd-x);
     margin: auto;
     min-height: calc(100% - var(--hg-header-menu) - var(--mg-left-top-header));

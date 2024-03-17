@@ -55,7 +55,7 @@
   .social-container {
     /* padding-inline: var(--pd-x); */
     color: var(--clr-primary);
-    max-width: var(--wd-regular);
+    max-width: var(--wd-max);
     padding-inline: calc(19.44rem - var(--pd-x));
     padding-block: 2.5rem;
     color: var(--clr-primary);
