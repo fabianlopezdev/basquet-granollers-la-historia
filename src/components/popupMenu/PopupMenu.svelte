@@ -64,14 +64,14 @@
   </header>
   <div class="menu-container">
     {#if $display === "jugadors"}
-    <h3>JUGADORS:</h3>
+    <h3 class='players-title'>JUGADORS</h3>
       <ul class="players-container">
         {#each jugadors as jugador}
           <PlayerCard {jugador} />
         {/each}
       </ul>
       {#if entrenadors !== undefined > 0}
-        <h3>ENTRENADORS:</h3>
+        <h3 class='players-title'>ENTRENADORS</h3>
         <ul class="players-container">
           {#each entrenadors as entrenador}
             <CoachCard {entrenador} />
@@ -155,7 +155,9 @@ width: clamp(1.5625rem, 0.6358793517406963rem + 3.12124849939976vw, 3.1875rem);
     /* margin-left: var(--mg-left-top-header); */
   }
 
- 
+ .players-title {
+  text-align: center;
+ }
   .players-container {
     display: flex;
     flex-wrap: wrap;

@@ -7,11 +7,18 @@ import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+const isProduction = import.meta.env.NODE_ENV === 'production';
+const basePath = isProduction? "../imatges/jugadors" : `../../public/imatges/jugadors`;
+
+
 //DEV PATH
 // const folderPath = path.join(__dirname, `../../public/imatges/jugadors`);
 
 //PRODUCTION PATH
 // const folderPath = path.join(__dirname, "../imatges/jugadors");
+
+const folderPath = path.join(__dirname, basePath);
+
 
 export async function getJugadorsImagesListNames() {
   try {
