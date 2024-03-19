@@ -24,9 +24,9 @@ const especial = Astro.props;
 
 <BaseLayout>
   <ArticleLayuout
-    text={especial.htmlValues}
-    title={especial.title}
-    author={especial.author}
-    image={especial.image}
+    text={(especial as { htmlValues: string }).htmlValues}
+    title={(especial as {title: string }).title}
+    author={(especial as {author: string}).author}
+    image={(especial as {image: string}).image}
   />
 </BaseLayout>
