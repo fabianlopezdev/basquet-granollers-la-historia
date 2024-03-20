@@ -129,7 +129,7 @@ const SEASONS_LAYOUT = [
       rowEndShortHg: 66,
       colStartMobile: 11,
       colEndMobile: 25,
-      rowStartMobile: 11,
+      rowStartMobile: 12,
       rowEndMobile: 24,
     },
     relatProps: {
