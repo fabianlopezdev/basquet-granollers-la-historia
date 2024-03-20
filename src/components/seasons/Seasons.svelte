@@ -209,7 +209,7 @@ let initialWindowHeight;
     /* padding-inline: var(--pd-x-small);
     padding-block: 1.5rem; */
     gap: 4.5rem;
-    z-index: 10;
+    z-index: 1;
 
   }
   #seasons {

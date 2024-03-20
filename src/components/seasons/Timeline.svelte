@@ -27,6 +27,7 @@
   const MIN_GAP = 2;
   // Minimum gap between seasons in rem
  let mobile = false;
+ 
   $: if (windowWidth < 648) {
     mobile = true;
     TIMELINE_PADDING_X = 0;
@@ -439,6 +440,8 @@
 
     .selection-container {
       padding-inline: 2.5rem;
+      gap: 0rem;
+      justify-content: space-between;
     }
   }
 
