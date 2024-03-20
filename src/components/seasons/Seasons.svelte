@@ -181,7 +181,7 @@ $: {
     --offset-season-menu: calc(var(--hg-menu) - 2px);
     background-color: var(--clr-contrast);
     position: relative;
-    height: 100%;
+    height: 100lvh;
     /* overflow-y: hidden; */
   }
 
