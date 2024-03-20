@@ -25,6 +25,7 @@ export let listOfSeasons;
   let touchendX = 0;
   let direction = '';
   let prevIndex = 0;
+  let windowOuterHeight;
 
   let isMenuOpen = false;
 
@@ -83,18 +84,26 @@ let seasonsElement;
 let initialWindowHeight;
 
 $: {
-  if (innerHeight) {
-    initialWindowHeight = innerHeight;
+  if (windowOuterHeight) {
+    initialWindowHeight = windowOuterHeight;
   }
 }
 
 $: {
-  if (seasonsElement && innerHeight && initialWindowHeight) {
-    seasonsElement.style.height = `${initialWindowHeight}px`;
-    if (innerHeight !== initialWindowHeight) {
+  if (seasonsElement && innerHeight && windowOuterHeight && initialWindowHeight) {
     console.log('seasonsElement', seasonsElement);
-    seasonsElement.style.height = `${innerHeight}px`;
-  }} 
+    console.log('innerHeight', innerHeight);
+    console.log('windowOuterHeight', windowOuterHeight);
+    console.log('initialWindowHeight', initialWindowHeight);
+    if (innerHeight > initialWindowHeight) {
+      console.log('seasonsElement', seasonsElement);
+      seasonsElement.style.height = `${windowOuterHeight}px`;
+    } else if (inerHeight < initialWindowHeight) {
+      seasonsElement.style.height = `${initialWindowHeight}px`;
+    } else {
+    seasonsElement.style.height = `${initialWindowHeight}px`;
+    
+  }}
 }
 
 </script>
@@ -103,6 +112,8 @@ $: {
   bind:innerWidth={windowWidth}
   bind:innerHeight={windowHeight}
   bind:scrollY={windowScrollY}
+  bind:outerHeight={windowOuterHeight}
+
 />
 
 <section id="seasons" bind:this={seasonsElement}>
@@ -190,7 +201,7 @@ $: {
     --offset-season-menu: calc(var(--hg-menu) - 2px);
     background-color: var(--clr-contrast);
     position: relative;
-    /* height: 100lvh; */
+    height: 100vh;
     /* overflow-y: hidden; */
   }
 
