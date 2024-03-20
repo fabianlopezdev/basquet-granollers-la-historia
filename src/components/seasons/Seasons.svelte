@@ -333,7 +333,7 @@ let initialWindowHeight;
   }
   @media (max-width: 648px) {
     .timeline-options {
-      bottom: 2rem;
+      bottom: 3rem;
     /* padding-inline: var(--pd-x-small);
     padding-block: 1.5rem; */
 
