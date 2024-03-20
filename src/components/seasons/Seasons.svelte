@@ -108,6 +108,9 @@ const handleSwipeGesture = () => {
       <div style="padding-top: 3rem; width: 100%;">
         <SponsorsResponsive />
       </div>
+      <p class='made-by'>
+        Fet per <a href="http://www.biombostudio.com/" target="_blank" rel="noopener noreferrer">Biombö Studio</a>
+      </p>
     </div>
     <div
       class="seasons-container"
@@ -138,7 +141,19 @@ const handleSwipeGesture = () => {
 </section>
 
 <style>
+  .made-by {
+    text-align: center;
+    color: var(--clr-contrast);
+    font-size: var(--fnt-sz-regular);
+    font-weight: var(--fnt-wg-light);
+    padding: 0rem;
+  }
 
+  .made-by a {
+    color: var(--clr-accent);
+    text-decoration: underline;
+    font-style: italic;
+  }
   .timeline-options {
     position: relative;
     bottom: 0rem;
@@ -265,7 +280,7 @@ const handleSwipeGesture = () => {
     display: inline-block;
     vertical-align: middle;
     transform: rotate(0);
-    transform-origin: 50% 65%;
+    transform-origin: 50% 55%;
     transition: 0.45s transform ease-in-out;
   }
 

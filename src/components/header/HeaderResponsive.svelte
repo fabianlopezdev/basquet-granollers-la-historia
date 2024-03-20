@@ -84,6 +84,7 @@
 <style>
   .made-by {
     text-align: center;
+    font-weight: var(--fnt-wg-light);
   }
 
   .made-by a {
