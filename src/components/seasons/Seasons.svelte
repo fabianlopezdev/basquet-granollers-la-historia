@@ -98,7 +98,7 @@ $: {
     if (innerHeight > initialWindowHeight) {
       console.log('seasonsElement', seasonsElement);
       seasonsElement.style.height = `${windowOuterHeight}px`;
-    } else if (inerHeight < initialWindowHeight) {
+    } else if (innerHeight < initialWindowHeight) {
       seasonsElement.style.height = `${initialWindowHeight}px`;
     } else {
     seasonsElement.style.height = `${initialWindowHeight}px`;
