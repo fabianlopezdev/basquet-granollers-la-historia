@@ -79,10 +79,11 @@ const handleSwipeGesture = () => {
 };
 
 let isDialogOpen = false;
+let seasonsElement;
 
 $: {
-  if (innerHeight) {
-    const seasonsElement = document.getElementById("seasons");
+  if (seasonsElement && innerHeight) {
+    console.log('seasonsElement', seasonsElement);
     seasonsElement.style.height = `${innerHeight}px`;
   }
 }
@@ -95,7 +96,7 @@ $: {
   bind:scrollY={windowScrollY}
 />
 
-<section id="seasons">
+<section id="seasons" bind:this={seasonsElement}>
   {#if $display !== "relats"}
     <PopupMenu season={seasons[$currentIndex]} />
   {/if}
@@ -180,7 +181,7 @@ $: {
     --offset-season-menu: calc(var(--hg-menu) - 2px);
     background-color: var(--clr-contrast);
     position: relative;
-    height: 100lvh;
+    height: 100%;
     /* overflow-y: hidden; */
   }
 
