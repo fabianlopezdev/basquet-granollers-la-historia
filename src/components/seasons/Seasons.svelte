@@ -377,6 +377,7 @@ let initialWindowHeight;
   }
   @media (max-height: 568px) {
   .timeline-options {
+    bottom: 2rem;
     gap: 2.8rem;
 }}
 </style>
