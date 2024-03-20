@@ -12,6 +12,7 @@
   export let windowScrollY;
   export let seasonIndex;
   export let windowHeight;
+  export let isDialogOpen;
 
   let translateY;
   $: innerWidth = 0;
@@ -33,7 +34,7 @@
 <svelte:window bind:innerWidth />
 
 {#key season.years}
-<DialogRelat {relat} {dialogId} {years} />
+<DialogRelat {relat} {dialogId} {years} bind:isDialogOpen={isDialogOpen}/>
 {/key}
 <div
   class="season-container"
@@ -55,7 +56,7 @@
         >
           <header>El Relat</header>
           <p>{truncateString(`${relat.content.text}`)}</p>
-          <button on:click={() => toggleDialog(dialogId)} style="--hoverColor: {relat.props.hoverColor}"
+          <button on:click={() => {toggleDialog(dialogId);}} style="--hoverColor: {relat.props.hoverColor}"
             >Llegir més</button
           >
         </article>

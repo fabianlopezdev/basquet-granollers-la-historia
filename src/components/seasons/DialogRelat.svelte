@@ -5,9 +5,10 @@
  export let years
 export let dialogId;
 export let relat;
+export let isDialogOpen;
 
 
-
+isDialogOpen = true;
 
 function darkenColor(color, amount) {
     // This is a simple placeholder function. You'll need to replace it with actual logic
@@ -20,12 +21,18 @@ function darkenColor(color, amount) {
     return `rgb(${r}, ${g}, ${b})`;
   }
 
+  function disableBackgroundScrolling(id) {
+    const element = document.querySelector(id);
+    console.log(element)
+    element.style.overflow = 'hidden';
+  }
+
   $: darkerColor = darkenColor(relat.props.color, 50);
 </script>
 
 <!-- {#if relatColor !== undefined}  -->
-<dialog id={dialogId} style="--clr-bg-relat: {relat.props.color}; --clr-bg-scrollbar: {darkerColor}">
-  <button class="modal-button" on:click={() => toggleDialog(dialogId)}>
+<dialog id={dialogId} style="--clr-bg-relat: {relat.props.color}; --clr-bg-scrollbar: {darkerColor}" on:touchstart={()=>disableBackgroundScrolling(`seasons-container`)}>
+  <button class="modal-button" on:click={() => {toggleDialog(dialogId); isDialogOpen = false;}} >
     {@html closeMenuIcon}
   </button>
   <div class="dialog-container">

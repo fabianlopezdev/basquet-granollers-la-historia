@@ -51,11 +51,13 @@ function moveNextSlide() {
 }
   // Function to handle touch start
 	const handleTouchStart = (e) => {
+    if (isDialogOpen) return;
 		touchstartX = e.touches[0].clientX;
 	};
 
 	// Function to handle touch end
 	const handleTouchEnd = (e) => {
+    if (isDialogOpen) return;
 		touchendX = e.changedTouches[0].clientX;
 		handleSwipeGesture();
 	};
@@ -76,7 +78,7 @@ const handleSwipeGesture = () => {
     }
 };
 
-
+let isDialogOpen = false;
 
 </script>
 
@@ -122,7 +124,7 @@ const handleSwipeGesture = () => {
       {#each seasons as season, seasonIndex}
   
 
-        <SeasonItem {season} {windowHeight} {windowScrollY} {seasonIndex} />
+        <SeasonItem {season} {windowHeight} {windowScrollY} {seasonIndex} bind:isDialogOpen={isDialogOpen}/>
 
       {/each}
     </div>
