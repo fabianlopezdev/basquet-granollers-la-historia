@@ -75,7 +75,7 @@ const handleSwipeGesture = () => {
             // Swipe was right (to see the previous season)
             movePrevSlide();
         }
-    }
+    } 
 };
 
 let isDialogOpen = false;
