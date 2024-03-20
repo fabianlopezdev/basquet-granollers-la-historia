@@ -8,8 +8,6 @@ export let relat;
 export let isDialogOpen;
 
 
-isDialogOpen = true;
-
 function darkenColor(color, amount) {
     // This is a simple placeholder function. You'll need to replace it with actual logic
     // to darken the color. This might involve parsing the color and adjusting its lightness.

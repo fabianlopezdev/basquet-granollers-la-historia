@@ -60,7 +60,7 @@
         >
           <header>El Relat</header>
           <p>{truncateString(`${relat.content.text}`)}</p>
-          <button on:click={() => {toggleDialog(dialogId);}} style="--hoverColor: {relat.props.hoverColor}" 
+          <button on:click={() => {toggleDialog(dialogId); isDialogOpen = true}} style="--hoverColor: {relat.props.hoverColor}" 
             >Llegir més</button
           >
         </article>
