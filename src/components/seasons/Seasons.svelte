@@ -10,6 +10,7 @@
   import { collapsibleArrowSeasonMobileMenu } from "@assets/icons";
   import SeasonsList from "../header/SeasonsList.svelte";
   import SponsorsResponsive from "@components/header/SponsorsResponsive.svelte";
+  import { closeMenuIcon } from "@assets/icons";
 
   import {onMount } from 'svelte';
 
@@ -93,6 +94,8 @@ const handleSwipeGesture = () => {
 let isDialogOpen = false;
 let seasonsElement;
 let initialWindowHeight;
+let openImg1 = false;
+let openImg2 = false;
 
 // $: {
 //   if (windowOuterHeight) {
@@ -163,7 +166,7 @@ let initialWindowHeight;
       {#each seasons as season, seasonIndex}
   
 
-        <SeasonItem {season} {windowHeight} {windowScrollY} {seasonIndex} bind:isDialogOpen={isDialogOpen}/>
+        <SeasonItem {season} {windowHeight} {windowScrollY} {seasonIndex} bind:isDialogOpen={isDialogOpen} bind:openImg1 bind:openImg2/>
 
       {/each}
     </div>
@@ -179,9 +182,52 @@ let initialWindowHeight;
       bind:animationClass
     />
   </div>
+
+  
 </section>
+
+{#if openImg1 === true}
+  <section  class="dialog-container">
+    <button class="modal-button" on:click={() => (openImg1 = false)} >
+      {@html closeMenuIcon}
+    </button>
+    <div>
+      <img src={seasons[$currentIndex].images.img_1.url} alt={seasons[$currentIndex].images.img_1.alt} />
+    </div>
+  </section>
+{/if}
+{#if openImg2 === true}
+  <section  class="dialog-container">
+    <button class="modal-button" on:click={() =>( openImg2 = false)} >
+      {@html closeMenuIcon}
+    </button>
+    <div >
+      <img src={seasons[$currentIndex].images.img_2.url} alt={seasons[$currentIndex].images.img_2.alt} />
+    </div>
+  </section>
+{/if}
  
 <style>
+    .modal-button {
+    position: absolute;
+    top: 1rem;
+    right: 0.7rem;
+    z-index: 20;
+  }
+  
+  .dialog-container {
+    display: flex;
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        top: 0;
+        background-color:  rgba(0, 0, 0, 0.7);
+        margin-top: calc(var(--hg-menu) * -1);
+        height: 100vh;
+        width: 100vw;
+        z-index: 10;
+      
+  }
   .made-by {
     text-align: center;
     color: var(--clr-contrast);

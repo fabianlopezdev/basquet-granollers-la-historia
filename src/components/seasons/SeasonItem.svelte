@@ -5,7 +5,7 @@
   import DialogRelat from "./DialogRelat.svelte";
   import { safari } from "src/svelte/stores";
 
-
+import { closeMenuIcon } from "@assets/icons";
   export let season;
 
   const { years, relat, images} = season;
@@ -15,6 +15,8 @@
   export let seasonIndex;
   export let windowHeight;
   export let isDialogOpen;
+  export let openImg1;
+  export let openImg2;  
 
   let translateY;
   $: innerWidth = 0;
@@ -67,7 +69,7 @@
       </div>
     {/if}
     {#if season.images}
-  
+   {#if innerWidth > 648}
           <div
             class="translateY-wrapper blender img-0"
             class:imgRelatBlue={relat.props.color === "rgba(8, 67, 149, 0.90)"}
@@ -85,23 +87,44 @@
               <img src={images.img_2.url} alt={images.img_2.alt} />
             </div>
           </div>
-
-         
-         
-      
-    
-    {/if}
-  </div>
+{:else}
+<button on:click={() => {(openImg1 = true); console.log('openImg1', openImg1)}}
+class="translateY-wrapper blender img-0"
+class:imgRelatBlue={relat.props.color === "rgba(8, 67, 149, 0.90)"}
+style="transform: {translateY}; --rowStart: {images.img_1.layout.rowStart}; --rowEnd: {images.img_1.layout.rowEnd}; --colStart: {images.img_1.layout.colStart}; --colEnd: {images.img_1.layout.colEnd}; --rowStartShortHg: {images.img_1.layout.rowStartShortHg}; --rowEndShortHg: {images.img_1.layout.rowEndShortHg}; --colStartShortHg: {images.img_1.layout.colStartShortHg}; --colEndShortHg: {images.img_1.layout.colEndShortHg}; --rowStartMobile: {images.img_1.layout.rowStartMobile}; --rowEndMobile: {images.img_1.layout.rowEndMobile}; --colStartMobile: {images.img_1.layout.colStartMobile}; --colEndMobile: {images.img_1.layout.colEndMobile};"  
+>
+<div class="img-container" class:container-0-1={images.firstLayout} class:container-1-1={images.secondLayout} >
+  <img src={images.img_1.url} alt={images.img_1.alt} />
 </div>
+</button>
+<button
+on:click={() => (openImg2 = true)}
+class="translateY-wrapper blender img-1"
+style="transform: {translateY}; --rowStart: {images.img_2.layout.rowStart}; --rowEnd: {images.img_2.layout.rowEnd}; --colStart: {images.img_2.layout.colStart}; --colEnd: {images.img_2.layout.colEnd}; --rowStartShortHg: {images.img_2.layout.rowStart}; --rowEndShortHg: {images.img_2.layout.rowEndShortHg}; --colStartShortHg: {images.img_2.layout.colStartShortHg}; --colEndShortHg: {images.img_2.layout.colEndShortHg}; --rowStartMobile: {images.img_2.layout.rowStartMobile}; --rowEndMobile: {images.img_2.layout.rowEndMobile}; --colStartMobile: {images.img_2.layout.colStartMobile}; --colEndMobile: {images.img_2.layout.colEndMobile};"
+>
+<div class="img-container" class:container-1-2={images.secondLayout} class:container-0-2={images.firstLayout}>
+  <img src={images.img_2.url} alt={images.img_2.alt} />
+</div>
+</button>
+{/if}
+{/if}
+</div>
+  </div>
+
+
+<!-- {#if openImg2 === true}
+{/if} -->
+
+
 
 <style>
   .season-container {
     position: relative;
     width: 100%;
     height: inherit;
-
     /* overflow-x: hidden; */
   }
+
 
   .season-title {
     position: absolute;
