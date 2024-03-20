@@ -111,11 +111,11 @@ const SEASONS_LAYOUT = [
       rowEnd: 50,
       colStartShortHg: 24,
       colEndShortHg: 37,
-      rowStartShortHg: 3,
+      rowStartShortHg: 6,
       rowEndShortHg: 27,
       colStartMobile: 16,
       colEndMobile: 24,
-      rowStartMobile: 4,
+      rowStartMobile: 1,
       rowEndMobile: 24,
     },
     img2: {
