@@ -21,11 +21,9 @@ export async function getStaticPaths() {
 
 const especial = Astro.props;
 
-const internalPage = true;
-
 ---
 
-<BaseLayout {internalPage}>
+<BaseLayout>
   <ArticleLayout
     text={(especial as { htmlValues: string }).htmlValues}
     title={(especial as {title: string }).title}

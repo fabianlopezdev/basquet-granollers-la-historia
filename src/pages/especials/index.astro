@@ -7,12 +7,11 @@ import { getEspecials } from "@data/especials";
 
 const especials = await getEspecials();
 
-const internalPage = true;
 
 
 ---
 
-<BaseLayout {internalPage}>
+<BaseLayout >
   <section>
     <div class="headings-container">
       <h1>Articles especials</h1>
@@ -52,7 +51,7 @@ const internalPage = true;
   .headings-container {
     display: flex;
     flex-direction: column;
-    padding-block: 2.5rem;
+    padding-block: 2rem;
     gap: 3rem;
   }
 

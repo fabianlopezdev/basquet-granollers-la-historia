@@ -14,8 +14,6 @@ const { title, pageDescription } = Astro.props;
 const DESCRIPTION =
   "Benvinguts i benvingudes a un recorregut per la història del Club Bàsquet Granollers, un equip de bàsquet amb més de 90 anys d'història.";
 
-
-const {internalPage} = Astro.props;
 ---
 
 <html lang="ca">
@@ -46,7 +44,7 @@ const {internalPage} = Astro.props;
     />
   </head>
   <body>
-    <Header {internalPage}/>
+    <Header/>
     <main>
       <slot />
     </main>
