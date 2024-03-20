@@ -3,6 +3,8 @@
   import { truncateString, toggleDialog } from "@utils/helperFunctions";
   import { currentIndex } from "src/svelte/stores";
   import DialogRelat from "./DialogRelat.svelte";
+  import { safari } from "src/svelte/stores";
+
 
   export let season;
 
@@ -50,6 +52,7 @@
         class="translateY-wrapper relat"
         style="--rowStart: {relat.props.rowStart}; --rowEnd: {relat.props.rowEnd}; --colStart: {relat.props.colStart}; --colEnd: {relat.props.colEnd}; --rowStartMobile: {relat.props.rowStartMobile}; --rowEndMobile: {relat.props.rowEndMobile}; --colStartMobile: {relat.props.colStartMobile}; --colEndMobile: {relat.props.colEndMobile};"
         class:relatBlue={relat.props.color === "rgba(8, 67, 149, 0.90)"}
+        class:safari={safari && relat.props.color === "rgba(8, 67, 149, 0.90)"}
         >
         <article
           class="relat-container"
@@ -264,6 +267,10 @@
     .relat {
     grid-column: var(--colStartMobile) / var(--colEndMobile);
     grid-row: var(--rowStartMobile) / var(--rowEndMobile);
+  }
+
+  .safari {
+    grid-row: calc(var(--rowStartMobile) - 3) / var(--rowEndMobile);
   }
     .img-0 {
    grid-column: var(--colStartMobile) / var(--colEndMobile);

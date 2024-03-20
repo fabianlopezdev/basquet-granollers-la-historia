@@ -5,12 +5,13 @@
   import SeasonItem from "./SeasonItem.svelte";
   import PopupMenu from "../popupMenu/PopupMenu.svelte";
   //Import data
-  import { currentIndex } from "src/svelte/stores";
+  import { currentIndex, safari } from "src/svelte/stores";
   import { display } from "src/svelte/stores";
   import { collapsibleArrowSeasonMobileMenu } from "@assets/icons";
   import SeasonsList from "../header/SeasonsList.svelte";
   import SponsorsResponsive from "@components/header/SponsorsResponsive.svelte";
 
+  import {onMount } from 'svelte';
 
 export let seasons;
 export let totalSeasons;
@@ -31,6 +32,16 @@ export let listOfSeasons;
 
   let seasonWidth = 100 / totalSeasons;
   $: transform = `translateX(${-seasonWidth * $currentIndex}%)`;
+
+  let isSafari = false;
+  onMount(() => {
+    const userAgent = window.navigator.userAgent;
+    const isWebKit = userAgent.indexOf('AppleWebKit') !== -1;
+    const isChrome = userAgent.indexOf('Chrome') !== -1;
+    const isFirefox = userAgent.indexOf('Firefox') !== -1;
+    isSafari = isWebKit && !isChrome && !isFirefox;
+    safari.set(isSafari);
+  });
 
 function movePrevSlide() {
     // Prevent moving to the previous slide if the current index is 0
@@ -157,7 +168,7 @@ let initialWindowHeight;
       {/each}
     </div>
   </div>
-  <div class='timeline-options'>
+  <div class='timeline-options' class:safari={isSafari}>
 
     <Options />
     <Timeline
@@ -333,12 +344,16 @@ let initialWindowHeight;
   }
   @media (max-width: 648px) {
     .timeline-options {
-      bottom: 3rem;
+      bottom: 2rem;
     /* padding-inline: var(--pd-x-small);
     padding-block: 1.5rem; */
 
     gap: 3.5rem;
 
+  }
+
+  .safari {
+    bottom: 4rem;
   }
 
     .seasons-container {
