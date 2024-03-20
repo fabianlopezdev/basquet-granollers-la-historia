@@ -353,7 +353,7 @@ let initialWindowHeight;
   }
 
   .safari {
-    bottom: 4rem;
+    bottom: 5rem;
   }
 
     .seasons-container {
