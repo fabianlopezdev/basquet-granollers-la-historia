@@ -294,7 +294,7 @@
 
     
     .items-container {
-      padding-bottom: 5rem;
+      padding-bottom: 0rem;
       grid-template-columns: repeat(24, 4.19%);
       grid-template-rows: repeat(24, 4.19%);
     }

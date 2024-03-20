@@ -83,28 +83,28 @@ let isDialogOpen = false;
 let seasonsElement;
 let initialWindowHeight;
 
-$: {
-  if (windowOuterHeight) {
-    initialWindowHeight = windowOuterHeight;
-  }
-}
+// $: {
+//   if (windowOuterHeight) {
+//     initialWindowHeight = windowOuterHeight;
+//   }
+// }
 
-$: {
-  if (seasonsElement && innerHeight && windowOuterHeight && initialWindowHeight) {
-    console.log('seasonsElement', seasonsElement);
-    console.log('innerHeight', innerHeight);
-    console.log('windowOuterHeight', windowOuterHeight);
-    console.log('initialWindowHeight', initialWindowHeight);
-    if (innerHeight > initialWindowHeight) {
-      console.log('seasonsElement', seasonsElement);
-      seasonsElement.style.height = `${windowOuterHeight}px`;
-    } else if (innerHeight < initialWindowHeight) {
-      seasonsElement.style.height = `${initialWindowHeight}px`;
-    } else {
-    seasonsElement.style.height = `${initialWindowHeight}px`;
+// $: {
+//   if (seasonsElement && innerHeight && windowOuterHeight && initialWindowHeight) {
+//     console.log('seasonsElement', seasonsElement);
+//     console.log('innerHeight', innerHeight);
+//     console.log('windowOuterHeight', windowOuterHeight);
+//     console.log('initialWindowHeight', initialWindowHeight);
+//     if (innerHeight > initialWindowHeight) {
+//       console.log('seasonsElement', seasonsElement);
+//       seasonsElement.style.height = `${windowOuterHeight}px`;
+//     } else if (innerHeight < initialWindowHeight) {
+//       seasonsElement.style.height = `${initialWindowHeight}px`;
+//     } else {
+//     seasonsElement.style.height = `${initialWindowHeight}px`;
     
-  }}
-} 
+//   }}
+// } 
 
 </script>
 
@@ -156,17 +156,17 @@ $: {
 
       {/each}
     </div>
-    <div class='timeline-options'>
+  </div>
+  <div class='timeline-options'>
 
-      <Options />
-      <Timeline
-        {listOfSeasons}
-        {windowHeight}
-        {windowScrollY}
-        {windowWidth}
-        bind:animationClass
-      />
-    </div>
+    <Options />
+    <Timeline
+      {listOfSeasons}
+      {windowHeight}
+      {windowScrollY}
+      {windowWidth}
+      bind:animationClass
+    />
   </div>
 </section>
  
@@ -185,15 +185,20 @@ $: {
     font-style: italic;
   }
   .timeline-options {
-    position: relative;
-    bottom: 0rem;
+
+    position: absolute;
+    bottom: 4rem;
+    width: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: var(--wd-max);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     /* padding-inline: var(--pd-x-small);
     padding-block: 1.5rem; */
- 
     gap: 4.5rem;
+    z-index: 10;
 
   }
   #seasons {
@@ -202,6 +207,7 @@ $: {
     background-color: var(--clr-contrast);
     position: relative;
     height: 100vh;
+    height: 100dvh;
     /* overflow-y: hidden; */
   }
 
@@ -320,19 +326,14 @@ $: {
   }
    @media (max-height: 780px) {
    .timeline-options {
-    gap: 3.5rem;
-    bottom: -1rem;
-
+      bottom: 2rem;
+    gap: 4rem;
       /* margin-bottom: 2.5rem; */
     }
   }
   @media (max-width: 648px) {
     .timeline-options {
-      position: relative;
-      bottom: 0rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+      bottom: 2rem;
     /* padding-inline: var(--pd-x-small);
     padding-block: 1.5rem; */
 
