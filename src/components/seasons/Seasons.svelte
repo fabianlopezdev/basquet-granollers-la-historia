@@ -104,7 +104,7 @@ $: {
     seasonsElement.style.height = `${initialWindowHeight}px`;
     
   }}
-}
+} 
 
 </script>
 
