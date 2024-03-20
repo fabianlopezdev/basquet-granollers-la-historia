@@ -80,12 +80,20 @@ const handleSwipeGesture = () => {
 
 let isDialogOpen = false;
 let seasonsElement;
+let initialWindowHeight;
+
+$: {
+  if (innerHeight) {
+    initialWindowHeight = innerHeight;
+  }
+}
 
 $: {
   if (seasonsElement && innerHeight) {
+    if (innerHeight !== initialWindowHeight) {
     console.log('seasonsElement', seasonsElement);
     seasonsElement.style.height = `${innerHeight}px`;
-  }
+  }}
 }
 
 </script>
