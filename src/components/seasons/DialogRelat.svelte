@@ -61,6 +61,7 @@ function darkenColor(color, amount) {
     color: var(--clr-contrast);
     padding: 0;
     line-height: 2rem;
+    padding-top: 1rem;
   }
   .modal-button {
     z-index: 2000;
