@@ -396,7 +396,7 @@ document.documentElement.style.overflow = '';
   }
   @media (max-width: 648px) {
     .timeline-options {
-      bottom: 1rem;
+      bottom: 2.5rem;
     /* padding-inline: var(--pd-x-small);
     padding-block: 1.5rem; */
 
