@@ -31,11 +31,18 @@ import { closeMenuIcon } from "@assets/icons";
   
   $: translateX = (seasonIndex - $currentIndex) * 100;
 
+  function handleClick() {
+    openImg1 = true;
+    // Disable scrolling
+    document.body.style.overflow = 'hidden';
+document.documentElement.style.overflow = 'hidden'; 
+  // document.body.style.width = '100%';
+  }
  
  
 </script>
 
-<svelte:window bind:innerWidth />
+<svelte:window bind:innerWidth  />
 
 {#key season.years}
 <DialogRelat {relat} {dialogId} {years} bind:isDialogOpen={isDialogOpen}/>
@@ -88,7 +95,9 @@ import { closeMenuIcon } from "@assets/icons";
             </div>
           </div>
 {:else}
-<button on:click={() => {(openImg1 = true); console.log('openImg1', openImg1)}}
+<!-- svelte-ignore a11y-no-static-element-interactions -->
+<!-- svelte-ignore a11y-click-events-have-key-events -->
+<div on:click={handleClick}
 class="translateY-wrapper blender img-0"
 class:imgRelatBlue={relat.props.color === "rgba(8, 67, 149, 0.90)"}
 style="transform: {translateY}; --rowStart: {images.img_1.layout.rowStart}; --rowEnd: {images.img_1.layout.rowEnd}; --colStart: {images.img_1.layout.colStart}; --colEnd: {images.img_1.layout.colEnd}; --rowStartShortHg: {images.img_1.layout.rowStartShortHg}; --rowEndShortHg: {images.img_1.layout.rowEndShortHg}; --colStartShortHg: {images.img_1.layout.colStartShortHg}; --colEndShortHg: {images.img_1.layout.colEndShortHg}; --rowStartMobile: {images.img_1.layout.rowStartMobile}; --rowEndMobile: {images.img_1.layout.rowEndMobile}; --colStartMobile: {images.img_1.layout.colStartMobile}; --colEndMobile: {images.img_1.layout.colEndMobile};"  
@@ -96,16 +105,18 @@ style="transform: {translateY}; --rowStart: {images.img_1.layout.rowStart}; --ro
 <div class="img-container" class:container-0-1={images.firstLayout} class:container-1-1={images.secondLayout} >
   <img src={images.img_1.url} alt={images.img_1.alt} />
 </div>
-</button>
-<button
-on:click={() => (openImg2 = true)}
+</div>
+<!-- svelte-ignore a11y-click-events-have-key-events -->
+<!-- svelte-ignore a11y-no-static-element-interactions -->
+<div
+on:click={handleClick}
 class="translateY-wrapper blender img-1"
 style="transform: {translateY}; --rowStart: {images.img_2.layout.rowStart}; --rowEnd: {images.img_2.layout.rowEnd}; --colStart: {images.img_2.layout.colStart}; --colEnd: {images.img_2.layout.colEnd}; --rowStartShortHg: {images.img_2.layout.rowStart}; --rowEndShortHg: {images.img_2.layout.rowEndShortHg}; --colStartShortHg: {images.img_2.layout.colStartShortHg}; --colEndShortHg: {images.img_2.layout.colEndShortHg}; --rowStartMobile: {images.img_2.layout.rowStartMobile}; --rowEndMobile: {images.img_2.layout.rowEndMobile}; --colStartMobile: {images.img_2.layout.colStartMobile}; --colEndMobile: {images.img_2.layout.colEndMobile};"
 >
 <div class="img-container" class:container-1-2={images.secondLayout} class:container-0-2={images.firstLayout}>
   <img src={images.img_2.url} alt={images.img_2.alt} />
 </div>
-</button>
+</div>
 {/if}
 {/if}
 </div>

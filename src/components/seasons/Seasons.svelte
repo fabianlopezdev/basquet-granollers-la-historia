@@ -120,6 +120,12 @@ let openImg2 = false;
 //   }}
 // } 
 
+function handleClick() {
+    openImg1 = false;
+    // Disable scrolling
+    document.body.style.overflow = '';
+document.documentElement.style.overflow = ''; 
+  }
 </script>
 
 <svelte:window
@@ -188,7 +194,7 @@ let openImg2 = false;
 
 {#if openImg1 === true}
   <section  class="dialog-container">
-    <button class="modal-button" on:click={() => (openImg1 = false)} >
+    <button class="modal-button" on:click={handleClick} >
       {@html closeMenuIcon}
     </button>
     <div>
@@ -198,7 +204,7 @@ let openImg2 = false;
 {/if}
 {#if openImg2 === true}
   <section  class="dialog-container">
-    <button class="modal-button" on:click={() =>( openImg2 = false)} >
+    <button class="modal-button" on:click={handleClick} >
       {@html closeMenuIcon}
     </button>
     <div >
@@ -223,8 +229,8 @@ let openImg2 = false;
         top: 0;
         background-color:  rgba(0, 0, 0, 0.7);
         margin-top: calc(var(--hg-menu) * -1);
-        height: 100vh;
-        width: 100vw;
+        height: 101vh;
+        width: 101vw;
         z-index: 10;
       
   }
