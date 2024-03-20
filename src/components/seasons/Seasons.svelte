@@ -80,6 +80,13 @@ const handleSwipeGesture = () => {
 
 let isDialogOpen = false;
 
+$: {
+  if (innerHeight) {
+    const seasonsElement = document.getElementById("seasons");
+    seasonsElement.style.height = `${innerHeight}px`;
+  }
+}
+
 </script>
 
 <svelte:window
@@ -173,9 +180,7 @@ let isDialogOpen = false;
     --offset-season-menu: calc(var(--hg-menu) - 2px);
     background-color: var(--clr-contrast);
     position: relative;
-    min-height: 100svh;
-    height: 100dvh;
-    max-height: 100lvh;
+    height: 100lvh;
     /* overflow-y: hidden; */
   }
 
