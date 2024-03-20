@@ -229,7 +229,7 @@ document.documentElement.style.overflow = '';
         top: 0;
         background-color:  rgba(0, 0, 0, 0.7);
         margin-top: calc(var(--hg-menu) * -1);
-        height: 101vh;
+        height: 101dvh;
         width: 101vw;
         z-index: 10;
       
