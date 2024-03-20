@@ -89,13 +89,12 @@ $: {
 }
 
 $: {
-  if (seasonsElement && innerHeight) {
+  if (seasonsElement && innerHeight && initialWindowHeight) {
+    seasonsElement.style.height = `${initialWindowHeight}px`;
     if (innerHeight !== initialWindowHeight) {
     console.log('seasonsElement', seasonsElement);
     seasonsElement.style.height = `${innerHeight}px`;
-  }} else {
-    seasonsElement.style.height = '100lvh';
-  }
+  }} 
 }
 
 </script>
@@ -191,7 +190,7 @@ $: {
     --offset-season-menu: calc(var(--hg-menu) - 2px);
     background-color: var(--clr-contrast);
     position: relative;
-    height: 100lvh;
+    /* height: 100lvh; */
     /* overflow-y: hidden; */
   }
 
