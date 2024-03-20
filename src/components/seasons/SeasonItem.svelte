@@ -303,9 +303,9 @@ style="transform: {translateY}; --rowStart: {images.img_2.layout.rowStart}; --ro
     grid-row: var(--rowStartMobile) / var(--rowEndMobile);
   }
 
-  /* .safari {
+  .safari {
     grid-row: calc(var(--rowStartMobile) - 3) / var(--rowEndMobile);
-  } */
+  }
     .img-0 {
    grid-column: var(--colStartMobile) / var(--colEndMobile);
     grid-row: var(--rowStartMobile) / var(--rowEndMobile);
