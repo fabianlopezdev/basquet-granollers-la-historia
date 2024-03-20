@@ -173,8 +173,8 @@ let isDialogOpen = false;
     --offset-season-menu: calc(var(--hg-menu) - 2px);
     background-color: var(--clr-contrast);
     position: relative;
-    min-height: 100dvh;
-    height: 100vh;
+    min-height: 100svh;
+    height: 100dvh;
     max-height: 100lvh;
     /* overflow-y: hidden; */
   }
