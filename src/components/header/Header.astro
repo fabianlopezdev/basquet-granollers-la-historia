@@ -12,6 +12,8 @@ import { getSeasonsCount } from "@data/seasonsCount";
 
 const { listOfSeasons } = getSeasonsCount();
 
+const {internalPage} = Astro.props;
+
 const headerNavigation = [
   {
     name: "temporades",
@@ -30,8 +32,9 @@ const headerNavigation = [
 ];
 ---
 
-<script>
+<script define:vars={{internalPage}}>
 
+if (!internalPage) {
   if (window.innerWidth > 695) {
     let prevScrollPos = window.scrollY; 
     
@@ -41,15 +44,19 @@ const headerNavigation = [
 
     if (prevScrollPos > currentScrollPos) {
       // Scrolling up
-      header!.style.top = "0";
+      if (header) {
+        header.style.top = "0";
+      }
     } else {
       // Scrolling down
-      header!.style.top = `-${header!.offsetHeight}px`;
+      if (header) {
+        header.style.top = `-${header.offsetHeight}px`;
+      }
     }
     
     prevScrollPos = currentScrollPos;
   });
-}
+}}
 </script>
 
 <header>
