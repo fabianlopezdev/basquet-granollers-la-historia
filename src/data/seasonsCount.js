@@ -10,13 +10,7 @@ const __dirname = path.dirname(__filename);
 const isProduction = import.meta.env.NODE_ENV === 'production';
 const basePath = isProduction? '../estadistiques' : '../../public/estadistiques';
 
-//DEV PATH
 const folderPath = path.join(__dirname, basePath);
-
-// console.log('filePaaxaaaath', folderPath)
-
-//PRODUCTION PATH
-// const folderPath = path.join(__dirname, "../estadistiques");
 
 // Read the directory contents
 const files = fs.readdirSync(folderPath);

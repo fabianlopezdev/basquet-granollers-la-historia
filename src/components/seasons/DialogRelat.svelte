@@ -51,14 +51,16 @@ function darkenColor(color, amount) {
     background-color: var(--clr-bg-relat);
     border-radius: 0.4rem;
     border: none;
-    width: 80%;
+    width: 80vw;
+    max-width: var(--wd-max);
     font-size: 1rem;
-    
+
   }
 
   h3 { 
     color: var(--clr-contrast);
     padding: 0;
+    line-height: 2rem;
   }
   .modal-button {
     z-index: 2000;
@@ -71,12 +73,15 @@ function darkenColor(color, amount) {
   }
 
   .dialog-container {
+    margin:auto;
+    max-width: 780px;
     display: flex;
     flex-direction: column;
+
     gap: 2rem;
   }
   .dialog-container p {
-    line-height: 1.5625rem;
+    line-height: 1.5rem;
   }
 
   dialog::backdrop {
@@ -96,11 +101,21 @@ function darkenColor(color, amount) {
     background-color: var(--clr-bg-scrollbar);
     border-radius: 12px;
   }
+
+  @media (max-width: 1340px) {
+    dialog {
+     
+      padding-inline: var(--pd-x-medium);
+      /* padding-block: 2.2rem; */
+    }
+  
+  }
+
   @media (max-width: 648px) {
     dialog {
-      width: 21rem;
-      padding-inline: 1.3rem;
       padding-block: 2.2rem;
+      padding-inline: var(--pd-x-small);
+      width: 90vw;
     }
   }
 

@@ -14,23 +14,10 @@ export const getSeasonStats = (season) => {
 
   const isProduction = process.env.NODE_ENV === 'production';
 
-  // Set the base folder and file name based on the environment
   const basePath = isProduction ? '../estadistiques' : '../../public/estadistiques';
   const fileName = `${season}_stats.xlsx`;
 
-  // Construct the full path to the file
   const filePath = path.join(__dirname, basePath, fileName);
-
-  //DEV PATH
-  // const filePath = path.join(
-  //   __dirname,
-  //   `../../public/estadistiques/${season}_stats.xlsx`,
-  // );
-
-  // console.log('filePaaxaaaath', filePath)
-  //PRODUCTION PATH
-  //  const relatsFolderPath = path.join(__dirname, "../estadistiques");
-  //  const filePath = path.join(relatsFolderPath, `${season}_stats.xlsx`);
 
   const workbook = XLSX.readFile(filePath);
 

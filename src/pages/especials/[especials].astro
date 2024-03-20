@@ -1,6 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import ArticleLayuout from "../../components/ArticleLayuout.svelte";
+import ArticleLayout from "../../components/ArticleLayout.svelte";
 import { getEspecials } from "../../data/especials";
 
 
@@ -23,10 +23,11 @@ const especial = Astro.props;
 ---
 
 <BaseLayout>
-  <ArticleLayuout
+  <ArticleLayout
     text={(especial as { htmlValues: string }).htmlValues}
     title={(especial as {title: string }).title}
     author={(especial as {author: string}).author}
     image={(especial as {image: string}).image}
+    specialArticle={true}
   />
 </BaseLayout>

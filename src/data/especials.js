@@ -12,12 +12,6 @@ const __dirname = path.dirname(__filename);
 const isProduction = import.meta.env.NODE_ENV === 'production';
 const basePath = isProduction? '../especials' : `../../public/especials`;
 
-//DEV PATH
-// const folderPath = path.join(__dirname, `../../public/especials`);
-
-//PRODUCTION PATH
-// const folderPath = path.join(__dirname, "../especials");
-
 const folderPath = path.join(__dirname, basePath);
 
 // Read the directory contents

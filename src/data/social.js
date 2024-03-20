@@ -8,22 +8,10 @@ export async function getSeasonSocial(season) {
 
   const isProduction = process.env.NODE_ENV === 'production';
 
-  // Set the base folder and file name based on the environment
   const basePath = isProduction ? '../socials' : '../../public/socials';
   const fileName = `${season}_social.docx`;
 
-  // Construct the full path to the file
   const filePath = path.join(__dirname, basePath, fileName);
-
-  //DEV PATH
-  // const filePath = path.join(
-  //   __dirname,
-  //   `../../public/socials/${season}_social.docx`,
-  // );
-
-  //PRODUCTION PATH
-  // const relatsFolderPath = path.join(__dirname, "../socials");
-  // const filePath = path.join(relatsFolderPath, `${season}_social.docx`);
 
   const resultHTML = await mammoth.convertToHtml({ path: filePath });
   const resultText = await mammoth.extractRawText({ path: filePath });

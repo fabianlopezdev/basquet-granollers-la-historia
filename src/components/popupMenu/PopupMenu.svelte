@@ -7,7 +7,7 @@
   import CoachCard from "./players/CoachCard.svelte";
   import ResultsTable from "./results/ResultsTable.svelte";
   import ClassificationTable from "./results/ClassificationTable.svelte";
-  import ArticleLayuout from "@components/ArticleLayuout.svelte";
+  import ArticleLayout from "@components/ArticleLayout.svelte";
 
   export let season;
   
@@ -98,7 +98,7 @@
       </div>
       </div>
     {:else if $display === "social"}
-      <ArticleLayuout text={social} title={`Te'n recordes del 19${years.split('/')[0].toString()}?`}/>
+      <ArticleLayout text={social} title={`Te'n recordes del 19${years.split('/')[0].toString()}?`}/>
     {/if}
   </div>
 </section>
