@@ -17,7 +17,7 @@
 
   summary {
     font-size: var(--fnt-sz-h5);
-     font-weight: var(--fnt-wg-light);
+     font-weight: var(--fnt-wg-medium);
    
   }
   p {

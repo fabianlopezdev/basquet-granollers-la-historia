@@ -1,12 +1,17 @@
----
+<script>
+ export let color, wd, title;
 
-const {wd, title, color} = Astro.props;
+    
+    
 
 const finalColor = color || '#002E6D';
----
+const finalWd = wd ? wd.toString() : '45';
+const finalTitle = title || 'Club Bàsquet Granollers';
 
-<svg width={wd.toString()} height="79" viewBox="0 0 45 79" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <title>{title}</title>
+</script>
+
+<svg width={finalWd} height="79" viewBox="0 0 45 79" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <title>{finalTitle}</title>
 <g id="Capa_1" clip-path="url(#clip0_671_803)">
 <g id="Group 134">
 <path id="Vector" d="M34.6318 60.5637L32.7304 55.9641L30.7877 60.7125L32.6797 65.3722L34.6318 60.5637Z" fill={finalColor}/>

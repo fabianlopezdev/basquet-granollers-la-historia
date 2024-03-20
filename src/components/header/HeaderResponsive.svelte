@@ -1,5 +1,7 @@
 <script>
   import { hamburgerMenuIcon } from "@assets/icons";
+  import CbgLogo from "../../assets/CbgLogo.svelte";
+
   import DropDownAccordion from "./DropDownAccordion.svelte";
   import SponsorsResponsive from "./SponsorsResponsive.svelte";
 
@@ -51,7 +53,8 @@
 
 <ul class:visible={isDropDownMenuOpen} class="dropdown-menu-content">
   <li>
-    <a href="https://cbgranollers.cat/" target='_blank'>
+    <a class='cbg-link-wrapper' href="https://cbgranollers.cat/" target='_blank'>
+      <CbgLogo color={'#fff'} wd={25}/>
       <h5 class='cbg-link'>CLUB BÀSQUET GRANOLLERS</h5>
     </a>
   </li>
@@ -72,14 +75,33 @@
   {/each}
 
   <SponsorsResponsive />
+
+  <p class='made-by'>
+    Fet per <a href="http://www.biombostudio.com/" target="_blank" rel="noopener noreferrer">Biombö Studio</a>
+  </p>
 </ul>
 
 <style>
+  .made-by {
+    text-align: center;
+  }
+
+  .made-by a {
+    color: var(--clr-accent);
+    text-decoration: underline;
+    font-style: italic;
+  }
+  .cbg-link-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
   .cbg-link {
     text-align: center;
     text-decoration: underline;
-    font-style: italic;
-    padding-bottom: 1rem;
+    /* font-style: italic; */
+    /* padding-bottom: 1rem; */
   }
   .dropdown-menu-content {
     position: fixed;
@@ -99,9 +121,10 @@
     transition: transform 0.2s ease-in-out;
     overflow: auto;
   }
+  
   h5 {
-     font-size: var(--fnt-sz-h5);
-     font-weight: var(--fnt-wg-light);
+    font-size: var(--fnt-sz-h5);
+    font-weight: var(--fnt-wg-medium);
   }
   .dropdown-menu-button {
     position: absolute;
