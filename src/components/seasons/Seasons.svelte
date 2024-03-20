@@ -404,9 +404,9 @@ document.documentElement.style.overflow = '';
 
   }
 
-  .safari {
+  /* .safari {
     bottom: 5rem;
-  }
+  } */
 
     .seasons-container {
       height: calc(100svh - var(--pd-y-options-btns) - 2.5rem);
