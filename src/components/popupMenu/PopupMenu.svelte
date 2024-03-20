@@ -123,8 +123,9 @@
     font-size: 0.875rem;
     font-size: clamp(0.875rem, 0.5rem + 1.6vw, 1.9rem);
     font-weight: var(--fnt-wg-regular);
+    line-height: 1.5rem;
   }
-
+  
   h3 {
     font-size: 1.625rem;
     padding-top: 2rem;
@@ -227,5 +228,15 @@ width: clamp(1.5625rem, 0.6358793517406963rem + 3.12124849939976vw, 3.1875rem);
       padding-inline: var(--pd-x-small);
       font-size: 0.625rem;
     }
+    .table-wrapper {
+      padding-block: 1rem;
+    }
+
+    h2 {
+      font-size: 1.2rem;
+    }
+
+    .menu-header {
+      height: calc(var(--hg-header-menu) + 0.5rem);}
   }
 </style>

@@ -158,5 +158,10 @@
   .article-page {
     margin-top: 1rem;
   }
+
+  .title {
+    font-size: 2.3rem;
+    padding-bottom: 2rem;
+  }
   }
 </style>

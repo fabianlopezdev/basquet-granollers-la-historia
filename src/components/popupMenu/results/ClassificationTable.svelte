@@ -87,6 +87,10 @@
 </table>
 
 <style>
+  h3 {
+    line-height: 1.5rem;
+
+  }
   tr {
     background-color: var(--clr-contrast);
   }
