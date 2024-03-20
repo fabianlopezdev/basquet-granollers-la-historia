@@ -31,8 +31,12 @@ import { closeMenuIcon } from "@assets/icons";
   
   $: translateX = (seasonIndex - $currentIndex) * 100;
 
-  function handleClick() {
-    openImg1 = true;
+  function handleClick(num) {
+    if (num === 1) {
+      openImg1 = true;
+    } else {
+      openImg2 = true;
+    }
     // Disable scrolling
     document.body.style.overflow = 'hidden';
 document.documentElement.style.overflow = 'hidden'; 
@@ -97,7 +101,7 @@ document.documentElement.style.overflow = 'hidden';
 {:else}
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 <!-- svelte-ignore a11y-click-events-have-key-events -->
-<div on:click={handleClick}
+<div on:click={() => handleClick(1)}
 class="translateY-wrapper blender img-0"
 class:imgRelatBlue={relat.props.color === "rgba(8, 67, 149, 0.90)"}
 style="transform: {translateY}; --rowStart: {images.img_1.layout.rowStart}; --rowEnd: {images.img_1.layout.rowEnd}; --colStart: {images.img_1.layout.colStart}; --colEnd: {images.img_1.layout.colEnd}; --rowStartShortHg: {images.img_1.layout.rowStartShortHg}; --rowEndShortHg: {images.img_1.layout.rowEndShortHg}; --colStartShortHg: {images.img_1.layout.colStartShortHg}; --colEndShortHg: {images.img_1.layout.colEndShortHg}; --rowStartMobile: {images.img_1.layout.rowStartMobile}; --rowEndMobile: {images.img_1.layout.rowEndMobile}; --colStartMobile: {images.img_1.layout.colStartMobile}; --colEndMobile: {images.img_1.layout.colEndMobile};"  
@@ -109,7 +113,7 @@ style="transform: {translateY}; --rowStart: {images.img_1.layout.rowStart}; --ro
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 <div
-on:click={handleClick}
+on:click={() => handleClick(2)}
 class="translateY-wrapper blender img-1"
 style="transform: {translateY}; --rowStart: {images.img_2.layout.rowStart}; --rowEnd: {images.img_2.layout.rowEnd}; --colStart: {images.img_2.layout.colStart}; --colEnd: {images.img_2.layout.colEnd}; --rowStartShortHg: {images.img_2.layout.rowStart}; --rowEndShortHg: {images.img_2.layout.rowEndShortHg}; --colStartShortHg: {images.img_2.layout.colStartShortHg}; --colEndShortHg: {images.img_2.layout.colEndShortHg}; --rowStartMobile: {images.img_2.layout.rowStartMobile}; --rowEndMobile: {images.img_2.layout.rowEndMobile}; --colStartMobile: {images.img_2.layout.colStartMobile}; --colEndMobile: {images.img_2.layout.colEndMobile};"
 >

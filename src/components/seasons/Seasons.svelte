@@ -122,6 +122,7 @@ let openImg2 = false;
 
 function handleClick() {
     openImg1 = false;
+    openImg2 = false;
     // Disable scrolling
     document.body.style.overflow = '';
 document.documentElement.style.overflow = ''; 
