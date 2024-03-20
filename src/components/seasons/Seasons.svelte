@@ -360,4 +360,8 @@ let initialWindowHeight;
       top: calc(var(--offset-season-menu) - 0.88rem);
     }
   }
+  @media (max-height: 568px) {
+  .timeline-options {
+    gap: 2.8rem;
+}}
 </style>

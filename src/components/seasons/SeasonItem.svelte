@@ -49,14 +49,15 @@
       <div
         class="translateY-wrapper relat"
         style="--rowStart: {relat.props.rowStart}; --rowEnd: {relat.props.rowEnd}; --colStart: {relat.props.colStart}; --colEnd: {relat.props.colEnd}; --rowStartMobile: {relat.props.rowStartMobile}; --rowEndMobile: {relat.props.rowEndMobile}; --colStartMobile: {relat.props.colStartMobile}; --colEndMobile: {relat.props.colEndMobile};"
-      >
+        class:relatBlue={relat.props.color === "rgba(8, 67, 149, 0.90)"}
+        >
         <article
           class="relat-container"
           style="--clr-background: {relat.props.color};  --width: {relat.props.width}rem;"
         >
           <header>El Relat</header>
           <p>{truncateString(`${relat.content.text}`)}</p>
-          <button on:click={() => {toggleDialog(dialogId);}} style="--hoverColor: {relat.props.hoverColor}"
+          <button on:click={() => {toggleDialog(dialogId);}} style="--hoverColor: {relat.props.hoverColor}" 
             >Llegir més</button
           >
         </article>
@@ -66,6 +67,7 @@
   
           <div
             class="translateY-wrapper blender img-0"
+            class:imgRelatBlue={relat.props.color === "rgba(8, 67, 149, 0.90)"}
             style="transform: {translateY}; --rowStart: {images.img_1.layout.rowStart}; --rowEnd: {images.img_1.layout.rowEnd}; --colStart: {images.img_1.layout.colStart}; --colEnd: {images.img_1.layout.colEnd}; --rowStartShortHg: {images.img_1.layout.rowStartShortHg}; --rowEndShortHg: {images.img_1.layout.rowEndShortHg}; --colStartShortHg: {images.img_1.layout.colStartShortHg}; --colEndShortHg: {images.img_1.layout.colEndShortHg}; --rowStartMobile: {images.img_1.layout.rowStartMobile}; --rowEndMobile: {images.img_1.layout.rowEndMobile}; --colStartMobile: {images.img_1.layout.colStartMobile}; --colEndMobile: {images.img_1.layout.colEndMobile};"  
           >
             <div class="img-container" class:container-0-1={images.firstLayout} class:container-1-1={images.secondLayout} >
@@ -354,4 +356,14 @@
   }
   }
 
+@media (max-height: 568px) {
+  .relatBlue {
+    grid-row: calc(var(--rowStartMobile) - 3)  / var(--rowEndMobile);
+  }
+
+  .imgRelatBlue {
+   grid-column: calc(var(--colStartMobile) - 2) / var(--colEndMobile);
+    /* grid-row: var(--rowStartMobile) / var(--rowEndMobile); */
+  }
+}
 </style>
