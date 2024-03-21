@@ -13,10 +13,11 @@
   import { closeMenuIcon } from "@assets/icons";
 
   import {onMount } from 'svelte';
-
-export let seasons;
-export let totalSeasons;
-export let listOfSeasons;
+  
+  export let seasons;
+  export let totalSeasons;
+  export let listOfSeasons;
+  import { fade } from 'svelte/transition';
 
 
   let windowWidth;
@@ -194,7 +195,8 @@ document.documentElement.style.overflow = '';
 </section>
 
 {#if openImg1 === true}
-  <section  class="dialog-container">
+
+  <section  class="dialog-container" in:fade={{ duration: 300 }}>
     <button class="modal-button" on:click={handleClick} >
       {@html closeMenuIcon}
     </button>
@@ -204,7 +206,7 @@ document.documentElement.style.overflow = '';
   </section>
 {/if}
 {#if openImg2 === true}
-  <section  class="dialog-container">
+  <section  class="dialog-container" in:fade={{ duration: 300 }}>
     <button class="modal-button" on:click={handleClick} >
       {@html closeMenuIcon}
     </button>
@@ -233,6 +235,7 @@ document.documentElement.style.overflow = '';
         height: 101dvh;
         width: 101vw;
         z-index: 10;
+        
       
   }
   .made-by {
