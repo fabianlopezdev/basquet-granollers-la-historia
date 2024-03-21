@@ -4,7 +4,26 @@
 
   //Import stores
   import { currentIndex, display, isOutsideSelection } from "../../svelte/stores";
+  import { persistantInd } from "../../svelte/stores";
+  // import { writable } from "svelte/store";
 
+  // import { page} from '$app/stores';
+  import { onMount } from "svelte";
+
+  const isSpecialsPage = window.location.pathname.includes('especials');
+
+  if (!isSpecialsPage && $persistantInd !== $currentIndex && $persistantInd !== "") {
+    onMount(() => {
+      currentIndex.set($persistantInd);
+      localStorage.setItem('persistantInd', "");
+      setTimeout(() => { // Timeout for potential delay after reload
+        const seasonsSection = document.getElementById('seasons');
+        if (seasonsSection) {
+           seasonsSection.scrollIntoView({ behavior: 'smooth' });
+        } 
+    }, 50);
+    });
+  }
   export let item;
 
 
@@ -17,9 +36,18 @@
   }
 
   function setCurrentIndex(i) {
+    if (isSpecialsPage) {
+      localStorage.setItem('persistantInd', i);
+      console.log('persistantInd', $persistantInd)
+      // display.set(i);
+      return;
+    }
     $isOutsideSelection = true;
     currentIndex.set(i);
   }
+
+
+
 </script>
 
 <div class="dropdown">
