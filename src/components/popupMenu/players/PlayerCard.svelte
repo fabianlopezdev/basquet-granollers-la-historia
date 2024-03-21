@@ -1,6 +1,6 @@
 <script>
    export let jugador;
-
+  import {collapsibleArrowPlayer } from '@assets/icons';
  
 
    function capitalizeWords(str) {
@@ -21,6 +21,8 @@
   // Join the words back into a string with spaces
   return words.join(' ');
 }
+
+let showDetails = false;
 
 function formatExcelDate(serial) {
     if (serial > 1900 && serial < 9999) {
@@ -49,6 +51,14 @@ function formatExcelDate(serial) {
 
 const date = formatExcelDate(jugador.data_naix);
 
+function showPlayerStats() {
+  showDetails = !showDetails;
+  console.log('showDetails', showDetails)
+  // const playerDetails = document.querySelector('.player-details');
+
+  // playerDetails.classList.toggle('show');
+}
+
 </script>
 
 {#if jugador.jugador !== 'TOTAL'}
@@ -60,8 +70,11 @@ const date = formatExcelDate(jugador.data_naix);
     </div>
     <div class="info-container">
       <p class="name">{capitalizeWords(jugador.jugador)}</p>
+      <button class='mobile-arrow' class:rotate={showDetails} on:click={() => showPlayerStats()}>
+        {@html collapsibleArrowPlayer}
+      </button>
     </div>
-    <div class="player-details">
+    <div class="player-details " class:show-player-details={showDetails}>
       {#if jugador.data_naix !== undefined}
       <p>{date.length === 4 ? 'Any de naixement' : 'Data de naixement'} <br /><span>{jugador.jugador.includes("David Lee") ? '26/11/1969' : date}</span></p>
       {/if}
@@ -117,18 +130,15 @@ const date = formatExcelDate(jugador.data_naix);
     color: white;
     padding-inline: 1.5rem;
     padding-block: 2.12rem;
-
-    opacity: 0;
     /*It is the secondary color with opacity*/
     background-color: var(--clr-secondary-opacity);
 
-    transition: opacity 0.5s ease-in-out; /* Transition both transform and opacity */
+    /* Transition both transform and opacity */
     border-top-left-radius: var(--brdr-left-top-radius);
   }
 
-  .player:hover .player-details {
-    opacity: 1;
-  }
+
+  
 
   .image-container {
     height: 85%;
@@ -150,23 +160,72 @@ const date = formatExcelDate(jugador.data_naix);
     width: 100%;
     height: 15%;
     display: flex;
-    flex-direction: column;
+    /* flex-direction: column; */
     align-items: center;
     justify-content: center;
     text-align: center;
-    gap: 1rem;
+    /* gap: 1rem; */
     font-size: 1.1rem;
     background-color: var(--clr-secondary);
     color: var(--clr-contrast);
     padding-inline: 2rem;	
     line-height: 1.3;
+    z-index: 1;
   }
+
+
+  .mobile-arrow {
+    display: none;
+    padding-bottom: 0.5rem;
+       transform: rotate(-180deg); 
+       transition: 0.45s transform ease-in-out;
+       
+   
+  }
+ .show-player-details {
+    opacity: 1;
+ }
+  .rotate {
+    padding-bottom: 0rem;
+    padding-top: 0.5rem;
+    transform: rotate(0deg);
+  }
+
   span {
     font-size: 1rem;
     font-weight: var(--fnt-wg-regular);
   }
 
+  @media (hover: hover ) {
+    .player-details {
+      opacity: 0;
+      transition: opacity 0.5s ease-in-out;
+    }
+    .player:hover .player-details {
+    
+      opacity: 1;
+    /* transition: opacity 0.5s ease-in-out; */
+  }
+  }
+
   @media (max-width: 648px) {
+    .mobile-arrow {
+      display: block;
+    }
+
+    .info-container {
+      justify-content: space-between;
+    text-align: left;
+    }
+    .player-details {
+      transform: translateY(100%);
+      transition: transform 0.5s ease-in-out;
+    }
+
+    .show-player-details {
+      transform: translateY(0);
+    }
+
     li {
       width: 100%;
     }
