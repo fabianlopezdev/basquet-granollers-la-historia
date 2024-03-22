@@ -220,7 +220,7 @@ document.documentElement.style.overflow = '';
     .modal-button {
     position: absolute;
     top: 1rem;
-    right: 0.7rem;
+    right: 1rem;
     z-index: 20;
   }
   
@@ -233,7 +233,7 @@ document.documentElement.style.overflow = '';
         background-color:  rgba(0, 0, 0, 0.7);
         margin-top: calc(var(--hg-menu) * -1);
         height: 101dvh;
-        width: 101vw;
+        width: 102vw;
         z-index: 10;
         
       
