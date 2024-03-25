@@ -34,7 +34,7 @@
   }
 
   .image-container {
-    height: 85%;
+    height: 80%;
     width: 100%;
     background-color: #d9d9d9;
     border-top-left-radius: var(--brdr-left-top-radius);
@@ -50,7 +50,7 @@
 
   .info-container {
     width: 100%;
-    height: 15%;
+    height: 20%;
     display: flex;
     flex-direction: column;
     justify-content: center;
