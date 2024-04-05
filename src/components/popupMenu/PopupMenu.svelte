@@ -42,11 +42,15 @@
   let initialTouchY;
   function handleTouch(event) {
     initialTouchY = event.touches[0].clientY;
+    initialWindowInnerHeight = window.innerHeight;
   }
 
   function handleTouchMove(event) {
     const currentTouchY = event.touches[0].clientY;
-    const touchDiff = currentTouchY - initialTouchY;
+    const currentWindowInnerHeight = window.innerHeight;
+    const windowInnerHeightDiff = currentWindowInnerHeight - initialWindowInnerHeight;
+    const adjustedInitialTouchY = initialTouchY - windowInnerHeightDiff;
+    const touchDiff = currentTouchY - adjustedInitialTouchY;
 
     if (
       (window.scrollY === initialPopUpStartingPosition ||
@@ -55,7 +59,7 @@
     ) {
       event.preventDefault();
     } else {
-      initialTouchY = currentTouchY;
+      initialTouchY = currentTouchY + windowInnerHeightDiff;
     }
   }
 </script>
