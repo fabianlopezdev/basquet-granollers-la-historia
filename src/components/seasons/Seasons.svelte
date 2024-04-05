@@ -107,6 +107,14 @@ function handleClick() {
     document.body.style.overflow = '';
 document.documentElement.style.overflow = ''; 
   }
+
+  // $: {
+  //   if ($display !== "relats") {
+  //     document.documentElement.style.overflow = 'hidden';
+  //   } else {
+  //     document.documentElement.style.overflow  = '';
+  //   }
+  // }
 </script>
 
 <svelte:window

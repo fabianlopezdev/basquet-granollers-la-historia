@@ -1,7 +1,7 @@
 <script>
   import { closeMenuIcon } from "@assets/icons";
   import { display } from "src/svelte/stores";
-  import { slide } from "svelte/transition";
+  import { fade, slide } from "svelte/transition";
   import { upperCaseFirstLetter } from "@utils/helperFunctions";
   import PlayerCard from "./players/PlayerCard.svelte";
   import CoachCard from "./players/CoachCard.svelte";
@@ -25,19 +25,25 @@
     }
   }
 
-  $: {
-    if ($display !== "relats") {
-    } else {
+  let popUpStartingPosition;
+
+  function handleTopScrollLimit() {
+    if (window.scrollY < popUpStartingPosition) {
+      window.scrollTo(0, popUpStartingPosition);
     }
   }
 </script>
 
-<svelte:window on:keydown={handleEscape} />
+<svelte:window
+  on:keydown={handleEscape}
+  bind:innerHeight={popUpStartingPosition}
+  on:scroll={handleTopScrollLimit}
+/>
 
 <section
   class="more-info-menu"
   style={$display === "resultats" && "background-color: #F3F3F3"}
-  in:slide={{ duration: 300, axis: "x" }}
+  in:fade={{ duration: 300 }}
 >
   <div class="max-width">
     <header class="menu-header">
@@ -155,7 +161,6 @@
 
   .max-width {
     position: relative;
-
   }
 
   h2 {
@@ -285,9 +290,9 @@
       /* flex-direction: column; */
     }
 
-  .descarrega-button-wrapper { 
-    padding-left: var(--pd-x-small);
-  }
+    .descarrega-button-wrapper {
+      padding-left: var(--pd-x-small);
+    }
 
     h2 {
       font-size: 1.2rem;
