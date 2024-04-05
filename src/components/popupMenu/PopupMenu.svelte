@@ -8,6 +8,7 @@
   import ResultsTable from "./results/ResultsTable.svelte";
   import ClassificationTable from "./results/ClassificationTable.svelte";
   import ArticleLayout from "@components/ArticleLayout.svelte";
+  import { onMount } from "svelte";
 
   export let season;
 
@@ -26,6 +27,10 @@
   }
 
   let popUpStartingPosition;
+  
+  onMount(() => {
+    popUpStartingPosition = window.innerHeight;
+  });
 
   function handleTopScrollLimit() {
     if (window.scrollY < popUpStartingPosition) {
@@ -35,25 +40,23 @@
 
   let initialTouchY;
   function handleTouch(event) {
-    initialTouchY = event.touches[0].clientY; 
+    initialTouchY = event.touches[0].clientY;
   }
 
   function handleTouchMove(event) {
-     const currentTouchY = event.touches[0].clientY;
+    const currentTouchY = event.touches[0].clientY;
     const touchDiff = currentTouchY - initialTouchY;
 
     if (window.scrollY === popUpStartingPosition && touchDiff > 0) {
       event.preventDefault();
     } else {
       initialTouchY = currentTouchY;
-    
     }
   }
 </script>
 
 <svelte:window
   on:keydown={handleEscape}
-  bind:innerHeight={popUpStartingPosition}
   on:scroll={handleTopScrollLimit}
 />
 
