@@ -8,7 +8,6 @@
   import ResultsTable from "./results/ResultsTable.svelte";
   import ClassificationTable from "./results/ClassificationTable.svelte";
   import ArticleLayout from "@components/ArticleLayout.svelte";
-  import { onMount } from "svelte";
 
   export let season;
 
@@ -26,12 +25,9 @@
     }
   }
 
+  let changedHeight;
   let popUpStartingPosition;
-  let initialPopUpStartingPosition;
-  
-  onMount(() => {
-    initialPopUpStartingPosition = window.innerHeight;
-  });
+
 
   function handleTopScrollLimit() {
     if (window.scrollY < popUpStartingPosition) {
@@ -44,12 +40,16 @@
     initialTouchY = event.touches[0].clientY;
   }
 
+  $: {
+    changedHeight = popUpStartingPosition;
+  }
+
   function handleTouchMove(event) {
     const currentTouchY = event.touches[0].clientY;
     const touchDiff = currentTouchY - initialTouchY;
     // let adressingBar = popUpStartingPosition !== initialPopUpStartingPosition ? initialPopUpStartingPosition : initialPopUpStartingPosition;
 
-    if (window.scrollY === initialPopUpStartingPosition && touchDiff > 0) {
+    if (window.scrollY === changedHeight && touchDiff > 0) {
       event.preventDefault();
     } else {
       initialTouchY = currentTouchY;
