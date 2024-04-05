@@ -3,7 +3,7 @@
 
       const target = document.getElementById('seasons'); // Replace with your actual target element's ID
       if (target) {
-        target.scrollIntoView();
+        target.scrollIntoView({ behavior: 'smooth' });
       }
    
   }
