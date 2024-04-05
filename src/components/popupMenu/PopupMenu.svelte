@@ -42,24 +42,17 @@
   let initialTouchY;
   function handleTouch(event) {
     initialTouchY = event.touches[0].clientY;
-    initialWindowInnerHeight = window.innerHeight;
   }
 
   function handleTouchMove(event) {
     const currentTouchY = event.touches[0].clientY;
-    const currentWindowInnerHeight = window.innerHeight;
-    const windowInnerHeightDiff = currentWindowInnerHeight - initialWindowInnerHeight;
-    const adjustedInitialTouchY = initialTouchY - windowInnerHeightDiff;
-    const touchDiff = currentTouchY - adjustedInitialTouchY;
+    const touchDiff = currentTouchY - initialTouchY;
+    
 
-    if (
-      (window.scrollY === initialPopUpStartingPosition ||
-        window.scrollY === popUpStartingPosition) &&
-      touchDiff > 0
-    ) {
+    if ((window.scrollY === initialPopUpStartingPosition || window.scrollY === popUpStartingPosition) && touchDiff > 0) {
       event.preventDefault();
     } else {
-      initialTouchY = currentTouchY + windowInnerHeightDiff;
+      initialTouchY = currentTouchY;
     }
   }
 </script>
