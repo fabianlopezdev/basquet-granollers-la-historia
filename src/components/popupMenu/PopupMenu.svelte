@@ -47,9 +47,12 @@
   function handleTouchMove(event) {
     const currentTouchY = event.touches[0].clientY;
     const touchDiff = currentTouchY - initialTouchY;
-    const adressingAdressBar = initialPopUpStartingPosition > popUpStartingPosition ? initialPopUpStartingPosition : popUpStartingPosition;
 
-    if (window.scrollY === adressingAdressBar && touchDiff > 0) {
+    if (
+      (window.scrollY === initialPopUpStartingPosition ||
+        window.scrollY === popUpStartingPosition) &&
+      touchDiff > 0
+    ) {
       event.preventDefault();
     } else {
       initialTouchY = currentTouchY;
