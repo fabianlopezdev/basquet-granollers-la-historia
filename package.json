@@ -8,7 +8,8 @@
     "prebuild": "node generateNetlifyConfig.js",
     "build": "astro check && astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "preferences": "astro preferences disable devToolbar"
   },
   "dependencies": {
     "@astrojs/check": "^0.3.4",

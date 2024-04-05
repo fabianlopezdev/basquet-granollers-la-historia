@@ -30,7 +30,7 @@
         </a>
       </li>
     {/each}
-  </div>
+    </div>
 </ul>
 
 <style>
@@ -38,17 +38,18 @@
     margin-top: auto;
     width: 100%;
   }
-
+  
   .sponsors-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding-bottom: 1.06rem;
+    padding-top: 0.5rem;
   }
 
   .sponsors-title {
     width: 100%;
     text-align: center;
-    padding-bottom: 1.06rem;
     position: relative;
   }
 
@@ -58,7 +59,7 @@
     width: calc(50% - 3rem);
     background-color: #d8d8d8;
     position: absolute;
-    top: calc(50% - 0.4rem);
+    top: calc(50% + 0.1rem);
     left: 0;
   }
 
@@ -68,7 +69,7 @@
     width: calc(50% - 3rem);
     background-color: #d8d8d8;
     position: absolute;
-    top: calc(50% - 0.4rem);
+    top: calc(50% + 0.1rem);
     right: 0;
   }
 </style>

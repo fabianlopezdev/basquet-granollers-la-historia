@@ -4,6 +4,8 @@
   import Timeline from "./Timeline.svelte";
   import SeasonItem from "./SeasonItem.svelte";
   import PopupMenu from "../popupMenu/PopupMenu.svelte";
+  import MadeBy from "@components/MadeBy.svelte"
+
   //Import data
   import { currentIndex, safari } from "src/svelte/stores";
   import { display } from "src/svelte/stores";
@@ -98,29 +100,6 @@ let initialWindowHeight;
 let openImg1 = false;
 let openImg2 = false;
 
-// $: {
-//   if (windowOuterHeight) {
-//     initialWindowHeight = windowOuterHeight;
-//   }
-// }
-
-// $: {
-//   if (seasonsElement && innerHeight && windowOuterHeight && initialWindowHeight) {
-//     console.log('seasonsElement', seasonsElement);
-//     console.log('innerHeight', innerHeight);
-//     console.log('windowOuterHeight', windowOuterHeight);
-//     console.log('initialWindowHeight', initialWindowHeight);
-//     if (innerHeight > initialWindowHeight) {
-//       console.log('seasonsElement', seasonsElement);
-//       seasonsElement.style.height = `${windowOuterHeight}px`;
-//     } else if (innerHeight < initialWindowHeight) {
-//       seasonsElement.style.height = `${initialWindowHeight}px`;
-//     } else {
-//     seasonsElement.style.height = `${initialWindowHeight}px`;
-    
-//   }}
-// } 
-
 function handleClick() {
     openImg1 = false;
     openImg2 = false;
@@ -160,9 +139,7 @@ document.documentElement.style.overflow = '';
       <div style="padding-top: 3rem; width: 100%;">
         <SponsorsResponsive />
       </div>
-      <p class='made-by'>
-        Fet per <a href="http://www.biombostudio.com/" target="_blank" rel="noopener noreferrer">Biombö Studio</a>
-      </p>
+      <MadeBy />
     </div>
     <div
       class="seasons-container"

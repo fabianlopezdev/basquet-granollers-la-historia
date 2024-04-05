@@ -1,0 +1,20 @@
+{
+  "extends": [
+    "eslint:recommended",
+    "plugin:svelte3/recommended"
+  ],
+  "rules": {
+    "prettier/prettier": ["error", { "endOfLine": "auto" }] 
+  },
+  "plugins": ["prettier"],
+  "overrides": [
+    {
+      "files": ["*.astro"],
+      "parser": "astro-eslint-parser"
+    }
+  ],
+  "parserOptions": {
+    "sourceType": "module",
+    "extraFileExtensions": [".astro"]
+  }
+}

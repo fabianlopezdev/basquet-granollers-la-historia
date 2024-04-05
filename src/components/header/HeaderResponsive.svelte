@@ -4,6 +4,8 @@
 
   import DropDownAccordion from "./DropDownAccordion.svelte";
   import SponsorsResponsive from "./SponsorsResponsive.svelte";
+  import MadeBy from "@components/MadeBy.svelte";
+ 
 
   export let headerNavigation;
 
@@ -75,23 +77,11 @@
   {/each}
 
   <SponsorsResponsive />
-
-  <p class='made-by'>
-    Fet per <a href="http://www.biombostudio.com/" target="_blank" rel="noopener noreferrer">Biombö Studio</a>
-  </p>
+ <MadeBy />
 </ul>
 
 <style>
-  .made-by {
-    text-align: center;
-    font-weight: var(--fnt-wg-light);
-  }
-
-  .made-by a {
-    color: var(--clr-accent);
-    text-decoration: underline;
-    font-style: italic;
-  }
+ 
   .cbg-link-wrapper {
     display: flex;
     align-items: center;
