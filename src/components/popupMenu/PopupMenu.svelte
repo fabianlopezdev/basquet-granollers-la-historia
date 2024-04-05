@@ -28,14 +28,14 @@
 
   let popUpStartingPosition;
   let initialPopUpStartingPosition;
-
+  
   onMount(() => {
     initialPopUpStartingPosition = window.innerHeight;
   });
 
   function handleTopScrollLimit() {
-    if (window.scrollY < initialPopUpStartingPosition) {
-      window.scrollTo(0, initialPopUpStartingPosition);
+    if (window.scrollY < popUpStartingPosition) {
+      window.scrollTo(0, popUpStartingPosition);
     }
   }
 
@@ -47,9 +47,9 @@
   function handleTouchMove(event) {
     const currentTouchY = event.touches[0].clientY;
     const touchDiff = currentTouchY - initialTouchY;
-    
+    let adressingBar = popUpStartingPosition > initialPopUpStartingPosition ? popUpStartingPosition : initialPopUpStartingPosition;
 
-    if ((window.scrollY === initialPopUpStartingPosition || window.scrollY === popUpStartingPosition) && touchDiff > 0) {
+    if (window.scrollY === adressingBar && touchDiff > 0) {
       event.preventDefault();
     } else {
       initialTouchY = currentTouchY;
@@ -59,8 +59,8 @@
 
 <svelte:window
   on:keydown={handleEscape}
+  bind:innerHeight={popUpStartingPosition}
   on:scroll={handleTopScrollLimit}
-  on:innerHeight={handleTopScrollLimit}
 />
 
 <section
