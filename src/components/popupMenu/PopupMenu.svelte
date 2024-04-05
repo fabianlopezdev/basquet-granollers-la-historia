@@ -32,6 +32,23 @@
       window.scrollTo(0, popUpStartingPosition);
     }
   }
+
+  let initialTouchY;
+  function handleTouch(event) {
+    initialTouchY = event.touches[0].clientY; 
+  }
+
+  function handleTouchMove(event) {
+     const currentTouchY = event.touches[0].clientY;
+    const touchDiff = currentTouchY - initialTouchY;
+
+    if (window.scrollY === popUpStartingPosition && touchDiff > 0) {
+      event.preventDefault();
+    } else {
+      initialTouchY = currentTouchY;
+    
+    }
+  }
 </script>
 
 <svelte:window
@@ -44,6 +61,8 @@
   class="more-info-menu"
   style={$display === "resultats" && "background-color: #F3F3F3"}
   in:fade={{ duration: 300 }}
+  on:touchstart={handleTouch}
+  on:touchmove={handleTouchMove}
 >
   <div class="max-width">
     <header class="menu-header">
