@@ -27,14 +27,15 @@
   }
 
   let popUpStartingPosition;
-  
+  let initialPopUpStartingPosition;
+
   onMount(() => {
-    popUpStartingPosition = window.innerHeight;
+    initialPopUpStartingPosition = window.innerHeight;
   });
 
   function handleTopScrollLimit() {
-    if (window.scrollY < popUpStartingPosition) {
-      window.scrollTo(0, popUpStartingPosition);
+    if (window.scrollY < initialPopUpStartingPosition) {
+      window.scrollTo(0, initialPopUpStartingPosition);
     }
   }
 
@@ -46,8 +47,9 @@
   function handleTouchMove(event) {
     const currentTouchY = event.touches[0].clientY;
     const touchDiff = currentTouchY - initialTouchY;
+    const adressingAdressBar = initialPopUpStartingPosition < popUpStartingPosition ? initialPopUpStartingPosition : popUpStartingPosition;
 
-    if (window.scrollY === popUpStartingPosition && touchDiff > 0) {
+    if (window.scrollY === adressingAdressBar && touchDiff > 0) {
       event.preventDefault();
     } else {
       initialTouchY = currentTouchY;
@@ -58,6 +60,7 @@
 <svelte:window
   on:keydown={handleEscape}
   on:scroll={handleTopScrollLimit}
+  on:innerHeight={handleTopScrollLimit}
 />
 
 <section
