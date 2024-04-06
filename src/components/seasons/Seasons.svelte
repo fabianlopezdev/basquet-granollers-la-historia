@@ -109,9 +109,13 @@
 
   $: {
     if ($display !== "relats") {
+      //for any browser
       document.documentElement.style.overflow = "hidden";
+      //for safari in mobile
+      document.body.style.overflow = "hidden";
     } else {
       document.documentElement.style.overflow = "";
+      document.body.style.overflow = "";
     }
   }
 </script>

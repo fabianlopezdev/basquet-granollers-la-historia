@@ -1,15 +1,13 @@
-
 <script>
- import { toggleDialog } from "@utils/helperFunctions";
- import { closeMenuIcon } from "@assets/icons";
+  import { toggleDialog } from "@utils/helperFunctions";
+  import { closeMenuIcon } from "@assets/icons";
 
- export let years
-export let dialogId;
-export let relat;
-export let isDialogOpen;
+  export let years;
+  export let dialogId;
+  export let relat;
+  export let isDialogOpen;
 
-
-function darkenColor(color, amount) {
+  function darkenColor(color, amount) {
     // This is a simple placeholder function. You'll need to replace it with actual logic
     // to darken the color. This might involve parsing the color and adjusting its lightness.
     // For demonstration purposes only.
@@ -22,9 +20,13 @@ function darkenColor(color, amount) {
 
   $: {
     if (isDialogOpen) {
+      //for any browser
       document.documentElement.style.overflow = "hidden";
+      //for safari in mobile
+      document.body.style.overflow = "hidden";
     } else {
-      document.documentElement.style.overflow = "auto";
+      document.documentElement.style.overflow = "";
+      document.body.style.overflow = "";
     }
   }
 
@@ -32,20 +34,29 @@ function darkenColor(color, amount) {
 </script>
 
 <!-- {#if relatColor !== undefined}  -->
-<dialog id={dialogId} style="--clr-bg-relat: {relat.props.color}; --clr-bg-scrollbar: {darkerColor}">
-  <button class="modal-button" on:click={() => {toggleDialog(dialogId); isDialogOpen = false;}} >
+<dialog
+  id={dialogId}
+  style="--clr-bg-relat: {relat.props.color}; --clr-bg-scrollbar: {darkerColor}"
+>
+  <button
+    class="modal-button"
+    on:click={() => {
+      toggleDialog(dialogId);
+      isDialogOpen = false;
+    }}
+  >
     {@html closeMenuIcon}
   </button>
   <div class="dialog-container">
     <h3>El relat de la temporada {years}</h3>
-   <p class='text'>{@html relat.content.html}</p>
+    <p class="text">{@html relat.content.html}</p>
   </div>
 </dialog>
+
 <!-- {/if} -->
 <style>
   .text {
     text-align: justify;
-
   }
   dialog {
     overflow-y: scroll !important;
@@ -62,10 +73,9 @@ function darkenColor(color, amount) {
     width: 80vw;
     max-width: var(--wd-max);
     font-size: 1rem;
-
   }
 
-  h3 { 
+  h3 {
     color: var(--clr-contrast);
     padding: 0;
     line-height: 2rem;
@@ -82,7 +92,7 @@ function darkenColor(color, amount) {
   }
 
   .dialog-container {
-    margin:auto;
+    margin: auto;
     max-width: 780px;
     display: flex;
     flex-direction: column;
@@ -98,14 +108,14 @@ function darkenColor(color, amount) {
     background-color: rgba(0, 0, 0, 0.5);
   }
 
-   ::-webkit-scrollbar {
+  ::-webkit-scrollbar {
     width: 8px;
   }
-  
+
   ::-webkit-scrollbar-track {
     background-color: none;
   }
-  
+
   ::-webkit-scrollbar-thumb {
     background-color: var(--clr-bg-scrollbar);
     border-radius: 12px;
@@ -113,11 +123,9 @@ function darkenColor(color, amount) {
 
   @media (max-width: 1340px) {
     dialog {
-     
       padding-inline: var(--pd-x-medium);
       /* padding-block: 2.2rem; */
     }
-  
   }
 
   @media (max-width: 648px) {
@@ -127,5 +135,4 @@ function darkenColor(color, amount) {
       width: 90vw;
     }
   }
-
 </style>
