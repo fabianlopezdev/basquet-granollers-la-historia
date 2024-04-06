@@ -105,33 +105,26 @@
     // Disable scrolling
     document.body.style.overflow = "";
     document.documentElement.style.overflow = "";
-    document.body.style.overflow = "";
-    document.body.style.position = ""; // Reset for mobile Safari
-    document.body.style.touchAction = "";
+  }
+  let isScrollingDisabled = false;
+
+  function disableScroll(event) {
+    event.preventDefault();
+  }
+
+  function enableScroll() {
+    window.removeEventListener("touchmove", disableScroll, { passive: false });
+    isScrollingDisabled = false;
   }
 
   $: {
-    if ($display !== undefined && $display !== "relats") {
-      let scrollPosition = window.scrollY;
-      // For any browser
-      document.documentElement.style.overflow = "hidden";
-      // For Safari on mobile
-      document.body.style.overflow = "hidden";
-      document.body.style.position = "fixed"; // Additional fix for mobile Safari
-      document.body.style.touchAction = "none"; // Prevents touch-based scrolling
-      // Set top property to the negative of the scroll position
-      document.body.style.top = -scrollPosition + "px";
+    if ($display !== "relats") {
+      if (!isScrollingDisabled) {
+        window.addEventListener("touchmove", disableScroll, { passive: false });
+        isScrollingDisabled = true;
+      }
     } else {
-      // Revert overflow and touchAction properties
-      document.documentElement.style.overflow = "";
-      document.body.style.overflow = "";
-      document.body.style.touchAction = "";
-      // Remove fixed positioning
-      document.body.style.position = "";
-      // Restore the scroll position
-      window.scrollTo(0, scrollPosition);
-      // Reset the top property
-      document.body.style.top = "";
+      enableScroll();
     }
   }
 </script>
