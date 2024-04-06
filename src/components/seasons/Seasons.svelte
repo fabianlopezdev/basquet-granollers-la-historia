@@ -105,20 +105,26 @@
     // Disable scrolling
     document.body.style.overflow = "";
     document.documentElement.style.overflow = "";
+    document.body.style.overflow = '';
+  document.body.style.position = ''; // Reset for mobile Safari
+  document.body.style.touchAction = '';
   }
 
   $: {
     if ($display !== "relats") {
-      //for any browser
-      document.documentElement.style.overflow = "hidden";
-      //for safari in mobile
-      document.body.style.overflow = "hidden";
-      document.body.style.touchAction = "none"; // Prevents touch-based scrolling
-    } else {
-      document.documentElement.style.overflow = "";
-      document.body.style.overflow = "";
-      document.body.style.touchAction = "";
-    }
+  // For any browser
+  document.documentElement.style.overflow = 'hidden';
+  // For Safari on mobile
+  document.body.style.overflow = 'hidden';
+  document.body.style.position = 'fixed'; // Additional fix for mobile Safari
+  document.body.style.touchAction = 'none'; // Prevents touch-based scrolling
+} else {
+  document.documentElement.style.overflow = '';
+  document.body.style.overflow = '';
+  document.body.style.position = ''; // Reset for mobile Safari
+  document.body.style.touchAction = '';
+}
+
   }
 </script>
 

@@ -38,6 +38,9 @@
     // Disable scrolling
     document.body.style.overflow = "hidden";
     document.documentElement.style.overflow = "hidden";
+    document.body.style.overflow = 'hidden';
+  document.body.style.position = 'fixed'; // Additional fix for mobile Safari
+  document.body.style.touchAction = 'none'
     // document.body.style.width = '100%';
   }
 </script>
