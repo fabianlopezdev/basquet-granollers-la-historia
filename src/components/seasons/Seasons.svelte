@@ -21,6 +21,8 @@
   export let seasons;
   export let totalSeasons;
   export let listOfSeasons;
+
+
   import { fade } from "svelte/transition";
 
   let windowWidth;

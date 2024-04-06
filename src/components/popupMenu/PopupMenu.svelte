@@ -9,9 +9,11 @@
   import ClassificationTable from "./results/ClassificationTable.svelte";
   import ArticleLayout from "@components/ArticleLayout.svelte";
 
+
   export let season;
 
   const { stats, social, years } = season;
+
   const { divisio, jugadors, entrenadors } = stats;
   const normalizedDivisioKey = Object.keys(divisio[0]);
 
@@ -124,10 +126,24 @@
           </div>
         </div>
       {:else if $display === "social"}
-        <ArticleLayout
-          text={social}
-          title={`Te'n recordes del 19${years.split("/")[0].toString()}?`}
-        />
+        {#if season.socialExtra !== undefined}
+   
+            <ArticleLayout
+              text={social}
+              title={`Te'n recordes del 19${years.split("/")[0]}?`}
+            />
+            <ArticleLayout
+              text={season.socialExtra}
+              lastArticle={true}
+              title={`Te'n recordes del 19${+years.split("/")[0] + 1}?`}
+            />
+       
+        {:else}
+          <ArticleLayout
+            text={social}
+            title={`Te'n recordes del 19${years.split("/")[0]}?`}
+          />
+        {/if}
       {/if}
     </div>
   </div>

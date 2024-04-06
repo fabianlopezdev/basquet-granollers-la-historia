@@ -12,7 +12,7 @@ import { getSeasonsCount } from "@data/seasonsCount";
 import { getSeasonSocial } from "@data/social";
 import { SEASONS_LAYOUT } from "@data/globalConstants";
 import { getJugadorsImagesListNames } from "@data/images.js";
-import {removeAccents} from "../utils/helperFunctions";
+import { removeAccents } from "../utils/helperFunctions";
 
 function capitalizeWords(str: string) {
   // Convert the entire string to lowercase first
@@ -32,14 +32,9 @@ function capitalizeWords(str: string) {
   return words.join(" ");
 }
 
-
-
 const { seasonsCount, firstSeason, listOfSeasons } = getSeasonsCount();
 
-
 const listJugadorsImages = await getJugadorsImagesListNames();
-
-
 
 async function getSeasonsData(firstSeason: number, seasonsCount: number) {
   const seasonsData = [];
@@ -56,13 +51,27 @@ async function getSeasonsData(firstSeason: number, seasonsCount: number) {
         props: SEASONS_LAYOUT[i % 2].relatProps,
       },
       social: await getSeasonSocial(`19${currentSeason}-${currentSeason + 1}`),
+      socialExtra: undefined,
       images: {
         firstLayout: SEASONS_LAYOUT[i % 2].firstLayout,
         secondLayout: SEASONS_LAYOUT[i % 2].secondLayout,
-        img_1: {url: `/imatges/layout/19${currentSeason}-${currentSeason + 1}_foto1.webp`, alt: ` Imatge d'arxiu de la temporada 19${currentSeason}-${currentSeason + 1}`, layout: SEASONS_LAYOUT[i % 2].img1},
-        img_2: {url: `/imatges/layout/19${currentSeason}-${currentSeason + 1}_foto2.webp`, alt: ` Imatge d'arxiu de la temporada 19${currentSeason}-${currentSeason + 1}`, layout: SEASONS_LAYOUT[i % 2].img2},
-      }
+        img_1: {
+          url: `/imatges/layout/19${currentSeason}-${currentSeason + 1}_foto1.webp`,
+          alt: ` Imatge d'arxiu de la temporada 19${currentSeason}-${currentSeason + 1}`,
+          layout: SEASONS_LAYOUT[i % 2].img1,
+        },
+        img_2: {
+          url: `/imatges/layout/19${currentSeason}-${currentSeason + 1}_foto2.webp`,
+          alt: ` Imatge d'arxiu de la temporada 19${currentSeason}-${currentSeason + 1}`,
+          layout: SEASONS_LAYOUT[i % 2].img2,
+        },
+      },
     };
+    if (i === seasonsCount - 1) {
+      season.socialExtra = await getSeasonSocial(
+        `19${currentSeason + 1}-${currentSeason + 2}`,
+      );
+    }
     // const season = new Season(`19${currentSeason}-${currentSeason + 1}`);
     seasonsData.push(season);
     currentSeason++;
@@ -73,43 +82,49 @@ async function getSeasonsData(firstSeason: number, seasonsCount: number) {
 
 const seasons = await getSeasonsData(firstSeason, seasonsCount);
 
-
 seasons.forEach((season) => {
   if (season.stats.jugadors) {
     (season.stats.jugadors as any[]).forEach((jugador: any) => {
       jugador.jugador = capitalizeWords(jugador.jugador);
       const words = jugador.jugador.split(" ");
-      const nameToCheck = words.length ? (words[1] ? `${season.yearsLong} ${words[0]} ${(words[1] !== 'M.ª' ? words[1] : 'M.').replace(/ñ/g, 'n')}` : `${season.yearsLong} ${words[0]}`) : "";
-      const jugadorImage = listJugadorsImages.find((image) => image.includes(removeAccents(nameToCheck)));
+      const nameToCheck = words.length
+        ? words[1]
+          ? `${season.yearsLong} ${words[0]} ${(words[1] !== "M.ª" ? words[1] : "M.").replace(/ñ/g, "n")}`
+          : `${season.yearsLong} ${words[0]}`
+        : "";
+      const jugadorImage = listJugadorsImages.find((image) =>
+        image.includes(removeAccents(nameToCheck)),
+      );
       jugador.image = jugadorImage; // Correctly assign the found image to the jugador.image property.
     });
-  }});
- 
+  }
+});
+
 seasons.forEach((season) => {
   const entries = Object.entries(season.stats.entrenadors![0]);
-  
+
   entries.forEach((entry, i) => {
     let [position, name] = entry;
     name = capitalizeWords(name as string);
     position = capitalizeWords(position);
     const words = (name as string).split(" ");
-    const nameToCheck = words.length ? (words[1] ? `${season.yearsLong} ${words[0]} ${(words[1] !== 'M.ª' ? words[1] : 'M.').replace(/ñ/g, 'n')}` : `${season.yearsLong} ${words[0]}`) : "";
-    const entrenadorImage = listJugadorsImages.find((image) => image.includes(removeAccents(nameToCheck)));
+    const nameToCheck = words.length
+      ? words[1]
+        ? `${season.yearsLong} ${words[0]} ${(words[1] !== "M.ª" ? words[1] : "M.").replace(/ñ/g, "n")}`
+        : `${season.yearsLong} ${words[0]}`
+      : "";
+    const entrenadorImage = listJugadorsImages.find((image) =>
+      image.includes(removeAccents(nameToCheck)),
+    );
     //@ts-ignore
-    season.stats.entrenadors[i] = {position, name, image: entrenadorImage};
- 
-  })
+    season.stats.entrenadors[i] = { position, name, image: entrenadorImage };
+  });
 });
 
 // Ensure the property is initialized with an array if undefined
-
-
-
-
 ---
 
-<BaseLayout >
+<BaseLayout>
   <Hero />
   <Seasons client:only {seasons} totalSeasons={seasonsCount} {listOfSeasons} />
 </BaseLayout>
-

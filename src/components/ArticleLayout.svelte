@@ -4,9 +4,9 @@
   export let author;
   export let image;
   export let specialArticle;
+  export let lastArticle = false;
 
-  console.log('specialArticle', specialArticle)
-
+console.log('lastArticle', lastArticle)
   function replaceAndAddBreaks(htmlString) {
   // First, replace empty paragraphs with <br>
   let stringWithBreaks = htmlString.replace(/<p>\s*<\/p>/g, '<br>');
@@ -29,7 +29,7 @@
         {:else}
         <h2 class='title'>{title}</h2>
         {/if}
-        {#if text.image || image !== undefined} 
+        {#if (text.image || image !== undefined) && !lastArticle} 
           <img src={text.image || image} alt='' />
           {/if}
       </header>
