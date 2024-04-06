@@ -201,4 +201,8 @@ td {
   :root {
     --wd-logo: 13.94rem;
   }
+
+  .g-table {
+    margin-inline: auto;
+  }
 }

@@ -58,8 +58,7 @@
   }
 
   .date {
-    width: 3rem;
-    min-width: clamp(3rem, 2.0506329113924053rem + 4.219409282700422vw, 5.5rem);
+    min-width: 5rem;
     background-color: var(--clr-contrast);
     text-align: center;
     overflow: hidden;
@@ -71,7 +70,7 @@
     padding-left: 1.44rem;
   }
   .score {
-    width: 3.5rem;
+    min-width: 1.5rem;
     text-align: center;
     background-color: #d9d9d9;
   }
@@ -86,16 +85,21 @@
 
   @media (max-width: 648px) {
     h3 {
+      width: 100vw;
       padding-bottom: 1rem;
+      padding-inline: var(--pd-x-small);
     }
     /* .date {
       width: 3rem;
     } */
     .team {
-      padding-left: 0rem;
+      padding-inline: 0.1em;
       text-align: center;
     }
 
+    .date {
+      min-width: 4rem;
+    }
     /* .score {
       width: 1.25rem;
     } */

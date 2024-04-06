@@ -46,10 +46,10 @@
   >
     {@html closeMenuIcon}
   </button>
-  <div class="dialog-container">
+  <header class="dialog-container">
     <h3>El relat de la temporada {years}</h3>
     <p class="text">{@html relat.content.html}</p>
-  </div>
+  </header>
 </dialog>
 
 <!-- {/if} -->

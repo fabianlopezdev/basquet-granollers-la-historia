@@ -134,7 +134,9 @@
 
   @media (max-width: 648px) {
     h3 {
+      width: 100vw;
       padding-bottom: 1rem;
+      padding-inline: var(--pd-x-small);
     }
     /* .date {
       width: 3rem;

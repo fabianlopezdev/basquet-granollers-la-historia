@@ -25,16 +25,38 @@
     }
   }
 
+  let popUpMenu = null;
+  
+  $: {
+    const seasonsElement = document.querySelector("#seasons");
+    if (seasonsElement) {
+      let prevScrollPos = window.scrollY;
+      seasonsElement.addEventListener("scroll", () => {
+        const currentScrollPos = seasonsElement.scrollTop;
+        console.log('prevScrollPos', prevScrollPos);
+        console.log('currentScrollPos', currentScrollPos);
+        const header = document.querySelector(".menu-header");
+        if (prevScrollPos > currentScrollPos) {
+          // Scrolling up
+          header.style.top = "0";
+        } else {
+          // Scrolling down
+          header.style.top = `-${header.offsetHeight}px`;
+        }
+
+        prevScrollPos = currentScrollPos;
+      });
+    }
+  }
 </script>
 
-<svelte:window
-  on:keydown={handleEscape}
-/>
+<svelte:window on:keydown={handleEscape} />
 
 <section
   class="more-info-menu"
   style={$display === "resultats" && "background-color: #F3F3F3"}
   in:fade={{ duration: 300 }}
+  bind:this={popUpMenu}
 >
   <div class="max-width">
     <header class="menu-header">
@@ -147,6 +169,7 @@
     margin: 0;
     background-color: var(--clr-contrast);
     z-index: 10;
+    overflow-y: auto;
     /* overflow-x: hidden; */
     /* overflow: hidden; */
   }
@@ -177,7 +200,8 @@
   }
 
   .menu-container {
-    padding-block: 1rem;
+    padding-top: calc(var(--hg-header-menu) + 1rem);
+    padding-bottom: 1rem;
     max-width: var(--wd-max);
     padding-inline: var(--pd-x);
     margin: auto;
@@ -185,12 +209,17 @@
   }
 
   .menu-header {
+    position: fixed;
+    top: 0;
+    width: 100%;
     background-color: var(--clr-primary);
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding-inline: var(--pd-x);
     height: var(--hg-header-menu);
+    transition: top 0.3s ease-in-out;
+    z-index: 10;
     /* margin-top: var(--mg-left-top-header); */
     /* margin-left: var(--mg-left-top-header); */
   }
@@ -263,6 +292,10 @@
   }
 
   @media (max-width: 648px) {
+    h3 {
+      padding-bottom: 0rem;
+      padding-top: 0.5rem;
+    }
     .more-info-menu {
       --hg-header-menu: 4.25rem;
     }
