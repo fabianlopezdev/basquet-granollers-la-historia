@@ -205,7 +205,7 @@
     position: relative;
     width: 100%;
     height: inherit;
-    overflow-Y: scroll;
+    /* overflow-Y: scroll; */
     /* overflow-x: hidden; */
   }
 

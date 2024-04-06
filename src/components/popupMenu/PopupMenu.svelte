@@ -138,7 +138,7 @@
 
 <style>
   .more-info-menu {
-    overflow-Y: scroll;
+    /* overflow-Y: scroll; */
     --hg-header-menu: calc(var(--hg-header) + 1rem);
     --mg-left-top-header: 1rem;
     position: absolute;
