@@ -1,8 +1,6 @@
 <script>
   import { toggleDialog } from "@utils/helperFunctions";
   import { closeMenuIcon } from "@assets/icons";
-  import {disableBgScroll, enableBgScroll} from "@utils/helperFunctions";
-    import { fade } from "svelte/transition";
 
   export let years;
   export let dialogId;
@@ -17,35 +15,43 @@
     return `rgb(${r}, ${g}, ${b})`;
   }
 
-
   $: darkerColor = darkenColor(relat.props.color, 50);
 </script>
 
-<!-- {#if relatColor !== undefined}  -->
 <dialog
   id={dialogId}
   style="--clr-bg-relat: {relat.props.color}; --clr-bg-scrollbar: {darkerColor}"
-  >
-  <header class='dialog-header' >
+>
+  <header class="dialog-header">
     <h3>El relat de la temporada {years}</h3>
     <button
-    class="modal-button"
-    on:click={() => {
-      toggleDialog(dialogId);
-      isDialogOpen = false;
-    }}
->
-{@html closeMenuIcon}
-</button>
-</header>
- 
+      class="modal-button"
+      on:click={() => {
+        toggleDialog(dialogId);
+        isDialogOpen = false;
+      }}
+    >
+      {@html closeMenuIcon}
+    </button>
+  </header>
 
-<p class="text">{@html relat.content.html}</p>
-
+  <p class="text">{@html relat.content.html}</p>
 </dialog>
 
 <!-- {/if} -->
 <style>
+  dialog[open] {
+    animation: fadein 0.3s ease-in forwards;
+  }
+
+  @keyframes fadein {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
   .text {
     text-align: justify;
   }
@@ -72,7 +78,6 @@
     line-height: 2rem;
   }
 
-
   .dialog-container {
     margin: auto;
     max-width: 780px;
@@ -81,13 +86,13 @@
 
     gap: 1.7rem;
   }
-  .text{
+  .text {
     line-height: 1.5rem;
   }
 
   .dialog-header {
     position: sticky;
-    top:-0.2rem;
+    top: -0.2rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
