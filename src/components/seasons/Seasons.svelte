@@ -112,10 +112,14 @@
       //for any browser
       document.documentElement.style.overflow = "hidden";
       //for safari in mobile
+      document.body.style.position = "fixed"; // Prevents scrolling
       document.body.style.overflow = "hidden";
+      document.body.style.touchAction = "none"; // Prevents touch-based scrolling
     } else {
       document.documentElement.style.overflow = "";
+      document.body.style.position = "";
       document.body.style.overflow = "";
+      document.body.style.touchAction = "";
     }
   }
 </script>
