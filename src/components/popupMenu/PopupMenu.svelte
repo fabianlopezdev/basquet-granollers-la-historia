@@ -1,7 +1,6 @@
 <script>
-  import { closeMenuIcon } from "@assets/icons";
   import { display } from "src/svelte/stores";
-  import { fade, slide } from "svelte/transition";
+  import { fade} from "svelte/transition";
   import { upperCaseFirstLetter } from "@utils/helperFunctions";
   import PlayerCard from "./players/PlayerCard.svelte";
   import CoachCard from "./players/CoachCard.svelte";
