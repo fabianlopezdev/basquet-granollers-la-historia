@@ -2,6 +2,7 @@
   import { toggleDialog } from "@utils/helperFunctions";
   import { closeMenuIcon } from "@assets/icons";
   import {disableBgScroll, enableBgScroll} from "@utils/helperFunctions";
+    import { fade } from "svelte/transition";
 
   export let years;
   export let dialogId;
@@ -9,9 +10,6 @@
   export let isDialogOpen;
 
   function darkenColor(color, amount) {
-    // This is a simple placeholder function. You'll need to replace it with actual logic
-    // to darken the color. This might involve parsing the color and adjusting its lightness.
-    // For demonstration purposes only.
     let [r, g, b] = color.match(/\d+/g).map(Number);
     r = Math.max(0, r - amount);
     g = Math.max(0, g - amount);
@@ -19,15 +17,6 @@
     return `rgb(${r}, ${g}, ${b})`;
   }
 
-  // let scrollPosition = 0;
-  // $: {
-  //   if (isDialogOpen) {
-  //     scrollPosition = window.scrollY;
-  //     disableBgScroll(scrollPosition);
-  //   } else {
-  //     enableBgScroll(scrollPosition);
-  //   }
-  // }
 
   $: darkerColor = darkenColor(relat.props.color, 50);
 </script>
@@ -36,7 +25,6 @@
 <dialog
   id={dialogId}
   style="--clr-bg-relat: {relat.props.color}; --clr-bg-scrollbar: {darkerColor}"
-  
   >
   <header class='dialog-header' >
     <h3>El relat de la temporada {years}</h3>
@@ -62,7 +50,7 @@
     text-align: justify;
   }
   dialog {
-    overflow-y: scroll !important;
+    overflow-y: scroll;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);

@@ -24,28 +24,6 @@
       display.set("relats");
     }
   }
-
-  let popUpMenu = null;
-  
-  $: {
-    const seasonsElement = document.querySelector("#seasons");
-    if (seasonsElement) {
-      let prevScrollPos = window.scrollY;
-      seasonsElement.addEventListener("scroll", () => {
-        const currentScrollPos = seasonsElement.scrollTop;
-        const header = document.querySelector(".menu-header");
-        if (prevScrollPos > currentScrollPos) {
-          // Scrolling up
-          header.style.top = "0";
-        } else {
-          // Scrolling down
-          header.style.top = `-${header.offsetHeight}px`;
-        }
-
-        prevScrollPos = currentScrollPos;
-      });
-    }
-  }
 </script>
 
 <svelte:window on:keydown={handleEscape} />
@@ -54,50 +32,49 @@
   class="more-info-menu"
   style={$display === "resultats" && "background-color: #F3F3F3"}
   in:fade={{ duration: 300 }}
-  bind:this={popUpMenu}
 >
+  <header class="menu-header">
+    <h2>
+      <span style="color: var(--clr-accent)">
+        {$display === "resultats"
+          ? `${upperCaseFirstLetter($display)} i Classificació`
+          : $display === "jugadors"
+            ? `${upperCaseFirstLetter($display)} i Entrenadors`
+            : upperCaseFirstLetter($display)}
+      </span>
+      Temporada {season.years}
+    </h2>
+    <button on:click={() => display.set("relats")}>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="51"
+        height="51"
+        viewBox="0 0 51 51"
+        fill="none"
+      >
+        <path
+          d="M13.5781 36.7332L36.7331 13.5782"
+          stroke="white"
+          stroke-width="3"
+          stroke-linecap="round"
+        />
+        <path
+          d="M36.7319 36.7332L13.5769 13.5782"
+          stroke="white"
+          stroke-width="3"
+          stroke-linecap="round"
+        />
+        <circle
+          cx="25.5"
+          cy="25.5002"
+          r="24.5"
+          stroke="white"
+          stroke-width="2"
+        />
+      </svg>
+    </button>
+  </header>
   <div class="max-width">
-    <header class="menu-header">
-      <h2>
-        <span style="color: var(--clr-accent)">
-          {$display === "resultats"
-            ? `${upperCaseFirstLetter($display)} i Classificació`
-            : $display === "jugadors"
-              ? `${upperCaseFirstLetter($display)} i Entrenadors`
-              : upperCaseFirstLetter($display)}
-        </span>
-        Temporada {season.years}
-      </h2>
-      <button on:click={() => display.set("relats")}>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="51"
-          height="51"
-          viewBox="0 0 51 51"
-          fill="none"
-        >
-          <path
-            d="M13.5781 36.7332L36.7331 13.5782"
-            stroke="white"
-            stroke-width="3"
-            stroke-linecap="round"
-          />
-          <path
-            d="M36.7319 36.7332L13.5769 13.5782"
-            stroke="white"
-            stroke-width="3"
-            stroke-linecap="round"
-          />
-          <circle
-            cx="25.5"
-            cy="25.5002"
-            r="24.5"
-            stroke="white"
-            stroke-width="2"
-          />
-        </svg>
-      </button>
-    </header>
     <div class="menu-container">
       {#if $display === "jugadors"}
         <h3 class="players-title">JUGADORS</h3>
@@ -162,7 +139,7 @@
     --hg-header-menu: calc(var(--hg-header) + 1rem);
     --mg-left-top-header: 1rem;
     position: absolute;
-    min-height: 100%;
+    height: 100vh;
     width: 100vw;
     margin: 0;
     background-color: var(--clr-contrast);
@@ -198,7 +175,7 @@
   }
 
   .menu-container {
-    padding-top: calc(var(--hg-header-menu) + 1rem);
+    padding-top: 1rem;
     padding-bottom: 1rem;
     max-width: var(--wd-max);
     padding-inline: var(--pd-x);
@@ -207,9 +184,8 @@
   }
 
   .menu-header {
-    position: fixed;
+    position: sticky;
     top: 0;
-    width: 100%;
     background-color: var(--clr-primary);
     display: flex;
     justify-content: space-between;
