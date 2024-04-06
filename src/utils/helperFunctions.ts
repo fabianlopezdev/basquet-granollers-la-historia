@@ -190,7 +190,7 @@ export function getKeyDescription(key: string, divisio: string) {
       return "Promoció Triangular";
     case "resultatsFaseRegularPlayoff":
       return "Fase Regular Playoff";
-      case "resultatsPlayoffsVuitens":
+    case "resultatsPlayoffsVuitens":
       return "Playoffs Vuitens";
 
     default:
@@ -228,4 +228,32 @@ export function slugify(text: string) {
     .trim()
     .replace(/[^a-z0-9 ]/g, "")
     .replace(/\s+/g, "-");
+}
+
+export function disableBgScroll(scrollPosition?, isMobileSafari?) {
+  if (isMobileSafari) {
+    document.documentElement.style.overflow = "hidden";
+    document.body.style.overflow = "hidden";
+    document.body.style.top = `-${scrollPosition}px`;
+    document.body.style.width = "100%";
+    document.body.style.position = "fixed";
+  } else {
+    document.documentElement.style.overflow = "hidden";
+  }
+}
+
+export function enableBgScroll(
+  scrollPosition?: number,
+  isMobileSafari?: boolean,
+) {
+  if (isMobileSafari) {
+    document.documentElement.style.overflow = "";
+    document.body.style.overflow = "";
+    document.body.style.removeProperty("position");
+    document.body.style.removeProperty("top");
+    document.body.style.removeProperty("width");
+    window.scrollTo(0, scrollPosition);
+  } else {
+    document.documentElement.style.overflow = "";
+  }
 }

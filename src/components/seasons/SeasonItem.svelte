@@ -16,6 +16,7 @@
   export let isDialogOpen;
   export let openImg1;
   export let openImg2;
+  export let scrollPosition;
 
   let translateY;
   $: innerWidth = 0;
@@ -35,18 +36,13 @@
     } else {
       openImg2 = true;
     }
-    // Disable scrolling
-    document.body.style.overflow = "hidden";
-    document.documentElement.style.overflow = "hidden";
-    
-    // document.body.style.width = '100%';
   }
 </script>
 
 <svelte:window bind:innerWidth />
 
 {#key season.years}
-  <DialogRelat {relat} {dialogId} {years} bind:isDialogOpen />
+  <DialogRelat {relat} {dialogId} {years} bind:isDialogOpen/>
 {/key}
 <div
   class="season-container"

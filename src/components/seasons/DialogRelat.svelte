@@ -1,6 +1,7 @@
 <script>
   import { toggleDialog } from "@utils/helperFunctions";
   import { closeMenuIcon } from "@assets/icons";
+  import {disableBgScroll, enableBgScroll} from "@utils/helperFunctions";
 
   export let years;
   export let dialogId;
@@ -18,19 +19,15 @@
     return `rgb(${r}, ${g}, ${b})`;
   }
 
-  $: {
-    if (isDialogOpen) {
-      //for any browser
-      document.documentElement.style.overflow = "hidden";
-      //for safari in mobile
-      document.body.style.overflow = "hidden";
-      document.body.style.touchAction = "none"; // Prevents touch-based scrolling
-    } else {
-      document.documentElement.style.overflow = "";
-      document.body.style.overflow = "";
-      document.body.style.touchAction = "";
-    }
-  }
+  // let scrollPosition = 0;
+  // $: {
+  //   if (isDialogOpen) {
+  //     scrollPosition = window.scrollY;
+  //     disableBgScroll(scrollPosition);
+  //   } else {
+  //     enableBgScroll(scrollPosition);
+  //   }
+  // }
 
   $: darkerColor = darkenColor(relat.props.color, 50);
 </script>

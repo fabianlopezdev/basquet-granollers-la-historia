@@ -16,6 +16,8 @@
 
   import { onMount } from "svelte";
 
+  import { disableBgScroll, enableBgScroll } from "@utils/helperFunctions";
+
   export let seasons;
   export let totalSeasons;
   export let listOfSeasons;
@@ -106,25 +108,30 @@
     document.body.style.overflow = "";
     document.documentElement.style.overflow = "";
   }
+
+  // function isMobileSafari() {
+  //   return (
+  //     navigator.userAgent.match(/(iPod|iPhone|iPad)/) &&
+  //     navigator.userAgent.match(/AppleWebKit/)
+  //   );
+  // }
+
+  let isMobileSafari =  navigator.userAgent.match(/(iPod|iPhone|iPad)/) &&
+      navigator.userAgent.match(/AppleWebKit/)
+
   let scrollPosition = 0;
   $: {
-    if ($display !== "relats") {
+    if ($display !== "relats" || isDialogOpen || openImg1 || openImg2) {
       scrollPosition = window.scrollY;
       // For any browser
-      document.documentElement.style.overflow = "hidden";
-      document.body.style.overflow = "hidden";
-      document.body.style.position = "fixed";
-      document.body.style.top = `-${scrollPosition}px`;
-      document.body.style.width = "100%";
+      disableBgScroll(scrollPosition, isMobileSafari);
     } else {
-      document.documentElement.style.overflow = "";
-      document.body.style.removeProperty("overflow");
-      document.body.style.removeProperty("position");
-      document.body.style.removeProperty("top");
-      document.body.style.removeProperty("width");
-      window.scrollTo(0, scrollPosition);
+      enableBgScroll(scrollPosition, isMobileSafari);
     }
   }
+
+ 
+ 
 </script>
 
 <svelte:window
@@ -173,6 +180,7 @@
           bind:isDialogOpen
           bind:openImg1
           bind:openImg2
+          bind:scrollPosition
         />
       {/each}
     </div>
