@@ -33,8 +33,6 @@
       let prevScrollPos = window.scrollY;
       seasonsElement.addEventListener("scroll", () => {
         const currentScrollPos = seasonsElement.scrollTop;
-        console.log('prevScrollPos', prevScrollPos);
-        console.log('currentScrollPos', currentScrollPos);
         const header = document.querySelector(".menu-header");
         if (prevScrollPos > currentScrollPos) {
           // Scrolling up

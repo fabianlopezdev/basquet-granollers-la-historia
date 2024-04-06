@@ -36,20 +36,24 @@
 <dialog
   id={dialogId}
   style="--clr-bg-relat: {relat.props.color}; --clr-bg-scrollbar: {darkerColor}"
->
-  <button
+  
+  >
+  <header class='dialog-header' >
+    <h3>El relat de la temporada {years}</h3>
+    <button
     class="modal-button"
     on:click={() => {
       toggleDialog(dialogId);
       isDialogOpen = false;
     }}
-  >
-    {@html closeMenuIcon}
-  </button>
-  <header class="dialog-container">
-    <h3>El relat de la temporada {years}</h3>
-    <p class="text">{@html relat.content.html}</p>
-  </header>
+>
+{@html closeMenuIcon}
+</button>
+</header>
+ 
+
+<p class="text">{@html relat.content.html}</p>
+
 </dialog>
 
 <!-- {/if} -->
@@ -64,7 +68,7 @@
     transform: translate(-50%, -50%);
     color: var(--clr-contrast);
     padding-inline: 9.5rem;
-    padding-block: 2.69rem;
+    padding-bottom: 2.69rem;
     z-index: 1000;
     background-color: var(--clr-bg-relat);
     border-radius: 0.4rem;
@@ -78,17 +82,8 @@
     color: var(--clr-contrast);
     padding: 0;
     line-height: 2rem;
-    padding-top: 1rem;
-  }
-  .modal-button {
-    z-index: 2000;
   }
 
-  .modal-button {
-    position: absolute;
-    top: 1rem;
-    right: 0.7rem;
-  }
 
   .dialog-container {
     margin: auto;
@@ -96,10 +91,22 @@
     display: flex;
     flex-direction: column;
 
-    gap: 2rem;
+    gap: 1.7rem;
   }
-  .dialog-container p {
+  .text{
     line-height: 1.5rem;
+  }
+
+  .dialog-header {
+    position: sticky;
+    top:-0.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--clr-bg-relat);
+    padding-top: 2.69rem;
+    padding-bottom: 1.5rem;
+    z-index: 10;
   }
 
   dialog::backdrop {
@@ -129,7 +136,7 @@
 
   @media (max-width: 648px) {
     dialog {
-      padding-block: 2.2rem;
+      padding-bottom: 2.2rem;
       padding-inline: var(--pd-x-small);
       width: 90vw;
     }
