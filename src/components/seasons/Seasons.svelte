@@ -111,7 +111,7 @@
   }
 
   $: {
-    if ($display !== "relats") {
+    if ($display !== undefined && $display === "relats") {
       let scrollPosition = window.scrollY;
       // For any browser
       document.documentElement.style.overflow = "hidden";
