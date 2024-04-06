@@ -5,30 +5,28 @@
   import DialogRelat from "./DialogRelat.svelte";
   import { safari } from "src/svelte/stores";
 
-import { closeMenuIcon } from "@assets/icons";
+  import { closeMenuIcon } from "@assets/icons";
   export let season;
 
-  const { years, relat, images} = season;
+  const { years, relat, images } = season;
 
- 
   export let windowScrollY;
   export let seasonIndex;
   export let windowHeight;
   export let isDialogOpen;
   export let openImg1;
-  export let openImg2;  
+  export let openImg2;
 
   let translateY;
   $: innerWidth = 0;
 
-  let dialogId = `dialog-${seasonIndex}`
-
+  let dialogId = `dialog-${seasonIndex}`;
 
   $: {
     const progressY = windowScrollY / windowHeight;
     translateY = `translateY(${100 - 100 * progressY * progressY}%)`;
   }
-  
+
   $: translateX = (seasonIndex - $currentIndex) * 100;
 
   function handleClick(num) {
@@ -38,18 +36,16 @@ import { closeMenuIcon } from "@assets/icons";
       openImg2 = true;
     }
     // Disable scrolling
-    document.body.style.overflow = 'hidden';
-document.documentElement.style.overflow = 'hidden'; 
-  // document.body.style.width = '100%';
+    document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
+    // document.body.style.width = '100%';
   }
- 
- 
 </script>
 
-<svelte:window bind:innerWidth  />
+<svelte:window bind:innerWidth />
 
 {#key season.years}
-<DialogRelat {relat} {dialogId} {years} bind:isDialogOpen={isDialogOpen}/>
+  <DialogRelat {relat} {dialogId} {years} bind:isDialogOpen />
 {/key}
 <div
   class="season-container"
@@ -63,83 +59,155 @@ document.documentElement.style.overflow = 'hidden';
     {#if season.relat !== undefined}
       <div
         class="translateY-wrapper relat"
-        style="--rowStart: {relat.props.rowStart}; --rowEnd: {relat.props.rowEnd}; --colStart: {relat.props.colStart}; --colEnd: {relat.props.colEnd}; --rowStartMobile: {relat.props.rowStartMobile}; --rowEndMobile: {relat.props.rowEndMobile}; --colStartMobile: {relat.props.colStartMobile}; --colEndMobile: {relat.props.colEndMobile};"
+        style="--rowStart: {relat.props.rowStart}; --rowEnd: {relat.props
+          .rowEnd}; --colStart: {relat.props.colStart}; --colEnd: {relat.props
+          .colEnd}; --rowStartMobile: {relat.props
+          .rowStartMobile}; --rowEndMobile: {relat.props
+          .rowEndMobile}; --colStartMobile: {relat.props
+          .colStartMobile}; --colEndMobile: {relat.props.colEndMobile};"
         class:relatBlue={relat.props.color === "rgba(8, 67, 149, 0.90)"}
         class:safari={safari && relat.props.color === "rgba(8, 67, 149, 0.90)"}
-        >
+      >
         <article
           class="relat-container"
-          style="--clr-background: {relat.props.color};  --width: {relat.props.width}rem;"
+          style="--clr-background: {relat.props.color};  --width: {relat.props
+            .width}rem;"
         >
           <header>El Relat</header>
           <p>{truncateString(`${relat.content.text}`)}</p>
-          <button on:click={() => {toggleDialog(dialogId); isDialogOpen = true}} style="--hoverColor: {relat.props.hoverColor}" 
-            >Llegir més</button
+          <button
+            on:click={() => {
+              toggleDialog(dialogId);
+              isDialogOpen = true;
+            }}
+            style="--hoverColor: {relat.props.hoverColor}">Llegir més</button
           >
         </article>
       </div>
     {/if}
     {#if season.images}
-   {#if innerWidth > 648}
+      {#if innerWidth > 648}
+        <div
+          class="translateY-wrapper blender img-0"
+          class:imgRelatBlue={relat.props.color === "rgba(8, 67, 149, 0.90)"}
+          style="transform: {translateY}; --rowStart: {images.img_1.layout
+            .rowStart}; --rowEnd: {images.img_1.layout
+            .rowEnd}; --colStart: {images.img_1.layout
+            .colStart}; --colEnd: {images.img_1.layout
+            .colEnd}; --rowStartShortHg: {images.img_1.layout
+            .rowStartShortHg}; --rowEndShortHg: {images.img_1.layout
+            .rowEndShortHg}; --colStartShortHg: {images.img_1.layout
+            .colStartShortHg}; --colEndShortHg: {images.img_1.layout
+            .colEndShortHg}; --rowStartMobile: {images.img_1.layout
+            .rowStartMobile}; --rowEndMobile: {images.img_1.layout
+            .rowEndMobile}; --colStartMobile: {images.img_1.layout
+            .colStartMobile}; --colEndMobile: {images.img_1.layout
+            .colEndMobile};"
+        >
           <div
-            class="translateY-wrapper blender img-0"
-            class:imgRelatBlue={relat.props.color === "rgba(8, 67, 149, 0.90)"}
-            style="transform: {translateY}; --rowStart: {images.img_1.layout.rowStart}; --rowEnd: {images.img_1.layout.rowEnd}; --colStart: {images.img_1.layout.colStart}; --colEnd: {images.img_1.layout.colEnd}; --rowStartShortHg: {images.img_1.layout.rowStartShortHg}; --rowEndShortHg: {images.img_1.layout.rowEndShortHg}; --colStartShortHg: {images.img_1.layout.colStartShortHg}; --colEndShortHg: {images.img_1.layout.colEndShortHg}; --rowStartMobile: {images.img_1.layout.rowStartMobile}; --rowEndMobile: {images.img_1.layout.rowEndMobile}; --colStartMobile: {images.img_1.layout.colStartMobile}; --colEndMobile: {images.img_1.layout.colEndMobile};"  
+            class="img-container"
+            class:container-0-1={images.firstLayout}
+            class:container-1-1={images.secondLayout}
           >
-            <div class="img-container" class:container-0-1={images.firstLayout} class:container-1-1={images.secondLayout} >
-              <img src={images.img_1.url} alt={images.img_1.alt} />
-            </div>
+            <img src={images.img_1.url} alt={images.img_1.alt} />
           </div>
-            <div
-            class="translateY-wrapper blender img-1"
-            style="transform: {translateY}; --rowStart: {images.img_2.layout.rowStart}; --rowEnd: {images.img_2.layout.rowEnd}; --colStart: {images.img_2.layout.colStart}; --colEnd: {images.img_2.layout.colEnd}; --rowStartShortHg: {images.img_2.layout.rowStart}; --rowEndShortHg: {images.img_2.layout.rowEndShortHg}; --colStartShortHg: {images.img_2.layout.colStartShortHg}; --colEndShortHg: {images.img_2.layout.colEndShortHg}; --rowStartMobile: {images.img_2.layout.rowStartMobile}; --rowEndMobile: {images.img_2.layout.rowEndMobile}; --colStartMobile: {images.img_2.layout.colStartMobile}; --colEndMobile: {images.img_2.layout.colEndMobile};"
+        </div>
+        <div
+          class="translateY-wrapper blender img-1"
+          style="transform: {translateY}; --rowStart: {images.img_2.layout
+            .rowStart}; --rowEnd: {images.img_2.layout
+            .rowEnd}; --colStart: {images.img_2.layout
+            .colStart}; --colEnd: {images.img_2.layout
+            .colEnd}; --rowStartShortHg: {images.img_2.layout
+            .rowStart}; --rowEndShortHg: {images.img_2.layout
+            .rowEndShortHg}; --colStartShortHg: {images.img_2.layout
+            .colStartShortHg}; --colEndShortHg: {images.img_2.layout
+            .colEndShortHg}; --rowStartMobile: {images.img_2.layout
+            .rowStartMobile}; --rowEndMobile: {images.img_2.layout
+            .rowEndMobile}; --colStartMobile: {images.img_2.layout
+            .colStartMobile}; --colEndMobile: {images.img_2.layout
+            .colEndMobile};"
+        >
+          <div
+            class="img-container"
+            class:container-1-2={images.secondLayout}
+            class:container-0-2={images.firstLayout}
           >
-            <div class="img-container" class:container-1-2={images.secondLayout} class:container-0-2={images.firstLayout}>
-              <img src={images.img_2.url} alt={images.img_2.alt} />
-            </div>
+            <img src={images.img_2.url} alt={images.img_2.alt} />
           </div>
-{:else}
-<!-- svelte-ignore a11y-no-static-element-interactions -->
-<!-- svelte-ignore a11y-click-events-have-key-events -->
-<div on:click={() => handleClick(1)}
-class="translateY-wrapper blender img-0"
-class:imgRelatBlue={relat.props.color === "rgba(8, 67, 149, 0.90)"}
-style="transform: {translateY}; --rowStart: {images.img_1.layout.rowStart}; --rowEnd: {images.img_1.layout.rowEnd}; --colStart: {images.img_1.layout.colStart}; --colEnd: {images.img_1.layout.colEnd}; --rowStartShortHg: {images.img_1.layout.rowStartShortHg}; --rowEndShortHg: {images.img_1.layout.rowEndShortHg}; --colStartShortHg: {images.img_1.layout.colStartShortHg}; --colEndShortHg: {images.img_1.layout.colEndShortHg}; --rowStartMobile: {images.img_1.layout.rowStartMobile}; --rowEndMobile: {images.img_1.layout.rowEndMobile}; --colStartMobile: {images.img_1.layout.colStartMobile}; --colEndMobile: {images.img_1.layout.colEndMobile};"  
->
-<div class="img-container" class:container-0-1={images.firstLayout} class:container-1-1={images.secondLayout} >
-  <img src={images.img_1.url} alt={images.img_1.alt} />
-</div>
-</div>
-<!-- svelte-ignore a11y-click-events-have-key-events -->
-<!-- svelte-ignore a11y-no-static-element-interactions -->
-<div
-on:click={() => handleClick(2)}
-class="translateY-wrapper blender img-1"
-style="transform: {translateY}; --rowStart: {images.img_2.layout.rowStart}; --rowEnd: {images.img_2.layout.rowEnd}; --colStart: {images.img_2.layout.colStart}; --colEnd: {images.img_2.layout.colEnd}; --rowStartShortHg: {images.img_2.layout.rowStart}; --rowEndShortHg: {images.img_2.layout.rowEndShortHg}; --colStartShortHg: {images.img_2.layout.colStartShortHg}; --colEndShortHg: {images.img_2.layout.colEndShortHg}; --rowStartMobile: {images.img_2.layout.rowStartMobile}; --rowEndMobile: {images.img_2.layout.rowEndMobile}; --colStartMobile: {images.img_2.layout.colStartMobile}; --colEndMobile: {images.img_2.layout.colEndMobile};"
->
-<div class="img-container" class:container-1-2={images.secondLayout} class:container-0-2={images.firstLayout}>
-  <img src={images.img_2.url} alt={images.img_2.alt} />
-</div>
-</div>
-{/if}
-{/if}
-</div>
+        </div>
+      {:else}
+        <!-- svelte-ignore a11y-no-static-element-interactions -->
+        <!-- svelte-ignore a11y-click-events-have-key-events -->
+        <div
+          on:click={() => handleClick(1)}
+          class="translateY-wrapper blender img-0"
+          class:imgRelatBlue={relat.props.color === "rgba(8, 67, 149, 0.90)"}
+          style="transform: {translateY}; --rowStart: {images.img_1.layout
+            .rowStart}; --rowEnd: {images.img_1.layout
+            .rowEnd}; --colStart: {images.img_1.layout
+            .colStart}; --colEnd: {images.img_1.layout
+            .colEnd}; --rowStartShortHg: {images.img_1.layout
+            .rowStartShortHg}; --rowEndShortHg: {images.img_1.layout
+            .rowEndShortHg}; --colStartShortHg: {images.img_1.layout
+            .colStartShortHg}; --colEndShortHg: {images.img_1.layout
+            .colEndShortHg}; --rowStartMobile: {images.img_1.layout
+            .rowStartMobile}; --rowEndMobile: {images.img_1.layout
+            .rowEndMobile}; --colStartMobile: {images.img_1.layout
+            .colStartMobile}; --colEndMobile: {images.img_1.layout
+            .colEndMobile};"
+        >
+          <div
+            class="img-container"
+            class:container-0-1={images.firstLayout}
+            class:container-1-1={images.secondLayout}
+          >
+            <img src={images.img_1.url} alt={images.img_1.alt} />
+          </div>
+        </div>
+        <!-- svelte-ignore a11y-click-events-have-key-events -->
+        <!-- svelte-ignore a11y-no-static-element-interactions -->
+        <div
+          on:click={() => handleClick(2)}
+          class="translateY-wrapper blender img-1"
+          style="transform: {translateY}; --rowStart: {images.img_2.layout
+            .rowStart}; --rowEnd: {images.img_2.layout
+            .rowEnd}; --colStart: {images.img_2.layout
+            .colStart}; --colEnd: {images.img_2.layout
+            .colEnd}; --rowStartShortHg: {images.img_2.layout
+            .rowStart}; --rowEndShortHg: {images.img_2.layout
+            .rowEndShortHg}; --colStartShortHg: {images.img_2.layout
+            .colStartShortHg}; --colEndShortHg: {images.img_2.layout
+            .colEndShortHg}; --rowStartMobile: {images.img_2.layout
+            .rowStartMobile}; --rowEndMobile: {images.img_2.layout
+            .rowEndMobile}; --colStartMobile: {images.img_2.layout
+            .colStartMobile}; --colEndMobile: {images.img_2.layout
+            .colEndMobile};"
+        >
+          <div
+            class="img-container"
+            class:container-1-2={images.secondLayout}
+            class:container-0-2={images.firstLayout}
+          >
+            <img src={images.img_2.url} alt={images.img_2.alt} />
+          </div>
+        </div>
+      {/if}
+    {/if}
   </div>
-
+</div>
 
 <!-- {#if openImg2 === true}
 {/if} -->
-
-
 
 <style>
   .season-container {
     position: relative;
     width: 100%;
     height: inherit;
+    overflow-Y: scroll;
     /* overflow-x: hidden; */
   }
-
 
   .season-title {
     position: absolute;
@@ -239,7 +307,6 @@ style="transform: {translateY}; --rowStart: {images.img_2.layout.rowStart}; --ro
   img:hover {
     filter: grayscale(0%);
     transform: scale(1.5);
-
   }
 
   .img-container {
@@ -264,62 +331,61 @@ style="transform: {translateY}; --rowStart: {images.img_2.layout.rowStart}; --ro
 
   .container-1-2:hover {
     transform: translateX(-30%);
-    transition: transform 0.5s ease-in; 
+    transition: transform 0.5s ease-in;
   }
 
   .container-0-1:hover {
     transform: translateY(17%);
-    transition: transform 0.5s ease-in; 
+    transition: transform 0.5s ease-in;
   }
-     .container-1-1:hover {
+  .container-1-1:hover {
     transform: translateY(20%);
-    transition: transform 0.5s ease-in; 
+    transition: transform 0.5s ease-in;
   }
-   /* .container-0-2:hover {
+  /* .container-0-2:hover {
     transform: translateY(-30%);
     transition: transform 0.5s ease-in; 
   } */
 
   @media (max-width: 648px) {
     .blender:hover {
-    mix-blend-mode: multiply;
-    z-index: 0;
-  }
+      mix-blend-mode: multiply;
+      z-index: 0;
+    }
     img:hover {
       filter: grayscale(100%); /* Reset to original state, adjust if needed */
       transform: scale(1);
     }
-     .container-1-2:hover {
-    transform: translateX(0);
-    /* transition: transform 0.5s ease-in;  */
-  }
+    .container-1-2:hover {
+      transform: translateX(0);
+      /* transition: transform 0.5s ease-in;  */
+    }
 
-  .container-0-1:hover {
-    transform: translateY(0);
-    /* transition: transform 0.5s ease-in;  */
-  }
-     .container-1-1:hover {
-    transform: translateY(0);
-    /* transition: transform 0.5s ease-in;  */
-  }
+    .container-0-1:hover {
+      transform: translateY(0);
+      /* transition: transform 0.5s ease-in;  */
+    }
+    .container-1-1:hover {
+      transform: translateY(0);
+      /* transition: transform 0.5s ease-in;  */
+    }
     .relat {
-    grid-column: var(--colStartMobile) / var(--colEndMobile);
-    grid-row: var(--rowStartMobile) / var(--rowEndMobile);
-  }
+      grid-column: var(--colStartMobile) / var(--colEndMobile);
+      grid-row: var(--rowStartMobile) / var(--rowEndMobile);
+    }
 
-  .safari {
-    grid-row: calc(var(--rowStartMobile) - 3) / var(--rowEndMobile);
-  }
+    .safari {
+      grid-row: calc(var(--rowStartMobile) - 3) / var(--rowEndMobile);
+    }
     .img-0 {
-   grid-column: var(--colStartMobile) / var(--colEndMobile);
-    grid-row: var(--rowStartMobile) / var(--rowEndMobile);
-  }
-  
+      grid-column: var(--colStartMobile) / var(--colEndMobile);
+      grid-row: var(--rowStartMobile) / var(--rowEndMobile);
+    }
 
-  .img-1 {
-    grid-column: var(--colStartMobile) / var(--colEndMobile);
-    grid-row: var(--rowStartMobile) / var(--rowEndMobile);
-  }
+    .img-1 {
+      grid-column: var(--colStartMobile) / var(--colEndMobile);
+      grid-row: var(--rowStartMobile) / var(--rowEndMobile);
+    }
 
     /* .season-container {
       display: flex;
@@ -339,7 +405,6 @@ style="transform: {translateY}; --rowStart: {images.img_2.layout.rowStart}; --ro
       flex: 1;
     } */
 
-    
     .items-container {
       padding-bottom: 0rem;
       grid-template-columns: repeat(24, 4.19%);
@@ -358,7 +423,7 @@ style="transform: {translateY}; --rowStart: {images.img_2.layout.rowStart}; --ro
     }
   }
 
-  @media (max-height: 560px) and (max-width: 648px){
+  @media (max-height: 560px) and (max-width: 648px) {
     .season-title {
       top: 2.5rem;
       height: 6rem;
@@ -369,46 +434,45 @@ style="transform: {translateY}; --rowStart: {images.img_2.layout.rowStart}; --ro
     }
   }
 
-   @media (max-height: 588px) and (min-width: 586px){
-   .relat {
-    grid-row: calc(var(--rowStart) - 1) / var(--rowEnd);
+  @media (max-height: 588px) and (min-width: 586px) {
+    .relat {
+      grid-row: calc(var(--rowStart) - 1) / var(--rowEnd);
+    }
+
+    .img-0 {
+      grid-column: var(--colStartShortHg) / var(--colEndShortHg);
+      grid-row: var(--rowStartShortHg) / var(--rowEndShortHg);
+    }
+
+    .img-1 {
+      grid-column: var(--colStartShortHg) / var(--colEndShortHg);
+      grid-row: var(--rowStartShortHg) / var(--rowEndShortHg);
+    }
+
+    .container-0-1:hover {
+      transform: translateY(30%);
+      transition: transform 0.5s ease-in;
+    }
+
+    .container-0-2:hover {
+      transform: translateY(-30%);
+      transition: transform 0.5s ease-in;
+    }
+
+    .container-1-1:hover {
+      transform: translateY(20%);
+      transition: transform 0.5s ease-in;
+    }
   }
 
-  .img-0 {
-   grid-column: var(--colStartShortHg) / var(--colEndShortHg);
-    grid-row: var(--rowStartShortHg) / var(--rowEndShortHg);
-  }
-  
+  @media (max-height: 568px) {
+    .relatBlue {
+      grid-row: calc(var(--rowStartMobile) - 3) / var(--rowEndMobile);
+    }
 
-  .img-1 {
-    grid-column: var(--colStartShortHg) / var(--colEndShortHg);
-    grid-row: var(--rowStartShortHg) / var(--rowEndShortHg);
+    .imgRelatBlue {
+      grid-column: calc(var(--colStartMobile) - 2) / var(--colEndMobile);
+      /* grid-row: var(--rowStartMobile) / var(--rowEndMobile); */
+    }
   }
-
-  .container-0-1:hover {
-    transform: translateY(30%);
-    transition: transform 0.5s ease-in; 
-  }
-
-  .container-0-2:hover {
-    transform: translateY(-30%);
-    transition: transform 0.5s ease-in; 
-  }
-
-   .container-1-1:hover {
-    transform: translateY(20%);
-    transition: transform 0.5s ease-in; 
-  }
-  }
-
-@media (max-height: 568px) {
-  .relatBlue {
-    grid-row: calc(var(--rowStartMobile) - 3)  / var(--rowEndMobile);
-  }
-
-  .imgRelatBlue {
-   grid-column: calc(var(--colStartMobile) - 2) / var(--colEndMobile);
-    /* grid-row: var(--rowStartMobile) / var(--rowEndMobile); */
-  }
-}
 </style>

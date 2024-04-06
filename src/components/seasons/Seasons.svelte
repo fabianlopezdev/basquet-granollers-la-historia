@@ -4,7 +4,7 @@
   import Timeline from "./Timeline.svelte";
   import SeasonItem from "./SeasonItem.svelte";
   import PopupMenu from "../popupMenu/PopupMenu.svelte";
-  import MadeBy from "@components/MadeBy.svelte"
+  import MadeBy from "@components/MadeBy.svelte";
 
   //Import data
   import { currentIndex, safari } from "src/svelte/stores";
@@ -14,13 +14,12 @@
   import SponsorsResponsive from "@components/header/SponsorsResponsive.svelte";
   import { closeMenuIcon } from "@assets/icons";
 
-  import {onMount } from 'svelte';
-  
+  import { onMount } from "svelte";
+
   export let seasons;
   export let totalSeasons;
   export let listOfSeasons;
-  import { fade } from 'svelte/transition';
-
+  import { fade } from "svelte/transition";
 
   let windowWidth;
   let windowHeight;
@@ -28,7 +27,7 @@
   let animationClass;
   let touchstartX = 0;
   let touchendX = 0;
-  let direction = '';
+  let direction = "";
   let prevIndex = 0;
   let windowOuterHeight;
 
@@ -40,81 +39,81 @@
   let isSafari = false;
   onMount(() => {
     const userAgent = window.navigator.userAgent;
-    const isWebKit = userAgent.indexOf('AppleWebKit') !== -1;
-    const isChrome = userAgent.indexOf('Chrome') !== -1;
-    const isFirefox = userAgent.indexOf('Firefox') !== -1;
+    const isWebKit = userAgent.indexOf("AppleWebKit") !== -1;
+    const isChrome = userAgent.indexOf("Chrome") !== -1;
+    const isFirefox = userAgent.indexOf("Firefox") !== -1;
     isSafari = isWebKit && !isChrome && !isFirefox;
     safari.set(isSafari);
   });
 
-function movePrevSlide() {
+  function movePrevSlide() {
     // Prevent moving to the previous slide if the current index is 0
     if ($currentIndex > 0) {
-        direction = 'prev';
-        prevIndex = $currentIndex;
-        $currentIndex = $currentIndex - 1;
+      direction = "prev";
+      prevIndex = $currentIndex;
+      $currentIndex = $currentIndex - 1;
     }
-}
+  }
 
-// Function to move to next slide
-function moveNextSlide() {
+  // Function to move to next slide
+  function moveNextSlide() {
     // Prevent moving to the next slide if the current index is the last index
     if ($currentIndex < totalSeasons - 1) {
-        direction = 'next';
-        prevIndex = $currentIndex;
-        $currentIndex = $currentIndex + 1;
+      direction = "next";
+      prevIndex = $currentIndex;
+      $currentIndex = $currentIndex + 1;
     }
-}
+  }
   // Function to handle touch start
-	const handleTouchStart = (e) => {
+  const handleTouchStart = (e) => {
     if (isDialogOpen) return;
-		touchstartX = e.touches[0].clientX;
-	};
+    touchstartX = e.touches[0].clientX;
+  };
 
-	// Function to handle touch end
-	const handleTouchEnd = (e) => {
+  // Function to handle touch end
+  const handleTouchEnd = (e) => {
     if (isDialogOpen) return;
-		touchendX = e.changedTouches[0].clientX;
-		handleSwipeGesture();
-	};
-const SWIPE_THRESHOLD = 0; // Adjust as needed for sensitivity
+    touchendX = e.changedTouches[0].clientX;
+    handleSwipeGesture();
+  };
+  const SWIPE_THRESHOLD = 0; // Adjust as needed for sensitivity
 
-const handleSwipeGesture = () => {
+  const handleSwipeGesture = () => {
     const swipeDistance = touchendX - touchstartX;
 
     // Check if the swipe distance exceeds the threshold
     if (Math.abs(swipeDistance) > SWIPE_THRESHOLD) {
-        if (swipeDistance < 0) {
-            // Swipe was left (to see the next season)
-            moveNextSlide();
-        } else {
-            // Swipe was right (to see the previous season)
-            movePrevSlide();
-        }
-    } 
-};
+      if (swipeDistance < 0) {
+        // Swipe was left (to see the next season)
+        moveNextSlide();
+      } else {
+        // Swipe was right (to see the previous season)
+        movePrevSlide();
+      }
+    }
+  };
 
-let isDialogOpen = false;
-let seasonsElement;
-let initialWindowHeight;
-let openImg1 = false;
-let openImg2 = false;
+  let isDialogOpen = false;
+  let seasonsElement;
+  let initialWindowHeight;
+  let openImg1 = false;
+  let openImg2 = false;
 
-function handleClick() {
+  function handleClick() {
     openImg1 = false;
     openImg2 = false;
     // Disable scrolling
-    document.body.style.overflow = '';
-document.documentElement.style.overflow = ''; 
+    document.body.style.overflow = "";
+    document.documentElement.style.overflow = "";
   }
 
-  // $: {
-  //   if ($display !== "relats") {
-  //     document.documentElement.style.overflow = 'hidden';
-  //   } else {
-  //     document.documentElement.style.overflow  = '';
-  //   }
-  // }
+  $: {
+    if ($display !== "relats") {
+      document.documentElement.style.overflow = "hidden";
+    } else {
+      document.documentElement.style.overflow = "";
+    }
+  }
 </script>
 
 <svelte:window
@@ -122,7 +121,6 @@ document.documentElement.style.overflow = '';
   bind:innerHeight={windowHeight}
   bind:scrollY={windowScrollY}
   bind:outerHeight={windowOuterHeight}
-
 />
 
 <section id="seasons" bind:this={seasonsElement}>
@@ -143,7 +141,7 @@ document.documentElement.style.overflow = '';
     </div>
     <div class:showMenu={isMenuOpen} class="select-season-popup">
       <p>TEMPORADES</p>
-      <SeasonsList bind:isMenuOpen seasonsList={listOfSeasons}/>
+      <SeasonsList bind:isMenuOpen seasonsList={listOfSeasons} />
       <div style="padding-top: 3rem; width: 100%;">
         <SponsorsResponsive />
       </div>
@@ -151,21 +149,24 @@ document.documentElement.style.overflow = '';
     </div>
     <div
       class="seasons-container"
-   
-    on:touchstart={handleTouchStart}
-     on:touchend={handleTouchEnd}
+      on:touchstart={handleTouchStart}
+      on:touchend={handleTouchEnd}
       style="--totalSeasons: {totalSeasons}; transform: {transform}"
     >
       {#each seasons as season, seasonIndex}
-  
-
-        <SeasonItem {season} {windowHeight} {windowScrollY} {seasonIndex} bind:isDialogOpen={isDialogOpen} bind:openImg1 bind:openImg2/>
-
+        <SeasonItem
+          {season}
+          {windowHeight}
+          {windowScrollY}
+          {seasonIndex}
+          bind:isDialogOpen
+          bind:openImg1
+          bind:openImg2
+        />
       {/each}
     </div>
   </div>
-  <div class='timeline-options' class:safari={isSafari}>
-
+  <div class="timeline-options" class:safari={isSafari}>
     <Options />
     <Timeline
       {listOfSeasons}
@@ -175,53 +176,58 @@ document.documentElement.style.overflow = '';
       bind:animationClass
     />
   </div>
-
-  
 </section>
 
 {#if openImg1 === true}
-
-  <section  class="dialog-container" in:fade={{ duration: 300 }}>
-    <button class="modal-button" on:click={handleClick} >
+  <section class="dialog-container" in:fade={{ duration: 300 }}>
+    <button class="modal-button" on:click={handleClick}>
       {@html closeMenuIcon}
     </button>
     <div>
-      <img src={seasons[$currentIndex].images.img_1.url} alt={seasons[$currentIndex].images.img_1.alt} />
+      <img
+        src={seasons[$currentIndex].images.img_1.url}
+        alt={seasons[$currentIndex].images.img_1.alt}
+      />
     </div>
   </section>
 {/if}
 {#if openImg2 === true}
-  <section  class="dialog-container" in:fade={{ duration: 300 }}>
-    <button class="modal-button" on:click={handleClick} >
+  <section class="dialog-container" in:fade={{ duration: 300 }}>
+    <button class="modal-button" on:click={handleClick}>
       {@html closeMenuIcon}
     </button>
-    <div >
-      <img src={seasons[$currentIndex].images.img_2.url} alt={seasons[$currentIndex].images.img_2.alt} />
+    <div>
+      <img
+        src={seasons[$currentIndex].images.img_2.url}
+        alt={seasons[$currentIndex].images.img_2.alt}
+      />
     </div>
   </section>
 {/if}
- 
+
 <style>
-    .modal-button {
+  #seasons {
+    overflow-y: scroll;
+  }
+
+  .modal-button {
     position: absolute;
     top: 1rem;
     right: 1rem;
     z-index: 20;
   }
-  
+
   .dialog-container {
     display: flex;
-        align-items: center;
-        justify-content: center;
-        position: fixed;
-        top: 0;
-        background-color:  rgba(0, 0, 0, 0.7);
-        margin-top: calc(var(--hg-menu) * -1);
-        height: 101dvh;
-        width: 102vw;
-        z-index: 10;
-        
-      
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    margin-top: calc(var(--hg-menu) * -1);
+    height: 101dvh;
+    width: 102vw;
+    z-index: 10;
   }
   .made-by {
     text-align: center;
@@ -237,7 +243,6 @@ document.documentElement.style.overflow = '';
     font-style: italic;
   }
   .timeline-options {
-
     position: absolute;
     bottom: 4rem;
     width: 100%;
@@ -251,7 +256,6 @@ document.documentElement.style.overflow = '';
     padding-block: 1.5rem; */
     gap: 4.5rem;
     z-index: 1;
-
   }
   #seasons {
     --hg-menu: 4rem;
@@ -341,8 +345,6 @@ document.documentElement.style.overflow = '';
     z-index: 1;
   }
 
-
-
   P {
     color: var(--clr-accent);
     font-size: 1rem;
@@ -376,24 +378,23 @@ document.documentElement.style.overflow = '';
     transform: rotate(-180deg);
     /* transform-origin: 50% 55%; */
   }
-   @media (max-height: 780px) {
-   .timeline-options {
+  @media (max-height: 780px) {
+    .timeline-options {
       bottom: 2rem;
-    gap: 4rem;
+      gap: 4rem;
       /* margin-bottom: 2.5rem; */
     }
   }
   @media (max-width: 648px) {
     .timeline-options {
       bottom: 2.5rem;
-    /* padding-inline: var(--pd-x-small);
+      /* padding-inline: var(--pd-x-small);
     padding-block: 1.5rem; */
 
-    gap: 3.5rem;
+      gap: 3.5rem;
+    }
 
-  }
-
-  /* .safari {
+    /* .safari {
     bottom: 5rem;
   } */
 
@@ -404,7 +405,6 @@ document.documentElement.style.overflow = '';
       display: flex;
     }
   }
-
 
   @media (max-height: 812px) and (max-width: 648px) {
     .season-menu {
@@ -417,8 +417,9 @@ document.documentElement.style.overflow = '';
     }
   }
   @media (max-height: 568px) {
-  .timeline-options {
-    bottom: 2rem;
-    gap: 2.8rem;
-}}
+    .timeline-options {
+      bottom: 2rem;
+      gap: 2.8rem;
+    }
+  }
 </style>

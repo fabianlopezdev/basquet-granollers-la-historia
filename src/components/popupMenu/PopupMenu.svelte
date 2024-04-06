@@ -25,50 +25,16 @@
     }
   }
 
-  let changedHeight;
-  let popUpStartingPosition;
-
-
-  function handleTopScrollLimit() {
-    if (window.scrollY < popUpStartingPosition) {
-      window.scrollTo(0, popUpStartingPosition);
-    }
-  }
-
-  let initialTouchY;
-  function handleTouch(event) {
-    initialTouchY = event.touches[0].clientY;
-  }
-
-  $: {
-    changedHeight = popUpStartingPosition;
-  }
-
-  function handleTouchMove(event) {
-    const currentTouchY = event.touches[0].clientY;
-    const touchDiff = currentTouchY - initialTouchY;
-    // let adressingBar = popUpStartingPosition !== initialPopUpStartingPosition ? initialPopUpStartingPosition : initialPopUpStartingPosition;
-
-    if (window.scrollY === changedHeight && touchDiff > 0) {
-      event.preventDefault();
-    } else {
-      initialTouchY = currentTouchY;
-    }
-  }
 </script>
 
 <svelte:window
   on:keydown={handleEscape}
-  bind:innerHeight={popUpStartingPosition}
-  on:scroll={handleTopScrollLimit}
 />
 
 <section
   class="more-info-menu"
   style={$display === "resultats" && "background-color: #F3F3F3"}
   in:fade={{ duration: 300 }}
-  on:touchstart={handleTouch}
-  on:touchmove={handleTouchMove}
 >
   <div class="max-width">
     <header class="menu-header">
@@ -172,6 +138,7 @@
 
 <style>
   .more-info-menu {
+    overflow-Y: scroll;
     --hg-header-menu: calc(var(--hg-header) + 1rem);
     --mg-left-top-header: 1rem;
     position: absolute;
@@ -180,7 +147,7 @@
     margin: 0;
     background-color: var(--clr-contrast);
     z-index: 10;
-    overflow-x: hidden;
+    /* overflow-x: hidden; */
     /* overflow: hidden; */
   }
 

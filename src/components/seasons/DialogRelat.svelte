@@ -1,3 +1,4 @@
+
 <script>
  import { toggleDialog } from "@utils/helperFunctions";
  import { closeMenuIcon } from "@assets/icons";
@@ -19,17 +20,19 @@ function darkenColor(color, amount) {
     return `rgb(${r}, ${g}, ${b})`;
   }
 
-  function disableBackgroundScrolling(id) {
-    const element = document.querySelector(id);
-    console.log(element)
-    element.style.overflow = 'hidden';
+  $: {
+    if (isDialogOpen) {
+      document.documentElement.style.overflow = "hidden";
+    } else {
+      document.documentElement.style.overflow = "auto";
+    }
   }
 
   $: darkerColor = darkenColor(relat.props.color, 50);
 </script>
 
 <!-- {#if relatColor !== undefined}  -->
-<dialog id={dialogId} style="--clr-bg-relat: {relat.props.color}; --clr-bg-scrollbar: {darkerColor}" on:touchstart={()=>disableBackgroundScrolling(`seasons-container`)}>
+<dialog id={dialogId} style="--clr-bg-relat: {relat.props.color}; --clr-bg-scrollbar: {darkerColor}">
   <button class="modal-button" on:click={() => {toggleDialog(dialogId); isDialogOpen = false;}} >
     {@html closeMenuIcon}
   </button>
@@ -45,7 +48,7 @@ function darkenColor(color, amount) {
 
   }
   dialog {
-    overflow-y: scroll;
+    overflow-y: scroll !important;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
