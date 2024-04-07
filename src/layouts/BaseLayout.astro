@@ -6,14 +6,12 @@ import { SEO } from "astro-seo";
 import "@styles/global.css";
 
 //Import components
-// import Footer from '@components/footer/Footer.astro';
 import Header from "@components/header/Header.astro";
 
 const { title, pageDescription } = Astro.props;
 
 const DESCRIPTION =
   "Benvinguts i benvingudes a un recorregut per la història del Club Bàsquet Granollers, un equip de bàsquet amb més de 90 anys d'història.";
-
 ---
 
 <html lang="ca">
@@ -44,10 +42,9 @@ const DESCRIPTION =
     />
   </head>
   <body>
-    <Header/>
+    <Header />
     <main>
       <slot />
     </main>
-    <!-- <Footer /> -->
   </body>
 </html>

@@ -1,225 +1,109 @@
-export function addApostrophe(str: string) {
+// Function to replace HTML apostrophe entity with a regular apostrophe
+export function addApostrophe(str: string): string {
   return str.replace(/&#8217;/g, "'");
 }
 
-//Regex for the next two functions
-const sectionRegex =
-  /T[ií]tol:(?:\s|&nbsp;)*<\/strong>(?:\s|&nbsp;)*(.*?)(?:\s|&nbsp;)*<\/p>([\s\S]*?)(?=<p><strong>(?:\s|&nbsp;)*T[ií]tol:|<ul>|$)/gis;
-const nameLinkRegex =
-  /Nom:(?:\s|&nbsp;)*<\/strong>(?:\s|&nbsp;)*(.*?)(?:\s|&nbsp;)*<strong>, Link:(?:\s|&nbsp;)*<\/strong>(?:\s|&nbsp;)*(.*?)(?:\s|&nbsp;)*<\/p>/gis;
-
-export function extractTopFooterInfo(content: string) {
-  const generalLinksStart = content.indexOf(
-    "Links Generals (Fins a tres elements)",
-  );
-  const generalLinksEnd = content.indexOf("Links Fixes");
-  const generalLinksSection = content.slice(generalLinksStart, generalLinksEnd);
-
-  const generalLinks = [];
-
-  for (const sectionMatch of generalLinksSection.matchAll(sectionRegex)) {
-    const sectionTitle = addApostrophe(sectionMatch[1]);
-    const sectionContent = sectionMatch[2];
-    const contentItems = [];
-
-    for (const nameLinkMatch of sectionContent.matchAll(nameLinkRegex)) {
-      contentItems.push({
-        name: addApostrophe(nameLinkMatch[1]),
-        link: addApostrophe(nameLinkMatch[2]),
-      });
-    }
-
-    generalLinks.push({ title: sectionTitle, content: contentItems });
-  }
-
-  const fixedLinksStart = content.indexOf("Links Fixes");
-  const fixedLinksEnd = content.indexOf("PEU DE PÀGINA INFERIOR");
-
-  const fixedLinksSection = content.slice(fixedLinksStart, fixedLinksEnd);
-
-  const fixedLinks = [];
-
-  for (const nameLinkMatch of fixedLinksSection.matchAll(nameLinkRegex)) {
-    fixedLinks.push({
-      name: addApostrophe(nameLinkMatch[1]),
-      link: addApostrophe(nameLinkMatch[2]),
-    });
-  }
-
-  return { generalLinks, fixedLinks };
+// Function to normalize a string by removing diacritics and converting to lowercase
+function normalizeString(s: string): string {
+  return s.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
 }
 
-export function extractBottomFooterInfo(content: string) {
-  const linksStart = content.indexOf("PEU DE PÀGINA INFERIOR");
-  const linksEnd = content.length;
+// Function to truncate a string to a maximum of 198 characters and remove specific patterns
+export function truncateString(str: string): string {
+  const truncated = str.length <= 198 ? str : str.slice(0, 198);
+  const normalizedTruncated = normalizeString(truncated);
 
-  const linksSection = content.slice(linksStart, linksEnd);
-
-  const links = [];
-
-  for (const nameLinkMatch of linksSection.matchAll(nameLinkRegex)) {
-    links.push({
-      name: addApostrophe(nameLinkMatch[1]),
-      link: addApostrophe(nameLinkMatch[2]),
-    });
-  }
-
-  return links;
-}
-
-export function seasonToEndpointMapper(season: string) {
-  const seasonYears = season.split("/");
-  return `/temporada-${seasonYears[0]}-${seasonYears[1]}`;
-}
-
-export function truncateString(str: string) {
-  // Function to normalize the input for easier matching
-  const normalizeString = (s: string) =>
-    s
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "")
-      .toLowerCase();
-
-  // Truncate if the string is longer than 198 characters
-  let truncated = str.length <= 198 ? str : str.slice(0, 198);
-  let normalizedTruncated = normalizeString(truncated);
-
-  // Patterns to remove (considering variations in accents and capitalization)
   const patternsToRemove = [
-    normalizeString("Eugeni Rius Daví"),
-    normalizeString("Eugeni"),
-    normalizeString("Rius"),
-    normalizeString("Daví"),
-    normalizeString("Jordi Sanuy Bassa"),
-    normalizeString("Jordi"),
-    normalizeString("Sanuy"),
-    normalizeString("Bassa"),
-  ];
+    "Eugeni Rius Daví",
+    "Eugeni",
+    "Rius",
+    "Daví",
+    "Jordi Sanuy Bassa",
+    "Jordi",
+    "Sanuy",
+    "Bassa",
+  ].map(normalizeString);
 
-  // Attempt to remove each pattern from the start of the string
-  let removedPattern = false;
   for (const pattern of patternsToRemove) {
     if (normalizedTruncated.startsWith(pattern)) {
-      // Calculate actual length of the pattern to remove it from the original string
       const actualLength = str.slice(0, pattern.length).length;
-      truncated = truncated.slice(actualLength).trim();
-      removedPattern = true;
-      break; // Stop after removing the first matching pattern
+      return truncated.slice(actualLength).trim() + "...";
     }
   }
 
-  // If no specific pattern was removed, ensure any starting word is not abruptly cut off
-  if (!removedPattern) {
-    let lastSpaceIndex = truncated.lastIndexOf(" ");
-    if (lastSpaceIndex !== -1) {
-      truncated = truncated.slice(0, lastSpaceIndex).trim();
-    }
-  }
-
-  return truncated + "...";
+  const lastSpaceIndex = truncated.lastIndexOf(" ");
+  return lastSpaceIndex !== -1
+    ? truncated.slice(0, lastSpaceIndex).trim() + "..."
+    : truncated + "...";
 }
 
-export function upperCaseFirstLetter(string: string) {
-  return string.charAt(0).toUpperCase() + string.slice(1);
+// Function to capitalize the first letter of a string
+export function upperCaseFirstLetter(str: string): string {
+  return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
-export function toggleDialog(dialogId: string) {
+// Function to toggle the visibility of a dialog element
+export function toggleDialog(dialogId: string): void {
   const dialog = document.getElementById(dialogId) as HTMLDialogElement;
-  if (dialog === null) return;
-  if (dialog.open) {
-    dialog.close();
-  } else {
-    dialog.showModal();
-  }
-}
-export function getKeyDescription(key: string, divisio: string) {
-  switch (key) {
-    case "classificacio":
-    case "resultats":
-      return capitalizeWords(divisio);
-    case "classificacioA1":
-      return "A1";
-    case "resultatsFaseRegularA1":
-      return "Fase Regular A1";
-    case "resultatsPrimeraFaseA1":
-      return "Primera Fase A1";
-    case "resultatsPlayoffsQuarts":
-      return "Playoffs Quarts";
-    case "classificacioA2":
-      return "A2";
-    case "resultatsFaseRegularA2":
-      return "Fase Regular A2";
-    case "resultatsPrimeraFaseA2":
-      return "Primera Fase A2";
-    case "classificacioAscens":
-    case "resultatsAscens":
-      return "Ascens";
-    case "classificacioFinalTemporada":
-      return "Final Temporada";
-    case "classificacioGrupPar":
-    case "resultatsFaseRegularGrupPar":
-    case "resultatsLligaRegularGrupPare":
-      return "Grup Par";
-    case "classificacioGrupSenar":
-    case "resultatsFaseRegularGrupSena":
-      return "Grup Senar";
-    case "classificacioLligaRegular":
-    case "resultatsLligaRegular":
-      return "Lliga Regular";
-    case "resultatsFaseRegular":
-      return "Fase Regular";
-    case "classificacioTemporadaRegular":
-    case "resultatsTemporadaRegular":
-      return "Temporada Regular";
-    case "classificacioLligaRegularGrup":
-    case "resultatsFaseRegularGrup":
-      return "Lliga Regular Grup";
-    case "classificacioPlayout":
-    case "resultatsPlayout":
-      return "Playout";
-    case "resultatsPlayoffsPermanencia":
-      return "Playoffs Permanencia";
-    case "classificacioPrimeraFaseA1":
-      return "Primera Fase A1";
-    case "classificacioSegonaFaseGrup1":
-    case "resultatsSegonaFaseGrup1":
-      return "Segona Fase Grup 1";
-    case "resultatsPromocio":
-      return "Promoció";
-    case "resultatsPromocioTriangular":
-      return "Promoció Triangular";
-    case "resultatsFaseRegularPlayoff":
-      return "Fase Regular Playoff";
-    case "resultatsPlayoffsVuitens":
-      return "Playoffs Vuitens";
-
-    default:
-      return "Unknown";
+  if (dialog) {
+    dialog.open ? dialog.close() : dialog.showModal();
   }
 }
 
-export function capitalizeWords(str: string) {
-  // Convert the entire string to lowercase first
-  const lowerStr = str.toLowerCase();
+// Function to get the description for a given key and division
+export function getKeyDescription(key: string, divisio: string): string {
+  const keyDescriptions: Record<string, string> = {
+    classificacio: capitalizeWords(divisio),
+    resultats: capitalizeWords(divisio),
+    classificacioA1: "A1",
+    resultatsFaseRegularA1: "Fase Regular A1",
+    resultatsPrimeraFaseA1: "Primera Fase A1",
+    resultatsPlayoffsQuarts: "Playoffs Quarts",
+    classificacioA2: "A2",
+    resultatsFaseRegularA2: "Fase Regular A2",
+    resultatsPrimeraFaseA2: "Primera Fase A2",
+    classificacioAscens: "Ascens",
+    resultatsAscens: "Ascens",
+    classificacioFinalTemporada: "Final Temporada",
+    classificacioGrupPar: "Grup Par",
+    resultatsFaseRegularGrupPar: "Grup Par",
+    resultatsLligaRegularGrupPare: "Grup Par",
+    classificacioGrupSenar: "Grup Senar",
+    resultatsFaseRegularGrupSena: "Grup Senar",
+    classificacioLligaRegular: "Lliga Regular",
+    resultatsLligaRegular: "Lliga Regular",
+    resultatsFaseRegular: "Fase Regular",
+    classificacioTemporadaRegular: "Temporada Regular",
+    resultatsTemporadaRegular: "Temporada Regular",
+    classificacioLligaRegularGrup: "Lliga Regular Grup",
+    resultatsFaseRegularGrup: "Lliga Regular Grup",
+    classificacioPlayout: "Playout",
+    resultatsPlayout: "Playout",
+    resultatsPlayoffsPermanencia: "Playoffs Permanencia",
+    classificacioPrimeraFaseA1: "Primera Fase A1",
+    classificacioSegonaFaseGrup1: "Segona Fase Grup 1",
+    resultatsSegonaFaseGrup1: "Segona Fase Grup 1",
+    resultatsPromocio: "Promoció",
+    resultatsPromocioTriangular: "Promoció Triangular",
+    resultatsFaseRegularPlayoff: "Fase Regular Playoff",
+    resultatsPlayoffsVuitens: "Playoffs Vuitens",
+  };
 
-  // Split the string into words based on spaces
-  const words = lowerStr.split(" ");
-
-  // Capitalize the first letter of each word
-  for (let i = 0; i < words.length; i++) {
-    if (words[i] !== "") {
-      words[i] = words[i][0].toUpperCase() + words[i].slice(1);
-    }
-  }
-
-  // Join the words back into a string with spaces
-  return words.join(" ");
+  return keyDescriptions[key] || "Unknown";
 }
-export function removeAccents(str: string) {
+
+// Function to capitalize each word in a string
+export function capitalizeWords(str: string): string {
+  return str.toLowerCase().split(" ").map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(" ");
+}
+
+// Function to remove diacritics from a string
+export function removeAccents(str: string): string {
   return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 }
 
-export function slugify(text: string) {
+// Function to convert a string to a URL-friendly slug
+export function slugify(text: string): string {
   return text
     .toString()
     .normalize("NFD")
@@ -230,7 +114,8 @@ export function slugify(text: string) {
     .replace(/\s+/g, "-");
 }
 
-export function disableBgScroll(scrollPosition?, isMobileSafari?) {
+// Function to disable background scrolling
+export function disableBgScroll(scrollPosition?: number, isMobileSafari?: boolean): void {
   if (isMobileSafari) {
     document.documentElement.style.overflow = "hidden";
     document.body.style.overflow = "hidden";
@@ -242,10 +127,8 @@ export function disableBgScroll(scrollPosition?, isMobileSafari?) {
   }
 }
 
-export function enableBgScroll(
-  scrollPosition?: number,
-  isMobileSafari?: boolean,
-) {
+// Function to enable background scrolling
+export function enableBgScroll(scrollPosition?: number, isMobileSafari?: boolean): void {
   if (isMobileSafari) {
     document.documentElement.style.overflow = "";
     document.body.style.overflow = "";

@@ -1,121 +1,123 @@
 <script>
-   export let jugador;
-  import {collapsibleArrowPlayer } from '@assets/icons';
- 
+  export let jugador;
+  import { collapsibleArrowPlayer } from "@assets/icons";
 
-   function capitalizeWords(str) {
-  // Convert the entire string to lowercase first
-  const lowerStr = str.toLowerCase();
+  function capitalizeWords(str) {
+    // Convert the entire string to lowercase first
+    const lowerStr = str.toLowerCase();
 
-  // Split the string into words based on spaces
-  const words = lowerStr.split(' ');
+    // Split the string into words based on spaces
+    const words = lowerStr.split(" ");
 
-  // Capitalize the first letter of each word
-  for (let i = 0; i < words.length; i++) {
-    if (words[i][0]) {
-
-      words[i] = words[i][0].toUpperCase() + words[i].slice(1);
+    // Capitalize the first letter of each word
+    for (let i = 0; i < words.length; i++) {
+      if (words[i][0]) {
+        words[i] = words[i][0].toUpperCase() + words[i].slice(1);
+      }
     }
+
+    // Join the words back into a string with spaces
+    return words.join(" ");
   }
 
-  // Join the words back into a string with spaces
-  return words.join(' ');
-}
+  let showDetails = false;
 
-let showDetails = false;
-
-function formatExcelDate(serial) {
+  function formatExcelDate(serial) {
     if (serial > 1900 && serial < 9999) {
-        return serial.toString();
+      return serial.toString();
     }
 
     const excelEpoch = new Date(1899, 11, 30); // Excel's base date is December 30, 1899
 
     if (serial >= 60) {
-        serial += 1; // Adjusting for Excel's leap year bug
+      serial += 1; // Adjusting for Excel's leap year bug
     }
 
     // Subtracting one from the serial number to adjust for the +1 day error
     serial -= 1;
 
-    const parsed = new Date(excelEpoch.getTime() + (serial * 86400000));
+    const parsed = new Date(excelEpoch.getTime() + serial * 86400000);
 
     // Generate the date string using UTC methods to prevent timezone issues
-    const day = ('0' + parsed.getDate()).slice(-2);
-    const month = ('0' + (parsed.getMonth() + 1)).slice(-2);
+    const day = ("0" + parsed.getDate()).slice(-2);
+    const month = ("0" + (parsed.getMonth() + 1)).slice(-2);
     const year = parsed.getFullYear();
 
-    return [day, month, year].join('/');
-}
+    return [day, month, year].join("/");
+  }
 
+  const date = formatExcelDate(jugador.data_naix);
 
-const date = formatExcelDate(jugador.data_naix);
-
-function showPlayerStats() {
-  showDetails = !showDetails;
-  console.log('showDetails', showDetails)
-  // const playerDetails = document.querySelector('.player-details');
-
-  // playerDetails.classList.toggle('show');
-}
-
+  function showPlayerStats() {
+    showDetails = !showDetails;
+  }
 </script>
 
-{#if jugador.jugador !== 'TOTAL'}
+{#if jugador.jugador !== "TOTAL"}
+  <li>
+    <article class="player">
+      <div class="image-container">
+        <img
+          src={jugador.image
+            ? `/imatges/jugadors/${jugador.image}`
+            : "/player-avatar.png"}
+          alt=""
+        />
+      </div>
+      <div class="info-container">
+        <p class="name">{capitalizeWords(jugador.jugador)}</p>
+        <button
+          class="mobile-arrow"
+          class:rotate={showDetails}
+          on:click={() => showPlayerStats()}
+        >
+          {@html collapsibleArrowPlayer}
+        </button>
+      </div>
+      <div class="player-details" class:show-player-details={showDetails}>
+        {#if jugador.data_naix !== undefined}
+          <p>
+            {date.length === 4 ? "Any de naixement" : "Data de naixement"}
+            <br /><span
+              >{jugador.jugador.includes("David Lee")
+                ? "26/11/1969"
+                : date}</span
+            >
+          </p>
+        {/if}
+        {#if jugador.lloc_naix !== undefined}
+          <p>Lloc de naixement <span>{jugador.lloc_naix}</span></p>
+        {/if}
 
-<li>
-  <article class="player">
-    <div class="image-container">
-      <img src={jugador.image ? `/imatges/jugadors/${jugador.image}`: "/player-avatar.png"} alt="" />
-    </div>
-    <div class="info-container">
-      <p class="name">{capitalizeWords(jugador.jugador)}</p>
-      <button class='mobile-arrow' class:rotate={showDetails} on:click={() => showPlayerStats()}>
-        {@html collapsibleArrowPlayer}
-      </button>
-    </div>
-    <div class="player-details " class:show-player-details={showDetails}>
-      {#if jugador.data_naix !== undefined}
-      <p>{date.length === 4 ? 'Any de naixement' : 'Data de naixement'} <br /><span>{jugador.jugador.includes("David Lee") ? '26/11/1969' : date}</span></p>
-      {/if}
-      {#if jugador.lloc_naix !== undefined}
+        {#if jugador.posicio !== undefined}
+          <p>Posició <span>{jugador.posicio}</span></p>
+        {/if}
 
-      <p>Lloc de naixement <span>{jugador.lloc_naix}</span></p>
-      {/if}
+        {#if jugador.alçada !== undefined}
+          <p>Alçada <span>{jugador.alçada}</span></p>
+        {/if}
 
-      {#if jugador.posicio !== undefined}
-
-      <p>Posició <span>{jugador.posicio}</span></p>
-      {/if}
-
-      {#if jugador.alçada !== undefined}
-
-      <p>Alçada <span>{jugador.alçada}</span></p>
-      {/if}
-
-      {#if jugador.p_j !== undefined && jugador.punts !== undefined}
-
-      <p>
-        Estadístiques <br /><span
-          >{jugador.p_j} partits <br />{jugador.punts} punts 
-      </p>
-      {/if}
-
-    </div>
-  </article>
-</li>
+        {#if jugador.p_j !== undefined && jugador.punts !== undefined}
+          <p>
+            Estadístiques <br /><span
+              >{jugador.p_j} partits <br />{jugador.punts} punts
+            </span>
+          </p>
+        {/if}
+      </div>
+    </article>
+  </li>
 {/if}
 
 <style>
-.player {
-  height: 27.31rem;
+  .player {
+    height: 27.31rem;
     width: 17.875rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     position: relative;
     overflow: hidden;
-    /* justify-content: center; */
   }
 
   .player-details {
@@ -130,15 +132,9 @@ function showPlayerStats() {
     color: white;
     padding-inline: 1.5rem;
     padding-block: 2.12rem;
-    /*It is the secondary color with opacity*/
     background-color: var(--clr-secondary-opacity);
-
-    /* Transition both transform and opacity */
     border-top-left-radius: var(--brdr-left-top-radius);
   }
-
-
-  
 
   .image-container {
     height: 85%;
@@ -160,31 +156,28 @@ function showPlayerStats() {
     width: 100%;
     height: 15%;
     display: flex;
-    /* flex-direction: column; */
     align-items: center;
     justify-content: center;
     text-align: center;
-    /* gap: 1rem; */
     font-size: 1.1rem;
     background-color: var(--clr-secondary);
     color: var(--clr-contrast);
-    padding-inline: 2rem;	
+    padding-inline: 2rem;
     line-height: 1.3;
     z-index: 1;
   }
 
-
   .mobile-arrow {
     display: none;
     padding-bottom: 0.5rem;
-       transform: rotate(-180deg); 
-       transition: 0.45s transform ease-in-out;
-       
-   
+    transform: rotate(-180deg);
+    transition: 0.45s transform ease-in-out;
   }
- .show-player-details {
+
+  .show-player-details {
     opacity: 1;
- }
+  }
+
   .rotate {
     padding-bottom: 0rem;
     padding-top: 0.5rem;
@@ -196,16 +189,14 @@ function showPlayerStats() {
     font-weight: var(--fnt-wg-regular);
   }
 
-  @media (hover: hover ) {
+  @media (hover: hover) {
     .player-details {
       opacity: 0;
       transition: opacity 0.5s ease-in-out;
     }
     .player:hover .player-details {
-    
       opacity: 1;
-    /* transition: opacity 0.5s ease-in-out; */
-  }
+    }
   }
 
   @media (max-width: 648px) {
@@ -215,7 +206,7 @@ function showPlayerStats() {
 
     .info-container {
       justify-content: space-between;
-    text-align: left;
+      text-align: left;
     }
     .player-details {
       transform: translateY(100%);
@@ -232,7 +223,5 @@ function showPlayerStats() {
     .player {
       width: inherit;
     }
-
   }
-
 </style>

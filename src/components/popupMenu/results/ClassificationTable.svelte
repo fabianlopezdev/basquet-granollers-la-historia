@@ -92,15 +92,15 @@
   h3 {
     line-height: 1.5rem;
   }
+
   tr {
     background-color: var(--clr-contrast);
   }
+
   .table-header {
     font-weight: var(--fnt-wg-medium);
   }
-  .position {
-    width: 2.37rem;
-  }
+
   .team {
     width: 6rem;
     min-width: clamp(
@@ -119,6 +119,7 @@
       2.37rem
     );
   }
+
   .long-stat {
     width: 2.9rem;
     min-width: clamp(
@@ -127,6 +128,7 @@
       3.65rem
     );
   }
+
   .short-stat,
   .long-stat {
     text-align: center;
@@ -138,16 +140,10 @@
       padding-bottom: 1rem;
       padding-inline: var(--pd-x-small);
     }
-    /* .date {
-      width: 3rem;
-    } */
+
     .team {
       padding-left: 0rem;
       text-align: center;
     }
-
-    /* .score {
-      width: 1.25rem;
-    } */
   }
 </style>

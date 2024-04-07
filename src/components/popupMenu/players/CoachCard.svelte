@@ -1,17 +1,16 @@
 <script>
-   export let entrenador;
+  export let entrenador;
 
-   const { name, position, image} = entrenador;
-   
-
+  const { name, position, image } = entrenador;
 </script>
-
-
 
 <li>
   <article class="player">
     <div class="image-container">
-      <img src={image ? `/imatges/jugadors/${image}`: "/player-avatar.png"} alt="" />
+      <img
+        src={image ? `/imatges/jugadors/${image}` : "/player-avatar.png"}
+        alt=""
+      />
     </div>
     <div class="info-container">
       <p class="position">{position}:</p>
@@ -20,17 +19,15 @@
   </article>
 </li>
 
-
 <style>
-.player {
-  height: 27.31rem;
+  .player {
+    height: 27.31rem;
     width: 17.875rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     position: relative;
     overflow: hidden;
-    /* justify-content: center; */
   }
 
   .image-container {
@@ -57,7 +54,7 @@
     font-size: 1rem;
     background-color: var(--clr-secondary);
     color: var(--clr-contrast);
-    padding-inline: 2rem;	
+    padding-inline: 2rem;
     line-height: 1.4;
   }
 
@@ -68,7 +65,5 @@
     .player {
       width: inherit;
     }
-
   }
-
 </style>

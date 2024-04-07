@@ -5,7 +5,6 @@
   import DialogRelat from "./DialogRelat.svelte";
   import { safari } from "src/svelte/stores";
 
-  import { closeMenuIcon } from "@assets/icons";
   export let season;
 
   const { years, relat, images } = season;
@@ -16,7 +15,6 @@
   export let isDialogOpen;
   export let openImg1;
   export let openImg2;
-  export let scrollPosition;
 
   let translateY;
   $: innerWidth = 0;
@@ -42,7 +40,7 @@
 <svelte:window bind:innerWidth />
 
 {#key season.years}
-  <DialogRelat {relat} {dialogId} {years} bind:isDialogOpen/>
+  <DialogRelat {relat} {dialogId} {years} bind:isDialogOpen />
 {/key}
 <div
   class="season-container"
@@ -194,16 +192,11 @@
   </div>
 </div>
 
-<!-- {#if openImg2 === true}
-{/if} -->
-
 <style>
   .season-container {
     position: relative;
     width: 100%;
     height: inherit;
-    /* overflow-Y: scroll; */
-    /* overflow-x: hidden; */
   }
 
   .season-title {
@@ -217,11 +210,9 @@
   aside {
     position: relative;
     top: 0;
-    /* left: 0.5rem; */
     top: calc(
       clamp(1.8rem, 0.12911392405063293rem + 7.4261603375527425vw, 6.2rem) * -1
     );
-    /* top: -6.2rem; */
     color: var(--clr-accent-2);
 
     font-size: 1.35125rem;
@@ -307,7 +298,6 @@
   }
 
   .img-container {
-    /* opacity: 0.75; */
     width: fit-content;
   }
 
@@ -339,10 +329,6 @@
     transform: translateY(20%);
     transition: transform 0.5s ease-in;
   }
-  /* .container-0-2:hover {
-    transform: translateY(-30%);
-    transition: transform 0.5s ease-in; 
-  } */
 
   @media (max-width: 648px) {
     .blender:hover {
@@ -355,16 +341,13 @@
     }
     .container-1-2:hover {
       transform: translateX(0);
-      /* transition: transform 0.5s ease-in;  */
     }
 
     .container-0-1:hover {
       transform: translateY(0);
-      /* transition: transform 0.5s ease-in;  */
     }
     .container-1-1:hover {
       transform: translateY(0);
-      /* transition: transform 0.5s ease-in;  */
     }
     .relat {
       grid-column: var(--colStartMobile) / var(--colEndMobile);
@@ -384,10 +367,6 @@
       grid-row: var(--rowStartMobile) / var(--rowEndMobile);
     }
 
-    /* .season-container {
-      display: flex;
-      flex-direction: column;
-    } */
     .season-title {
       width: 100vw;
       position: relative;
@@ -398,9 +377,6 @@
       padding-inline: var(--pd-x-small);
       height: 7rem;
     }
-    /* .items-container {
-      flex: 1;
-    } */
 
     .items-container {
       padding-bottom: 0rem;
@@ -412,7 +388,6 @@
       max-width: 14rem;
       padding: 1.1rem;
       gap: 0.7rem;
-      /* text-wrap: pretty; */
     }
 
     .relat {
@@ -469,7 +444,6 @@
 
     .imgRelatBlue {
       grid-column: calc(var(--colStartMobile) - 2) / var(--colEndMobile);
-      /* grid-row: var(--rowStartMobile) / var(--rowEndMobile); */
     }
   }
 </style>

@@ -29,10 +29,4 @@
     font-weight: var(--fnt-wg-light);
     padding-bottom: 0.3rem;
   }
-
-  .made-by a {
-    color: var(--clr-accent);
-    text-decoration: underline;
-    font-style: italic;
-  }
 </style>

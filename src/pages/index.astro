@@ -1,41 +1,39 @@
 ---
-//Import layouts
+// Import layouts
 import BaseLayout from "../layouts/BaseLayout.astro";
 
-//Import components
+// Import components
 import Hero from "@components/Hero.astro";
 import Seasons from "@components/seasons/Seasons.svelte";
 
+// Import data functions
 import { getSeasonStats } from "@data/stats";
 import { getSeasonRelat } from "@data/relats";
 import { getSeasonsCount } from "@data/seasonsCount";
 import { getSeasonSocial } from "@data/social";
 import { SEASONS_LAYOUT } from "@data/globalConstants";
 import { getJugadorsImagesListNames } from "@data/images.js";
+
+// Import util functions
 import { removeAccents } from "../utils/helperFunctions";
 
+// Function to capitalize words in a string
 function capitalizeWords(str: string) {
-  // Convert the entire string to lowercase first
   const lowerStr = str.toLowerCase();
-
-  // Split the string into words based on spaces and underscores
   const words = lowerStr.split(/[\s_]+/);
-
-  // Capitalize the first letter of each word
   for (let i = 0; i < words.length; i++) {
     if (words[i][0]) {
       words[i] = words[i][0].toUpperCase() + words[i].slice(1);
     }
   }
-
-  // Join the words back into a string with spaces, replacing underscores with spaces
   return words.join(" ");
 }
 
+// Get seasons data
 const { seasonsCount, firstSeason, listOfSeasons } = getSeasonsCount();
-
 const listJugadorsImages = await getJugadorsImagesListNames();
 
+// Function to fetch seasons data
 async function getSeasonsData(firstSeason: number, seasonsCount: number) {
   const seasonsData = [];
   let currentSeason = firstSeason;
@@ -45,9 +43,7 @@ async function getSeasonsData(firstSeason: number, seasonsCount: number) {
       yearsLong: `19${currentSeason}-${currentSeason + 1}`,
       stats: getSeasonStats(`19${currentSeason}-${currentSeason + 1}`),
       relat: {
-        content: await getSeasonRelat(
-          `19${currentSeason}-${currentSeason + 1}`,
-        ),
+        content: await getSeasonRelat(`19${currentSeason}-${currentSeason + 1}`),
         props: SEASONS_LAYOUT[i % 2].relatProps,
       },
       social: await getSeasonSocial(`19${currentSeason}-${currentSeason + 1}`),
@@ -68,20 +64,18 @@ async function getSeasonsData(firstSeason: number, seasonsCount: number) {
       },
     };
     if (i === seasonsCount - 1) {
-      season.socialExtra = await getSeasonSocial(
-        `19${currentSeason + 1}-${currentSeason + 2}`,
-      );
+      season.socialExtra = await getSeasonSocial(`19${currentSeason + 1}-${currentSeason + 2}`);
     }
-    // const season = new Season(`19${currentSeason}-${currentSeason + 1}`);
     seasonsData.push(season);
     currentSeason++;
   }
-
   return seasonsData;
 }
 
+// Fetch seasons data
 const seasons = await getSeasonsData(firstSeason, seasonsCount);
 
+// Process jugadors data
 seasons.forEach((season) => {
   if (season.stats.jugadors) {
     (season.stats.jugadors as any[]).forEach((jugador: any) => {
@@ -93,16 +87,16 @@ seasons.forEach((season) => {
           : `${season.yearsLong} ${words[0]}`
         : "";
       const jugadorImage = listJugadorsImages.find((image) =>
-        image.includes(removeAccents(nameToCheck)),
+        image.includes(removeAccents(nameToCheck))
       );
-      jugador.image = jugadorImage; // Correctly assign the found image to the jugador.image property.
+      jugador.image = jugadorImage;
     });
   }
 });
 
+// Process entrenadors data
 seasons.forEach((season) => {
   const entries = Object.entries(season.stats.entrenadors![0]);
-
   entries.forEach((entry, i) => {
     let [position, name] = entry;
     name = capitalizeWords(name as string);
@@ -114,14 +108,12 @@ seasons.forEach((season) => {
         : `${season.yearsLong} ${words[0]}`
       : "";
     const entrenadorImage = listJugadorsImages.find((image) =>
-      image.includes(removeAccents(nameToCheck)),
+      image.includes(removeAccents(nameToCheck))
     );
     //@ts-ignore
     season.stats.entrenadors[i] = { position, name, image: entrenadorImage };
   });
 });
-
-// Ensure the property is initialized with an array if undefined
 ---
 
 <BaseLayout>

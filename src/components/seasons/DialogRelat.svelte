@@ -38,7 +38,6 @@
   <p class="text">{@html relat.content.html}</p>
 </dialog>
 
-<!-- {/if} -->
 <style>
   dialog[open] {
     animation: fadein 0.3s ease-in forwards;
@@ -78,14 +77,6 @@
     line-height: 2rem;
   }
 
-  .dialog-container {
-    margin: auto;
-    max-width: 780px;
-    display: flex;
-    flex-direction: column;
-
-    gap: 1.7rem;
-  }
   .text {
     line-height: 1.5rem;
   }
@@ -123,7 +114,6 @@
   @media (max-width: 1340px) {
     dialog {
       padding-inline: var(--pd-x-medium);
-      /* padding-block: 2.2rem; */
     }
   }
 

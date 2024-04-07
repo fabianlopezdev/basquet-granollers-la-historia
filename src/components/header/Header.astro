@@ -1,13 +1,14 @@
 ---
-// import { SEASONS_INFO, NAVIGATION } from "@data/globalConstants";
+
 import CbgHistoryLogo from "../../assets/CbgHistoryLogo.astro";
 import CbgLogo from "../../assets/CbgLogo.astro";
 import VotvLogo from "../../assets/VotvLogo.astro";
 import FinquesVallbonaLogo from "../../assets/FinquesVallbonaLogo.astro";
 import AjuntamentGranollersLogo from "../../assets/AjuntamentGranollersLogo.astro";
+
 import HeaderResponsive from "./HeaderResponsive.svelte";
-// import DropDownMenu from '@components/header/DropDownMenu.astro';
 import DropDownMenu from "./DropDownMenu.svelte";
+
 import { getSeasonsCount } from "@data/seasonsCount";
 
 const { listOfSeasons } = getSeasonsCount();
@@ -26,7 +27,6 @@ const headerNavigation = [
     link: "https://www.youtube.com/@HistoriadelBasquetaGranollers",
     target: "_blank",
   },
-  // { name: 'especials', link: '/la-historia/especials' },
 ];
 ---
 
@@ -124,7 +124,6 @@ const headerNavigation = [
     height: var(--hg-header);
     background-color: var(--clr-contrast);
     background-color: rgba(243, 243, 243, 0.9);
-
     z-index: 10;
     transition: top 0.3s ease-in-out;
   }
@@ -152,16 +151,11 @@ const headerNavigation = [
     align-items: center;
   }
 
-  section {
-  }
   .responsive {
     display: none;
   }
+
   .logos {
-    /* position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    left: var(--pd-x); */
     display: flex;
     align-items: center;
     gap: 1.44rem;
@@ -180,7 +174,6 @@ const headerNavigation = [
   }
 
   .nav {
-    /* padding-left: 23.94rem; */
     min-height: var(--hg-header);
     display: flex;
     align-items: center;
@@ -194,13 +187,9 @@ const headerNavigation = [
   }
 
   .sponsors-container {
-    /* position: absolute;
-    top: 50%;
-    transform: translateY(-50%); */
     right: var(--pd-x);
     display: flex;
     align-items: center;
-    /* justify-content: flex-end; */
     gap: 1.5rem;
   }
 

@@ -1,3 +1,4 @@
+/* Reset default browser styles */
 *,
 *::after,
 *::before {
@@ -6,8 +7,9 @@
   padding: 0;
 }
 
+/* CSS variables for colors, sizes, and typography */
 :root {
-  /*Colors*/
+  /* Colors */
   --clr-primary: #002e6d;
   --clr-primary-opacity: rgba(0, 46, 109, 0.8);
   --clr-contrast: #fff;
@@ -16,106 +18,58 @@
   --clr-accent-2: #fb7326;
   --clr-secondary: #073d86;
   --clr-secondary-opacity: rgba(7, 61, 134, 0.7);
-  --clr-footer-top: #142847;
 
-  /*Element sizes*/
-  /*Cannot use variables in media queries. Would be ideal for responsiveness. Still writting sizes here to have as reference
-  Using px instead of rem to trigger based on screen size
-  */
+  /* Element sizes */
   --wd-max: 1308px;
-  --wd-btn-regular: 11rem;
-  --wd-btn-small: 9.8rem;
-  --wd-three-columns: 24.1875rem;
-  --wd-three-columns-medium: 18.3875rem;
-  --wd-four-columns: 17.8125rem;
-
-  --wd-slider-item: 18.6875rem;
-
-  --wd-logo: 16rem;
-  --hg-logo: 3.19rem;
-
   --hg-separator-line: 0.5625rem;
   --hg-separator-line-responsive: 0.3125rem;
   --hg-header: clamp(5rem, 0.429rem + 10.448vh, 6.313rem);
-
-  --hg-footer-top-section: 17.6875rem;
-  --hg-footer-bottom-section: 5.6875rem;
-  --hg-footer: calc(
-    var(--hg-footer-top-section) + var(--hg-footer-bottom-section)
-  );
-
   --hg-btn: 2.69rem;
-
   --pd-x: 2.9rem;
   --pd-x-medium: 2rem;
   --pd-x-small: 1.56rem;
-  --pd-x-internal-page: 18.88rem;
   --pd-y-big: 4.5rem;
   --pd-y-medium: 2.62rem;
   --pd-y-small: 2rem;
   --pd-y-heading-big: 2.62rem;
   --pd-y-heading-medium: 1.75rem;
   --pd-y-heading-small: 1.5rem;
-
   --pd-y-options-btns: 10rem;
-  /*Font sizes*/
-  --fnt-sz-regular: 0.78125rem;
-  --fnt-sz-h1: 3.375rem;
-  --fnt-sz-h2: 2.25rem;
-  --fnt-sz-h2-medium: 1.625rem;
-  --fnt-sz-h3: 1.875rem;
-  --fnt-sz-h3: 1.75rem;
-  --fnt-sz-h3-medium: 1.375rem;
-  --fnt-sz-h4: 1.25rem;
-  --fnt-sz-h5: 0.9375rem;
-  --fnt-sz-footer: 0.5625rem;
-  --fnt-sz-footer-top: 0.6875rem;
 
-  /*Font weight*/
+  /* Font sizes */
+  --fnt-sz-regular: 0.78125rem;
+  --fnt-sz-h2: 2.25rem;
+  --fnt-sz-h3: 1.875rem;
+  --fnt-sz-h3-medium: 1.375rem;
+  --fnt-sz-h5: 0.9375rem;
+
+  /* Font weights */
   --fnt-wg-light: 400;
   --fnt-wg-regular: 500;
   --fnt-wg-medium: 600;
-  --fnt-wg-bold: 700;
 
-  /*Line Heights*/
+  /* Line heights */
   --line-hg-regular: 1.125rem;
-  --line-hg-h1: 3.6875rem;
-  --line-hg-h2: 2.5625rem;
-  --line-hg-h2-medium: 2rem;
-  --line-hg-h3: 1.5625rem;
 
+  /* Border radius */
   --brdr-left-top-radius: 2.9375rem;
 
-  --bottom-timeline: 2.1rem;
-
-  /*Calculated with Chrome extension Visbug with paddings etc. From top of season number in timeline to bottom edge of screen*/
-  --sz-timeline: 5.06rem;
-  --bottom-options: calc(var(--sz-timeline) + 2rem);
-  --sz-timeline-plus-options: calc(var(--bottom-options) + var(--hg-btn));
-
-  --scrollbar-width: 0px; /* Adjust based on initial measurements or leave at 0px */
+  /* Scrollbar width */
+  --scrollbar-width: 0px; 
 }
 
-
-
-.body-scrollbar-hidden {
-  overflow: hidden;
-  padding-right: var(--scrollbar-width);
-}
+/* Global styles */
 html {
   overflow-x: hidden;
-  /* scroll-behavior: smooth; */
-  /* scroll-snap-type: y proximity; */
 }
+
 body {
   background-color: var(--clr-contrast);
   font-family: "obviously", sans-serif;
   font-size: var(--fnt-sz-regular);
   line-height: var(--line-hg-regular);
   color: var(--clr-contrast);
-
 }
-
 
 img {
   max-width: 100%;
@@ -153,11 +107,12 @@ button {
 button:hover {
   cursor: pointer;
 }
+
 h2 {
   font-size: var(--fnt-sz-h2);
   font-weight: var(--fnt-wg-medium);
 }
-/*Used in the popMenu for results*/
+
 h3 {
   font-size: var(--fnt-sz-h3-medium);
   color: var(--clr-primary);
@@ -169,7 +124,8 @@ td {
   height: 2.22rem;
   border: 2.097px solid #d9d9d9;
 }
-/*Global classes*/
+
+/* Global classes */
 .g-table {
   border-collapse: collapse;
   color: var(--clr-primary);
@@ -191,13 +147,16 @@ td {
   height: 8.0625rem;
 }
 
+/* Media queries */
 @media (max-width: 648px) {
   html {
     scroll-snap-type: y proximity;
   }
+
   .g-top-footer-articles {
     height: auto;
   }
+
   :root {
     --wd-logo: 13.94rem;
   }

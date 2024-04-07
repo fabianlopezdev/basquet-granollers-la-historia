@@ -8,20 +8,20 @@
   }
 
   let windowHeight;
+  
   let paddingTop = 0;
   $: {
     if (windowHeight < 788) {
-      paddingTop = "2rem";     
+      paddingTop = "2rem";
     } else {
       paddingTop = "-1rem";
     }
   }
-
 </script>
 
 <svelte:window bind:innerHeight={windowHeight} />
 
-<div class="options-container"style="--paddingTop: {paddingTop};">
+<div class="options-container" style="--paddingTop: {paddingTop};">
   <button class:active={$display === "jugadors"} on:click={selectDisplay}>
     JUGADORS
   </button>
@@ -38,13 +38,10 @@
     position: relative;
     display: flex;
     justify-content: center;
-    /* padding-bottom: 2rem; */
     gap: 1.25rem;
-    /* margin-top: var(--paddingTop); */
-    /* margin-top: auto; */
     z-index: 1;
-    /* mix-blend-mode: multiply; */
   }
+
   button {
     text-decoration: none;
     padding-bottom: 0.1rem;
@@ -57,12 +54,10 @@
     color: var(--clr-accent);
     border-radius: 1.75rem;
     font-weight: var(--fnt-wg-regular);
-    /* opacity: 0.7; */
     transition:
       background-color 0.3s ease,
       color 0.3s ease,
       border-color 0.3s ease;
-      
   }
 
   button:active {
@@ -82,9 +77,7 @@
       color 0.3s ease,
       border-color 0.3s ease,
       transform 0.1s ease;
-    }
-    
-  
+  }
 
   @media (max-width: 648px) {
     .options-container {
@@ -92,15 +85,5 @@
       gap: 0.8rem;
       /* margin-top: auto; */
     }
-    /* .options-container {
-      flex-direction: column;
-      gap: 0.5rem;
-      margin-bottom: -2.7rem;
-    }
-    button {
-      width: 100%;
-    } */
   }
-
-  
-  </style>
+</style>

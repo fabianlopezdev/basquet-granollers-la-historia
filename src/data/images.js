@@ -7,11 +7,12 @@ import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const isProduction = import.meta.env.NODE_ENV === 'production';
-const basePath = isProduction? "../imatges/jugadors" : `../../public/imatges/jugadors`;
+const isProduction = import.meta.env.NODE_ENV === "production";
+const basePath = isProduction
+  ? "../imatges/jugadors"
+  : `../../public/imatges/jugadors`;
 
 const folderPath = path.join(__dirname, basePath);
-
 
 export async function getJugadorsImagesListNames() {
   try {
@@ -21,7 +22,6 @@ export async function getJugadorsImagesListNames() {
     return imageFiles;
   } catch (err) {
     console.error("An error occurred:", err);
-    return []; // Return an empty array or null to indicate the error
+    return [];
   }
 }
-

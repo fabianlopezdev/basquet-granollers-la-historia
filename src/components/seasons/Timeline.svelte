@@ -5,29 +5,27 @@
   //Import Stores
   import { currentIndex, isOutsideSelection } from "src/svelte/stores";
 
-  //Get props
- 
   export let windowHeight;
   export let windowScrollY;
   export let windowWidth;
 
   export let listOfSeasons = [];
 
-
-
   const BASE_DURATION = 0.5;
   const MAX_DURATION = 2.5;
   const SEASON_WIDTH = 4.5; // Width of each season container in rem
   let TIMELINE_PADDING_X = 6;
+
   const KEYACTIONS = {
     ArrowLeft: prevSeason,
     ArrowRight: nextSeason,
-    // Add more key actions as needed
   };
-  const MIN_GAP = 2;
+
   // Minimum gap between seasons in rem
- let mobile = false;
- 
+  const MIN_GAP = 2;
+
+  let mobile = false;
+
   $: if (windowWidth < 648) {
     mobile = true;
     TIMELINE_PADDING_X = 0;
@@ -37,7 +35,6 @@
   let userInteractionCount = 0;
   let timelineWidth;
   let timeoutId;
-  $: scrollbarWidth = windowWidth - document.documentElement.clientWidth;
   let distance;
   let adjustedDuration;
   let interactionAdjustedDuration;
@@ -75,6 +72,7 @@
   }
 
   export let animationClass;
+
   $: if ($isOutsideSelection) {
     if ($currentIndex > 0) {
       currentPage = Math.floor($currentIndex / maxSeasonsPerPage);
@@ -91,11 +89,15 @@
   );
 
   $: {
-  // This statement reacts whenever $currentIndex changes
-  if ($currentIndex >= 0 && listOfSeasons.length > 0 && maxSeasonsPerPage > 0) {
-    currentPage = Math.floor($currentIndex / maxSeasonsPerPage);
+    // This statement reacts whenever $currentIndex changes
+    if (
+      $currentIndex >= 0 &&
+      listOfSeasons.length > 0 &&
+      maxSeasonsPerPage > 0
+    ) {
+      currentPage = Math.floor($currentIndex / maxSeasonsPerPage);
+    }
   }
-};
   $: displayedSeasons = listOfSeasons.slice(
     currentPage * maxSeasonsPerPage,
     currentPage * maxSeasonsPerPage + maxSeasonsPerPage,
@@ -194,15 +196,11 @@
   }
 
   function handleMouseEnter() {
-    // document.documentElement.classList.add('body-scrollbar-hidden');
-    // document.body.style.paddingRight = `${scrollbarWidth}px`;
     document.body.style.overflow = "hidden";
   }
 
   function handleMouseLeave() {
-    // document.documentElement.classList.remove('body-scrollbar-hidden');
     document.body.style.overflow = "";
-    // document.body.style.paddingRight = "";
   }
 
   function handleWheel(event) {
@@ -218,33 +216,6 @@
       }
     }
   }
-
-  // function initialBallMove(node) {
-  //   if ($currentIndex > 0) return;
-
-  //   const observer = new IntersectionObserver(
-  //     (entries) => {
-  //       entries.forEach((entry) => {
-  //         if (entry.isIntersecting) {
-  //           if ($currentIndex === -1) {
-  //             animationInView = true;
-  //             $currentIndex = 0;
-  //           }
-  //         } else {
-  //           if ($currentIndex === 0) {
-  //             $currentIndex = -1;
-  //           }
-  //         }
-  //       });
-  //     },
-  //     {
-  //       rootMargin: "0px",
-  //       threshold: 1,
-  //     },
-  //   );
-
-  //   observer.observe(node);
-  // }
 </script>
 
 <svelte:window on:keydown={handleKeyDown} />
@@ -308,9 +279,6 @@
     position: relative;
     --arrow-width: 3.3125rem;
     --arrow-bottom: -1.9rem;
-    /* position: absolute; */
-    /* margin-top: auto; */
-    /* margin-bottom: 3rem; */
     height: 0.1875rem;
     background: linear-gradient(
       90deg,
@@ -319,6 +287,7 @@
     );
     z-index: 1;
   }
+
   .show {
     display: block;
   }
@@ -352,9 +321,11 @@
   .fade-transition {
     transition: opacity 0.5s ease;
   }
+
   .color-transition {
     transition: background-color 0.5s ease;
   }
+
   p {
     color: var(--clr-primary);
     font-size: 1rem;
@@ -385,7 +356,6 @@
 
   .selection-container {
     display: flex;
-    /* justify-content: space-between; */
     position: relative;
     top: 50%;
     transform: translateY(-80%);
@@ -430,24 +400,17 @@
     font-weight: var(--fnt-wg-medium);
   }
 
-  @media (max-width: 648px ) {
+  @media (max-width: 648px) {
     .line {
       /* margin-bottom: 2rem; */
-    --arrow-bottom: -1.42rem;
-    --arrow-width: 2.68rem;
-
+      --arrow-bottom: -1.42rem;
+      --arrow-width: 2.68rem;
     }
 
     .selection-container {
       padding-inline: 2.5rem;
       gap: 0rem;
       justify-content: space-between;
-    }
-  }
-
-  @media (max-height: 780px) {
-    .line {
-      /* margin-bottom: 2.5rem; */
     }
   }
 </style>

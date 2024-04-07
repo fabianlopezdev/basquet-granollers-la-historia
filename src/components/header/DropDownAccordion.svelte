@@ -2,31 +2,21 @@
   import SeasonsList from "./SeasonsList.svelte";
   export let item;
   export let isDropDownMenuOpen = false;
-
- 
 </script>
 
 <details>
   <summary>
     {item.name.toUpperCase()}
   </summary>
-<SeasonsList seasonsList={item.dropdown} bind:isDropDownMenuOpen/>
+  <SeasonsList seasonsList={item.dropdown} bind:isDropDownMenuOpen />
 </details>
 
 <style>
-
   summary {
     font-size: var(--fnt-sz-h5);
-     font-weight: var(--fnt-wg-medium);
-   
+    font-weight: var(--fnt-wg-medium);
   }
-  p {
-    font-size: 0.9rem;
-    padding-left: 1rem;
-    padding-bottom: 0.5rem;
-    color: var(--clr-accent);
-    /* font-weight: bold; */
-  }
+
   details > summary {
     list-style: none;
   }
@@ -61,14 +51,5 @@
   details[open] > summary:before {
     transform: rotate(-180deg);
     transition: 0.45s transform ease-in-out;
-  }
-
-  .links-container {
-    display: flex;
-    flex-wrap:wrap;
-    /* justify-content: space-between; */
-    gap: 1rem;
-    padding-left: 1rem;
-    width: 18rem;
   }
 </style>

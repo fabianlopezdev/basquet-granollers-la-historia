@@ -3,29 +3,35 @@
   import { collapsibleArrowHeader } from "@assets/icons";
 
   //Import stores
-  import { currentIndex, display, isOutsideSelection } from "../../svelte/stores";
+  import {
+    currentIndex,
+    isOutsideSelection,
+  } from "../../svelte/stores";
   import { persistantInd } from "../../svelte/stores";
-  // import { writable } from "svelte/store";
 
-  // import { page} from '$app/stores';
   import { onMount } from "svelte";
 
-  const isSpecialsPage = window.location.pathname.includes('especials');
+  const isSpecialsPage = window.location.pathname.includes("especials");
 
-  if (!isSpecialsPage && $persistantInd !== $currentIndex && $persistantInd !== "") {
+  if (
+    !isSpecialsPage &&
+    $persistantInd !== $currentIndex &&
+    $persistantInd !== ""
+  ) {
     onMount(() => {
       currentIndex.set($persistantInd);
-      localStorage.setItem('persistantInd', "");
-      setTimeout(() => { // Timeout for potential delay after reload
-        const seasonsSection = document.getElementById('seasons');
+      localStorage.setItem("persistantInd", "");
+      setTimeout(() => {
+        // Timeout for potential delay after reload
+        const seasonsSection = document.getElementById("seasons");
         if (seasonsSection) {
-           seasonsSection.scrollIntoView({ behavior: 'smooth' });
-        } 
-    }, 50);
+          seasonsSection.scrollIntoView({ behavior: "smooth" });
+        }
+      }, 50);
     });
   }
+  
   export let item;
-
 
   let isDropdownExpanded = false;
   let isRotated = false;
@@ -37,17 +43,12 @@
 
   function setCurrentIndex(i) {
     if (isSpecialsPage) {
-      localStorage.setItem('persistantInd', i);
-      console.log('persistantInd', $persistantInd)
-      // display.set(i);
+      localStorage.setItem("persistantInd", i);
       return;
     }
     $isOutsideSelection = true;
     currentIndex.set(i);
   }
-
-
-
 </script>
 
 <div class="dropdown">
@@ -111,11 +112,6 @@
     max-width: 19rem;
     z-index: 1;
   }
-  h4 {
-    padding-bottom: 0.81rem;
-    font-size: var(--fnt-sz-regular);
-    font-weight: var(--fnt-wg-regular);
-  }
 
   .dropdown-content {
     display: grid;
@@ -134,15 +130,19 @@
     top: -0.85rem;
     left: 10%;
   }
+
   .dropdown-content a {
     display: block;
   }
+
   a {
     font-weight: var(--fnt-wg-light);
   }
+
   .show {
     display: block;
   }
+
   .rotate {
     display: inline-block;
     transform: rotate(0);
@@ -152,6 +152,12 @@
 
   .rotated {
     transform: rotate(-180deg);
+  }
+
+  .dropdown-content a {
+    animation-name: slideInFromTop;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
   }
 
   @keyframes slideInFromTop {
@@ -165,9 +171,4 @@
     }
   }
 
-  .dropdown-content a {
-    animation-name: slideInFromTop;
-    animation-duration: 0.5s;
-    animation-fill-mode: forwards;
-  }
 </style>

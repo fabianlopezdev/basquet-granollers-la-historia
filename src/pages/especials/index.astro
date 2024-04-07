@@ -1,29 +1,37 @@
 ---
+//import components
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import { getSeasonsCount } from "@data/seasonsCount";
 import EspecialsItem from "@components/EspecialsItem.astro";
-import { getEspecials } from "@data/especials";
 
+//Import data
+import { getEspecials } from "@data/especials";
 
 const especials = await getEspecials();
 
 const isProduction = import.meta.env.NODE_ENV === "production";
-
 ---
 
-<BaseLayout >
+<BaseLayout>
   <section>
     <div class="headings-container">
       <h1>Articles especials</h1>
     </div>
     <div class="especials-container">
-      {especials.map((especial)=> {
-
-const slug = isProduction
-      ? especial.slug
-      : `especials/${especial.slug}`;
-        return <EspecialsItem title={especial.title} author={especial.author} href={slug} image={especial.image} />
-      })}
+      {
+        especials.map((especial) => {
+          const slug = isProduction
+            ? especial.slug
+            : `especials/${especial.slug}`;
+          return (
+            <EspecialsItem
+              title={especial.title}
+              author={especial.author}
+              href={slug}
+              image={especial.image}
+            />
+          );
+        })
+      }
     </div>
   </section>
 </BaseLayout>
@@ -32,25 +40,19 @@ const slug = isProduction
   section {
     --marginTop: calc(var(--hg-header) + var(--hg-separator-line));
     --hg-headings-container: 6.37rem;
-      margin-top: var(--marginTop);
-
-    /* padding-inline: var(--pd-x); */
-    /* padding-block: 2.5rem; */
+    margin-top: var(--marginTop);
     max-width: 1308px;
     margin-inline: auto;
     padding-inline: var(--pd-x);
   }
   .especials-container {
-    /* min-height: calc(100vh - var(--marginTop) - var(--hg-headings-container)); */
-  display: flex;
-  flex-wrap: wrap;
+    display: flex;
+    flex-wrap: wrap;
     gap: 2rem;
     justify-content: center;
     align-items: center;
     padding-bottom: 2rem;
-   
   }
-
 
   .headings-container {
     display: flex;
@@ -66,7 +68,6 @@ const slug = isProduction
     color: var(--clr-accent);
     text-align: center;
   }
-
 
   @media (max-width: 1411px) {
     .headings-container {
@@ -90,7 +91,6 @@ const slug = isProduction
       gap: 0.75rem;
       padding-bottom: var(--pd-y-medium);
       padding-inline: var(--pd-x);
-
     }
   }
 
@@ -103,7 +103,6 @@ const slug = isProduction
       gap: 0.75rem;
       padding-bottom: var(--pd-y-small);
       padding-inline: var(--pd-x);
-
     }
 
     .especials-container {

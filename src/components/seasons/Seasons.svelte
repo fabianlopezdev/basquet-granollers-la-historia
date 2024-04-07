@@ -17,13 +17,11 @@
   import { onMount } from "svelte";
 
   import { disableBgScroll, enableBgScroll } from "@utils/helperFunctions";
+  import { fade } from "svelte/transition";
 
   export let seasons;
   export let totalSeasons;
   export let listOfSeasons;
-
-
-  import { fade } from "svelte/transition";
 
   let windowWidth;
   let windowHeight;
@@ -41,6 +39,7 @@
   $: transform = `translateX(${-seasonWidth * $currentIndex}%)`;
 
   let isSafari = false;
+
   onMount(() => {
     const userAgent = window.navigator.userAgent;
     const isWebKit = userAgent.indexOf("AppleWebKit") !== -1;
@@ -111,15 +110,9 @@
     document.documentElement.style.overflow = "";
   }
 
-  // function isMobileSafari() {
-  //   return (
-  //     navigator.userAgent.match(/(iPod|iPhone|iPad)/) &&
-  //     navigator.userAgent.match(/AppleWebKit/)
-  //   );
-  // }
-
-  let isMobileSafari =  navigator.userAgent.match(/(iPod|iPhone|iPad)/) &&
-      navigator.userAgent.match(/AppleWebKit/)
+  let isMobileSafari =
+    navigator.userAgent.match(/(iPod|iPhone|iPad)/) &&
+    navigator.userAgent.match(/AppleWebKit/);
 
   let scrollPosition = 0;
   $: {
@@ -131,9 +124,6 @@
       enableBgScroll(scrollPosition, isMobileSafari);
     }
   }
-
- 
- 
 </script>
 
 <svelte:window
@@ -250,19 +240,7 @@
     width: 102vw;
     z-index: 10;
   }
-  .made-by {
-    text-align: center;
-    color: var(--clr-contrast);
-    font-size: var(--fnt-sz-regular);
-    font-weight: var(--fnt-wg-light);
-    padding: 0rem;
-  }
 
-  .made-by a {
-    color: var(--clr-accent);
-    text-decoration: underline;
-    font-style: italic;
-  }
   .timeline-options {
     position: absolute;
     bottom: 4rem;
@@ -273,8 +251,6 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    /* padding-inline: var(--pd-x-small);
-    padding-block: 1.5rem; */
     gap: 4.5rem;
     z-index: 1;
   }
@@ -285,7 +261,6 @@
     position: relative;
     height: 100vh;
     height: 100dvh;
-    /* overflow-y: hidden; */
   }
 
   .mobile {
@@ -329,13 +304,9 @@
   .select-season-popup {
     position: absolute;
     top: var(--offset-season-menu);
-    /* top: 0; */
     left: 0;
     right: 0;
-    /* width: 100vw; */
-    /* height: 100%; */
     background-color: var(--clr-primary-opacity);
-    /* z-index: 10; */
     display: flex;
     visibility: hidden;
     flex-direction: column;
@@ -351,17 +322,15 @@
   }
 
   .select-season-popup.showMenu {
-    /* max-height: fit-content;
-    display:flex; */
     visibility: visible;
     transform: translateY(0);
   }
+
   .seasons-container {
     width: calc(100% * var(--totalSeasons));
     height: calc(100svh - var(--pd-y-options-btns));
     display: flex;
     color: var(--clr-primary);
-    /* overflow: hidden; */
     transition: transform 1.5s ease-out;
     z-index: 1;
   }
@@ -397,31 +366,25 @@
 
   .rotated {
     transform: rotate(-180deg);
-    /* transform-origin: 50% 55%; */
   }
+
   @media (max-height: 780px) {
     .timeline-options {
       bottom: 2rem;
       gap: 4rem;
-      /* margin-bottom: 2.5rem; */
     }
   }
+
   @media (max-width: 648px) {
     .timeline-options {
       bottom: 2.5rem;
-      /* padding-inline: var(--pd-x-small);
-    padding-block: 1.5rem; */
-
       gap: 3.5rem;
     }
-
-    /* .safari {
-    bottom: 5rem;
-  } */
 
     .seasons-container {
       height: calc(100svh - var(--pd-y-options-btns) - 2.5rem);
     }
+
     .mobile {
       display: flex;
     }

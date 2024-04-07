@@ -89,9 +89,7 @@
       padding-bottom: 1rem;
       padding-inline: var(--pd-x-small);
     }
-    /* .date {
-      width: 3rem;
-    } */
+
     .team {
       padding-inline: 0.1em;
       text-align: center;
@@ -100,8 +98,5 @@
     .date {
       min-width: 4rem;
     }
-    /* .score {
-      width: 1.25rem;
-    } */
   }
 </style>

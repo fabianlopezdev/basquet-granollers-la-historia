@@ -1,22 +1,24 @@
 <script>
-  import { display } from "src/svelte/stores";
-  import { fade} from "svelte/transition";
-  import { upperCaseFirstLetter } from "@utils/helperFunctions";
+  import ArticleLayout from "@components/ArticleLayout.svelte";
   import PlayerCard from "./players/PlayerCard.svelte";
   import CoachCard from "./players/CoachCard.svelte";
   import ResultsTable from "./results/ResultsTable.svelte";
   import ClassificationTable from "./results/ClassificationTable.svelte";
-  import ArticleLayout from "@components/ArticleLayout.svelte";
 
+  import { upperCaseFirstLetter } from "@utils/helperFunctions";
+  import { display } from "src/svelte/stores";
+  import { fade } from "svelte/transition";
 
   export let season;
 
   const { stats, social, years } = season;
 
   const { divisio, jugadors, entrenadors } = stats;
+
   const normalizedDivisioKey = Object.keys(divisio[0]);
 
   const lliga = normalizedDivisioKey ? divisio[0][normalizedDivisioKey] : "";
+
   const yearsArr = years.split("/");
 
   function handleEscape(e) {
@@ -126,17 +128,15 @@
         </div>
       {:else if $display === "social"}
         {#if season.socialExtra !== undefined}
-   
-            <ArticleLayout
-              text={social}
-              title={`Te'n recordes del 19${years.split("/")[0]}?`}
-            />
-            <ArticleLayout
-              text={season.socialExtra}
-              lastArticle={true}
-              title={`Te'n recordes del 19${+years.split("/")[0] + 1}?`}
-            />
-       
+          <ArticleLayout
+            text={social}
+            title={`Te'n recordes del 19${years.split("/")[0]}?`}
+          />
+          <ArticleLayout
+            text={season.socialExtra}
+            lastArticle={true}
+            title={`Te'n recordes del 19${+years.split("/")[0] + 1}?`}
+          />
         {:else}
           <ArticleLayout
             text={social}
@@ -150,7 +150,6 @@
 
 <style>
   .more-info-menu {
-    /* overflow-Y: scroll; */
     --hg-header-menu: calc(var(--hg-header) + 1rem);
     --mg-left-top-header: 1rem;
     position: absolute;
@@ -160,8 +159,6 @@
     background-color: var(--clr-contrast);
     z-index: 10;
     overflow-y: auto;
-    /* overflow-x: hidden; */
-    /* overflow: hidden; */
   }
 
   .max-width {
@@ -209,8 +206,6 @@
     height: var(--hg-header-menu);
     transition: top 0.3s ease-in-out;
     z-index: 10;
-    /* margin-top: var(--mg-left-top-header); */
-    /* margin-left: var(--mg-left-top-header); */
   }
 
   .players-title {
@@ -300,8 +295,6 @@
       position: absolute;
       left: 0;
       justify-content: center;
-      /* width: 100vw; */
-      /* flex-direction: column; */
     }
 
     .descarrega-button-wrapper {

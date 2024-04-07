@@ -1,17 +1,16 @@
 <script>
   const headerSponsorsWhite = [
-    
-  {
+    {
       url: `https://finquesvallbona.com/`,
       src: "/imatges/sponsors//finques-vallbona-logo-blanc.svg",
       alt: "Logo de Finques Ballbona",
     },
-  {
+    {
       url: `https://votv.cat/`,
       src: "/imatges/sponsors/votv-logo-blanc.svg",
       alt: "Logo de Vallès Oriental Televisió",
     },
-    
+
     {
       url: `https://www.granollers.cat/`,
       src: "/imatges/sponsors/ajuntament-granollers-logo-blanc.svg",
@@ -30,7 +29,7 @@
         </a>
       </li>
     {/each}
-    </div>
+  </div>
 </ul>
 
 <style>
@@ -38,7 +37,7 @@
     margin-top: auto;
     width: 100%;
   }
-  
+
   .sponsors-container {
     display: flex;
     justify-content: space-between;
